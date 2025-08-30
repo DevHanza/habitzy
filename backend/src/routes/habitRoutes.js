@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { fetchHabits } from "../controllers/habitController";
+import { fetchHabits } from "../controllers/habitController.js";
 
 const router = Router();
 
