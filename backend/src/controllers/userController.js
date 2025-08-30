@@ -1,6 +1,6 @@
 import { User } from "../models/userModel.js";
 
-export async function fetchUsers(req, res) {
+export async function getUsers(req, res) {
   try {
     //
     const users = await User.find();
@@ -11,7 +11,25 @@ export async function fetchUsers(req, res) {
   }
 }
 
-export async function createUser(req, res) {
+export async function getUserByID(req, res) {
+  const { id } = req.params;
+  console.log(id);
+
+  try {
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+    //
+    res.status(200).json(user);
+    //
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+export async function addUser(req, res) {
   try {
     //
     const userData = {
@@ -30,3 +48,7 @@ export async function createUser(req, res) {
     //
   }
 }
+
+export async function deleteUser(req, res) {}
+
+export async function updateUser(req, res) {}
