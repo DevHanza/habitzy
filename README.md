@@ -1,3 +1,3 @@
 # Habit-Tracker
 
-Habit Tracker with React + Chakra UI
+Habit Tracker with MERN Stack (React + Chakra UI)
