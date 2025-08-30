@@ -1,4 +1,4 @@
-import { getHabits } from "../models/habitModel";
+import { getHabits } from "../models/habitModel.js";
 
 export const fetchHabits = async (req, res) => {
   try {
