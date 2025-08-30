@@ -6,9 +6,9 @@ import userRoutes from "./routes/userRoutes.js";
 const app = express();
 
 const corsOptions = {
-  origin: process.env.FRONTEND_URL,
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true,
+  // origin: process.env.FRONTEND_URL,
+  // methods: ["GET", "POST", "PUT", "DELETE"],
+  // credentials: true,
 };
 
 app.use(cors(corsOptions));
