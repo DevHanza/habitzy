@@ -1,16 +1,21 @@
-import { MongoClient } from "mongodb";
-
+import mongoose from "mongoose";
 import dotenv from "dotenv";
+
 dotenv.config();
 
-const client = new MongoClient(process.env.MONGO_URI);
+const MONGO_URL = process.env.MONGO_URI + process.env.DB_NAME;
 
-let db;
-export async function connectDB() {
-  if (!db) {
-    await client.connect();
-    db = client.db("habitTracker");
-    console.log("Connected to the Database!");
+export const connectDB = async () => {
+  //
+  try {
+    await mongoose.connect(MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log(`Connected to ${process.env.DB_NAME} Database!`);
+    //
+  } catch (error) {
+    console.error(error.message);
+    process.exit(1);
   }
-  return db;
-}
+};
