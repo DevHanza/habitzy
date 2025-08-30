@@ -1,24 +1,32 @@
-import { addUser } from "../models/userModel.js";
+import { User } from "../models/userModel.js";
 
-export const createUser = async (req, res) => {
+export async function fetchUsers(req, res) {
   try {
-    const newUser = {
+    //
+    const users = await User.find();
+    res.json(users);
+    //
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+export async function createUser(req, res) {
+  try {
+    //
+    const userData = {
       name: req.body.name,
       email: req.body.email,
       currentStreak: 0,
       longestStreak: 0,
-      // hello: 6,
     };
-
-    const result = await addUser(newUser);
-
-    res
-      .status(201)
-      .json({ result, message: "Successfully added the new user." });
+    const newUser = new User(userData);
+    await newUser.save();
+    res.status(201).json(newUser);
     //
-  } catch (erroerrr) {
-    res
-      .status(500)
-      .json({ error: err.message, message: "Failed to add the user." });
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
   }
-};
+}
