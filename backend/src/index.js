@@ -15,6 +15,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Load routes
+app.use("/api/v1/habits", habitRoutes);
 // Test API
 app.get("/api/v1", (req, res) => {
   res.send("API is working 🚀");
