@@ -58,12 +58,29 @@ export async function deleteUser(req, res) {
       return res.status(404).json({ message: "User not found." });
     }
 
-    res.status(201).json({ message: `User is Deleted.` });
+    res.json({ message: `User is Deleted.` });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 }
 
-export async function updateUser(req, res) {}
+export async function updateUser(req, res) {
+  try {
+    const { id } = req.params;
+    const newUserData = req.body;
+
+    const updatedUser = await User.findByIdAndUpdate(id, newUserData, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!updateUser) {
+      res.status(404).json({ message: "User not found." });
+    }
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+}
 
 // mongod --dbpath C:\MongoData\db

@@ -4,6 +4,7 @@ import {
   getUsers,
   getUserByID,
   deleteUser,
+  updateUser,
 } from "../controllers/userController.js";
 
 const router = Router();
@@ -14,5 +15,7 @@ router.get("/:id", getUserByID);
 router.post("/", addUser);
 
 router.delete("/:id", deleteUser);
+
+router.put("/:id", updateUser);
 
 export default router;
