@@ -13,7 +13,6 @@ export async function getUsers(req, res) {
 
 export async function getUserByID(req, res) {
   const { id } = req.params;
-  console.log(id);
 
   try {
     const user = await User.findById(id);
