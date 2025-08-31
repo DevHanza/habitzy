@@ -48,6 +48,22 @@ export async function addUser(req, res) {
   }
 }
 
-export async function deleteUser(req, res) {}
+export async function deleteUser(req, res) {
+  try {
+    const { id } = req.params;
+
+    const deletedUser = await User.findByIdAndDelete(id);
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res.status(201).json({ message: `User is Deleted.` });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+}
 
 export async function updateUser(req, res) {}
+
+// mongod --dbpath C:\MongoData\db
