@@ -12,7 +12,7 @@ export const connectDB = async () => {
     console.log(`Connected to ${process.env.DB_NAME} Database!`);
     //
   } catch (error) {
-    console.error(error.message);
+    console.log("Error: ", error.message);
     process.exit(1);
   }
 };
