@@ -82,5 +82,3 @@ export async function updateUser(req, res) {
     res.status(400).json({ message: err.message });
   }
 }
-
-// mongod --dbpath C:\MongoData\db
