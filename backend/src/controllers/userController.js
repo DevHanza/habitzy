@@ -12,10 +12,10 @@ export async function getUsers(req, res) {
 }
 
 export async function getUserByID(req, res) {
-  const { id } = req.params;
+  const { userId } = req.params;
 
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ message: "User not found." });
@@ -50,9 +50,9 @@ export async function addUser(req, res) {
 
 export async function deleteUser(req, res) {
   try {
-    const { id } = req.params;
+    const { userId } = req.params;
 
-    const deletedUser = await User.findByIdAndDelete(id);
+    const deletedUser = await User.findByIdAndDelete(userId);
 
     if (!deletedUser) {
       return res.status(404).json({ message: "User not found." });
@@ -66,10 +66,10 @@ export async function deleteUser(req, res) {
 
 export async function updateUser(req, res) {
   try {
-    const { id } = req.params;
+    const { userId } = req.params;
     const newUserData = req.body;
 
-    const updatedUser = await User.findByIdAndUpdate(id, newUserData, {
+    const updatedUser = await User.findByIdAndUpdate(userId, newUserData, {
       new: true,
       runValidators: true,
     });
