@@ -35,5 +35,30 @@ export async function getHabitByID(req, res) {
   }
 }
 
+export async function addHabit(req, res) {
+  try {
+    const { userId } = req.params;
+
+    if (!userId) {
+      res.status(404).json({ message: "userId not found." });
+    }
+
+    const habitData = {
+      userId: userId,
+      title: req.body.title,
+      description: req.body.description,
+      isCompleted: false,
+    };
+
+    const newHabit = new Habit(habitData);
+    await newHabit.save();
+    res.status(201).json(newHabit);
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
 export async function deleteHabit(req, res) {}
 export async function updateHabit(req, res) {}

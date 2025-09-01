@@ -12,4 +12,6 @@ const router = Router({ mergeParams: true });
 router.get("/", getHabits);
 router.get("/:habitId", getHabitByID);
 
+router.post("/", addHabit);
+
 export default router;
