@@ -1,0 +1,26 @@
+import mongoose from "mongoose";
+const { Schema } = mongoose;
+
+const habitSchema = new Schema(
+  {
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: [true, "User ID is required."],
+    },
+    title: {
+      type: String,
+      required: [true, "Title is required."],
+    },
+    description: {
+      type: String,
+      required: [true, "Description is required."],
+    },
+    isCompleted: {
+      type: Boolean,
+      required: [true, "isCompleted is required."],
+    },
+  },
+  { timestamps: true } // auto-manages createdAt and updatedAt
+);
+
+export const Habit = mongoose.model("Habit", habitSchema);
