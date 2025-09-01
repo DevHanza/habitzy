@@ -82,4 +82,27 @@ export async function deleteHabit(req, res) {
     res.status(400).json({ message: err.message });
   }
 }
-export async function updateHabit(req, res) {}
+export async function updateHabit(req, res) {
+  try {
+    const { userId, habitId } = req.params;
+
+    const newHabitData = req.body;
+
+    const updatedHabit = await Habit.findOneAndUpdate(
+      {
+        _id: habitId,
+        userId: userId,
+      },
+      { $set: newHabitData },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedHabit) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res.json(updatedHabit);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+}
