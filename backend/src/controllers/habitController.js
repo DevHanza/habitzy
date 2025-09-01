@@ -1,10 +1,10 @@
 import { Habit } from "../models/habitModel.js";
 
 export async function getHabits(req, res) {
-  const { id } = req.params;
+  const { userId } = req.params;
 
   try {
-    const habits = await Habit.find({ userId: id });
+    const habits = await Habit.find({ userId: userId });
 
     if (!habits) {
       return res
@@ -15,6 +15,7 @@ export async function getHabits(req, res) {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
+}
 
   console.log(id);
   res.json({ id });

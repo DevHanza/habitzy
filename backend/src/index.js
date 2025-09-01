@@ -16,7 +16,7 @@ app.use(express.json());
 
 // Load routes
 app.use("/api/v1/users", userRoutes);
-app.use("/api/v1/users/:id/habits", habitRoutes);
+app.use("/api/v1/users/:userId/habits", habitRoutes);
 
 // Test API
 app.get("/api/v1", (req, res) => {
