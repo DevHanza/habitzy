@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-import { Habit } from "./habitModel";
+import { Habit } from "./habitModel.js";
 
 const daiyLogSchema = new Schema(
   {
@@ -24,4 +24,4 @@ const daiyLogSchema = new Schema(
   { timestamps: true } // auto-manages createdAt and updatedAt
 );
 
-export const User = mongoose.model("DailyLog", daiyLogSchema);
+export const DailyLog = mongoose.model("DailyLog", daiyLogSchema);
