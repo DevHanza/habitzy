@@ -16,6 +16,7 @@ const daiyLogSchema = new Schema(
 
     allCompleted: {
       type: Boolean,
+      default: false,
     },
   },
   { timestamps: true } // auto-manages createdAt and updatedAt

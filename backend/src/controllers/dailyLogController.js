@@ -31,7 +31,7 @@ export async function addDailyLog(req, res) {
     const dailyLogData = {
       userId,
       completedHabits: req.body.completedHabits,
-      allCompleted: req.body.allCompleted || false,
+      allCompleted: req.body.allCompleted,
     };
 
     const newDailyLog = new DailyLog(dailyLogData);
