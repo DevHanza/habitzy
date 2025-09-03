@@ -13,7 +13,6 @@ const habitSchema = new Schema(
     },
     description: {
       type: String,
-      required: [true, "Description is required."],
     },
     isCompleted: {
       type: Boolean,
