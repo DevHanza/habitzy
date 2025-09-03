@@ -11,4 +11,6 @@ const router = Router({ mergeParams: true });
 router.get("/", getDailyLogsByUser);
 router.post("/", addDailyLog);
 
+router.put("/:dailyLogId", updateDailyLog);
+
 export default router;

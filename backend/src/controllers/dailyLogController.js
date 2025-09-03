@@ -44,4 +44,31 @@ export async function addDailyLog(req, res) {
     //
   }
 }
-export async function updateDailyLog(req, res) {}
+export async function updateDailyLog(req, res) {
+  try {
+    const { userId, dailyLogId } = req.params;
+
+    if (!userId) {
+      res.status(404).json({ message: "userId not found." });
+    }
+
+    const newlogData = req.body;
+
+    const updatedDailyLog = await DailyLog.findOneAndUpdate(
+      {
+        _id: dailyLogId,
+        userId: userId,
+      },
+      { $set: newlogData },
+      { new: true, runValidators: true }
+    );
+
+    if (!updateDailyLog) {
+      return res.status(404).json({ message: "Daily log not found." });
+    }
+
+    res.json(updateDailyLog);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+}
