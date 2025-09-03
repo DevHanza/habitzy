@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-import { Habit } from "./habitModel.js";
-
 const daiyLogSchema = new Schema(
   {
     userId: {
@@ -10,16 +8,20 @@ const daiyLogSchema = new Schema(
       required: [true, "User ID is required."],
     },
     date: {
-      type: Schema.Types.Date,
+      type: Date,
       required: [true, "Date is required."],
+      unique: true,
     },
     completedHabits: [
       {
         type: Schema.Types.ObjectId,
-        ref: Habit,
+        // ref: "Habit",
       },
     ],
-    allCompleted: Schema.Types.Boolean,
+
+    allCompleted: {
+      type: Boolean,
+    },
   },
   { timestamps: true } // auto-manages createdAt and updatedAt
 );
