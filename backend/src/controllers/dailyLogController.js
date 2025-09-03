@@ -14,7 +14,11 @@ export async function getDailyLogsByUser(req, res) {
     }
 
     res.json(dailyLogs);
-  } catch (err) {}
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
 }
 export async function addDailyLog(req, res) {}
 export async function updateDailyLog(req, res) {}
