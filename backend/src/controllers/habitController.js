@@ -60,6 +60,7 @@ export async function addHabit(req, res) {
     //
   }
 }
+
 export async function deleteHabit(req, res) {
   try {
     const { userId, habitId } = req.params;
@@ -82,6 +83,7 @@ export async function deleteHabit(req, res) {
     res.status(400).json({ message: err.message });
   }
 }
+
 export async function updateHabit(req, res) {
   try {
     const { userId, habitId } = req.params;
