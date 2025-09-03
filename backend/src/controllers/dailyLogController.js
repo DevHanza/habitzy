@@ -38,12 +38,7 @@ export async function addDailyLog(req, res) {
     await newDailyLog.save();
     res.status(201).json(newDailyLog);
   } catch (err) {
-    if (err.code === 11000) {
-      res
-        .status(409)
-        .json({ message: "Daily log for this user already exists today." });
-    }
-
+    //
     res.status(400).json({ message: err.message });
     //
   }
