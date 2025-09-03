@@ -7,11 +7,6 @@ const daiyLogSchema = new Schema(
       type: Schema.Types.ObjectId,
       required: [true, "User ID is required."],
     },
-    date: {
-      type: Date,
-      required: [true, "Date is required."],
-      unique: true,
-    },
     completedHabits: [
       {
         type: Schema.Types.ObjectId,

@@ -1,5 +1,4 @@
 import { DailyLog } from "../models/dailyLogModel.js";
-import normalizeDate from "../utils/normalizeDate.js";
 
 export async function getDailyLogsByUser(req, res) {
   try {
@@ -31,7 +30,6 @@ export async function addDailyLog(req, res) {
 
     const dailyLogData = {
       userId,
-      date: normalizeDate(req.body.date) || normalizeDate(),
       completedHabits: req.body.completedHabits,
       allCompleted: req.body.allCompleted || false,
     };
@@ -45,7 +43,7 @@ export async function addDailyLog(req, res) {
         .status(409)
         .json({ message: "Daily log for this user already exists today." });
     }
-    //
+
     res.status(400).json({ message: err.message });
     //
   }
@@ -69,11 +67,11 @@ export async function updateDailyLog(req, res) {
       { new: true, runValidators: true }
     );
 
-    if (!updateDailyLog) {
+    if (!updatedDailyLog) {
       return res.status(404).json({ message: "Daily log not found." });
     }
 
-    res.json(updateDailyLog);
+    res.json(updatedDailyLog);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
