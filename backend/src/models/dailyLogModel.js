@@ -1,11 +1,15 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const daiyLogSchema = new Schema(
+const dailyLogSchema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
       required: [true, "User ID is required."],
+    },
+    date: {
+      type: Date,
+      required: [true, "Date is required."],
     },
     completedHabits: [
       {
@@ -22,4 +26,7 @@ const daiyLogSchema = new Schema(
   { timestamps: true } // auto-manages createdAt and updatedAt
 );
 
-export const DailyLog = mongoose.model("DailyLog", daiyLogSchema);
+// Ensure one log per user per date
+dailyLogSchema.index({ userId: 1, date: 1 }, { unique: true });
+
+export const DailyLog = mongoose.model("DailyLog", dailyLogSchema);
