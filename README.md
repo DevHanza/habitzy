@@ -38,4 +38,23 @@ habit-tracker-frontend/
 ├── package.json
 └── README.md
 
+
+
+backend/
+│
+├── src/
+│   ├── config/          # App config (DB connection, env setup)
+│   │   └── db.js
+│   ├── models/          # Data access layer (talk to DB)
+│   │   └── habitModel.js
+│   ├── controllers/     # Business logic (uses models)
+│   │   └── habitController.js
+│   ├── routes/          # API routes (maps endpoints to controllers)
+│   │   └── habitRoutes.js
+│   ├── utils/           # Helper functions (optional)
+│   ├── index.js         # Express app setup (middleware, routes)
+│   └── server.js        # Starts server
+│
+└── package.json
+
 ```
