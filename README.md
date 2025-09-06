@@ -2,6 +2,28 @@
 
 Habit Tracker with MERN Stack (React + Chakra UI)
 
+# Stack
+
+- **M**ongoDB
+- **E**xpress.js
+- **R**eact
+- **N**ode.js
+
+Using:
+
+- React Context API
+
+### Frontend Libraries
+
+- Chakra UI
+- React Router v7
+
+### Backend Libraries
+
+- Mongoose
+- cors
+- dotenv
+
 # Initial Planned Folder Structure
 
 ```
