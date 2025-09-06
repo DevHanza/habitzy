@@ -5,7 +5,7 @@ Habit Tracker with MERN Stack (React + Chakra UI)
 # Initial Planned Folder Structure
 
 ```
-habit-tracker-frontend/
+frontend/
 │── public/                # Static assets (favicon, index.html, etc.)
 │── src/
 │   ├── assets/            # Images, icons, fonts if needed
