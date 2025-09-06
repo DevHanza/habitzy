@@ -46,9 +46,7 @@ export async function addDailyLog(req, res) {
     res.status(201).json(newDailyLog);
   } catch (err) {
     if (err.code === 11000) {
-      return res
-        .status(400)
-        .json({ message: "Daily log for this user is already exists." });
+      return res.status(400).json({ message: "Daily log already exists." });
     }
     //
     res.status(400).json({ message: err.message });
