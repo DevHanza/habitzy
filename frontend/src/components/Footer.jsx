@@ -1,5 +1,11 @@
+import { Container } from "@chakra-ui/react";
+
 function Footer() {
-  return <footer>Footer</footer>;
+  return (
+    <footer>
+      <Container>Footer</Container>
+    </footer>
+  );
 }
 
 export default Footer;
