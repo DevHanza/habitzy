@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 const dailyLogSchema = new Schema(
   {
     userId: {
+      ref: "User",
       type: Schema.Types.ObjectId,
       required: [true, "User ID is required."],
     },
@@ -14,7 +15,7 @@ const dailyLogSchema = new Schema(
     completedHabits: [
       {
         type: Schema.Types.ObjectId,
-        // ref: "Habit",
+        ref: "Habit",
       },
     ],
 
