@@ -1,5 +1,6 @@
 import ProfileBox from "./ProfileBox";
 import HabitsTrackerLogo from "./Logo";
+import HoverWrapper from "./ui/HoverWrapper";
 
 import {
   Flex,
@@ -59,18 +60,22 @@ function Header() {
 function DesktopMenu() {
   return (
     <Stack direction={"row"} gap={"10"} alignItems={"center"}>
-      <Stack gap={"2rem"} direction={"row"}>
+      <Stack gap={"1rem"} direction={"row"}>
         <For each={menuItems}>
           {(item) => (
-            <Link key={item.link} to={item.link}>
-              <Text color={"gray.400"} _hover={{ color: "gray.50" }}>
-                {item.label}
-              </Text>
-            </Link>
+            <HoverWrapper px={"0.5rem"}>
+              <Link key={item.link} to={item.link}>
+                <Text color={"gray.400"} _hover={{ color: "gray.50" }}>
+                  {item.label}
+                </Text>
+              </Link>
+            </HoverWrapper>
           )}
         </For>
       </Stack>
-      <ProfileBox />
+      <HoverWrapper>
+        <ProfileBox />
+      </HoverWrapper>
     </Stack>
   );
 }
@@ -125,7 +130,11 @@ function MobileMenu() {
                 </VStack>
               </Drawer.Body>
               <Drawer.Footer>
-                <ProfileBox extended={true} />
+                <Box width={"100%"}>
+                  <HoverWrapper size="0.5rem">
+                    <ProfileBox extended={true} />
+                  </HoverWrapper>
+                </Box>
               </Drawer.Footer>
               <Drawer.CloseTrigger asChild>
                 <CloseButton size="sm" variant={"outline"} ref={closeBtnRef} />
