@@ -49,7 +49,9 @@ function DesktopMenu() {
       {menuItems.map((item) => {
         return (
           <Link key={item.link} to={item.link}>
-            <Text>{item.label}</Text>
+            <Text color={"gray.400"} _hover={{ color: "gray.50" }}>
+              {item.label}
+            </Text>
           </Link>
         );
       })}
