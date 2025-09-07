@@ -1,22 +1,16 @@
-import { HStack, Avatar, Box } from "@chakra-ui/react";
+import { Avatar, IconButton } from "@chakra-ui/react";
 import { ChevronDown } from "lucide-react";
 
 function ProfileIcon() {
   return (
-    <HStack
-      gap={1}
-      p={1}
-      borderRadius={"md"}
-      cursor={"pointer"}
-      _hover={{ bg: "gray.900" }}
-    >
-      <Avatar.Root shape="rounded" size="lg">
+    <IconButton variant={"ghost"}>
+      <Avatar.Root shape="rounded" size="md">
         <Avatar.Fallback name="Dev Hanza" />
         <Avatar.Image src="/" />
       </Avatar.Root>
 
       <ChevronDown size={16} />
-    </HStack>
+    </IconButton>
   );
 }
 
