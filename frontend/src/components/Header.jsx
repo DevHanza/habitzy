@@ -8,6 +8,7 @@ import { Stack } from "@chakra-ui/react/stack";
 import { Link } from "react-router";
 
 import ProfileIcon from "./ProfileIcon";
+import { Image } from "@chakra-ui/react";
 
 const menuItems = [
   {
@@ -35,7 +36,14 @@ function Header() {
             alignItems={"center"}
           >
             <Link to="/">
-              <Heading size="xl">Habit Tracker</Heading>
+              <Stack
+                direction={"horizontal"}
+                alignItems={"center"}
+                gap={"0.5rem"}
+              >
+                <Image src="/habits-2.svg" boxSize="2rem" />
+                <Heading size="xl">Habit Tracker</Heading>
+              </Stack>
             </Link>
             <DesktopMenu />
           </Flex>
