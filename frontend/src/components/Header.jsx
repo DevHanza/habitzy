@@ -34,7 +34,9 @@ function Header() {
             minHeight={"4rem"}
             alignItems={"center"}
           >
-            <Heading size="xl">Habit Tracker</Heading>
+            <Link to="/">
+              <Heading size="xl">Habit Tracker</Heading>
+            </Link>
             <DesktopMenu />
           </Flex>
         </Container>
