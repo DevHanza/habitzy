@@ -1,14 +1,13 @@
 import { Flex } from "@chakra-ui/react/flex";
 import { Box } from "@chakra-ui/react/box";
 import { Container } from "@chakra-ui/react/container";
-import { Heading } from "@chakra-ui/react/heading";
 import { Text } from "@chakra-ui/react/text";
 import { Stack } from "@chakra-ui/react/stack";
 
 import { Link } from "react-router";
 
 import ProfileIcon from "./ProfileIcon";
-import { Image } from "@chakra-ui/react";
+import HabitsTrackerLogo from "./Logo";
 
 const menuItems = [
   {
@@ -35,16 +34,7 @@ function Header() {
             minHeight={"4rem"}
             alignItems={"center"}
           >
-            <Link to="/">
-              <Stack
-                direction={"horizontal"}
-                alignItems={"center"}
-                gap={"0.5rem"}
-              >
-                <Image src="/habits-2.svg" boxSize="2rem" />
-                <Heading size="xl">Habit Tracker</Heading>
-              </Stack>
-            </Link>
+            <HabitsTrackerLogo />
             <DesktopMenu />
           </Flex>
         </Container>
