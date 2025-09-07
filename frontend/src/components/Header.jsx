@@ -1,4 +1,4 @@
-import ProfileIcon from "./ProfileIcon";
+import ProfileBox from "./ProfileBox";
 import HabitsTrackerLogo from "./Logo";
 
 import {
@@ -9,11 +9,16 @@ import {
   Stack,
   For,
   IconButton,
+  Drawer,
   useBreakpointValue,
+  Portal,
+  CloseButton,
+  VStack,
 } from "@chakra-ui/react";
 
 import { Menu } from "lucide-react";
 import { Link } from "react-router";
+import { useRef } from "react";
 
 const menuItems = [
   {
@@ -65,16 +70,71 @@ function DesktopMenu() {
           )}
         </For>
       </Stack>
-      <ProfileIcon />
+      <ProfileBox />
     </Stack>
   );
 }
 
 function MobileMenu() {
+  const closeBtnRef = useRef(null);
+
   return (
-    <IconButton aria-label="Open Mobile Menu" variant={"outline"} size={"sm"}>
-      <Menu />
-    </IconButton>
+    <>
+      <Drawer.Root key={"xs"} size={"xs"}>
+        <Drawer.Trigger asChild>
+          <IconButton
+            aria-label="Open Mobile Menu"
+            variant={"outline"}
+            size={"sm"}
+          >
+            <Menu />
+          </IconButton>
+        </Drawer.Trigger>
+
+        <Portal>
+          <Drawer.Backdrop />
+          <Drawer.Positioner>
+            <Drawer.Content>
+              <Drawer.Header>
+                <Drawer.Title></Drawer.Title>
+              </Drawer.Header>
+              <Drawer.Body>
+                <VStack alignItems={"stretch"}>
+                  <For each={menuItems}>
+                    {(item) => (
+                      <Link
+                        to={item.link}
+                        key={item.link}
+                        onClick={() => {
+                          closeBtnRef.current.click();
+                        }}
+                      >
+                        <Box
+                          p={"1em"}
+                          borderBottomWidth={"1px"}
+                          _hover={{
+                            bg: "gray.900",
+                            borderRadius: "sm",
+                          }}
+                        >
+                          {item.label}
+                        </Box>
+                      </Link>
+                    )}
+                  </For>
+                </VStack>
+              </Drawer.Body>
+              <Drawer.Footer>
+                <ProfileBox extended={true} />
+              </Drawer.Footer>
+              <Drawer.CloseTrigger asChild>
+                <CloseButton size="sm" variant={"outline"} ref={closeBtnRef} />
+              </Drawer.CloseTrigger>
+            </Drawer.Content>
+          </Drawer.Positioner>
+        </Portal>
+      </Drawer.Root>
+    </>
   );
 }
 
