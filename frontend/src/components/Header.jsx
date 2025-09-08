@@ -17,7 +17,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import { Menu } from "lucide-react";
+import { Menu, House, Crown, Grip, Settings } from "lucide-react";
 import { Link } from "react-router";
 import { useRef } from "react";
 
@@ -25,14 +25,22 @@ const menuItems = [
   {
     label: "Home",
     link: "/",
+    icon: <House />,
   },
   {
     label: "Leaderboard",
     link: "/leaderboard",
+    icon: <Crown />,
+  },
+  {
+    label: "Settings",
+    link: "#",
+    icon: <Settings />,
   },
   {
     label: "Other",
     link: "#",
+    icon: <Grip />,
   },
 ];
 
@@ -53,6 +61,7 @@ function Header() {
           </Flex>
         </Container>
       </Box>
+      {!isDesktop ? <BottomNav /> : ""}
     </header>
   );
 }
@@ -63,9 +72,9 @@ function DesktopMenu() {
       <Stack gap={"1rem"} direction={"row"}>
         <For each={menuItems}>
           {(item) => (
-            <HoverWrapper px={"0.5rem"}>
-              <Link key={item.link} to={item.link}>
-                <Text color={"gray.400"} _hover={{ color: "gray.50" }}>
+            <HoverWrapper key={item.link} px={"0.5rem"}>
+              <Link to={item.link}>
+                <Text color={"fg.muted"} _hover={{ color: "fg" }}>
                   {item.label}
                 </Text>
               </Link>
@@ -118,7 +127,7 @@ function MobileMenu() {
                           p={"1em"}
                           borderBottomWidth={"1px"}
                           _hover={{
-                            bg: "gray.900",
+                            bg: "bg.muted",
                             borderRadius: "sm",
                           }}
                         >
@@ -143,6 +152,40 @@ function MobileMenu() {
           </Drawer.Positioner>
         </Portal>
       </Drawer.Root>
+    </>
+  );
+}
+
+function BottomNav() {
+  return (
+    <>
+      <Box
+        minHeight={"4rem"}
+        width={"100%"}
+        borderTopWidth={"1px"}
+        bg={"bg"}
+        position={"fixed"}
+        bottom={0}
+        left={0}
+        zIndex={999}
+      >
+        <Flex p={2}>
+          <For each={menuItems}>
+            {(item) => (
+              <HoverWrapper key={item.link} size={0} flex={1} py={3}>
+                <Link to={item.link}>
+                  <VStack gap={1}>
+                    {item.icon}
+                    <Text fontSize={12} color={"fg.subtle"}>
+                      {item.label}
+                    </Text>
+                  </VStack>
+                </Link>
+              </HoverWrapper>
+            )}
+          </For>
+        </Flex>
+      </Box>
     </>
   );
 }
