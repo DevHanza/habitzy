@@ -24,6 +24,7 @@ function GreetingBox() {
           textTransform={"uppercase"}
           fontSize={"0.875rem"}
           color={"fg.muted"}
+          fontWeight={500}
         >
           {getToday()}
         </Text>
