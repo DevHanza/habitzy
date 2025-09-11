@@ -34,12 +34,12 @@ const menuItems = [
   },
   {
     label: "Settings",
-    link: "",
+    link: "#",
     icon: <Settings />,
   },
   {
     label: "Other",
-    link: "",
+    link: "##",
     icon: <Grip />,
   },
 ];
