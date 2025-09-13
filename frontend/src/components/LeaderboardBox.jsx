@@ -4,7 +4,7 @@ import LeaderboardCard from "./LeaderboardCard";
 
 function LeaderboardBox() {
   return (
-    <WidgetsWrapper>
+    <WidgetsWrapper title={"Leaderboard"} link={"/leaderboard"}>
       <VStack gap={2}>
         <LeaderboardCard />
         <LeaderboardCard />
