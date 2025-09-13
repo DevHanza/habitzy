@@ -1,18 +1,63 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Stack, Checkbox, Image } from "@chakra-ui/react";
+import { useState } from "react";
 
-function HabitCard() {
+function HabitCard({ habit = "Habit Name" }) {
+  const [checked, setChecked] = useState(false);
+
   return (
     <Box
       borderRadius={6}
       px={3}
-      py={2}
+      py={4}
+      border={"0.5px solid"}
+      borderColor={"border"}
+      bg={"bg.subtle"}
+      width={"100%"}
+      position={"relative"}
       _hover={{
         bg: "bg.emphasized",
+        cursor: "pointer",
       }}
-      borderColor={"fg.subtle"}
-      width={"100%"}
     >
-      <Text>Water the plants</Text>
+      <span
+        style={{ position: "absolute", inset: 0, zIndex: 5 }}
+        onClick={() => {
+          setChecked((prevChecked) => !prevChecked);
+        }}
+      ></span>
+
+      <Stack
+        flexDirection={"row"}
+        align="flex-start"
+        flex="1"
+        alignItems={"center"}
+      >
+        <Image
+          src="https://emojicdn.elk.sh/✨?style=facebook"
+          opacity={checked ? 0.5 : 1}
+          height={{ base: "1rem", md: "1.5rem" }}
+          width={{ base: "1rem", md: "1.5rem" }}
+        />
+        <Checkbox.Root
+          variant={"solid"}
+          colorPalette={"teal"}
+          checked={checked}
+          onCheckedChange={setChecked}
+          width={"100%"}
+          justifyContent={"space-between"}
+        >
+          <Checkbox.Label
+            textDecoration={checked ? "line-through" : ""}
+            fontSize={"1.25rem"}
+            color={checked ? "fg.subtle" : ""}
+          >
+            {habit}
+          </Checkbox.Label>
+          <Checkbox.HiddenInput />
+          <Checkbox.Control />
+        </Checkbox.Root>
+      </Stack>
+
       {/*  */}
       {/*  */}
       {/*  */}
