@@ -6,6 +6,9 @@ import { VStack } from "@chakra-ui/react";
 function HabitsBox() {
   return (
     <WidgetsWrapper
+      // bg={"none"}
+      // bg={"bg.subtle"}
+      // border="none"
       title={"Habits"}
       buttonText={"Add Habit"}
       buttonIcon={<Plus />}
