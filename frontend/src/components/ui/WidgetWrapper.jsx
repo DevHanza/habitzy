@@ -25,7 +25,7 @@ function WidgetWrapper({ children, title, link, linkText, ...props }) {
             outlineColor={"transparent"}
             fontSize={"0.75rem"}
           >
-            {linkText} <ArrowRight size={"1rem"} />
+            {linkText ? linkText : "See more"} <ArrowRight size={"1rem"} />
           </ChakraLink>
         </HStack>
       ) : (
