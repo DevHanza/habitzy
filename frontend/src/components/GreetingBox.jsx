@@ -11,7 +11,7 @@ function GreetingBox() {
           height={{ base: "3.5rem", md: "4rem" }}
           width={{ base: "3.5rem", md: "4rem" }}
           marginBottom={{ base: "1rem", md: "1.5rem" }}
-        ></Image>
+        />
         <Heading
           size={{ base: "xl", md: "2xl" }}
           lineHeight={{ base: 1.25, md: 1.3 }}
