@@ -8,6 +8,7 @@ function WidgetsWrapper({ children, ...props }) {
       p={"1em"}
       borderRadius={"1rem"}
       bg={"bg.muted"}
+      userSelect={"none"}
     >
       {children}
     </Box>
