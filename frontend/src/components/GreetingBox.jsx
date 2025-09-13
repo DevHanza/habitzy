@@ -1,6 +1,6 @@
 import { getToday } from "@/utils/getToday";
 import { Heading, Image, Stack, Text } from "@chakra-ui/react";
-import WidgetsWrapper from "./ui/WidgetsWrapper";
+import WidgetsWrapper from "./ui/WidgetWrapper";
 
 function GreetingBox() {
   return (

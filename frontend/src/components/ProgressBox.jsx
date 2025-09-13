@@ -1,4 +1,4 @@
-import WidgetsWrapper from "./ui/WidgetsWrapper";
+import WidgetsWrapper from "./ui/WidgetWrapper";
 import { Stack, HStack, Progress, Heading, Text } from "@chakra-ui/react";
 
 function ProgressBox() {
