@@ -38,6 +38,7 @@ function WidgetWrapper({
               to={link}
               outlineColor={"transparent"}
               fontSize={"0.75rem"}
+              _hover={{color: "teal.300"}}
             >
               {linkText} <ArrowRight size={"1rem"} />
             </ChakraLink>
