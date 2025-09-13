@@ -5,11 +5,16 @@ import HabitsBox from "@/components/HabitsBox";
 import { Container, Flex, Stack } from "@chakra-ui/react";
 
 import LeaderboardBox from "@/components/LeaderboardBox";
+import StreakBox from "@/components/StreakBox";
 
 function Home() {
   return (
     <Container>
-      <Flex gap={4} direction={{ base: "column", md: "row" }} minHeight={"85vh"}>
+      <Flex
+        gap={4}
+        direction={{ base: "column", md: "row" }}
+        minHeight={"85vh"}
+      >
         <Stack flex={1}>
           <GreetingBox />
           <ProgressBox />
@@ -19,6 +24,7 @@ function Home() {
           <HabitsBox />
         </Stack>
         <Stack flex={1}>
+          <StreakBox />
           <QuoteBox />
           <LeaderboardBox />
         </Stack>
