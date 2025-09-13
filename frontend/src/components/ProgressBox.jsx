@@ -23,7 +23,7 @@ function ProgressBox() {
           </Heading>
         </Stack>
 
-        <Progress.Root defaultValue={40} colorPalette={""}>
+        <Progress.Root defaultValue={40} colorPalette={"teal"}>
           <HStack>
             <Progress.Track flex="1">
               <Progress.Range />
