@@ -12,7 +12,7 @@ function LeaderboardCard() {
       borderColor={"fg.subtle"}
       width={"100%"}
     >
-      <HStack gap={5}>
+      <HStack gap={4}>
         {/* Rank */}
         <Text fontWeight={700} color={"fg.muted"}>
           1
