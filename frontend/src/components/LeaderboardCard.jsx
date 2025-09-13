@@ -14,8 +14,8 @@ function LeaderboardCard() {
     >
       <HStack gap={4}>
         {/* Rank */}
-        <Text fontWeight={700} color={"fg.muted"}>
-          1
+        <Text fontWeight={600} color={"fg.muted"}>
+          #1
         </Text>
         {/* Rank */}
         <HStack justifyContent={"space-between"} flex={3}>
