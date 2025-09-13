@@ -9,7 +9,7 @@ import LeaderboardBox from "@/components/LeaderboardBox";
 function Home() {
   return (
     <Container>
-      <Flex gap={4} direction={{ base: "column", md: "row" }}>
+      <Flex gap={4} direction={{ base: "column", md: "row" }} minHeight={"85vh"}>
         <Stack flex={1}>
           <GreetingBox />
           <ProgressBox />
