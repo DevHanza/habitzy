@@ -31,17 +31,7 @@ const menuItems = [
     label: "Leaderboard",
     link: "/leaderboard",
     icon: <Crown />,
-  },
-  {
-    label: "Settings",
-    link: "#",
-    icon: <Settings />,
-  },
-  {
-    label: "Other",
-    link: "##",
-    icon: <Grip />,
-  },
+  }
 ];
 
 function Header() {
@@ -74,7 +64,7 @@ function DesktopMenu() {
           {(item) => (
             <HoverWrapper key={item.link} px={"0.5rem"}>
               <Link to={item.link}>
-                <Text color={"fg.muted"} _hover={{ color: "fg" }}>
+                <Text fontSize={"1rem"} color={"fg.muted"} _hover={{ color: "fg" }}>
                   {item.label}
                 </Text>
               </Link>
