@@ -1,6 +1,7 @@
 import GreetingBox from "@/components/GreetingBox";
 import ProgressBox from "@/components/ProgressBox";
 import QuoteBox from "@/components/QuoteBox";
+import HabitsBox from "@/components/HabitsBox";
 import { Container, Flex, Stack } from "@chakra-ui/react";
 
 import LeaderboardBox from "@/components/LeaderboardBox";
@@ -15,7 +16,7 @@ function Home() {
         </Stack>
 
         <Stack flex={2}>
-          <QuoteBox />
+          <HabitsBox />
         </Stack>
         <Stack flex={1}>
           <QuoteBox />
