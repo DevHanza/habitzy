@@ -1,9 +1,22 @@
-import { Heading, Box, HStack, Link as ChakraLink } from "@chakra-ui/react";
+import { Link } from "react-router";
+import {
+  Heading,
+  Box,
+  HStack,
+  Link as ChakraLink,
+  Button,
+} from "@chakra-ui/react";
 import { ArrowRight } from "lucide-react";
 
-import { Link } from "react-router";
-
-function WidgetWrapper({ children, title, link, linkText, ...props }) {
+function WidgetWrapper({
+  children,
+  title,
+  link,
+  linkText,
+  buttonText,
+  buttonIcon,
+  ...props
+}) {
   return (
     <Box
       {...props}
@@ -19,14 +32,28 @@ function WidgetWrapper({ children, title, link, linkText, ...props }) {
           marginBottom={{ base: "1rem", md: "1.5rem" }}
         >
           <Heading>{title}</Heading>
-          <ChakraLink
-            as={Link}
-            to={link}
-            outlineColor={"transparent"}
-            fontSize={"0.75rem"}
-          >
-            {linkText ? linkText : "See more"} <ArrowRight size={"1rem"} />
-          </ChakraLink>
+          {linkText ? (
+            <ChakraLink
+              as={Link}
+              to={link}
+              outlineColor={"transparent"}
+              fontSize={"0.75rem"}
+            >
+              {linkText} <ArrowRight size={"1rem"} />
+            </ChakraLink>
+          ) : (
+            ""
+          )}
+          {buttonText ? (
+            <Link>
+              <Button colorPalette={"teal"} size={"sm"}>
+                {buttonText}
+                {buttonIcon}
+              </Button>
+            </Link>
+          ) : (
+            ""
+          )}
         </HStack>
       ) : (
         ""
