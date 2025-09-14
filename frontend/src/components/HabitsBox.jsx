@@ -1,7 +1,7 @@
 import WidgetsWrapper from "./ui/WidgetWrapper";
 import HabitCard from "./HabitCard";
 import { Plus } from "lucide-react";
-import { VStack } from "@chakra-ui/react";
+import { Button, Stack, VStack } from "@chakra-ui/react";
 
 function HabitsBox() {
   return (
@@ -14,13 +14,20 @@ function HabitsBox() {
       buttonText={"Add Habit"}
       buttonIcon={<Plus />}
     >
-      <VStack gap={2}>
-        <HabitCard />
-        <HabitCard />
-        <HabitCard />
-        <HabitCard />
-        <HabitCard />
-      </VStack>
+      <Stack gap={6}>
+        <VStack gap={2}>
+          <HabitCard />
+          <HabitCard />
+          <HabitCard />
+          <HabitCard />
+          <HabitCard />
+        </VStack>
+        <VStack>
+          <Button variant="outline" colorPalette={"teal"} width={"100%"}>
+            <Plus /> Add a Habit
+          </Button>
+        </VStack>
+      </Stack>
     </WidgetsWrapper>
   );
 }
