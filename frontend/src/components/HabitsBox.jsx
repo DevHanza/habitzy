@@ -23,7 +23,7 @@ function HabitsBox() {
           <HabitCard />
         </VStack>
         <VStack>
-          <Button variant="outline" colorPalette={"teal"} width={"100%"}>
+          <Button variant="solid" colorPalette={"teal"} width={"100%"}>
             <Plus /> Add a Habit
           </Button>
         </VStack>
