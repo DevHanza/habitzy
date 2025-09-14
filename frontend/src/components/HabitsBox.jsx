@@ -9,6 +9,7 @@ function HabitsBox() {
       // bg={"none"}
       // bg={"bg.subtle"}
       // border="none"
+      height={"100%"}
       title={"Habits"}
       buttonText={"Add Habit"}
       buttonIcon={<Plus />}
