@@ -3,7 +3,7 @@ import WidgetsWrapper from "./ui/WidgetWrapper";
 
 function QuoteBox() {
   return (
-    <WidgetsWrapper>
+    <WidgetsWrapper py={6}>
       <Stack gap={4}>
         <Heading
           fontWeight={500}
