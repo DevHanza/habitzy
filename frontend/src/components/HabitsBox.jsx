@@ -13,7 +13,7 @@ function HabitsBox() {
       buttonText={"Add Habit"}
       buttonIcon={<Plus />}
     >
-      <VStack gap={3}>
+      <VStack gap={2}>
         <HabitCard />
         <HabitCard />
         <HabitCard />
