@@ -48,7 +48,7 @@ function HabitCard({ habit = "Habit Name" }) {
         >
           <Checkbox.Label
             textDecoration={checked ? "line-through" : ""}
-            fontSize={"1.25rem"}
+            fontSize={{ base: "1.125rem", md: "1.25rem" }}
             color={checked ? "fg.subtle" : ""}
           >
             {habit}
