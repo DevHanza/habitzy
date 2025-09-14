@@ -47,9 +47,9 @@ function WidgetWrapper({
           )}
           {buttonText ? (
             <Link>
-              <Button colorPalette={"teal"} size={"sm"}>
-                {buttonText}
+              <Button colorPalette={"teal"} size={{ base: "xs", md: "sm" }}>
                 {buttonIcon}
+                {buttonText}
               </Button>
             </Link>
           ) : (
