@@ -16,7 +16,8 @@ function Home() {
         minHeight={"85vh"}
       >
         <Stack flex={1}>
-          <GreetingBox />
+          {/* <GreetingBox /> */}
+          <QuoteBox />
           <ProgressBox />
         </Stack>
 
@@ -25,7 +26,6 @@ function Home() {
         </Stack>
         <Stack flex={1}>
           <StreakBox />
-          <QuoteBox />
           <LeaderboardBox />
         </Stack>
       </Flex>
