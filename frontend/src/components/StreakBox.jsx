@@ -16,7 +16,7 @@ function StreakBox() {
       <Stack direction={"row"}>
         {/*  */}
         <Stack flex={2}>
-          <Code
+          {/* <Code
             colorPalette={"teal"}
             variant="subtle"
             width={"fit-content"}
@@ -27,28 +27,33 @@ function StreakBox() {
             px={2.5}
           >
             Daily Streak
-          </Code>
-          <HStack gap={1} alignItems={"flex-end"}>
+          </Code> */}
+          <HStack gap={2} alignItems={"center"}>
             <Heading
               display={"inline-block"}
-              size={{ base: "2xl", md: "4xl" }}
+              size={{ base: "2xl", md: "5xl" }}
               fontWeight={700}
               lineHeight={1}
             >
               27
             </Heading>
-            <Text color={"fg.muted"} fontSize={"lg"}>day streak</Text>
+            <Image
+              src="https://emojicdn.elk.sh/🔥?style=facebook"
+              height={"2.75rem"}
+              // width={"100%"}
+            />
           </HStack>
+          <Heading>You're on a streak! </Heading>
           <Text fontSize={"md"}>You're on a streak! Don't loose it.</Text>
         </Stack>
         {/*  */}
-        <Box flex={1} justifyItems={"end"} alignContent={"center"}>
+        {/* <Box flex={1} justifyItems={"end"} alignContent={"center"}>
           <Image
             src="https://emojicdn.elk.sh/🔥?style=facebook"
             height={"4rem"}
             // width={"100%"}
           />
-        </Box>
+        </Box> */}
         {/*  */}
       </Stack>
     </WidgetWrapper>
