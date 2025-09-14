@@ -1,60 +1,33 @@
 import React from "react";
 import WidgetWrapper from "./ui/WidgetWrapper";
-import {
-  Box,
-  Code,
-  HStack,
-  Stack,
-  Image,
-  Heading,
-  Text,
-} from "@chakra-ui/react";
+import { HStack, VStack, Stack, Image, Heading, Text } from "@chakra-ui/react";
 
 function StreakBox() {
   return (
-    <WidgetWrapper>
-      <Stack direction={"row"}>
+    <WidgetWrapper py={6}>
+      <Stack>
         {/*  */}
-        <Stack flex={2}>
-          {/* <Code
-            colorPalette={"teal"}
-            variant="subtle"
-            width={"fit-content"}
-            fontFamily={"inherit"}
-            fontWeight={400}
-            fontSize={"sm"}
-            py={1.5}
-            px={2.5}
+
+        <HStack gap={1} alignItems={"center"} justifyContent={"center"}>
+          <Heading
+            display={"inline-block"}
+            size={{ base: "3xl", md: "5xl" }}
+            fontWeight={700}
+            lineHeight={1}
+            letterSpacing={1}
           >
-            Daily Streak
-          </Code> */}
-          <HStack gap={2} alignItems={"center"}>
-            <Heading
-              display={"inline-block"}
-              size={{ base: "2xl", md: "5xl" }}
-              fontWeight={700}
-              lineHeight={1}
-            >
-              27
-            </Heading>
-            <Image
-              src="https://emojicdn.elk.sh/🔥?style=facebook"
-              height={"2.75rem"}
-              // width={"100%"}
-            />
-          </HStack>
-          <Heading>You're on a streak! </Heading>
-          <Text fontSize={"md"}>You're on a streak! Don't loose it.</Text>
-        </Stack>
-        {/*  */}
-        {/* <Box flex={1} justifyItems={"end"} alignContent={"center"}>
+            27
+          </Heading>
           <Image
             src="https://emojicdn.elk.sh/🔥?style=facebook"
-            height={"4rem"}
-            // width={"100%"}
+            height={{ base: "1.75rem", md: "2.75rem" }}
           />
-        </Box> */}
-        {/*  */}
+        </HStack>
+
+        <VStack gap={0}>
+          <Heading size={{ base: "lg", md: "xl" }}>You're on a streak!</Heading>
+          <Text color={"fg.muted"}>Consistency is power.</Text>
+        </VStack>
       </Stack>
     </WidgetWrapper>
   );
