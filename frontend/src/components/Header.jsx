@@ -31,15 +31,15 @@ const menuItems = [
     label: "Leaderboard",
     link: "/leaderboard",
     icon: <Crown />,
-  }
+  },
 ];
 
 function Header() {
   const isDesktop = useBreakpointValue({ base: false, md: true });
 
   return (
-    <header>
-      <Box borderBlockWidth={1}>
+    <header className="sticky-header">
+      <Box bg={"bg"} borderBlockWidth={1}>
         <Container>
           <Flex
             justifyContent={"space-between"}
@@ -64,7 +64,11 @@ function DesktopMenu() {
           {(item) => (
             <HoverWrapper key={item.link} px={"0.5rem"}>
               <Link to={item.link}>
-                <Text fontSize={"1rem"} color={"fg.muted"} _hover={{ color: "fg" }}>
+                <Text
+                  fontSize={"1rem"}
+                  color={"fg.muted"}
+                  _hover={{ color: "fg" }}
+                >
                   {item.label}
                 </Text>
               </Link>

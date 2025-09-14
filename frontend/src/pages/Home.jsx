@@ -13,7 +13,7 @@ function Home() {
       <Flex
         gap={4}
         direction={{ base: "column", md: "row" }}
-        minHeight={"85vh"}
+        minHeight={"100vh"}
       >
         <Stack flex={1}>
           {/* <GreetingBox /> */}
