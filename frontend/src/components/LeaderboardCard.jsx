@@ -1,4 +1,5 @@
 import { Box, Avatar, HStack, Text, VStack, Image } from "@chakra-ui/react";
+import pickPalette from "@/utils/pickPallette";
 
 function LeaderboardCard() {
   return (
@@ -21,7 +22,7 @@ function LeaderboardCard() {
         <HStack justifyContent={"space-between"} flex={3}>
           {/* User */}
           <HStack gap={3}>
-            <Avatar.Root>
+            <Avatar.Root colorPalette={pickPalette(name)}>
               <Avatar.Fallback name="Jhon Doe" />
               <Avatar.Image src="https://bit.ly/sage-adebayo" />
             </Avatar.Root>
