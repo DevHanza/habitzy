@@ -1,3 +1,6 @@
+import { useColorMode } from "./ui/color-mode";
+import { Link } from "react-router";
+
 import {
   Avatar,
   Text,
@@ -7,6 +10,7 @@ import {
   Portal,
   Switch,
 } from "@chakra-ui/react";
+
 import {
   ChevronDown,
   UserRound,
@@ -14,7 +18,6 @@ import {
   LogOut,
   MoonStarIcon,
 } from "lucide-react";
-import { Link } from "react-router";
 
 const profileBoxMenu = [
   { label: "Your Profile", link: "#", icon: UserRound },
@@ -28,6 +31,7 @@ function ProfileBox({ extended = false }) {
     avatar: "/",
   };
 
+  const { colorMode, toggleColorMode } = useColorMode();
   return (
     // Profile Box Menu - Start
 
@@ -112,6 +116,8 @@ function ProfileBox({ extended = false }) {
               direction={"row"}
               py={2.5}
               px={2}
+              cursor={"pointer"}
+              onClick={toggleColorMode}
               borderRadius={2}
               justifyContent={"space-between"}
               _hover={{ bg: "bg.emphasized/60" }}
@@ -121,7 +127,7 @@ function ProfileBox({ extended = false }) {
                 Switch to Dark
               </Stack>
 
-              <Switch.Root size={"md"}>
+              <Switch.Root size={"md"} checked={colorMode}>
                 <Switch.HiddenInput />
                 <Switch.Control />
                 <Switch.Label />
