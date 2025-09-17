@@ -11,13 +11,7 @@ import {
   Switch,
 } from "@chakra-ui/react";
 
-import {
-  ChevronDown,
-  UserRound,
-  Settings,
-  LogOut,
-  MoonStarIcon,
-} from "lucide-react";
+import { ChevronDown, UserRound, Settings, LogOut, Sun } from "lucide-react";
 
 const profileBoxMenu = [
   { label: "Your Profile", link: "#", icon: UserRound },
@@ -123,11 +117,15 @@ function ProfileBox({ extended = false }) {
               _hover={{ bg: "bg.emphasized/60" }}
             >
               <Stack direction={"row"} alignItems={"center"}>
-                <MoonStarIcon size={"1.125rem"} style={{ color: "#a1a1aa" }} />
-                Switch to Dark
+                <Sun size={"1.125rem"} style={{ color: "#a1a1aa" }} />
+                Light Mode
               </Stack>
 
-              <Switch.Root size={"md"} checked={colorMode}>
+              <Switch.Root
+                size={"md"}
+                checked={colorMode === "light"}
+                colorPalette={"teal"}
+              >
                 <Switch.HiddenInput />
                 <Switch.Control />
                 <Switch.Label />
