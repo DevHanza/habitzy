@@ -1,7 +1,7 @@
 import { Box, Stack, Checkbox, Image } from "@chakra-ui/react";
 import { useState } from "react";
 
-function HabitCard({ habit = "Habit Name" }) {
+function HabitCard({ habit = "Habit Name", icon = "✨" }) {
   const [checked, setChecked] = useState(false);
 
   return (
@@ -33,7 +33,7 @@ function HabitCard({ habit = "Habit Name" }) {
         alignItems={"center"}
       >
         <Image
-          src="https://emojicdn.elk.sh/✨?style=facebook"
+          src={`https://emojicdn.elk.sh/${icon}?style=facebook`}
           opacity={checked ? 0.5 : 1}
           height={{ base: "1rem", md: "1.5rem" }}
           width={{ base: "1rem", md: "1.5rem" }}
@@ -57,10 +57,6 @@ function HabitCard({ habit = "Habit Name" }) {
           <Checkbox.Control />
         </Checkbox.Root>
       </Stack>
-
-      {/*  */}
-      {/*  */}
-      {/*  */}
     </Box>
   );
 }
