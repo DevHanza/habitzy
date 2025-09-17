@@ -6,10 +6,10 @@ function HoverWrapper({ size = "0.25rem", px, children, ...props }) {
       {...props}
       px={px}
       _hover={{
-        bg: "gray.900",
+        bg: "bg.muted",
         outlineStyle: "solid",
         outlineWidth: size,
-        outlineColor: "gray.900",
+        outlineColor: "border.muted",
         borderRadius: "sm",
       }}
     >
