@@ -15,8 +15,7 @@ function AddHabitBox() {
       // }}
     >
       <Stack direction={"row"} alignItems={"center"} px={3}>
-        <IconButton size="xs" variant={"outline"}>
-          <SmilePlus />
+        {/* Add Emoji Button */}
         </IconButton>
         <Input
           py={4}
@@ -29,9 +28,11 @@ function AddHabitBox() {
           border={0}
           outline={"transparent"}
         />
+        {/* Done Button */}
         <IconButton size="sm" colorPalette={"teal"} aria-label="Add habit">
           <Check />
         </IconButton>
+        {/* Cancel Button */}
         <IconButton
           size="sm"
           variant={"surface"}
