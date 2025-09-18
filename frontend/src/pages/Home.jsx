@@ -1,4 +1,3 @@
-import GreetingBox from "@/components/GreetingBox";
 import ProgressBox from "@/components/ProgressBox";
 import QuoteBox from "@/components/QuoteBox";
 import HabitsBox from "@/components/HabitsBox";
