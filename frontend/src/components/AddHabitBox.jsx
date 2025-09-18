@@ -1,5 +1,5 @@
-import { Box, Input, Stack, Button } from "@chakra-ui/react";
-import { Plus, X } from "lucide-react";
+import { Box, Input, Stack, IconButton } from "@chakra-ui/react";
+import { Check, X, SmilePlus } from "lucide-react";
 
 function AddHabitBox() {
   return (
@@ -10,11 +10,14 @@ function AddHabitBox() {
       position={"relative"}
       borderWidth={2}
       borderColor={"teal"}
-      _hover={{
-        borderColor: "teal.500",
-      }}
+      // _hover={{
+      //   borderColor: "teal.500",
+      // }}
     >
       <Stack direction={"row"} alignItems={"center"} px={3}>
+        <IconButton size="xs" variant={"outline"}>
+          <SmilePlus />
+        </IconButton>
         <Input
           py={4}
           px={0}
@@ -26,12 +29,17 @@ function AddHabitBox() {
           border={0}
           outline={"transparent"}
         />
-        <Button size="sm" colorPalette={"teal"} p={3}>
-          <Plus />
-        </Button>
-        <Button size="sm" variant={"surface"} colorPalette={"teal"} p={3}>
+        <IconButton size="sm" colorPalette={"teal"} aria-label="Add habit">
+          <Check />
+        </IconButton>
+        <IconButton
+          size="sm"
+          variant={"surface"}
+          colorPalette={"teal"}
+          aria-label="Cancel Adding a habit"
+        >
           <X />
-        </Button>
+        </IconButton>
       </Stack>
     </Box>
   );
