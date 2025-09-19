@@ -5,13 +5,19 @@ function ProgressBox() {
   return (
     <WidgetsWrapper>
       <Stack>
-        <Stack mb={"1rem"} direction={"row"} alignItems={"end"} gap={0}>
+        <Stack
+          mb={"1rem"}
+          direction={"row"}
+          alignItems={"end"}
+          gap={0}
+          flexWrap={"wrap"}
+        >
           <Heading
             display={"inline-block"}
             size={{ base: "2xl", md: "4xl" }}
             fontWeight={700}
           >
-            40%
+            40%&nbsp;
           </Heading>
           <Heading
             color={"fg.muted"}
@@ -19,7 +25,7 @@ function ProgressBox() {
             size={{ base: "md", md: "lg" }}
             fontWeight={500}
           >
-            &nbsp; out of 100%.
+            out of 100%.
           </Heading>
         </Stack>
 
