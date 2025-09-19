@@ -1,5 +1,6 @@
 import { Box, Input, Stack, IconButton } from "@chakra-ui/react";
-import { Check, X, SmilePlus } from "lucide-react";
+import { Check, X } from "lucide-react";
+import EmojiPickerButton from "./EmojiPickerButton/EmojiPickerButton";
 
 function AddHabitBox() {
   return (
@@ -16,7 +17,7 @@ function AddHabitBox() {
     >
       <Stack direction={"row"} alignItems={"center"} px={3}>
         {/* Add Emoji Button */}
-        </IconButton>
+        <EmojiPickerButton />
         <Input
           py={4}
           px={0}
