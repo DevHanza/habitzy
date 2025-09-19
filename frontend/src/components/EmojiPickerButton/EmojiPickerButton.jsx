@@ -5,10 +5,10 @@ import { SmilePlus } from "lucide-react";
 import "./EmojiPickerButton.css";
 
 function EmojiPickerButton() {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [selectedEmoji, setSelectedEmoji] = useState(null);
   return (
-    <Popover.Root open={open} onOpenChange={(e) => setOpen(e.open)}>
+    <Popover.Root open={isOpen} onOpenChange={(e) => setIsOpen(e.open)}>
       <Popover.Trigger asChild>
         <IconButton
           size="xs"
@@ -28,6 +28,7 @@ function EmojiPickerButton() {
               <EmojiPicker.Root
                 onEmojiSelect={(data) => {
                   setSelectedEmoji(data.emoji);
+                  setIsOpen(false);
                 }}
               >
                 <EmojiPicker.Search />
