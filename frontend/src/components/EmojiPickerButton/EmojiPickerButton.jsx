@@ -13,7 +13,7 @@ function EmojiPickerButton() {
         <IconButton
           size="xs"
           fontSize={"1rem"}
-          variant={"outline"}
+          variant={"surface"}
           aria-label="Pick emoji"
         >
           {selectedEmoji || <SmilePlus />}
