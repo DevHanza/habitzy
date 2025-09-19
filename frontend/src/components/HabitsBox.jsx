@@ -2,6 +2,7 @@ import WidgetsWrapper from "./ui/WidgetWrapper";
 import HabitCard from "./HabitCard";
 import { Plus } from "lucide-react";
 import { Button, For, Stack, VStack } from "@chakra-ui/react";
+import AddHabitBox from "./AddHabitBox";
 
 const habits = [
   { icon: "📖", name: "Read a book" },
@@ -29,6 +30,7 @@ function HabitsBox() {
     >
       <Stack gap={6}>
         <VStack gap={2}>
+          <AddHabitBox />
           <For each={habits}>
             {(habit) => <HabitCard habit={habit.name} icon={habit.icon} />}
           </For>
