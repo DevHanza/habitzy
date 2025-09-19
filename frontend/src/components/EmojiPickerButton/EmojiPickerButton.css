@@ -1,0 +1,49 @@
+.emojipicker {
+  [frimousse-viewport] {
+    scrollbar-width: thin;
+    --scrollbar-track: color-mix(
+      in oklab,
+      transparent var(--scrollbar-track-alpha, 100%),
+      transparent
+    );
+    --scrollbar-thumb: color-mix(
+      in oklab,
+      var(--secondary-foreground) var(--scrollbar-thumb-alpha, 100%),
+      transparent
+    );
+    scrollbar-color: var(--scrollbar-thumb, light-dark(#0006, #fff6))
+      var(--scrollbar-track);
+  }
+
+  [frimousse-search] {
+    width: 100%;
+    background: var(--chakra-colors-bg-emphasized);
+    padding: 0.75em;
+    margin-bottom: 0.5em;
+    line-height: 1;
+    outline: transparent;
+    border-radius: 4px;
+  }
+
+  [frimousse-category] {
+    /* background-color: var(--chakra-colors-bg-emphasized); */
+  }
+
+  [frimousse-category-header] {
+    text-transform: capitalize;
+    padding: 0.75em 0;
+
+    background: var(--chakra-colors-bg-panel);
+  }
+  button[frimousse-emoji] {
+    --size: 0.25em;
+    padding: var(--size);
+    font-size: 1.25rem;
+    cursor: pointer;
+    border-radius: 4px;
+
+    &:hover {
+      background: var(--chakra-colors-bg-emphasized);
+    }
+  }
+}
