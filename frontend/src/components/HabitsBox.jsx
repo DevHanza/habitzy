@@ -4,12 +4,24 @@ import { Plus } from "lucide-react";
 import { Button, For, Stack, VStack } from "@chakra-ui/react";
 import AddHabitBox from "./AddHabitBox";
 import useHabits from "@/hooks/useHabits";
+import { useRef } from "react";
 
 function HabitsBox() {
+  const addHabitBoxRef = useRef();
   const { habits, isAddingHabits, setIsAddingHabits } = useHabits();
 
   function handleAddHabit() {
     setIsAddingHabits((prev) => !prev);
+  }
+
+  function handleBottomAddHabit() {
+    handleAddHabit();
+    if (addHabitBoxRef.current) {
+      addHabitBoxRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
   }
 
   return (
@@ -27,7 +39,7 @@ function HabitsBox() {
       buttonIcon={<Plus />}
     >
       <Stack gap={6}>
-        <VStack gap={2}>
+        <VStack gap={2} ref={addHabitBoxRef}>
           {!isAddingHabits && <AddHabitBox />}
           <For each={habits.toReversed()}>
             {(habit) => (
@@ -44,7 +56,7 @@ function HabitsBox() {
             variant="solid"
             colorPalette={"teal"}
             width={"100%"}
-            onClick={handleAddHabit}
+            onClick={handleBottomAddHabit}
             disabled={!isAddingHabits}
           >
             <Plus /> Add a Habit
