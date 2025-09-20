@@ -15,6 +15,7 @@ function WidgetWrapper({
   linkText,
   buttonText,
   buttonIcon,
+  btnlinkprops,
   ...props
 }) {
   return (
@@ -34,6 +35,7 @@ function WidgetWrapper({
           <Heading>{title}</Heading>
           {linkText ? (
             <ChakraLink
+              {...btnlinkprops}
               as={Link}
               to={link}
               outlineColor={"transparent"}
@@ -47,7 +49,11 @@ function WidgetWrapper({
           )}
           {buttonText ? (
             <Link>
-              <Button colorPalette={"teal"} size={{ base: "xs", md: "sm" }}>
+              <Button
+                {...btnlinkprops}
+                colorPalette={"teal"}
+                size={{ base: "xs", md: "sm" }}
+              >
                 {buttonIcon}
                 {buttonText}
               </Button>
