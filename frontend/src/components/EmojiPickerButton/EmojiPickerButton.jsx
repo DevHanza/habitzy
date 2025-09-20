@@ -4,9 +4,9 @@ import { IconButton, Popover, Portal } from "@chakra-ui/react";
 import { SmilePlus } from "lucide-react";
 import "./EmojiPickerButton.css";
 
-function EmojiPickerButton() {
+function EmojiPickerButton({ selectedEmoji, setSelectedEmoji }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedEmoji, setSelectedEmoji] = useState(null);
+
   return (
     <Popover.Root open={isOpen} onOpenChange={(e) => setIsOpen(e.open)}>
       <Popover.Trigger asChild>
