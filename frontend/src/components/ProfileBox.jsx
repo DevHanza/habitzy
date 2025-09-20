@@ -92,7 +92,7 @@ function ProfileBox({ extended = false }) {
             {/* Profile  */}
             {profileBoxMenu.map((item) => {
               return (
-                <Menu.Item value={item.label} py={2.5} px={2} gap={4}>
+                <Menu.Item key={item.label} value={item.label} py={2.5} px={2} gap={4}>
                   <Link to={item.link} style={{ outline: "transparent" }}>
                     <Stack direction={"row"}>
                       <item.icon

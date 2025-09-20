@@ -32,7 +32,13 @@ function HabitsBox() {
         <VStack gap={2}>
           <AddHabitBox />
           <For each={habits}>
-            {(habit) => <HabitCard habit={habit.name} icon={habit.icon} />}
+            {(habit) => (
+              <HabitCard
+                key={habit.name}
+                habit={habit.name}
+                icon={habit.icon}
+              />
+            )}
           </For>
         </VStack>
         <VStack>
