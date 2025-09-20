@@ -29,7 +29,7 @@ function HabitsBox() {
       <Stack gap={6}>
         <VStack gap={2}>
           {!isAddingHabits && <AddHabitBox />}
-          <For each={habits}>
+          <For each={habits.toReversed()}>
             {(habit) => (
               <HabitCard
                 key={habit.name}
