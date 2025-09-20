@@ -2,6 +2,7 @@ import ProgressBox from "@/components/ProgressBox";
 import QuoteBox from "@/components/QuoteBox";
 import HabitsBox from "@/components/HabitsBox";
 import { Container, Flex, Stack } from "@chakra-ui/react";
+// import GreetingBox from "@/components/GreetingBox";
 
 import LeaderboardBox from "@/components/LeaderboardBox";
 import StreakBox from "@/components/StreakBox";
@@ -15,8 +16,8 @@ function Home() {
         minHeight={"100vh"}
       >
         <Stack flex={1}>
-          {/* <GreetingBox /> */}
           <QuoteBox />
+          {/* <GreetingBox /> */}
           <ProgressBox />
         </Stack>
 
