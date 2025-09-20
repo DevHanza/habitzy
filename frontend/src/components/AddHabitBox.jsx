@@ -1,8 +1,19 @@
 import { Box, Input, Stack, IconButton } from "@chakra-ui/react";
 import { Check, X } from "lucide-react";
 import EmojiPickerButton from "./EmojiPickerButton/EmojiPickerButton";
+import useHabits from "@/hooks/useHabits";
 
 function AddHabitBox() {
+  const { setIsAddingHabits } = useHabits();
+
+  const handleAddHabit = () => {
+    setIsAddingHabits((prev) => !prev);
+  };
+
+  const handleCancelAddHabit = () => {
+    setIsAddingHabits((prev) => !prev);
+  };
+
   return (
     <Box
       borderRadius={6}
@@ -30,7 +41,12 @@ function AddHabitBox() {
           outline={"transparent"}
         />
         {/* Done Button */}
-        <IconButton size="sm" colorPalette={"teal"} aria-label="Add habit">
+        <IconButton
+          size="sm"
+          colorPalette={"teal"}
+          aria-label="Add habit"
+          onClick={handleAddHabit}
+        >
           <Check />
         </IconButton>
         {/* Cancel Button */}
@@ -39,6 +55,7 @@ function AddHabitBox() {
           variant={"surface"}
           colorPalette={"teal"}
           aria-label="Cancel Adding a habit"
+          onClick={handleCancelAddHabit}
         >
           <X />
         </IconButton>

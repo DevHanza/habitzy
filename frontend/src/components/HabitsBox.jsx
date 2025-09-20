@@ -7,8 +7,17 @@ import useHabits from "@/hooks/useHabits";
 
 function HabitsBox() {
   const { habits, isAddingHabits, setIsAddingHabits } = useHabits();
+
+  function handleAddHabit() {
+    setIsAddingHabits((prev) => !prev);
+  }
+
   return (
     <WidgetsWrapper
+      btnlinkprops={{
+        onClick: handleAddHabit,
+        disabled: !isAddingHabits,
+      }}
       // bg={"none"}
       // bg={"bg.subtle"}
       // border="none"
@@ -19,7 +28,7 @@ function HabitsBox() {
     >
       <Stack gap={6}>
         <VStack gap={2}>
-          {isAddingHabits && <AddHabitBox />}
+          {!isAddingHabits && <AddHabitBox />}
           <For each={habits}>
             {(habit) => (
               <HabitCard
@@ -35,7 +44,8 @@ function HabitsBox() {
             variant="solid"
             colorPalette={"teal"}
             width={"100%"}
-            onClick={() => setIsAddingHabits(true)}
+            onClick={handleAddHabit}
+            disabled={!isAddingHabits}
           >
             <Plus /> Add a Habit
           </Button>

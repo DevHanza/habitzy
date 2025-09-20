@@ -16,7 +16,7 @@ const habitsList = [
 
 export const HabitProvider = ({ children }) => {
   const [habits, setHabits] = useState(habitsList);
-  const [isAddingHabits, setIsAddingHabits] = useState(false);
+  const [isAddingHabits, setIsAddingHabits] = useState(true);
 
   const addHabit = (habit) => {
     setHabits((prev) => [...prev, habit]);
