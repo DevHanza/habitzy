@@ -1,6 +1,6 @@
-import ProfileBox from "./ProfileBox";
+import ProfileBox from "@/components/ProfileBox";
 import HabitsTrackerLogo from "./Logo";
-import HoverWrapper from "./ui/HoverWrapper";
+import HoverWrapper from "@/components/ui/HoverWrapper";
 
 import {
   Flex,
