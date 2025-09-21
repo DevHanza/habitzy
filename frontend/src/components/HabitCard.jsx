@@ -1,5 +1,5 @@
+import useHabits from "@/hooks/useHabits";
 import { Box, Stack, Checkbox, Image } from "@chakra-ui/react";
-import { useState } from "react";
 
 function HabitCard({
   id,
@@ -7,8 +7,7 @@ function HabitCard({
   icon = "✨",
   isCompleted = false,
 }) {
-  const [checked, setChecked] = useState(false);
-
+  const { toggleHabit } = useHabits();
   return (
     <Box
       borderRadius={6}
@@ -27,7 +26,7 @@ function HabitCard({
       <span
         style={{ position: "absolute", inset: 0, zIndex: 5 }}
         onClick={() => {
-          setChecked((prevChecked) => !prevChecked);
+          toggleHabit(id);
         }}
       ></span>
 
@@ -39,22 +38,24 @@ function HabitCard({
       >
         <Image
           src={`https://emojicdn.elk.sh/${icon}?style=facebook`}
-          opacity={checked ? 0.5 : 1}
+          opacity={isCompleted ? 0.5 : 1}
           height={{ base: "1rem", md: "1.5rem" }}
           width={{ base: "1rem", md: "1.5rem" }}
         />
         <Checkbox.Root
           variant={"solid"}
           colorPalette={"teal"}
-          checked={checked}
-          onCheckedChange={setChecked}
+          checked={isCompleted}
+          onCheckedChange={() => {
+            toggleHabit(id);
+          }}
           width={"100%"}
           justifyContent={"space-between"}
         >
           <Checkbox.Label
-            textDecoration={checked ? "line-through" : ""}
+            textDecoration={isCompleted ? "line-through" : ""}
             fontSize={{ base: "1.125rem", md: "1.25rem" }}
-            color={checked ? "fg.subtle" : ""}
+            color={isCompleted ? "fg.subtle" : ""}
           >
             {habit}
           </Checkbox.Label>

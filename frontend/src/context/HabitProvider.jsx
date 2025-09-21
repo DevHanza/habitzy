@@ -26,6 +26,14 @@ export const HabitProvider = ({ children }) => {
     setHabits((prev) => prev.filter((habit) => habit.id !== id));
   };
 
+  const toggleHabit = (id) => {
+    setHabits((prev) =>
+      prev.map((habit) =>
+        habit.id === id ? { ...habit, isCompleted: !habit.isCompleted } : habit
+      )
+    );
+  };
+
   return (
     <HabitContext.Provider
       value={{
@@ -34,6 +42,7 @@ export const HabitProvider = ({ children }) => {
         setIsAddingHabits,
         addHabit,
         removeHabit,
+        toggleHabit,
       }}
     >
       {children}
