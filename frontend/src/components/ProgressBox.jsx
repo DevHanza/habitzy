@@ -1,7 +1,14 @@
+import useHabits from "@/hooks/useHabits";
 import WidgetsWrapper from "./ui/WidgetWrapper";
 import { Stack, HStack, Progress, Heading, Text } from "@chakra-ui/react";
 
 function ProgressBox() {
+  const { habits } = useHabits();
+
+  const totalHabits = habits.length;
+  const completedHabits = habits.filter((habit) => habit.isCompleted).length;
+  const habitProgress = (completedHabits / totalHabits) * 100;
+
   return (
     <WidgetsWrapper>
       <Stack>
@@ -17,7 +24,7 @@ function ProgressBox() {
             size={{ base: "2xl", md: "4xl" }}
             fontWeight={700}
           >
-            40%&nbsp;
+            {habitProgress}%&nbsp;
           </Heading>
           <Heading
             color={"fg.muted"}
@@ -29,7 +36,11 @@ function ProgressBox() {
           </Heading>
         </Stack>
 
-        <Progress.Root defaultValue={40} colorPalette={"teal"}>
+        <Progress.Root
+          value={habitProgress}
+          defaultValue={0}
+          colorPalette={"teal"}
+        >
           <HStack>
             <Progress.Track flex="1">
               <Progress.Range />
