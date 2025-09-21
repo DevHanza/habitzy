@@ -109,7 +109,10 @@ export const HabitProvider = ({ children }) => {
   const [isAddingHabits, setIsAddingHabits] = useState(true);
 
   const addHabit = (habit) => {
-    setHabits((prev) => [...prev, habit]);
+    setHabits((prev) => [
+      ...prev,
+      { id: habits.length + 1, isCompleted: false, ...habit },
+    ]);
   };
 
   const removeHabit = (id) => {
