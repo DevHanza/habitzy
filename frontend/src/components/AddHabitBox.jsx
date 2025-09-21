@@ -17,7 +17,10 @@ function AddHabitBox() {
     if (inputRef.current.value.trim().length === 0) return;
 
     if (inputRef.current) {
-      addHabit({ icon: selectedEmoji || "✨", name: inputRef.current.value });
+      addHabit({
+        icon: selectedEmoji || "✨",
+        title: inputRef.current.value,
+      });
       inputRef.current.value = "";
       setIsAddingHabits((prev) => !prev);
     }
