@@ -1,7 +1,7 @@
 import WidgetsWrapper from "./ui/WidgetWrapper";
 import HabitCard from "./HabitCard";
 import { Plus } from "lucide-react";
-import { Button, For, Stack, VStack } from "@chakra-ui/react";
+import { Button, Stack, VStack } from "@chakra-ui/react";
 import AddHabitBox from "./AddHabitBox";
 import useHabits from "@/hooks/useHabits";
 import { useRef } from "react";
@@ -41,17 +41,15 @@ function HabitsBox() {
       <Stack gap={6}>
         <VStack gap={2} ref={addHabitBoxRef}>
           {!isAddingHabits && <AddHabitBox />}
-          <For each={habits.toReversed()}>
-            {(habit) => (
-              <HabitCard
-                key={habit.id}
-                id={habit.id}
-                habit={habit.title}
-                icon={habit.icon}
-                isCompleted={habit.isCompleted}
-              />
-            )}
-          </For>
+          {habits.toReversed().map((habit) => (
+            <HabitCard
+              key={habit.id}
+              id={habit.id}
+              habit={habit.title}
+              icon={habit.icon}
+              isCompleted={habit.isCompleted}
+            />
+          ))}
         </VStack>
         <VStack>
           <Button
