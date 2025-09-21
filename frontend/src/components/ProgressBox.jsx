@@ -7,7 +7,7 @@ function ProgressBox() {
 
   const totalHabits = habits.length;
   const completedHabits = habits.filter((habit) => habit.isCompleted).length;
-  const habitProgress = (completedHabits / totalHabits) * 100;
+  const habitProgress = Math.floor((completedHabits / totalHabits) * 100);
 
   return (
     <WidgetsWrapper>
