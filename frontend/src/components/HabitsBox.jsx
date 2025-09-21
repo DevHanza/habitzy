@@ -44,9 +44,11 @@ function HabitsBox() {
           <For each={habits.toReversed()}>
             {(habit) => (
               <HabitCard
-                key={habit.name}
-                habit={habit.name}
+                key={habit.id}
+                id={habit.id}
+                habit={habit.title}
                 icon={habit.icon}
+                isCompleted={habit.isCompleted}
               />
             )}
           </For>

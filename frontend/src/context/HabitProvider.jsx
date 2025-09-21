@@ -2,16 +2,16 @@ import { useState } from "react";
 import { HabitContext } from "./HabitContext";
 
 const habitsList = [
-  { icon: "📖", name: "Read a book" },
-  { icon: "🏃‍♂️", name: "Go for a run" },
-  { icon: "🧘‍♀️", name: "Meditate" },
-  { icon: "💧", name: "Drink water" },
-  { icon: "📝", name: "Journal" },
-  { icon: "🍎", name: "Eat healthy" },
-  { icon: "🛏️", name: "Sleep early" },
-  { icon: "🎸", name: "Practice guitar" },
-  { icon: "🌱", name: "Gardening" },
-  { icon: "🚿", name: "Cold shower" },
+  { id: 1, icon: "📖", title: "Read a book", isCompleted: false },
+  { id: 2, icon: "🏃‍♂️", title: "Go for a run", isCompleted: false },
+  { id: 3, icon: "🧘‍♀️", title: "Meditate", isCompleted: false },
+  { id: 4, icon: "💧", title: "Drink water", isCompleted: false },
+  { id: 5, icon: "📝", title: "Journal", isCompleted: false },
+  { id: 6, icon: "🍎", title: "Eat healthy", isCompleted: true },
+  { id: 7, icon: "🛏️", title: "Sleep early", isCompleted: false },
+  { id: 8, icon: "🎸", title: "Practice guitar", isCompleted: false },
+  { id: 9, icon: "🌱", title: "Gardening", isCompleted: false },
+  { id: 10, icon: "🚿", title: "Cold shower", isCompleted: false },
 ];
 
 export const HabitProvider = ({ children }) => {

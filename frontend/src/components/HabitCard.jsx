@@ -1,7 +1,12 @@
 import { Box, Stack, Checkbox, Image } from "@chakra-ui/react";
 import { useState } from "react";
 
-function HabitCard({ habit = "Habit Name", icon = "✨" }) {
+function HabitCard({
+  id,
+  habit = "Habit Name",
+  icon = "✨",
+  isCompleted = false,
+}) {
   const [checked, setChecked] = useState(false);
 
   return (
