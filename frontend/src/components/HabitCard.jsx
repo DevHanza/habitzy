@@ -1,13 +1,13 @@
-import useHabits from "@/hooks/useHabits";
 import { Box, Stack, Checkbox, Image } from "@chakra-ui/react";
+import { memo } from "react";
 
-function HabitCard({
+const HabitCard = memo(function HabitCard({
   id,
   habit = "Habit Name",
   icon = "✨",
   isCompleted = false,
+  toggleHabit,
 }) {
-  const { toggleHabit } = useHabits();
   return (
     <Box
       borderRadius={6}
@@ -65,6 +65,6 @@ function HabitCard({
       </Stack>
     </Box>
   );
-}
+});
 
 export default HabitCard;

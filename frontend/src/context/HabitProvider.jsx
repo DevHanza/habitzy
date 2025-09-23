@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { HabitContext } from "./HabitContext";
 
 const habitsList = [
@@ -119,13 +119,13 @@ export const HabitProvider = ({ children }) => {
     setHabits((prev) => prev.filter((habit) => habit.id !== id));
   };
 
-  const toggleHabit = (id) => {
+  const toggleHabit = useCallback((id) => {
     setHabits((prev) =>
       prev.map((habit) =>
         habit.id === id ? { ...habit, isCompleted: !habit.isCompleted } : habit
       )
     );
-  };
+  }, []);
 
   return (
     <HabitContext.Provider

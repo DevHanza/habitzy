@@ -8,7 +8,8 @@ import { useRef } from "react";
 
 function HabitsBox() {
   const addHabitBoxRef = useRef();
-  const { habits, isAddingHabits, setIsAddingHabits } = useHabits();
+  const { habits, isAddingHabits, setIsAddingHabits, toggleHabit } =
+    useHabits();
 
   function handleAddHabit() {
     setIsAddingHabits((prev) => !prev);
@@ -17,10 +18,7 @@ function HabitsBox() {
   function handleBottomAddHabit() {
     handleAddHabit();
     if (addHabitBoxRef.current) {
-      addHabitBoxRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
+      addHabitBoxRef.current.scrollIntoView();
     }
   }
 
@@ -48,6 +46,7 @@ function HabitsBox() {
               habit={habit.title}
               icon={habit.icon}
               isCompleted={habit.isCompleted}
+              toggleHabit={toggleHabit}
             />
           ))}
         </VStack>
