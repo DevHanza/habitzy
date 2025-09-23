@@ -17,7 +17,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import { Menu, House, Crown, Grip, Settings } from "lucide-react";
+import { Menu, House, Crown } from "lucide-react";
 import { Link } from "react-router";
 import { useRef } from "react";
 
