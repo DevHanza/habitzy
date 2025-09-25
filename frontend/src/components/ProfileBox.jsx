@@ -14,8 +14,8 @@ import {
 import { ChevronDown, UserRound, Settings, LogOut, Sun } from "lucide-react";
 
 const profileBoxMenu = [
-  { label: "Your Profile", link: "/profile", icon: UserRound },
-  { label: "Settings", link: "/settings", icon: Settings },
+  { label: "Your Profile", link: "#", icon: UserRound },
+  { label: "Settings", link: "#", icon: Settings },
 ];
 
 function ProfileBox({ extended = false }) {
@@ -92,15 +92,8 @@ function ProfileBox({ extended = false }) {
             {/* Profile  */}
             {profileBoxMenu.map((item) => {
               return (
-                <Link to={item.link} style={{ outline: "transparent" }}>
-                  <Menu.Item
-                    key={item.label}
-                    value={item.label}
-                    py={2.5}
-                    px={2}
-                    gap={4}
-                    cursor={"pointer"}
-                  >
+                <Menu.Item key={item.label} value={item.label} py={2.5} px={2} gap={4}>
+                  <Link to={item.link} style={{ outline: "transparent" }}>
                     <Stack direction={"row"}>
                       <item.icon
                         size={"1.125rem"}
@@ -108,8 +101,8 @@ function ProfileBox({ extended = false }) {
                       />
                       <Text fontSize={"md"}>{item.label}</Text>
                     </Stack>
-                  </Menu.Item>
-                </Link>
+                  </Link>
+                </Menu.Item>
               );
             })}
 

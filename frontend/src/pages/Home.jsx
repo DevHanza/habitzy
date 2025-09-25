@@ -1,6 +1,6 @@
 import ProgressBox from "@/components/ProgressBox";
 import QuoteBox from "@/components/QuoteBox";
-import HabitsBox from "@/components/HabitsBox";
+import HabitsBox from "@/components/Habit/HabitsBox";
 import { Container, Flex, Stack } from "@chakra-ui/react";
 // import GreetingBox from "@/components/GreetingBox";
 

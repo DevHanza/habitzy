@@ -1,4 +1,4 @@
-import WidgetsWrapper from "./ui/WidgetWrapper";
+import WidgetsWrapper from "../ui/WidgetWrapper";
 import HabitCard from "./HabitCard";
 import { Plus } from "lucide-react";
 import { Button, Stack, VStack } from "@chakra-ui/react";
