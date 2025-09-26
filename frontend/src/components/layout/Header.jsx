@@ -1,4 +1,4 @@
-import ProfileBox from "@/components/ProfileBox";
+import ProfileBox from "@/components/Profile/ProfileBox";
 import HabitsTrackerLogo from "./Logo";
 import HoverWrapper from "@/components/ui/HoverWrapper";
 
@@ -15,11 +15,22 @@ import {
   Portal,
   CloseButton,
   VStack,
+  Menu,
+  Switch,
 } from "@chakra-ui/react";
 
-import { Menu, House, Crown } from "lucide-react";
+import {
+  Menu as MenuIcon,
+  House,
+  Crown,
+  UserRound,
+  Settings,
+  LogOut,
+  Sun,
+} from "lucide-react";
 import { Link } from "react-router";
 import { useRef } from "react";
+import { useColorMode } from "../ui/color-mode";
 
 const menuItems = [
   {
@@ -32,6 +43,11 @@ const menuItems = [
     link: "/leaderboard",
     icon: <Crown />,
   },
+];
+
+const profileBoxMenu = [
+  { label: "Your Profile", link: "#", icon: UserRound },
+  { label: "Settings", link: "#", icon: Settings },
 ];
 
 function Header() {
@@ -57,6 +73,7 @@ function Header() {
 }
 
 function DesktopMenu() {
+  const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Stack direction={"row"} gap={"10"} alignItems={"center"}>
       <Stack gap={"1rem"} direction={"row"}>
@@ -76,9 +93,98 @@ function DesktopMenu() {
           )}
         </For>
       </Stack>
-      <HoverWrapper>
-        <ProfileBox />
-      </HoverWrapper>
+
+      <Menu.Root positioning={{ placement: "top-start" }}>
+        {/* Profile Box - Start */}
+        <Menu.Trigger>
+          <HoverWrapper>
+            <ProfileBox />
+          </HoverWrapper>
+        </Menu.Trigger>
+        {/* Profile Box - End */}
+
+        <Portal>
+          <Menu.Positioner maxWidth={"300px"} width={"100%"}>
+            <Menu.Content p={3}>
+              <Menu.Item
+                _hover={{ bg: "bg.emphasized/60" }}
+                borderRadius={4}
+                py={2.5}
+                px={2}
+              >
+                <ProfileBox extended={true} p={3} />
+              </Menu.Item>
+              <hr style={{ margin: "0.5em 0" }} />
+
+              {profileBoxMenu.map((item) => {
+                return (
+                  <Link to={item.link} style={{ outline: "transparent" }}>
+                    <Menu.Item
+                      key={item.label}
+                      value={item.label}
+                      py={2.5}
+                      px={2}
+                      gap={4}
+                      borderRadius={4}
+                    >
+                      <Stack direction={"row"}>
+                        <item.icon
+                          size={"1.125rem"}
+                          style={{ color: "#a1a1aa" }}
+                        />
+                        <Text fontSize={"md"}>{item.label}</Text>
+                      </Stack>
+                    </Menu.Item>
+                  </Link>
+                );
+              })}
+
+              <Stack
+                direction={"row"}
+                py={2.5}
+                px={2}
+                cursor={"pointer"}
+                onClick={toggleColorMode}
+                borderRadius={4}
+                justifyContent={"space-between"}
+                userSelect={"none"}
+                _hover={{ bg: "bg.emphasized/60" }}
+              >
+                <Stack direction={"row"} alignItems={"center"}>
+                  <Sun size={"1.125rem"} style={{ color: "#a1a1aa" }} />
+                  Light Mode
+                </Stack>
+
+                <Switch.Root
+                  size={"md"}
+                  checked={colorMode === "light"}
+                  colorPalette={"teal"}
+                >
+                  <Switch.HiddenInput />
+                  <Switch.Control />
+                  <Switch.Label />
+                </Switch.Root>
+              </Stack>
+
+              <hr style={{ margin: "0.5em 0" }} />
+
+              <Link to={"#"} style={{ outline: "transparent" }}>
+                <Stack
+                  direction={"row"}
+                  py={2.5}
+                  px={2}
+                  borderRadius={4}
+                  alignItems={"center"}
+                  _hover={{ bg: "bg.emphasized/60" }}
+                >
+                  <LogOut size={"1.125rem"} style={{ color: "#a1a1aa" }} />
+                  <Text fontSize={"md"}>Log Out</Text>
+                </Stack>
+              </Link>
+            </Menu.Content>
+          </Menu.Positioner>
+        </Portal>
+      </Menu.Root>
     </Stack>
   );
 }
@@ -95,7 +201,7 @@ function MobileMenu() {
             variant={"outline"}
             size={"sm"}
           >
-            <Menu />
+            <MenuIcon />
           </IconButton>
         </Drawer.Trigger>
 
