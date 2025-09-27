@@ -1,6 +1,6 @@
 import { Box, Input, Stack, IconButton } from "@chakra-ui/react";
 import { Check, X } from "lucide-react";
-import EmojiPickerButton from "./EmojiPickerButton/EmojiPickerButton";
+import EmojiPickerButton from "@/components/EmojiPickerButton/EmojiPickerButton";
 import useHabits from "@/hooks/useHabits";
 import { useRef, useState, useEffect } from "react";
 
