@@ -4,13 +4,23 @@ import { Plus } from "lucide-react";
 import { Button, Stack, VStack } from "@chakra-ui/react";
 import AddHabitBox from "./AddHabitBox";
 import useHabits from "@/hooks/useHabits";
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
+import { moveItemsInList } from "@/utils/moveItemsInList";
 
 function HabitsBox() {
   const addHabitBoxRef = useRef();
-  const { habits, isAddingHabits, setIsAddingHabits, toggleHabit } =
+  const { habits, setHabits, isAddingHabits, setIsAddingHabits, toggleHabit } =
     useHabits();
 
+  // Pragmatic Drag & Drop Features
+
+  const moveItems = useCallback((fromIndex, toIndex) => {
+    setHabits((currentHabits) => {
+      return moveItemsInList(currentHabits, fromIndex, toIndex);
+    });
+  }, []);
+
+  // Functions for adding habits
   function handleAddHabit() {
     setIsAddingHabits((prev) => !prev);
   }
@@ -39,14 +49,16 @@ function HabitsBox() {
       <Stack gap={6}>
         <VStack gap={2} ref={addHabitBoxRef}>
           {!isAddingHabits && <AddHabitBox />}
-          {habits.toReversed().map((habit) => (
+          {habits.map((habit, index) => (
             <HabitCard
               key={habit.id}
               id={habit.id}
+              index={index}
               habit={habit.title}
               icon={habit.icon}
               isCompleted={habit.isCompleted}
               toggleHabit={toggleHabit}
+              moveItems={moveItems}
             />
           ))}
         </VStack>

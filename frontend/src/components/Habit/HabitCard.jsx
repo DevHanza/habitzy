@@ -1,13 +1,55 @@
 import { Box, Stack, Checkbox, Image } from "@chakra-ui/react";
-import { memo } from "react";
+import { memo, useEffect, useRef } from "react";
+import {
+  draggable,
+  dropTargetForElements,
+} from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 
 const HabitCard = memo(function HabitCard({
   id,
+  index,
   habit = "Habit Name",
   icon = "✨",
   isCompleted = false,
   toggleHabit,
+  moveItems,
 }) {
+  const ref = useRef();
+
+  // draggable
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    return draggable({
+      element,
+      onDragStart({ source }) {
+        source.data = { index, id };
+      },
+    });
+  }, [index, id]);
+
+  // dropTargetForElements
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    return dropTargetForElements({
+      element,
+
+      onDrop({ source }) {
+        const fromIndex = source.data?.index;
+        const toIndex = index;
+        if (fromIndex != null && toIndex != null && fromIndex !== toIndex) {
+          moveItems(fromIndex, toIndex);
+        }
+      },
+      canDrop() {
+        return true;
+      },
+    });
+  }, [index, moveItems]);
+
   return (
     <Box
       borderRadius={6}
@@ -22,6 +64,7 @@ const HabitCard = memo(function HabitCard({
         bg: "bg.emphasized",
         cursor: "pointer",
       }}
+      ref={ref}
     >
       <span
         style={{ position: "absolute", inset: 0, zIndex: 5 }}
