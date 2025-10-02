@@ -131,6 +131,7 @@ export const HabitProvider = ({ children }) => {
     <HabitContext.Provider
       value={{
         habits,
+        setHabits,
         isAddingHabits,
         setIsAddingHabits,
         addHabit,
