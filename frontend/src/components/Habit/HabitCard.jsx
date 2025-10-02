@@ -1,5 +1,5 @@
 import { Box, Stack, Checkbox, Image } from "@chakra-ui/react";
-import { memo, useEffect, useRef } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import {
   draggable,
   dropTargetForElements,
@@ -15,6 +15,8 @@ const HabitCard = memo(function HabitCard({
   moveItems,
 }) {
   const ref = useRef();
+  const [isDragging, setIsDragging] = useState();
+  const [isDraggingOver, setIsDraggingOver] = useState();
 
   // draggable
   useEffect(() => {
@@ -25,6 +27,10 @@ const HabitCard = memo(function HabitCard({
       element,
       onDragStart({ source }) {
         source.data = { index, id };
+        setIsDragging(true);
+      },
+      onDrop() {
+        setIsDragging(false);
       },
     });
   }, [index, id]);
@@ -36,8 +42,17 @@ const HabitCard = memo(function HabitCard({
 
     return dropTargetForElements({
       element,
+      onDragEnter() {
+        setIsDraggingOver(true);
+      },
+      onDragLeave() {
+        setIsDraggingOver(false);
+      },
 
       onDrop({ source }) {
+        setIsDraggingOver(false);
+        setIsDragging(false);
+
         const fromIndex = source.data?.index;
         const toIndex = index;
         if (fromIndex != null && toIndex != null && fromIndex !== toIndex) {
@@ -65,6 +80,9 @@ const HabitCard = memo(function HabitCard({
         cursor: "pointer",
       }}
       ref={ref}
+      opacity={isDragging ? 0.5 : 1}
+      outline={isDraggingOver ? "2px dashed" : 0}
+      outlineColor={"teal.500"}
     >
       <span
         style={{ position: "absolute", inset: 0, zIndex: 5 }}
