@@ -54,7 +54,7 @@ function HabitsBox() {
               key={habit.id}
               id={habit.id}
               index={index}
-              habit={habit.title}
+              label={habit.title}
               icon={habit.icon}
               isCompleted={habit.isCompleted}
               toggleHabit={toggleHabit}

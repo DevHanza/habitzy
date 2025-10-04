@@ -9,7 +9,7 @@ import HabitControlMenu from "./HabitControlMenu";
 const HabitCard = memo(function HabitCard({
   id,
   index,
-  habit = "Habit Name",
+  label = "Habit Name",
   icon = "✨",
   isCompleted = false,
   toggleHabit,
@@ -120,7 +120,7 @@ const HabitCard = memo(function HabitCard({
               fontSize={{ base: "1.125rem", md: "1.25rem" }}
               color={isCompleted ? "fg.subtle" : ""}
             >
-              {habit}
+                  {label}
             </Checkbox.Label>
             <Checkbox.HiddenInput />
             <Checkbox.Control />
