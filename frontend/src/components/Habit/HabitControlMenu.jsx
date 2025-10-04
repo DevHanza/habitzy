@@ -1,12 +1,6 @@
 import { Menu, Portal } from "@chakra-ui/react";
 import { CheckCheck, SquarePen, Trash } from "lucide-react";
 
-const menuItems = [
-  { label: "Multi-Select ", icon: CheckCheck, value: "select" },
-  { label: "Edit ", icon: SquarePen, value: "edit" },
-  //   { label: "Delete Habit", icon: <Trash />, value: "delete" },
-];
-
 function HabitControlMenu({ children }) {
   return (
     <Menu.Root>
@@ -14,14 +8,16 @@ function HabitControlMenu({ children }) {
       <Portal>
         <Menu.Positioner width={150}>
           <Menu.Content>
-            {menuItems.map(({ label, icon: Icon, value }) => {
-              return (
-                <Menu.Item cursor={"pointer"} value={value}>
-                  <Icon size={18} />
-                  {label}
-                </Menu.Item>
-              );
-            })}
+            <Menu.Item cursor={"pointer"} value="edit">
+              <SquarePen size={18} />
+              Edit
+            </Menu.Item>
+
+            <Menu.Item cursor={"pointer"} value="select">
+              <CheckCheck size={18} />
+              Multi-Select
+            </Menu.Item>
+
             <Menu.Item
               value="delete"
               color="fg.error"

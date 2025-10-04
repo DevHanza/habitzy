@@ -4,7 +4,7 @@ import {
   draggable,
   dropTargetForElements,
 } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
-import HabitControlMenu from "./HabitControlMenu";
+import HabitControlMenu from "@/components/Habit/HabitControlMenu";
 
 const HabitCard = memo(function HabitCard({
   id,
