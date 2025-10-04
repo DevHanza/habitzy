@@ -3,6 +3,7 @@
 Habit Tracker with MERN Stack (React + Chakra UI)
 <br/><br/>
 ![Habit Tracker Stack](https://go-skill-icons.vercel.app/api/icons?i=react,chakraui,js,html,css)
+
 # Stack
 
 - **M**ongoDB
@@ -16,14 +17,17 @@ Using:
 
 ### Frontend Libraries
 
-- Chakra UI
-- React Router v7
+- ![Chakra UI](https://chakra-ui.com/)
+- ![React Router v7](https://reactrouter.com/)
+- ![Pragmatic Drag and Drop](https://github.com/atlassian/pragmatic-drag-and-drop)
+- ![Frimousse](https://github.com/liveblocks/frimousse)
+- ![Lucide Icons](https://lucide.dev/guide/packages/lucide-react)
 
 ### Backend Libraries
 
-- Mongoose
-- cors
-- dotenv
+- [Mongoose](https://mongoosejs.com/)
+- [cors](https://www.npmjs.com/package/cors)
+- [dotenv](https://www.npmjs.com/package/dotenv)
 
 # Initial Planned Folder Structure
 
