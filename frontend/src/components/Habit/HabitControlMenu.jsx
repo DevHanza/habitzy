@@ -1,14 +1,18 @@
 import { Menu, Portal } from "@chakra-ui/react";
 import { CheckCheck, SquarePen, Trash } from "lucide-react";
 
-function HabitControlMenu({ children }) {
+function HabitControlMenu({ children, setIsEditing }) {
   return (
     <Menu.Root>
       <Menu.ContextTrigger width="full">{children}</Menu.ContextTrigger>
       <Portal>
         <Menu.Positioner width={150}>
           <Menu.Content>
-            <Menu.Item cursor={"pointer"} value="edit">
+            <Menu.Item
+              cursor={"pointer"}
+              value="edit"
+              onClick={() => setIsEditing(true)}
+            >
               <SquarePen size={18} />
               Edit
             </Menu.Item>

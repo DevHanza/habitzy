@@ -5,6 +5,7 @@ import {
   dropTargetForElements,
 } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import HabitControlMenu from "@/components/Habit/HabitControlMenu";
+import EditHabitBox from "@/components/Habit/EditHabitBox";
 
 const HabitCard = memo(function HabitCard({
   id,
@@ -18,6 +19,7 @@ const HabitCard = memo(function HabitCard({
   const ref = useRef();
   const [isDragging, setIsDragging] = useState();
   const [isDraggingOver, setIsDraggingOver] = useState();
+  const [isEditing, setIsEditing] = useState(false);
 
   // draggable
   useEffect(() => {
@@ -67,67 +69,78 @@ const HabitCard = memo(function HabitCard({
   }, [index, moveItems]);
 
   return (
-    <HabitControlMenu>
-      <Box
-        borderRadius={6}
-        px={3}
-        py={4}
-        border={"0.5px solid"}
-        borderColor={"border"}
-        bg={"bg.subtle"}
-        width={"100%"}
-        position={"relative"}
-        _hover={{
-          bg: "bg.emphasized",
-          cursor: "pointer",
-        }}
-        ref={ref}
-        opacity={isDragging ? 0.5 : 1}
-        outline={isDraggingOver ? "2px dashed" : 0}
-        outlineColor={"teal.500"}
-      >
-        <span
-          style={{ position: "absolute", inset: 0, zIndex: 5 }}
-          onClick={() => {
-            toggleHabit(id);
-          }}
-        ></span>
-
-        <Stack
-          flexDirection={"row"}
-          align="flex-start"
-          flex="1"
-          alignItems={"center"}
-        >
-          <Image
-            src={`https://emojicdn.elk.sh/${icon}?style=facebook`}
-            opacity={isCompleted ? 0.5 : 1}
-            height={{ base: "1rem", md: "1.5rem" }}
-            width={{ base: "1rem", md: "1.5rem" }}
-          />
-          <Checkbox.Root
-            variant={"solid"}
-            colorPalette={"teal"}
-            checked={isCompleted}
-            onCheckedChange={() => {
-              toggleHabit(id);
-            }}
+    <>
+      {isEditing ? (
+        <EditHabitBox
+          setIsEditing={setIsEditing}
+          id={id}
+          label={label}
+          icon={icon}
+        />
+      ) : (
+        <HabitControlMenu setIsEditing={setIsEditing}>
+          <Box
+            borderRadius={6}
+            px={3}
+            py={4}
+            border={"0.5px solid"}
+            borderColor={"border"}
+            bg={"bg.subtle"}
             width={"100%"}
-            justifyContent={"space-between"}
+            position={"relative"}
+            _hover={{
+              bg: "bg.emphasized",
+              cursor: "pointer",
+            }}
+            ref={ref}
+            opacity={isDragging ? 0.5 : 1}
+            outline={isDraggingOver ? "2px dashed" : 0}
+            outlineColor={"teal.500"}
           >
-            <Checkbox.Label
-              textDecoration={isCompleted ? "line-through" : ""}
-              fontSize={{ base: "1.125rem", md: "1.25rem" }}
-              color={isCompleted ? "fg.subtle" : ""}
+            <span
+              style={{ position: "absolute", inset: 0, zIndex: 5 }}
+              onClick={() => {
+                toggleHabit(id);
+              }}
+            ></span>
+
+            <Stack
+              flexDirection={"row"}
+              align="flex-start"
+              flex="1"
+              alignItems={"center"}
             >
+              <Image
+                src={`https://emojicdn.elk.sh/${icon}?style=facebook`}
+                opacity={isCompleted ? 0.5 : 1}
+                height={{ base: "1rem", md: "1.5rem" }}
+                width={{ base: "1rem", md: "1.5rem" }}
+              />
+              <Checkbox.Root
+                variant={"solid"}
+                colorPalette={"teal"}
+                checked={isCompleted}
+                onCheckedChange={() => {
+                  toggleHabit(id);
+                }}
+                width={"100%"}
+                justifyContent={"space-between"}
+              >
+                <Checkbox.Label
+                  textDecoration={isCompleted ? "line-through" : ""}
+                  fontSize={{ base: "1.125rem", md: "1.25rem" }}
+                  color={isCompleted ? "fg.subtle" : ""}
+                >
                   {label}
-            </Checkbox.Label>
-            <Checkbox.HiddenInput />
-            <Checkbox.Control />
-          </Checkbox.Root>
-        </Stack>
-      </Box>
-    </HabitControlMenu>
+                </Checkbox.Label>
+                <Checkbox.HiddenInput />
+                <Checkbox.Control />
+              </Checkbox.Root>
+            </Stack>
+          </Box>
+        </HabitControlMenu>
+      )}
+    </>
   );
 });
 
