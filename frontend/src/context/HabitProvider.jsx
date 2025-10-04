@@ -115,6 +115,19 @@ export const HabitProvider = ({ children }) => {
     ]);
   };
 
+  const editHabit = (id, selectedEmoji, label) => {
+    const habit = habits.find((habit) => habit.id === id);
+    console.log(habit);
+
+    setHabits((prevHabits) =>
+      prevHabits.map((habit) =>
+        habit.id === id
+          ? { ...habit, icon: selectedEmoji, title: label }
+          : habit
+      )
+    );
+  };
+
   const removeHabit = (id) => {
     setHabits((prev) => prev.filter((habit) => habit.id !== id));
   };
@@ -135,6 +148,7 @@ export const HabitProvider = ({ children }) => {
         isAddingHabits,
         setIsAddingHabits,
         addHabit,
+        editHabit,
         removeHabit,
         toggleHabit,
       }}
