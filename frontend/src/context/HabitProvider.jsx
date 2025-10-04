@@ -117,7 +117,9 @@ export const HabitProvider = ({ children }) => {
 
   const editHabit = (id, selectedEmoji, label) => {
     const habit = habits.find((habit) => habit.id === id);
-    console.log(habit);
+
+    // Return if there's no changes
+    if (selectedEmoji === habit.icon && label === habit.title) return;
 
     setHabits((prevHabits) =>
       prevHabits.map((habit) =>
