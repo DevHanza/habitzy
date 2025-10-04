@@ -18,7 +18,6 @@ function EditHabitBox({ setIsEditing, id, label, icon }) {
       removeHabit(id);
     } else if (inputRef.current) {
       // Edit Habit
-      console.log(id, selectedEmoji, inputRef.current.value);
       editHabit(id, selectedEmoji, inputRef.current.value);
       inputRef.current.value = "";
       setIsEditing((prev) => !prev);
