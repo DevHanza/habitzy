@@ -78,7 +78,7 @@ const HabitCard = memo(function HabitCard({
           icon={icon}
         />
       ) : (
-        <HabitControlMenu setIsEditing={setIsEditing}>
+        <HabitControlMenu id={id} setIsEditing={setIsEditing}>
           <Box
             borderRadius={6}
             px={3}

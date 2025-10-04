@@ -1,7 +1,9 @@
+import useHabits from "@/hooks/useHabits";
 import { Menu, Portal } from "@chakra-ui/react";
 import { CheckCheck, SquarePen, Trash } from "lucide-react";
 
-function HabitControlMenu({ children, setIsEditing }) {
+function HabitControlMenu({ children, setIsEditing, id }) {
+  const { removeHabit } = useHabits();
   return (
     <Menu.Root>
       <Menu.ContextTrigger width="full">{children}</Menu.ContextTrigger>
@@ -27,6 +29,9 @@ function HabitControlMenu({ children, setIsEditing }) {
               color="fg.error"
               cursor={"pointer"}
               _hover={{ bg: "bg.error", color: "fg.error" }}
+              onClick={() => {
+                removeHabit(id);
+              }}
             >
               <Trash size={18} />
               Delete
