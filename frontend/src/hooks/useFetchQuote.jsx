@@ -8,6 +8,9 @@ function useFetchQuote() {
   const [error, setError] = useState();
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     setLoading(true);
     setError(null);
 
@@ -16,12 +19,18 @@ function useFetchQuote() {
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         return res.json();
       })
-      .then((json) => setQuote(json))
+      .then((json) => {
+        if (!signal.aborted) setQuote(json);
+      })
       .catch((err) => {
-        setError(err);
+        if (!signal.aborted) setError(err);
         console.error(err);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (!signal.aborted) setLoading(false);
+      });
+
+    return () => controller.abort(); // abort if component unmounts
   }, [url]);
 
   return { quote, loading, error };
