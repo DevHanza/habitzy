@@ -1,7 +1,20 @@
-import { Heading, Stack, Text } from "@chakra-ui/react";
+import { Heading, Stack, Text, Spinner, Alert } from "@chakra-ui/react";
 import WidgetsWrapper from "./ui/WidgetWrapper";
+import useFetchQuote from "@/hooks/useFetchQuote";
 
 function QuoteBox() {
+  const { quote, loading, error } = useFetchQuote();
+
+  if (loading) return <Spinner color="teal.500" size="md" />;
+
+  if (error)
+    return (
+      <Alert.Root status="error">
+        <Alert.Indicator />
+        <Alert.Title>Quote load failed. Retry?</Alert.Title>
+      </Alert.Root>
+    );
+
   return (
     <WidgetsWrapper py={6}>
       <Stack gap={4}>
@@ -10,11 +23,10 @@ function QuoteBox() {
           size={{ base: "md", md: "lg" }}
           lineHeight={{ base: 1.25, md: 1.3 }}
         >
-          If you don't sacrifice for your goals, your goals become the
-          sacrifice.
+          {quote[0].content}
         </Heading>
         <Text fontSize={"0.875rem"} color={"fg.muted"}>
-          — Jack Harobour
+          — {quote[0].author}
         </Text>
       </Stack>
     </WidgetsWrapper>
