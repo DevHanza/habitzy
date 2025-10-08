@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { HabitContext } from "./HabitContext";
+import { HabitContext } from "@/context/HabitContext";
 
 const habitsList = [
   { id: 1, icon: "📖", title: "Read a book", isCompleted: false },
