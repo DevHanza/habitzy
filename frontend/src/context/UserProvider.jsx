@@ -11,8 +11,20 @@ const userData = {
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(userData);
 
+  const incrementStreak = () => {
+    const longestStreak = Math.max(user.currentStreak, user.longestStreak);
+
+    setUser((prevUser) => {
+      return {
+        ...prevUser,
+        currentStreak: prevUser.currentStreak + 1,
+        longestStreak,
+      };
+    });
+  };
+
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, incrementStreak }}>
       {children}
     </UserContext.Provider>
   );
