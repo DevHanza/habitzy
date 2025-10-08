@@ -1,4 +1,3 @@
-import React from "react";
 import WidgetWrapper from "./ui/WidgetWrapper";
 import { HStack, VStack, Stack, Image, Heading, Text } from "@chakra-ui/react";
 
@@ -6,8 +5,6 @@ function StreakBox() {
   return (
     <WidgetWrapper py={6}>
       <Stack>
-        {/*  */}
-
         <HStack gap={1} alignItems={"center"} justifyContent={"center"}>
           <Heading
             display={"inline-block"}
