@@ -118,9 +118,12 @@ function DesktopMenu() {
 
               {profileBoxMenu.map((item) => {
                 return (
-                  <Link to={item.link} style={{ outline: "transparent" }}>
+                  <Link
+                    to={item.link}
+                    style={{ outline: "transparent" }}
+                    key={item.label}
+                  >
                     <Menu.Item
-                      key={item.label}
                       value={item.label}
                       py={2.5}
                       px={2}
