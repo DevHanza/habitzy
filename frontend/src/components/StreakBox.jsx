@@ -1,7 +1,28 @@
+import React, { useMemo, useEffect } from "react";
 import WidgetWrapper from "./ui/WidgetWrapper";
 import { HStack, VStack, Stack, Image, Heading, Text } from "@chakra-ui/react";
+import useHabits from "@/hooks/useHabits";
+import useUser from "@/hooks/useUser";
+
+import runOncePerDay from "@/utils/runOncePerDay";
 
 function StreakBox() {
+  const { habits } = useHabits();
+  const { user, incrementStreak } = useUser();
+
+  const allCompleted = useMemo(() => {
+    return habits.every((habit) => habit.isCompleted);
+  }, [habits]);
+
+  useEffect(() => {
+    if (allCompleted) {
+      runOncePerDay("#incrementStreak", () => {
+        incrementStreak();
+        console.log("Streak incremented!");
+      });
+    }
+  }, [allCompleted, incrementStreak]);
+
   return (
     <WidgetWrapper py={6}>
       <Stack>
@@ -13,7 +34,7 @@ function StreakBox() {
             lineHeight={1}
             letterSpacing={1}
           >
-            27
+            {user.currentStreak}
           </Heading>
           <Image
             src="https://emojicdn.elk.sh/🔥?style=facebook"
@@ -30,4 +51,4 @@ function StreakBox() {
   );
 }
 
-export default StreakBox;
+export default React.memo(StreakBox);
