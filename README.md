@@ -17,11 +17,11 @@ Using:
 
 ### Frontend Libraries
 
-- ![Chakra UI](https://chakra-ui.com/)
-- ![React Router v7](https://reactrouter.com/)
-- ![Pragmatic Drag and Drop](https://github.com/atlassian/pragmatic-drag-and-drop)
-- ![Frimousse](https://github.com/liveblocks/frimousse)
-- ![Lucide Icons](https://lucide.dev/guide/packages/lucide-react)
+- [Chakra UI](https://chakra-ui.com/)
+- [React Router v7](https://reactrouter.com/)
+- [Pragmatic Drag and Drop](https://github.com/atlassian/pragmatic-drag-and-drop)
+- [Frimousse](https://github.com/liveblocks/frimousse)
+- [Lucide Icons](https://lucide.dev/guide/packages/lucide-react)
 
 ### Backend Libraries
 
