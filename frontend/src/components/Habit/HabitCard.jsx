@@ -128,6 +128,8 @@ const HabitCard = memo(function HabitCard({
                 textDecoration={isCompleted ? "line-through" : ""}
                 fontSize={{ base: "1.125rem", md: "1.25rem" }}
                 color={isCompleted ? "fg.subtle" : ""}
+                  textAlign={"left"}
+                  lineHeight={1.25}
               >
                 {label}
               </Checkbox.Label>
