@@ -9,8 +9,14 @@ import { moveItemsInList } from "@/utils/moveItemsInList";
 
 function HabitsBox() {
   const addHabitBoxRef = useRef();
-  const { habits, setHabits, isAddingHabits, setIsAddingHabits, toggleHabit } =
-    useHabits();
+  const {
+    habits,
+    setHabits,
+    isAddingHabits,
+    setIsAddingHabits,
+    toggleHabit,
+    removeHabit,
+  } = useHabits();
 
   // Pragmatic Drag & Drop Features
 
@@ -59,6 +65,7 @@ function HabitsBox() {
               isCompleted={habit.isCompleted}
               toggleHabit={toggleHabit}
               moveItems={moveItems}
+              removeHabit={removeHabit}
             />
           ))}
         </VStack>

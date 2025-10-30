@@ -130,9 +130,9 @@ export const HabitProvider = ({ children }) => {
     );
   };
 
-  const removeHabit = (id) => {
+  const removeHabit = useCallback((id) => {
     setHabits((prev) => prev.filter((habit) => habit.id !== id));
-  };
+  }, []);
 
   const toggleHabit = useCallback((id) => {
     setHabits((prev) =>

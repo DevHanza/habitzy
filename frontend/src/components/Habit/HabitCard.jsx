@@ -16,6 +16,7 @@ const HabitCard = memo(function HabitCard({
   isCompleted = false,
   toggleHabit,
   moveItems,
+  removeHabit,
 }) {
   const ref = useRef();
   const [isDragging, setIsDragging] = useState();
@@ -82,7 +83,11 @@ const HabitCard = memo(function HabitCard({
         ""
       )}
       <Box gap={0} width={"100%"} display={isEditing ? "none" : "block"}>
-        <HabitContextMenu setIsEditing={setIsEditing}>
+        <HabitContextMenu
+          setIsEditing={setIsEditing}
+          habitId={id}
+          removeHabit={removeHabit}
+        >
           <Box
             borderRadius={6}
             px={3}

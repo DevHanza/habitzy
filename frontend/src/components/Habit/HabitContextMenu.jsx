@@ -1,6 +1,6 @@
-import { Button, Menu, Portal } from "@chakra-ui/react";
+import { Menu, Portal } from "@chakra-ui/react";
 
-function HabitContextMenu({ children, setIsEditing }) {
+function HabitContextMenu({ children, setIsEditing, removeHabit, habitId }) {
   return (
     <Menu.Root>
       <Menu.ContextTrigger width="full">{children}</Menu.ContextTrigger>
@@ -15,7 +15,7 @@ function HabitContextMenu({ children, setIsEditing }) {
               color="fg.error"
               _hover={{ bg: "bg.error", color: "fg.error" }}
               onClick={() => {
-                alert("Delete Function.");
+                removeHabit(habitId);
               }}
             >
               Delete
