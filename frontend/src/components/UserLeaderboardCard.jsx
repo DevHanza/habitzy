@@ -9,7 +9,12 @@ import {
   Stack,
 } from "@chakra-ui/react";
 
-function UserLeaderboardCard({ rank = 1, streak = 100 }) {
+function UserLeaderboardCard({
+  rank = 1,
+  streak = 100,
+  name = "DevHanza",
+  username = "devhanza",
+}) {
   return (
     <Box
       borderRadius={6}
@@ -29,7 +34,7 @@ function UserLeaderboardCard({ rank = 1, streak = 100 }) {
             TOP
           </Text>
           <Text fontWeight={600} color={"fg.emphasized"} lineHeight={1}>
-            100%
+            10%
           </Text>
         </Stack>
 
@@ -38,8 +43,16 @@ function UserLeaderboardCard({ rank = 1, streak = 100 }) {
           <HStack gap={3}>
             <VStack gap={1} alignItems={"flex-start"}>
               <Text fontSize={"md"} fontWeight={500} lineHeight={1}>
-                You
+                {name}
               </Text>
+              {/* <Text
+                fontSize={"xs"}
+                fontWeight={300}
+                lineHeight={1}
+                color={"fg.muted"}
+              >
+                {username}
+              </Text> */}
             </VStack>
           </HStack>
           {/* User */}
