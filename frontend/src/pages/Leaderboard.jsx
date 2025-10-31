@@ -25,40 +25,45 @@ const users = [
 
 function Leaderboard() {
   return (
-    <Container maxW={"xl"}>
-      <Flex direction={"column"} gap={8}>
-        <VStack>
-          <Heading size={"3xl"}>Leaderboard</Heading>
-          <Text textAlign={"center"} color={"fg.muted"} pb={6}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque a
-            pariatur doloribus.
-          </Text>
-          <Separator width={"100%"} />
-        </VStack>
-        <VStack gap={2} width={"100%"}>
-          {users.map((user, index) => (
-            <LeaderboardCard
-              key={user.username}
-              rank={index + 1}
-              name={user.name}
-              username={user.username}
-              streak={user.streak}
-            />
-          ))}
-        </VStack>
-        <HStack
-          position={"sticky"}
-          bottom={0}
-          left={0}
-          background={"bg.muted"}
-          width={"100%"}
-          zIndex={10}
-          py={2}
-        >
+    <>
+      <Container maxW={"xl"}>
+        <Flex direction={"column"} gap={8}>
+          <VStack>
+            <Heading size={{ base: "2xl", md: "3xl" }}>Leaderboard</Heading>
+            <Text textAlign={"center"} color={"fg.muted"} pb={6}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque a
+              pariatur doloribus.
+            </Text>
+            <Separator width={"100%"} />
+          </VStack>
+          <VStack gap={2} width={"100%"}>
+            {users.map((user, index) => (
+              <LeaderboardCard
+                key={user.username}
+                rank={index + 1}
+                name={user.name}
+                username={user.username}
+                streak={user.streak}
+              />
+            ))}
+          </VStack>
+        </Flex>
+      </Container>
+      <HStack
+        position={"sticky"}
+        bottom={{ base: "86px", md: 0 }}
+        left={{ base: 20, md: 0 }}
+        background={"bg.muted"}
+        width={"100%"}
+        zIndex={10}
+        py={2}
+        mt={2}
+      >
+        <Container maxW={"xl"}>
           <UserLeaderboardCard />
-        </HStack>
-      </Flex>
-    </Container>
+        </Container>
+      </HStack>
+    </>
   );
 }
 
