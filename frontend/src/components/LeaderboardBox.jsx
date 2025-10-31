@@ -1,6 +1,6 @@
 import { VStack } from "@chakra-ui/react";
-import WidgetsWrapper from "./ui/WidgetWrapper";
-import LeaderboardCard from "./LeaderboardCard";
+import WidgetsWrapper from "@/components/ui/WidgetWrapper";
+import LeaderboardCard from "@/components/LeaderboardCard";
 
 const users = [
   { name: "Brook Lesnar", username: "brookkiller", streak: 45 },
@@ -26,7 +26,7 @@ function LeaderboardBox() {
         {users.map((user, index) => (
           <LeaderboardCard
             key={user.username}
-            rank={"#" + (index + 1)}
+            rank={index + 1}
             name={user.name}
             username={user.username}
             streak={user.streak}
