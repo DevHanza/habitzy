@@ -4,7 +4,7 @@ import pickPalette from "@/utils/pickPallette";
 function LeaderboardCard({
   rank = 1,
   name = "Hansana",
-  username = "@devhanza",
+  username = "devhanza",
   streak = 100,
 }) {
   return (
