@@ -94,7 +94,7 @@ function DesktopMenu() {
         </IconButton>
       </Stack>
 
-      <Link to="/account">
+      <Link to="/">
         <Avatar.Root size={"sm"} colorPalette={"teal"}>
           <Avatar.Fallback name="Dev Hanza" />
         </Avatar.Root>
