@@ -25,7 +25,7 @@ function Account() {
           width={"100%"}
           borderRadius={12}
         >
-          <Heading fontSize={"1.5rem"} lineHeight={1}>
+          <Heading size={"2xl"} lineHeight={1}>
             DevHanza
           </Heading>
           <Text lineHeight={1}>@devhanza</Text>
@@ -86,7 +86,7 @@ function StatCard({
           height={{ base: "1.25rem", md: "1.5rem" }}
         />
         <Stack gap={1.5}>
-          <Heading fontWeight={700} fontSize={"1.25rem"} lineHeight={1}>
+          <Heading fontWeight={700} size={"xl"} lineHeight={1}>
             {heading}
           </Heading>
           <Text color={"fg.muted"} fontSize={"0.875rem"} lineHeight={1}>
