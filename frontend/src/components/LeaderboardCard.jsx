@@ -2,7 +2,7 @@ import { Box, Avatar, HStack, Text, VStack, Image } from "@chakra-ui/react";
 import pickPalette from "@/utils/pickPallette";
 
 function LeaderboardCard({
-  rank = "#1",
+  rank = 1,
   name = "Hansana",
   username = "@devhanza",
   streak = 100,
@@ -21,7 +21,7 @@ function LeaderboardCard({
       <HStack gap={4}>
         {/* Rank */}
         <Text fontWeight={600} color={"fg.muted"}>
-          {rank}
+          #{rank}
         </Text>
         {/* Rank */}
         <HStack justifyContent={"space-between"} flex={3}>
