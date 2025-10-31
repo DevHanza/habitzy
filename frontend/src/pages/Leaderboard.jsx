@@ -51,8 +51,8 @@ function Leaderboard() {
       </Container>
       <HStack
         position={"sticky"}
-        bottom={{ base: "86px", md: 0 }}
-        left={{ base: 20, md: 0 }}
+        bottom={{ base: "var(--bottom-nav-height)", md: 0 }}
+        left={{ base: "var(--bottom-nav-height)", md: 0 }}
         background={"bg.muted"}
         width={"100%"}
         zIndex={10}
