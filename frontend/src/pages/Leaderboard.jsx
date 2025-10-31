@@ -10,6 +10,7 @@ import {
 // import LeaderboardCard from "@/components/LeaderboardCard";
 import LeaderboardCard from "@/components/LeaderboardCard";
 import UserLeaderboardCard from "@/components/UserLeaderboardCard";
+import NavigateControls from "@/components/layout/NavigateControls";
 const users = [
   { name: "Brook Lesnar", username: "brookkiller", streak: 45 },
   { name: "Diego Ramirez", username: "drz_90", streak: 34 },
@@ -25,7 +26,8 @@ const users = [
 
 function Leaderboard() {
   return (
-    <>
+    <Container>
+      <NavigateControls />
       <Container maxW={"xl"}>
         <Flex direction={"column"} gap={8}>
           <VStack>
@@ -63,7 +65,7 @@ function Leaderboard() {
           <UserLeaderboardCard />
         </Container>
       </HStack>
-    </>
+    </Container>
   );
 }
 
