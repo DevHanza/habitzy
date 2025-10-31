@@ -16,7 +16,6 @@ import {
 
 import { House, Crown, UserRound, Settings, Sun, Moon } from "lucide-react";
 import { Link } from "react-router";
-import { useRef } from "react";
 import { useColorMode } from "../ui/color-mode";
 
 const menuItems = [
@@ -31,7 +30,7 @@ const menuItems = [
     icon: <Crown />,
   },
   {
-    label: "My Account",
+    label: "Account",
     link: "/account",
     icon: <UserRound />,
   },
