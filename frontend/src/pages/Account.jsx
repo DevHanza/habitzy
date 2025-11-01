@@ -33,7 +33,7 @@ function Account() {
         {/* Profile Card - END */}
 
         {/* About - Start */}
-        <Stack gap={4}>
+        <Stack gap={2}>
           <Heading>About</Heading>
           <Text>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit,
@@ -44,7 +44,7 @@ function Account() {
         {/* About - ENd */}
 
         {/* Statistics - Start*/}
-        <Stack gap={4}>
+        <Stack gap={2}>
           <Heading>Statistics</Heading>
           <Grid templateColumns={"repeat(2, 1fr)"} gap={2}>
             <StatCard
