@@ -36,35 +36,34 @@ function Account() {
           </Stack>
           {/* Profile Card - END */}
 
-          {/* About - Start */}
-          <Stack gap={4}>
-            <Heading>About</Heading>
-            <Text>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit,
-              numquam! Quas tempora est aliquid dolorem sit provident nam
-              ducimus quis autem.
-            </Text>
-          </Stack>
-          {/* About - ENd */}
+        {/* About - Start */}
+        <Stack gap={2}>
+          <Heading>About</Heading>
+          <Text>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit,
+            numquam! Quas tempora est aliquid dolorem sit provident nam ducimus
+            quis autem.
+          </Text>
+        </Stack>
+        {/* About - ENd */}
 
-          {/* Statistics - Start*/}
-          <Stack gap={4}>
-            <Heading>Statistics</Heading>
-            <Grid templateColumns={"repeat(2, 1fr)"} gap={2}>
-              <StatCard
-                emoji="🔥"
-                heading="34"
-                text="Day streak"
-                background={"yellow.500"}
-              />
-              <StatCard emoji="📈" heading="#23" text="Global rank" />
-              <StatCard emoji="🎯" heading="553" text="Longest streak" />
-              <StatCard emoji="📅" heading="Mar, 2024" text="Joined date" />
-            </Grid>
-          </Stack>
-          {/* Statistics - End*/}
-        </Flex>
-      </Container>
+        {/* Statistics - Start*/}
+        <Stack gap={2}>
+          <Heading>Statistics</Heading>
+          <Grid templateColumns={"repeat(2, 1fr)"} gap={2}>
+            <StatCard
+              emoji="🔥"
+              heading="34"
+              text="Day streak"
+              background={"yellow.500"}
+            />
+            <StatCard emoji="📈" heading="#23" text="Global rank" />
+            <StatCard emoji="🎯" heading="553" text="Longest streak" />
+            <StatCard emoji="📅" heading="Mar, 2024" text="Joined date" />
+          </Grid>
+        </Stack>
+        {/* Statistics - End*/}
+      </Flex>
     </Container>
   );
 }
