@@ -31,7 +31,7 @@ function Leaderboard() {
       <Container maxW={"xl"}>
         <Flex direction={"column"} gap={8}>
           <VStack>
-            <Heading size={{ base: "2xl", md: "3xl" }}>Leaderboard</Heading>
+            <Heading size={{ base: "2xl", md: "2xl" }}>Leaderboard</Heading>
             <Text textAlign={"center"} color={"fg.muted"} pb={6}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque a
               pariatur doloribus.
