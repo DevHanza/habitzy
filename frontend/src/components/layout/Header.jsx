@@ -85,7 +85,7 @@ function DesktopMenu() {
         <IconButton
           aria-label="Switch Theme"
           rounded="full"
-          variant={"solid"}
+          variant={"subtle"}
           onClick={toggleColorMode}
           size={"sm"}
         >
