@@ -1,3 +1,4 @@
+import { getCookie, setCookie } from "@/utils/cookieHelper";
 import { useEffect, useState } from "react";
 
 function useFetchQuote() {
@@ -8,11 +9,20 @@ function useFetchQuote() {
   const [error, setError] = useState();
 
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-
     setLoading(true);
     setError(null);
+
+    const quoteCookie = getCookie("quote");
+
+    if (quoteCookie) {
+      const savedQuote = JSON.parse(quoteCookie);
+      setQuote(savedQuote);
+      setLoading(false);
+      return;
+    }
+
+    const controller = new AbortController();
+    const signal = controller.signal;
 
     fetch(url)
       .then((res) => {
@@ -20,7 +30,11 @@ function useFetchQuote() {
         return res.json();
       })
       .then((json) => {
-        if (!signal.aborted) setQuote(json);
+        if (!signal.aborted) {
+          setQuote(json);
+          const quoteData = JSON.stringify(json);
+          setCookie("quote", quoteData, 1);
+        }
       })
       .catch((err) => {
         if (!signal.aborted) setError(err);
