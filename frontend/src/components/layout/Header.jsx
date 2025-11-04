@@ -29,11 +29,11 @@ const menuItems = [
     link: "/leaderboard",
     icon: <Crown />,
   },
-  {
-    label: "Account",
-    link: "/account",
-    icon: <UserRound />,
-  },
+  // {
+  //   label: "Account",
+  //   link: "/account",
+  //   icon: <UserRound />,
+  // },
   {
     label: "Settings",
     link: "/settings",
@@ -93,7 +93,7 @@ function DesktopMenu() {
         </IconButton>
       </Stack>
 
-      <Link to="/">
+      <Link to="/account">
         <Avatar.Root size={"sm"} colorPalette={"teal"}>
           <Avatar.Fallback name="Dev Hanza" />
         </Avatar.Root>
