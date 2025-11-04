@@ -18,7 +18,7 @@ import { House, Crown, UserRound, Settings, Sun, Moon } from "lucide-react";
 import { Link } from "react-router";
 import { useColorMode } from "../ui/color-mode";
 
-const menuItems = [
+const desktopMenuItems = [
   {
     label: "Home",
     link: "/=",
@@ -29,11 +29,29 @@ const menuItems = [
     link: "/leaderboard",
     icon: <Crown />,
   },
-  // {
-  //   label: "Account",
-  //   link: "/account",
-  //   icon: <UserRound />,
-  // },
+  {
+    label: "Settings",
+    link: "/settings",
+    icon: <Settings />,
+  },
+];
+
+const bottomNavItems = [
+  {
+    label: "Home",
+    link: "/=",
+    icon: <House />,
+  },
+  {
+    label: "Leaderboard",
+    link: "/leaderboard",
+    icon: <Crown />,
+  },
+  {
+    label: "Account",
+    link: "/account",
+    icon: <UserRound />,
+  },
   {
     label: "Settings",
     link: "/settings",
@@ -68,7 +86,7 @@ function DesktopMenu() {
   return (
     <Stack direction={"row"} gap={4} alignItems={"center"}>
       <Stack gap={2} direction={"row"}>
-        <For each={menuItems}>
+        <For each={desktopMenuItems}>
           {(item) => (
             <Link to={item.link} key={item.link}>
               <IconButton
@@ -135,7 +153,7 @@ function BottomNav() {
         zIndex={999}
       >
         <Flex p={2}>
-          <For each={menuItems}>
+          <For each={bottomNavItems}>
             {(item) => (
               <HoverWrapper key={item.link} size={0} flex={1} py={3}>
                 <Link to={item.link}>
