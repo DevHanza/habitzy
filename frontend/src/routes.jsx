@@ -1,9 +1,17 @@
 import { createBrowserRouter, Navigate } from "react-router";
 import Layout from "@/components/layout/Layout";
-import Home from "@/pages/Home";
 import Account from "@/pages/Account";
 import Leaderboard from "@/pages/Leaderboard";
-import Settings from "./pages/Settings";
+import Settings from "@/pages/Settings";
+import Home from "@/pages/Home";
+
+// import { lazy } from "react";
+
+// const Home = lazy(async () => {
+//   await new Promise((r) => setTimeout(r, 1500)); // Simulated 1.5s delay
+//   return import("./App");
+//   return import("@/pages/Home");
+// });
 
 const router = createBrowserRouter([
   {
