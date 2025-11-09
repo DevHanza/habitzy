@@ -14,7 +14,7 @@ const strengthOptions = [
   { id: 4, value: "very-strong", minDiversity: 4, minLength: 10 },
 ];
 
-function CreateAccountInputs() {
+function SignUpInputs() {
   const [password, setPassword] = useState("");
 
   const strength = useMemo(() => {
@@ -103,4 +103,4 @@ function CreateAccountInputs() {
   );
 }
 
-export default CreateAccountInputs;
+export default SignUpInputs;

@@ -1,4 +1,4 @@
-import CreateAccountInputs from "@/components/Auth/CreateAccountInputs";
+import SignUpInputs from "@/components/Auth/SignUpInputs";
 import AuthPage from "@/components/layout/AuthPage";
 import { Text } from "@chakra-ui/react";
 import { Link } from "react-router";
@@ -19,7 +19,7 @@ function SignUp() {
         </Text>
       }
     >
-      <CreateAccountInputs />
+      <SignUpInputs />
     </AuthPage>
   );
 }
