@@ -1,4 +1,4 @@
-import { Stack, Field, Input, Button, Text, HStack } from "@chakra-ui/react";
+import { Stack, Field, Input, Button, Text } from "@chakra-ui/react";
 import { Link } from "react-router";
 import { passwordStrength } from "check-password-strength";
 import {
