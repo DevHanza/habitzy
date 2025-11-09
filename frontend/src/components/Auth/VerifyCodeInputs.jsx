@@ -3,21 +3,42 @@ import { Stack, PinInput, Button } from "@chakra-ui/react";
 function VerifyCodeInputs() {
   return (
     <Stack gap={4}>
-      <Stack gap={3} alignItems={{ base: "center", lg: "start" }}>
+      <Stack gap={3}>
         <PinInput.Root
           size={"xl"}
+          width={"100%"}
           colorPalette={"teal"}
           invalid={false}
           attached
           autoFocus
         >
           <PinInput.HiddenInput />
-          <PinInput.Control>
-            <PinInput.Input index={0} borderColor={"border.emphasized"} />
-            <PinInput.Input index={1} borderColor={"border.emphasized"} />
-            <PinInput.Input index={2} borderColor={"border.emphasized"} />
-            <PinInput.Input index={3} borderColor={"border.emphasized"} />
-            <PinInput.Input index={4} borderColor={"border.emphasized"} />
+          <PinInput.Control display={"flex"} width={"100%"}>
+            <PinInput.Input
+              flex={1}
+              index={0}
+              borderColor={"border.emphasized"}
+            />
+            <PinInput.Input
+              flex={1}
+              index={1}
+              borderColor={"border.emphasized"}
+            />
+            <PinInput.Input
+              flex={1}
+              index={2}
+              borderColor={"border.emphasized"}
+            />
+            <PinInput.Input
+              flex={1}
+              index={3}
+              borderColor={"border.emphasized"}
+            />
+            <PinInput.Input
+              flex={1}
+              index={4}
+              borderColor={"border.emphasized"}
+            />
           </PinInput.Control>
         </PinInput.Root>
       </Stack>
