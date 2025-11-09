@@ -9,6 +9,7 @@ import Settings from "@/pages/Settings";
 import SignUp from "@/pages/Auth/SignUp";
 import Login from "@/pages/Auth/Login";
 import ForgotPassword from "@/pages/Auth/ForgotPassword";
+import VerifyCode from "@/pages/Auth/VerifyCode";
 
 const Home = lazy(async () => {
   // await new Promise((r) => setTimeout(r, 1500)); // Simulated 1.5s delay
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: "/forgot-password",
     element: <ForgotPassword />,
+  },
+  {
+    path: "/verify",
+    element: <VerifyCode />,
   },
   { path: "*", element: <Navigate to={"/"} replace /> },
 ]);
