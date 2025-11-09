@@ -66,7 +66,7 @@ function SignUpInputs() {
           <PasswordStrengthMeter value={strength} colorPalette="red" />
         </Stack>
       </Field.Root>
-      <Button mt={2} disabled={"true"}>
+      <Button mt={2} disabled={true}>
         Create Account
       </Button>
       <Text
