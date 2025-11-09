@@ -7,8 +7,7 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-import { ArrowLeft } from "lucide-react";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 
 function AuthPage({
   children,
@@ -21,10 +20,7 @@ function AuthPage({
       </Link>
     </Text>
   ),
-  isNavVisible = true,
 }) {
-  const navigate = useNavigate();
-
   return (
     <Container height={"100vh"} maxW={{ base: "lg", lg: "5xl" }}>
       <Flex justifyItems={"center"} alignItems={"Center"} height={"100%"}>
@@ -53,19 +49,12 @@ function AuthPage({
           </Stack>
           <Stack flex={1.25}>
             <Box
-              px={{ base: 6, lg: 16 }}
-              py={{ base: 12, lg: 20 }}
+              px={{ base: 4, lg: 12 }}
+              py={{ base: 12, lg: 16 }}
               display={"flex"}
               height={"100%"}
             >
-              <Stack width={"100%"} gap={16}>
-                {/* <Stack width={"fit-content"} p={2}>
-                  {isNavVisible && (
-                    <Link to={() => navigate(-1)}>
-                      <ArrowLeft size={20} />
-                    </Link>
-                  )}
-                </Stack> */}
+              <Stack width={"100%"}>
                 <Stack gap={8}>
                   <Stack gap={1} alignItems={{ base: "center", lg: "start" }}>
                     <Image
