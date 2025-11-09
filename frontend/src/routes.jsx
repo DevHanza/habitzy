@@ -4,8 +4,9 @@ import Layout from "@/components/layout/Layout";
 import Account from "@/pages/Account";
 import Leaderboard from "@/pages/Leaderboard";
 import Settings from "@/pages/Settings";
-// import Home from "@/pages/Home";
 
+// Auth Pages
+import SignUp from "@/pages/Auth/SignUp";
 
 const Home = lazy(async () => {
   // await new Promise((r) => setTimeout(r, 1500)); // Simulated 1.5s delay
@@ -23,10 +24,10 @@ const router = createBrowserRouter([
       { path: "settings", element: <Settings /> },
     ],
   },
-  //   {
-  //     path: "/login",
-  //     element: <Login />,
-  //   },
+  {
+    path: "/signup",
+    element: <SignUp />,
+  },
   { path: "*", element: <Navigate to={"/"} replace /> },
 ]);
 
