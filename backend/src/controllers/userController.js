@@ -34,6 +34,7 @@ export async function addUser(req, res) {
     const userData = {
       name: req.body.name,
       email: req.body.email,
+      username: req.body.username,
       password: req.body.password,
       currentStreak: 0,
       longestStreak: 0,
