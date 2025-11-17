@@ -13,6 +13,10 @@ const userSchema = new Schema(
       unique: true,
       match: [/^.+@.+$/, "Please enter a valid email address"],
     },
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+    },
     currentStreak: {
       type: Number,
       required: [true, "Current streak is required"],
