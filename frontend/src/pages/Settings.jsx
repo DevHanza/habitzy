@@ -1,6 +1,7 @@
 import useUser from "@/hooks/useUser";
 import NavigateControls from "@/components/layout/NavigateControls";
 import SettingsInput from "@/components/SettingsInput";
+import { useColorMode } from "@/components/ui/color-mode";
 import {
   Box,
   Container,
@@ -87,6 +88,8 @@ function AccountSettings() {
 }
 
 function Preferences() {
+  const { colorMode, toggleColorMode } = useColorMode();
+
   return (
     <Stack gap={8}>
       {/* Title */}
@@ -95,8 +98,11 @@ function Preferences() {
       </Heading>
       {/* Items */}
       <Stack gap={4} justifyContent={"space-between"}>
-        <Switch.Root colorPalette={"teal"}>
-          <Switch.HiddenInput />
+        <Switch.Root
+          colorPalette={"teal"}
+          checked={colorMode === "dark" ? true : false}
+        >
+          <Switch.HiddenInput onClick={toggleColorMode}/>
           <Switch.Control />
           <Switch.Label>Enable Dark Mode</Switch.Label>
         </Switch.Root>
