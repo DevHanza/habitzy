@@ -12,6 +12,7 @@ import {
   Button,
   IconButton,
   Switch,
+  HStack,
 } from "@chakra-ui/react";
 import NavigateControls from "@/components/layout/NavigateControls";
 import { Pencil } from "lucide-react";
@@ -28,9 +29,24 @@ function Settings() {
           <Preferences />
           <Separator />
           <DeleteAccountSettings />
-          <Button mt={4} colorPalette={"teal"}>
-            Save Changes
-          </Button>
+          <HStack
+            position={"sticky"}
+            bottom={{ base: "var(--bottom-nav-height)", md: 0 }}
+            left={{ base: "var(--bottom-nav-height)", md: 0 }}
+            width={"100%"}
+            zIndex={10}
+            py={2}
+            mt={2}
+          >
+            <Button
+              mt={4}
+              colorPalette={"teal"}
+              width={"100%"}
+              disabled={"true"}
+            >
+              Save Changes
+            </Button>
+          </HStack>
         </Flex>
       </Container>
     </Container>
