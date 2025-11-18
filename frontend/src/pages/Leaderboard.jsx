@@ -11,6 +11,7 @@ import {
 import LeaderboardCard from "@/components/LeaderboardCard";
 import UserLeaderboardCard from "@/components/UserLeaderboardCard";
 import NavigateControls from "@/components/layout/NavigateControls";
+import useUser from "@/hooks/useUser";
 const users = [
   { name: "Brook Lesnar", username: "brookkiller", streak: 45 },
   { name: "Diego Ramirez", username: "drz_90", streak: 34 },
@@ -25,6 +26,7 @@ const users = [
 ];
 
 function Leaderboard() {
+  const { user } = useUser();
   return (
     <Container>
       <NavigateControls />
@@ -62,7 +64,11 @@ function Leaderboard() {
         mt={2}
       >
         <Container maxW={"xl"}>
-          <UserLeaderboardCard />
+          <UserLeaderboardCard
+            rank={"10%"}
+            streak={user.currentStreak}
+            name={user.name}
+          />
         </Container>
       </HStack>
     </Container>

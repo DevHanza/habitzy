@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 
 function UserLeaderboardCard({
-  rank = 1,
+  rank = "10%",
   streak = 100,
   name = "DevHanza",
   username = "devhanza",
@@ -34,7 +34,7 @@ function UserLeaderboardCard({
             TOP
           </Text>
           <Text fontWeight={600} color={"fg.emphasized"} lineHeight={1}>
-            10%
+            {rank}
           </Text>
         </Stack>
 
