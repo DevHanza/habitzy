@@ -1,3 +1,6 @@
+import useUser from "@/hooks/useUser";
+import NavigateControls from "@/components/layout/NavigateControls";
+import SettingsInput from "@/components/SettingsInput";
 import {
   Box,
   Container,
@@ -54,6 +57,8 @@ function Settings() {
 }
 
 function AccountSettings() {
+  const { user, setUser } = useUser();
+
   return (
     <Stack gap={8}>
       <Heading size={"xl"} lineHeight={1}>
@@ -65,52 +70,27 @@ function AccountSettings() {
           <Avatar.Fallback name="Dev Hanza" />
         </Avatar.Root>
 
-        <Field.Root required gap={4}>
-          <Field.Label>Name</Field.Label>
-          <Box display={"inline-flex"} gap={2}>
-            <Input
-              placeholder=""
-              disabled={"true"}
-              colorPalette={"teal"}
-              value={"DevHanza"}
-              size={"sm"}
-            />
-            <IconButton aria-label="Edit Name" size={"sm"} variant="subtle">
-              <Pencil />
-            </IconButton>
-          </Box>
-        </Field.Root>
-        <Field.Root required gap={4}>
-          <Field.Label>Email</Field.Label>
-          <Box display={"inline-flex"} gap={2}>
-            <Input
-              placeholder=""
-              disabled={"true"}
-              colorPalette={"teal"}
-              value={"hello@devhanza.me"}
-              size={"sm"}
-            />
-            <IconButton aria-label="Edit Name" size={"sm"} variant="subtle">
-              <Pencil />
-            </IconButton>
-          </Box>
-        </Field.Root>
-
-        <Field.Root required gap={4}>
-          <Field.Label>Username</Field.Label>
-          <Box display={"inline-flex"} gap={2}>
-            <Input
-              placeholder=""
-              disabled={"true"}
-              colorPalette={"teal"}
-              value={"@devhanza"}
-              size={"sm"}
-            />
-            <IconButton aria-label="Edit Name" size={"sm"} variant="subtle">
-              <Pencil />
-            </IconButton>
-          </Box>
-        </Field.Root>
+        <SettingsInput
+          label="Name"
+          placeholder="eg: Dev Hanza"
+          defaultValue={user.name}
+          name="name"
+          setUser={setUser}
+        />
+        <SettingsInput
+          label="Username"
+          placeholder="eg: @devhanza (Without '@')"
+          defaultValue={user.username}
+          name="username"
+          setUser={setUser}
+        />
+        <SettingsInput
+          label="Email"
+          placeholder="eg: devhanza@mail.com"
+          defaultValue={user.email}
+          name="email"
+          setUser={setUser}
+        />
 
         <Field.Root required gap={4}>
           <Field.Label>Password</Field.Label>

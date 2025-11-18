@@ -2,8 +2,9 @@ import { UserContext } from "@/context/UserContext";
 import { useState } from "react";
 
 const userData = {
-  name: "Jhon",
-  email: "jhon@doe.com",
+  name: "Dev Hanza",
+  email: "hello@hansana.is-a.dev",
+  username: "DevHanza",
   currentStreak: 21,
   longestStreak: 0,
 };
