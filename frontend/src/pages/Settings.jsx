@@ -46,7 +46,7 @@ function AccountSettings() {
 
       <Stack gap={4}>
         <Avatar.Root size={"2xl"} colorPalette={"teal"}>
-          <Avatar.Fallback name="Dev Hanza" />
+          <Avatar.Fallback name={user.name} />
         </Avatar.Root>
 
         <SettingsInput
