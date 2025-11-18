@@ -7,6 +7,7 @@ const userData = {
   username: "DevHanza",
   currentStreak: 21,
   longestStreak: 0,
+  createdAt: "2025-11-17T15:13:25.553+00:00",
 };
 
 export const UserProvider = ({ children }) => {

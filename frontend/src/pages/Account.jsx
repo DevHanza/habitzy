@@ -11,8 +11,16 @@ import {
 } from "@chakra-ui/react";
 
 import NavigateControls from "@/components/layout/NavigateControls";
+import useUser from "@/hooks/useUser";
 
 function Account() {
+  const { user } = useUser();
+  const joinedDate = new Date(user.createdAt).toLocaleDateString("en-US", {
+    month: "short",
+    year: "numeric",
+  });
+  console.log(joinedDate);
+
   return (
     <Container>
       <NavigateControls />
@@ -30,9 +38,9 @@ function Account() {
             borderRadius={12}
           >
             <Heading size={"2xl"} lineHeight={1}>
-              DevHanza
+              {user.name}
             </Heading>
-            <Text lineHeight={1}>@devhanza</Text>
+            <Text lineHeight={1}>@{user.username}</Text>
           </Stack>
           {/* Profile Card - END */}
 
@@ -53,13 +61,17 @@ function Account() {
             <Grid templateColumns={"repeat(2, 1fr)"} gap={2}>
               <StatCard
                 emoji="🔥"
-                heading="34"
+                heading={user.currentStreak}
                 text="Day streak"
                 background={"yellow.500"}
               />
               <StatCard emoji="📈" heading="#23" text="Global rank" />
-              <StatCard emoji="🎯" heading="553" text="Longest streak" />
-              <StatCard emoji="📅" heading="Mar, 2024" text="Joined date" />
+              <StatCard
+                emoji="🎯"
+                heading={user.longestStreak}
+                text="Longest streak"
+              />
+              <StatCard emoji="📅" heading={joinedDate} text="Joined date" />
             </Grid>
           </Stack>
           {/* Statistics - End*/}
