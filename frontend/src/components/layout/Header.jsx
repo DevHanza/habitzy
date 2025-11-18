@@ -1,4 +1,5 @@
-import HabitsTrackerLogo from "./Logo";
+import HabitsTrackerLogo from "@/components/layout/Logo";
+import useUser from "@/hooks/useUser";
 import HoverWrapper from "@/components/ui/HoverWrapper";
 
 import {
@@ -82,6 +83,7 @@ function Header() {
 }
 
 function DesktopMenu() {
+  const { user } = useUser();
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Stack direction={"row"} gap={4} alignItems={"center"}>
@@ -113,7 +115,7 @@ function DesktopMenu() {
 
       <Link to="/account">
         <Avatar.Root size={"sm"} colorPalette={"teal"}>
-          <Avatar.Fallback name="Dev Hanza" />
+          <Avatar.Fallback name={user.name} />
         </Avatar.Root>
       </Link>
     </Stack>
