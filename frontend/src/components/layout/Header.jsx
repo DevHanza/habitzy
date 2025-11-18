@@ -17,7 +17,7 @@ import {
 
 import { House, Crown, UserRound, Settings, Sun, Moon } from "lucide-react";
 import { Link } from "react-router";
-import { useColorMode } from "../ui/color-mode";
+import { useColorMode } from "@/components/ui/color-mode";
 
 const desktopMenuItems = [
   {
