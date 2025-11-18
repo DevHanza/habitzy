@@ -19,7 +19,6 @@ function Account() {
     month: "short",
     year: "numeric",
   });
-  console.log(joinedDate);
 
   return (
     <Container>
