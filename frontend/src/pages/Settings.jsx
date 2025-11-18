@@ -1,3 +1,6 @@
+import useUser from "@/hooks/useUser";
+import NavigateControls from "@/components/layout/NavigateControls";
+import SettingsInput from "@/components/SettingsInput";
 import {
   Box,
   Container,
@@ -6,15 +9,13 @@ import {
   Heading,
   Text,
   Field,
-  Input,
   Avatar,
   Separator,
   Button,
-  IconButton,
   Switch,
 } from "@chakra-ui/react";
-import NavigateControls from "@/components/layout/NavigateControls";
-import { Pencil } from "lucide-react";
+
+import { Link } from "react-router";
 
 function Settings() {
   return (
@@ -28,9 +29,6 @@ function Settings() {
           <Preferences />
           <Separator />
           <DeleteAccountSettings />
-          <Button mt={4} colorPalette={"teal"}>
-            Save Changes
-          </Button>
         </Flex>
       </Container>
     </Container>
@@ -38,6 +36,8 @@ function Settings() {
 }
 
 function AccountSettings() {
+  const { user, setUser } = useUser();
+
   return (
     <Stack gap={8}>
       <Heading size={"xl"} lineHeight={1}>
@@ -46,58 +46,41 @@ function AccountSettings() {
 
       <Stack gap={4}>
         <Avatar.Root size={"2xl"} colorPalette={"teal"}>
-          <Avatar.Fallback name="Segun Adebayo" />
+          <Avatar.Fallback name={user.name} />
         </Avatar.Root>
 
-        <Field.Root required>
-          <Field.Label>Name</Field.Label>
-          <Box display={"inline-flex"} gap={2}>
-            <Input
-              placeholder=""
-              disabled=""
-              colorPalette={"teal"}
-              value={"DevHanza"}
-              size={"sm"}
-            />
-            <IconButton aria-label="Edit Name" size={"sm"} variant="outline">
-              <Pencil />
-            </IconButton>
-          </Box>
-        </Field.Root>
-        <Field.Root required>
-          <Field.Label>Username</Field.Label>
-          <Box display={"inline-flex"} gap={2}>
-            <Input
-              placeholder=""
-              disabled=""
-              colorPalette={"teal"}
-              value={"devhanza"}
-              size={"sm"}
-            />
-            <IconButton aria-label="Edit Name" size={"sm"} variant="outline">
-              <Pencil />
-            </IconButton>
-          </Box>
-        </Field.Root>
+        <SettingsInput
+          label="Name"
+          placeholder="eg: Dev Hanza"
+          defaultValue={user.name}
+          name="name"
+          setUser={setUser}
+        />
+        <SettingsInput
+          label="Username"
+          placeholder="eg: @devhanza (Without '@')"
+          defaultValue={user.username}
+          name="username"
+          setUser={setUser}
+        />
+        <SettingsInput
+          label="Email"
+          placeholder="eg: devhanza@mail.com"
+          defaultValue={user.email}
+          name="email"
+          setUser={setUser}
+        />
 
-        {/* <Stack gap={0} display={"inline-flex"}>
-          <Heading size={"md"} mb={2}>
-            Delete Your Account
-          </Heading>
-          <Text fontSize={"sm"} mb={4} color={"fg.muted"}>
-            Once you delete your account, all your data will be permanently
-            erased. We don't store backups, so be sure to save anything
-            important first.
-          </Text>
-          <Button
-            width={"fit-content"}
-            size={"sm"}
-            colorPalette={"red"}
-            variant="solid"
-          >
-            Delete Account
-          </Button>
-        </Stack> */}
+        <Field.Root required gap={4}>
+          <Field.Label>Password</Field.Label>
+          <Box display={"inline-flex"} gap={2}>
+            <Link to={"/reset-password"}>
+              <Button size={"sm"} colorPalette={"teal"}>
+                Reset Password
+              </Button>
+            </Link>
+          </Box>
+        </Field.Root>
       </Stack>
     </Stack>
   );
@@ -136,7 +119,12 @@ function DeleteAccountSettings() {
           erased. We don't store backups, so be sure to save anything important
           first.
         </Text>
-        <Button width={"fit-content"} colorPalette={"red"} variant="subtle">
+        <Button
+          size={"sm"}
+          width={"fit-content"}
+          colorPalette={"red"}
+          variant="subtle"
+        >
           Delete Account
         </Button>
       </Stack>
