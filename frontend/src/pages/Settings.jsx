@@ -62,58 +62,64 @@ function AccountSettings() {
 
       <Stack gap={4}>
         <Avatar.Root size={"2xl"} colorPalette={"teal"}>
-          <Avatar.Fallback name="Segun Adebayo" />
+          <Avatar.Fallback name="Dev Hanza" />
         </Avatar.Root>
 
-        <Field.Root required>
+        <Field.Root required gap={4}>
           <Field.Label>Name</Field.Label>
           <Box display={"inline-flex"} gap={2}>
             <Input
               placeholder=""
-              disabled=""
+              disabled={"true"}
               colorPalette={"teal"}
               value={"DevHanza"}
               size={"sm"}
             />
-            <IconButton aria-label="Edit Name" size={"sm"} variant="outline">
+            <IconButton aria-label="Edit Name" size={"sm"} variant="subtle">
               <Pencil />
             </IconButton>
           </Box>
         </Field.Root>
-        <Field.Root required>
-          <Field.Label>Username</Field.Label>
+        <Field.Root required gap={4}>
+          <Field.Label>Email</Field.Label>
           <Box display={"inline-flex"} gap={2}>
             <Input
               placeholder=""
-              disabled=""
+              disabled={"true"}
               colorPalette={"teal"}
-              value={"devhanza"}
+              value={"hello@devhanza.me"}
               size={"sm"}
             />
-            <IconButton aria-label="Edit Name" size={"sm"} variant="outline">
+            <IconButton aria-label="Edit Name" size={"sm"} variant="subtle">
               <Pencil />
             </IconButton>
           </Box>
         </Field.Root>
 
-        {/* <Stack gap={0} display={"inline-flex"}>
-          <Heading size={"md"} mb={2}>
-            Delete Your Account
-          </Heading>
-          <Text fontSize={"sm"} mb={4} color={"fg.muted"}>
-            Once you delete your account, all your data will be permanently
-            erased. We don't store backups, so be sure to save anything
-            important first.
-          </Text>
-          <Button
-            width={"fit-content"}
-            size={"sm"}
-            colorPalette={"red"}
-            variant="solid"
-          >
-            Delete Account
-          </Button>
-        </Stack> */}
+        <Field.Root required gap={4}>
+          <Field.Label>Username</Field.Label>
+          <Box display={"inline-flex"} gap={2}>
+            <Input
+              placeholder=""
+              disabled={"true"}
+              colorPalette={"teal"}
+              value={"@devhanza"}
+              size={"sm"}
+            />
+            <IconButton aria-label="Edit Name" size={"sm"} variant="subtle">
+              <Pencil />
+            </IconButton>
+          </Box>
+        </Field.Root>
+
+        <Field.Root required gap={4}>
+          <Field.Label>Password</Field.Label>
+          <Box display={"inline-flex"} gap={2}>
+            <Button size={"sm"} colorPalette={"teal"}>
+              Reset Password
+            </Button>
+          </Box>
+        </Field.Root>
       </Stack>
     </Stack>
   );
