@@ -9,16 +9,13 @@ import {
   Heading,
   Text,
   Field,
-  Input,
   Avatar,
   Separator,
   Button,
-  IconButton,
   Switch,
-  HStack,
 } from "@chakra-ui/react";
-import NavigateControls from "@/components/layout/NavigateControls";
-import { Pencil } from "lucide-react";
+
+import { Link } from "react-router";
 
 function Settings() {
   return (
@@ -32,24 +29,6 @@ function Settings() {
           <Preferences />
           <Separator />
           <DeleteAccountSettings />
-          <HStack
-            position={"sticky"}
-            bottom={{ base: "var(--bottom-nav-height)", md: 0 }}
-            left={{ base: "var(--bottom-nav-height)", md: 0 }}
-            width={"100%"}
-            zIndex={10}
-            py={2}
-            mt={2}
-          >
-            <Button
-              mt={4}
-              colorPalette={"teal"}
-              width={"100%"}
-              disabled={"true"}
-            >
-              Save Changes
-            </Button>
-          </HStack>
         </Flex>
       </Container>
     </Container>
@@ -95,9 +74,11 @@ function AccountSettings() {
         <Field.Root required gap={4}>
           <Field.Label>Password</Field.Label>
           <Box display={"inline-flex"} gap={2}>
-            <Button size={"sm"} colorPalette={"teal"}>
-              Reset Password
-            </Button>
+            <Link to={"/reset-password"}>
+              <Button size={"sm"} colorPalette={"teal"}>
+                Reset Password
+              </Button>
+            </Link>
           </Box>
         </Field.Root>
       </Stack>
@@ -138,7 +119,12 @@ function DeleteAccountSettings() {
           erased. We don't store backups, so be sure to save anything important
           first.
         </Text>
-        <Button width={"fit-content"} colorPalette={"red"} variant="subtle">
+        <Button
+          size={"sm"}
+          width={"fit-content"}
+          colorPalette={"red"}
+          variant="subtle"
+        >
           Delete Account
         </Button>
       </Stack>
