@@ -1,16 +1,5 @@
 import { User } from "../models/userModel.js";
 
-// export async function getUsers(req, res) {
-//   try {
-//     //
-//     const users = await User.find();
-//     res.json(users);
-//     //
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// }
-
 export async function getUserByID(req, res) {
   const { userId } = req.params;
 
@@ -25,44 +14,6 @@ export async function getUserByID(req, res) {
     //
   } catch (err) {
     res.status(500).json({ message: err.message });
-  }
-}
-
-export async function addUser(req, res) {
-  try {
-    //
-    const userData = {
-      name: req.body.name,
-      email: req.body.email,
-      username: req.body.username,
-      password: req.body.password,
-      currentStreak: 0,
-      longestStreak: 0,
-    };
-    const newUser = new User(userData);
-    await newUser.save();
-    res.status(201).json(newUser);
-    //
-  } catch (err) {
-    //
-    res.status(400).json({ message: err.message });
-    //
-  }
-}
-
-export async function deleteUser(req, res) {
-  try {
-    const { userId } = req.params;
-
-    const deletedUser = await User.findByIdAndDelete(userId);
-
-    if (!deletedUser) {
-      return res.status(404).json({ message: "User not found." });
-    }
-
-    res.json({ message: `User is Deleted.` });
-  } catch (err) {
-    res.status(400).json({ message: err.message });
   }
 }
 
@@ -84,3 +35,52 @@ export async function updateUser(req, res) {
     res.status(400).json({ message: err.message });
   }
 }
+
+// export async function getUsers(req, res) {
+//   try {
+//     //
+//     const users = await User.find();
+//     res.json(users);
+//     //
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// }
+
+// export async function addUser(req, res) {
+//   try {
+//     //
+//     const userData = {
+//       name: req.body.name,
+//       email: req.body.email,
+//       username: req.body.username,
+//       password: req.body.password,
+//       currentStreak: 0,
+//       longestStreak: 0,
+//     };
+//     const newUser = new User(userData);
+//     await newUser.save();
+//     res.status(201).json(newUser);
+//     //
+//   } catch (err) {
+//     //
+//     res.status(400).json({ message: err.message });
+//     //
+//   }
+// }
+
+// export async function deleteUser(req, res) {
+//   try {
+//     const { userId } = req.params;
+
+//     const deletedUser = await User.findByIdAndDelete(userId);
+
+//     if (!deletedUser) {
+//       return res.status(404).json({ message: "User not found." });
+//     }
+
+//     res.json({ message: `User is Deleted.` });
+//   } catch (err) {
+//     res.status(400).json({ message: err.message });
+//   }
+// }
