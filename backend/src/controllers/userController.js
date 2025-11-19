@@ -1,15 +1,15 @@
 import { User } from "../models/userModel.js";
 
-export async function getUsers(req, res) {
-  try {
-    //
-    const users = await User.find();
-    res.json(users);
-    //
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-}
+// export async function getUsers(req, res) {
+//   try {
+//     //
+//     const users = await User.find();
+//     res.json(users);
+//     //
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// }
 
 export async function getUserByID(req, res) {
   const { userId } = req.params;
