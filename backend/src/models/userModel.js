@@ -11,25 +11,29 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Email is required"],
       unique: [true, "You're already registered."],
-      match: [/^.+@.+$/, "Please enter a valid email address"],
+      match: [
+        /^[^@\s+]+@[^@\s]+\.[^@\s]+$/,
+        "Please enter a valid email address",
+      ],
+      trim: true,
+      lowercase: true,
+      minLength: 5,
     },
     username: {
       type: String,
       required: [true, "Username is required"],
       unique: [true, "This username is already taken."],
-      match: [/^[a-zA-Z][a-zA-Z0-9_]{2,15}$/, "Please enter a valid username"],
-      /* 
-      Regex explanation for validating a username:
-      ^                   → start of the string
-      [a-zA-Z]            → first character must be a letter (uppercase or lowercase)
-      [a-zA-Z0-9_]{2,15}  → next 2 to 15 characters can be letters, numbers, or underscores
-      $                   → end of the string
-      length allowed: 3 to 16 characters 
-      */
+      match: [/^[a-zA-Z][a-zA-Z0-9_]+$/, "Please enter a valid username"],
+      trim: true,
+      minLength: 2,
+      maxLength: 25,
+      lowercase: true,
     },
     password: {
       type: String,
       required: [true, "Password is required"],
+      minLength: 5,
+      maxLength: 50,
     },
     currentStreak: {
       type: Number,
