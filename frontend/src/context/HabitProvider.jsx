@@ -110,8 +110,8 @@ export const HabitProvider = ({ children }) => {
 
   const addHabit = (habit) => {
     setHabits((prev) => [
-      ...prev,
       { id: habits.length + 1, isCompleted: false, ...habit },
+      ...prev,
     ]);
   };
 
