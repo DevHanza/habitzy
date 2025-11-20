@@ -33,17 +33,19 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required"],
       minLength: 5,
-      maxLength: 50,
+      maxLength: 150,
     },
     currentStreak: {
       type: Number,
       required: [true, "Current streak is required"],
       min: [0, "Current streak cannot be negative"],
+      default: 0,
     },
     longestStreak: {
       type: Number,
       required: [true, "Longest streak is required"],
       min: [0, "Longest streak cannot be negative"],
+      default: 0,
     },
   },
   { timestamps: true } // auto-manages createdAt and updatedAt

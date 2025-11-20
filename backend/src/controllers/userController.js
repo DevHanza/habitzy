@@ -1,4 +1,5 @@
 import { User } from "../models/userModel.js";
+import bcrypt from "bcrypt";
 
 export async function getUserByID(req, res) {
   const { userId } = req.params;
@@ -33,6 +34,36 @@ export async function updateUser(req, res) {
     res.json(updatedUser);
   } catch (err) {
     res.status(400).json({ message: err.message });
+  }
+}
+
+export async function registerUser(req, res) {
+  try {
+    //
+    const userData = {
+      name: req.body.name,
+      email: req.body.email,
+      username: req.body.username,
+      password: req.body.password,
+    };
+
+    const exitingUser = await User.findOne({ email: req.body.email });
+
+    if (exitingUser) {
+      return res.status(409).json({ message: "User already exists." });
+    }
+
+    const hash = bcrypt.hashSync(userData.password, 10);
+    userData.password = hash;
+
+    const newUser = new User(userData);
+    await newUser.save();
+    res.status(201).json(newUser);
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
   }
 }
 
