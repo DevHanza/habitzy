@@ -86,3 +86,19 @@ backend/
 └── package.json
 
 ```
+
+# Setup
+
+### Configure .env file
+
+Rename `.env.example` to `.env` and start adding the info.
+
+###### JWT Token Secrets
+
+You can use whatever for these secrets I prefer use this code generate a much more secure token.
+
+```js
+// Type 'node' in the terminal and paste this code
+require("crypto").randomBytes(64).toString("hex");
+// Output: d6a587c0a0ae1558081d29f292a38e0404232d2c05a16379e3ca120ab50745f2907671f1f11fa84e2f030c35bb3b3d26aa2f43348d6e1c10ec8008f2ed64922f"
+```
