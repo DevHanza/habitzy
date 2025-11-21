@@ -31,6 +31,7 @@ Using:
 - [dotenv](https://www.npmjs.com/package/dotenv)
 - [bcrypt](https://www.npmjs.com/package/bcrypt)
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+- [cookie-parser](https://www.npmjs.com/package/cookie-parser)
 
 # Initial Planned Folder Structure
 
