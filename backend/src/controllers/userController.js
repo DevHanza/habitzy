@@ -1,5 +1,6 @@
-import { User } from "../models/userModel.js";
 import bcrypt from "bcrypt";
+import { User } from "../models/userModel.js";
+import { generateAccessToken, generateRefreshToken } from "../utils/jwt.js";
 
 export async function getUserByID(req, res) {
   const { userId } = req.params;
@@ -59,6 +60,74 @@ export async function registerUser(req, res) {
     const newUser = new User(userData);
     await newUser.save();
     res.status(201).json(newUser);
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
+
+export async function loginUser(req, res) {
+  try {
+    //
+    const { email, password, device } = req.body;
+
+    console.log(device);
+
+    // Check: user is already registered?
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "We couldn't find your account." });
+    }
+
+    // Check: Password is correct?
+    const validPassword = await bcrypt.compare(password, user.password);
+
+    if (!validPassword) {
+      return res.status(401).json({ message: "Invalid password." });
+    }
+
+    // Check: Device is available?
+    if (!device) {
+      return res
+        .status(404)
+        .json({ message: "A device identifier is required." });
+    }
+
+    // Delete expired refresh tokens from the DB
+    user.refreshTokens = user.refreshTokens.filter(
+      (token) => token.expiresAt > new Date()
+    );
+
+    const accessToken = generateAccessToken(user._id);
+    const refreshToken = generateRefreshToken(user._id, device);
+
+    // Add JWT Tokens to Database & Send to User
+
+    const WEEK_IN_MS = 1000 * 60 * 60 * 24 * 7;
+    const sevenDaysFromNow = new Date(Date.now() + WEEK_IN_MS);
+
+    user.refreshTokens.push({
+      token: refreshToken,
+      device,
+      expiresAt: sevenDaysFromNow,
+    });
+
+    await user.save();
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      sameSite: "Strict",
+      // secure: true, // set to false for local dev without HTTPS
+      maxAge: WEEK_IN_MS,
+    });
+
+    res.json({ accessToken });
+
     //
   } catch (err) {
     //
