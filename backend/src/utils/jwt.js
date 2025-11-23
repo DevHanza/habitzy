@@ -11,3 +11,16 @@ export const generateRefreshToken = (userId, device) => {
     expiresIn: "7d",
   });
 };
+
+export const verifyAccessToken = (token) => {
+  return jwt.verify(token, process.env.JWT_REFRESH_TOKEN_SECRET);
+};
+
+export const isTokenExpired = (token) => {
+  const payload = jwt.verify(token, process.env.JWT_REFRESH_TOKEN_SECRET);
+
+  const now = Math.floor(new Date() / 1000);
+  const expiresAt = payload?.exp;
+
+  return expiresAt < now;
+};
