@@ -6,6 +6,7 @@ import {
   verifyAccessToken,
   isTokenExpired,
 } from "../utils/jwt.js";
+import { isProduction } from "../utils/envCheck.js";
 
 // REGISTER
 export async function registerUser(req, res) {
@@ -44,7 +45,6 @@ export async function loginUser(req, res) {
     //
 
     const oldRefreshToken = req.cookies.refreshToken;
-    console.log(oldRefreshToken);
 
     if (oldRefreshToken) {
       const isRefreshTokenExpired = isTokenExpired(oldRefreshToken);
@@ -57,8 +57,6 @@ export async function loginUser(req, res) {
     }
 
     const { email, password, device } = req.body;
-
-    console.log(device);
 
     // Check: user is already registered?
     const user = await User.findOne({ email });
@@ -107,7 +105,7 @@ export async function loginUser(req, res) {
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       sameSite: "Strict",
-      // secure: true, // set to false for local dev without HTTPS
+      secure: isProduction, // set to false for local dev without HTTPS
       maxAge: WEEK_IN_MS,
     });
 
