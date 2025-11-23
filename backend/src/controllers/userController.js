@@ -1,6 +1,11 @@
 import bcrypt from "bcrypt";
 import { User } from "../models/userModel.js";
-import { generateAccessToken, generateRefreshToken } from "../utils/jwt.js";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+  verifyAccessToken,
+  isTokenExpired,
+} from "../utils/jwt.js";
 
 export async function getUserByID(req, res) {
   const { userId } = req.params;
@@ -38,6 +43,7 @@ export async function updateUser(req, res) {
   }
 }
 
+// REGISTER
 export async function registerUser(req, res) {
   try {
     //
@@ -68,9 +74,24 @@ export async function registerUser(req, res) {
   }
 }
 
+// LOGIN
 export async function loginUser(req, res) {
   try {
     //
+    
+    const oldRefreshToken = req.cookies.refreshToken;
+    console.log(oldRefreshToken);
+
+    if (oldRefreshToken) {
+      const isRefreshTokenExpired = isTokenExpired(oldRefreshToken);
+
+      if (oldRefreshToken && !isRefreshTokenExpired) {
+        return res.status(409).json({
+          message: "You are already logged in.",
+        });
+      }
+    }
+
     const { email, password, device } = req.body;
 
     console.log(device);
