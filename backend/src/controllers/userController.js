@@ -49,6 +49,17 @@ export async function loginUser(req, res) {
     const oldRefreshToken = req.cookies.refreshToken;
 
     if (oldRefreshToken) {
+      // Is Refresh token Valid?
+
+      try {
+        const isRefreshTokenValid = verifyToken(oldRefreshToken);
+      } catch (error) {
+        return res.status(409).json({
+          message: "Your refresh token is invalid.",
+        });
+      }
+
+      // Is Refresh token expired?
       const isRefreshTokenExpired = isTokenExpired(oldRefreshToken);
 
       if (oldRefreshToken && !isRefreshTokenExpired) {
