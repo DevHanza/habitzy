@@ -116,7 +116,7 @@ export async function loginUser(req, res) {
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      sameSite: "Strict",
+      sameSite: "strict",
       secure: isProduction, // set to false for local dev without HTTPS
       maxAge: WEEK_IN_MS,
     });
