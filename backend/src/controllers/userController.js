@@ -45,12 +45,10 @@ export async function registerUser(req, res) {
 export async function loginUser(req, res) {
   try {
     //
-
     const oldRefreshToken = req.cookies.refreshToken;
 
     if (oldRefreshToken) {
       // Is Refresh token Valid?
-
       try {
         const isRefreshTokenValid = verifyToken(oldRefreshToken);
       } catch (error) {
@@ -137,7 +135,6 @@ export async function loginUser(req, res) {
 export async function refreshToken(req, res) {
   try {
     //
-
     const token = req.cookies.refreshToken;
     if (!token) return res.status(401).json({ message: "No token found." });
 
@@ -155,23 +152,13 @@ export async function refreshToken(req, res) {
       return res.status(401).json({ message: "Invalid token." });
     }
 
-    console.log(storedToken, token);
-
     // Send New token to the client
     const newAccessToken = generateAccessToken(user._id);
-
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      sameSite: "Strict",
-      secure: isProduction, // set to false for local dev without HTTPS
-      maxAge: WEEK_IN_MS,
-    });
     res.json({ accessToken: newAccessToken });
 
     //
   } catch (err) {
     //
-
     if (err.message === "jwt must be provided") {
       res.status(400).json({ message: "Invalid refresh token." });
     }
