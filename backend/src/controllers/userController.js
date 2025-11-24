@@ -58,7 +58,7 @@ export async function loginUser(req, res) {
       }
     }
 
-    const { email, password, device } = req.body;
+    const { email, password } = req.body;
 
     // Check: user is already registered?
     const user = await User.findOne({ email });
@@ -75,6 +75,8 @@ export async function loginUser(req, res) {
     if (!validPassword) {
       return res.status(401).json({ message: "Invalid password." });
     }
+
+    const device = req.headers["user-agent"];
 
     // Check: Device is available?
     if (!device) {
