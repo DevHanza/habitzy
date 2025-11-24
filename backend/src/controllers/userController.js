@@ -8,6 +8,8 @@ import {
 } from "../utils/jwt.js";
 import { isProduction } from "../utils/envCheck.js";
 
+const WEEK_IN_MS = 1000 * 60 * 60 * 24 * 7;
+
 // REGISTER
 export async function registerUser(req, res) {
   try {
@@ -91,7 +93,6 @@ export async function loginUser(req, res) {
 
     // Add JWT Tokens to Database & Send to User
 
-    const WEEK_IN_MS = 1000 * 60 * 60 * 24 * 7;
     const sevenDaysFromNow = new Date(Date.now() + WEEK_IN_MS);
 
     user.refreshTokens.push({
@@ -119,6 +120,53 @@ export async function loginUser(req, res) {
   }
 }
 
+// REFRESH YOUR ACCESS TOKEN
+export async function refreshToken(req, res) {
+  try {
+    //
+
+    const token = req.cookies.refreshToken;
+    if (!token) return res.status(401).json({ message: "No token found." });
+
+    const payload = verifyAccessToken(token);
+
+    const user = await User.findById(payload.userId);
+    if (!user) {
+      return res.status(401).json({ message: "User not found." });
+    }
+
+    const storedToken = user.refreshTokens.find(
+      (tokenItem) => tokenItem.token === token
+    );
+    if (!storedToken) {
+      return res.status(401).json({ message: "Invalid token." });
+    }
+
+    console.log(storedToken, token);
+
+    // Send New token to the client
+    const newAccessToken = generateAccessToken(user._id);
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      sameSite: "Strict",
+      secure: isProduction, // set to false for local dev without HTTPS
+      maxAge: WEEK_IN_MS,
+    });
+    res.json({ accessToken: newAccessToken });
+
+    //
+  } catch (err) {
+    //
+
+    if (err.message === "jwt must be provided") {
+      res.status(400).json({ message: "Invalid refresh token." });
+    }
+
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
 
 export async function getUserByID(req, res) {
   const { userId } = req.params;

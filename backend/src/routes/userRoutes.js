@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   registerUser,
   loginUser,
+  refreshToken,
   getUserByID,
   updateUser,
   // getUsers,
@@ -16,6 +17,8 @@ const router = Router();
 // router.delete("/:userId", deleteUser);
 router.post("/register", registerUser);
 router.post("/login", loginUser);
+router.post("/refresh-token", refreshToken);
+
 router.get("/:userId", getUserByID);
 router.put("/:userId", updateUser);
 
