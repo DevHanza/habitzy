@@ -3,7 +3,7 @@ import { User } from "../models/userModel.js";
 import {
   generateAccessToken,
   generateRefreshToken,
-  verifyAccessToken,
+  verifyToken,
   isTokenExpired,
 } from "../utils/jwt.js";
 import { isProduction } from "../utils/envCheck.js";
@@ -130,7 +130,7 @@ export async function refreshToken(req, res) {
     const token = req.cookies.refreshToken;
     if (!token) return res.status(401).json({ message: "No token found." });
 
-    const payload = verifyAccessToken(token);
+    const payload = verifyToken(token);
 
     const user = await User.findById(payload.userId);
     if (!user) {

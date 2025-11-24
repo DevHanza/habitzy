@@ -12,7 +12,7 @@ export const generateRefreshToken = (userId, device) => {
   });
 };
 
-export const verifyAccessToken = (token) => {
+export const verifyToken = (token) => {
   return jwt.verify(token, process.env.JWT_REFRESH_TOKEN_SECRET);
 };
 
