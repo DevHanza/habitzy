@@ -32,6 +32,7 @@ Using:
 - [bcrypt](https://www.npmjs.com/package/bcrypt)
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 - [cookie-parser](https://www.npmjs.com/package/cookie-parser)
+- [express-rate-limit](https://www.npmjs.com/package/express-rate-limit)
 
 # Initial Planned Folder Structure
 
