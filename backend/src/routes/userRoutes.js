@@ -5,6 +5,7 @@ import {
   refreshToken,
   getUserByID,
   updateUser,
+  logout,
   // getUsers,
   // addUser,
   // deleteUser,
@@ -18,6 +19,7 @@ const router = Router();
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/refresh-token", refreshToken);
+router.get("/logout", logout);
 
 router.get("/:userId", getUserByID);
 router.put("/:userId", updateUser);

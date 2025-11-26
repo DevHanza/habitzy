@@ -168,6 +168,40 @@ export async function refreshToken(req, res) {
   }
 }
 
+// LOGOUT (CURRENT DEVICE)
+export async function logout(req, res) {
+  try {
+    //
+    const token = req.cookies.refreshToken;
+    if (!token) return res.status(401).json({ message: "No token found." });
+
+    const payload = verifyToken(token);
+
+    const user = await User.findById(payload.userId);
+    if (!user) {
+      return res.status(401).json({ message: "User not found." });
+    }
+
+    user.refreshTokens = user.refreshTokens.filter(
+      (tokenItem) => tokenItem.token !== token
+    );
+
+    await user.save();
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      sameSite: "strict",
+      secure: isProduction, // set to false for local envs
+    });
+
+    res.json({ message: "Logged out successful." });
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
+
 export async function getUserByID(req, res) {
   const { userId } = req.params;
 
