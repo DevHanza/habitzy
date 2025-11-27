@@ -201,6 +201,66 @@ export async function logout(req, res) {
   }
 }
 
+export async function logoutAll(req, res) {
+  try {
+    //
+    const token = req.cookies.refreshToken;
+    if (!token) return res.status(401).json({ message: "No token found." });
+
+    const payload = verifyToken(token);
+
+    // 48-Hour Logout Security
+
+    const now = new Date();
+    const issuedAt = new Date(payload?.iat * 1000);
+    const twoDaysAfterLoggedIn = new Date();
+    twoDaysAfterLoggedIn.setDate(issuedAt.getDate() + 2);
+
+    const isTwoDaysAfter = now > twoDaysAfterLoggedIn;
+
+    if (!isTwoDaysAfter) {
+      return res.status(401).json({
+        message: "You must wait 48 hours before signing out of all devices.",
+      });
+    }
+
+    //
+
+    const user = await User.findById(payload.userId);
+    if (!user) {
+      return res.status(401).json({ message: "User not found." });
+    }
+
+    user.refreshTokens = [];
+    await user.save();
+
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      sameSite: "strict",
+      secure: isProduction, // set to false for local envs
+    });
+
+    res.json({ message: "Logged out from all devices.", payload });
+
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
+/*
+{
+    "message": "Logged out from all devices.",
+    "payload": {
+        "userId": "6927d368be2af3675ce1deea",
+        "device": "PostmanRuntime/7.49.1",
+        "iat": 1764218478,
+        "exp": 1764823278
+    }
+}
+*/
+
 export async function getUserByID(req, res) {
   const { userId } = req.params;
 

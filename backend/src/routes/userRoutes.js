@@ -6,6 +6,7 @@ import {
   getUserByID,
   updateUser,
   logout,
+  logoutAll,
   // getUsers,
   // addUser,
   // deleteUser,
@@ -20,6 +21,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/refresh-token", refreshToken);
 router.get("/logout", logout);
+router.get("/logout-all", logoutAll);
 
 router.get("/:userId", getUserByID);
 router.put("/:userId", updateUser);
