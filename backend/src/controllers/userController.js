@@ -4,7 +4,6 @@ import {
   generateAccessToken,
   generateRefreshToken,
   verifyToken,
-  isTokenExpired,
 } from "../utils/jwt.js";
 import { isProduction } from "../utils/envCheck.js";
 
@@ -49,16 +48,12 @@ export async function loginUser(req, res) {
 
     if (oldRefreshToken) {
       // Is Refresh token Valid?
-      try {
-        const isRefreshTokenValid = verifyToken(oldRefreshToken);
-      } catch (error) {
-        return res.status(409).json({
-          message: "Your refresh token is invalid.",
-        });
-      }
+      const payload = verifyToken(oldRefreshToken);
 
       // Is Refresh token expired?
-      const isRefreshTokenExpired = isTokenExpired(oldRefreshToken);
+      const now = Math.floor(new Date() / 1000);
+      const expiresAt = payload?.exp;
+      const isRefreshTokenExpired = expiresAt < now;
 
       if (oldRefreshToken && !isRefreshTokenExpired) {
         return res.status(409).json({
@@ -126,6 +121,10 @@ export async function loginUser(req, res) {
     //
   } catch (err) {
     //
+    if (err.message === "jwt must be provided") {
+      res.status(400).json({ message: "Invalid refresh token." });
+    }
+
     res.status(400).json({ message: err.message });
     //
   }
