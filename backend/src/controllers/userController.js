@@ -240,7 +240,7 @@ export async function logoutAll(req, res) {
       secure: isProduction, // set to false for local envs
     });
 
-    res.json({ message: "Logged out from all devices.", payload });
+    res.json({ message: "Logged out from all devices." });
 
     //
   } catch (err) {
@@ -249,17 +249,6 @@ export async function logoutAll(req, res) {
     //
   }
 }
-/*
-{
-    "message": "Logged out from all devices.",
-    "payload": {
-        "userId": "6927d368be2af3675ce1deea",
-        "device": "PostmanRuntime/7.49.1",
-        "iat": 1764218478,
-        "exp": 1764823278
-    }
-}
-*/
 
 export async function getUserByID(req, res) {
   const { userId } = req.params;
