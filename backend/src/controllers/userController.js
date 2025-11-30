@@ -251,6 +251,61 @@ export async function logoutAll(req, res) {
   }
 }
 
+// FORGOT PASSWORD
+export async function forgotPassword(req, res) {
+  try {
+    //
+    const { email } = req.body;
+    if (!email) {
+      res.status(400).json({ message: "Email is required." });
+    }
+
+    const device = req.headers["user-agent"];
+    if (!device) {
+      return res
+        .status(404)
+        .json({ message: "A device identifier is required." });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "We couldn't find your account." });
+    }
+
+    // Generate a random 5-digit number
+    const maxDigit = 10000;
+    const minDigit = 99999;
+    const digit =
+      Math.floor(Math.random() * (maxDigit - minDigit + 1)) + minDigit;
+
+    // Hashing the generated verify code
+    const hash = bcrypt.hashSync(digit.toString(), 5);
+
+    // Save the hashed verify code in the DB
+    const twoMins = new Date(Date.now() + 60 * 2);
+
+    user.verifyCodes.push({
+      code: hash,
+      device,
+      expiresAt: twoMins,
+    });
+
+    await user.save();
+
+    // return res.json(digit);
+    return res.json({
+      code: hash,
+    });
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
+
 export async function getUserByID(req, res) {
   const { userId } = req.params;
 
