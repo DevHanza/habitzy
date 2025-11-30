@@ -201,6 +201,7 @@ export async function logout(req, res) {
   }
 }
 
+// LOGOUT (ALL DEVICES)
 export async function logoutAll(req, res) {
   try {
     //
