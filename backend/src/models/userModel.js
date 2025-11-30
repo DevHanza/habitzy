@@ -60,7 +60,7 @@ const userSchema = new Schema(
     verifyCodes: {
       type: [
         {
-          code: Number,
+          code: String,
           device: String,
           expiresAt: Date,
         },
