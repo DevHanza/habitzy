@@ -6,6 +6,7 @@ import {
   verifyToken,
 } from "../utils/jwt.js";
 import { isProduction } from "../utils/envCheck.js";
+import isExpired from "../utils/isExpired.js";
 
 const WEEK_IN_MS = 1000 * 60 * 60 * 24 * 7;
 
@@ -51,9 +52,8 @@ export async function loginUser(req, res) {
       const payload = verifyToken(oldRefreshToken);
 
       // Is Refresh token expired?
-      const now = Math.floor(new Date() / 1000);
       const expiresAt = payload?.exp;
-      const isRefreshTokenExpired = expiresAt < now;
+      const isRefreshTokenExpired = isExpired(expiresAt);
 
       if (oldRefreshToken && !isRefreshTokenExpired) {
         return res.status(409).json({
