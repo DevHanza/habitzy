@@ -47,20 +47,26 @@ const userSchema = new Schema(
       min: [0, "Longest streak cannot be negative"],
       default: 0,
     },
-    refreshTokens: [
-      {
-        token: String,
-        device: String,
-        expiresAt: Date,
-      },
-    ],
-    verifyCodes: [
-      {
-        code: Number,
-        device: String,
-        expiresAt: Date,
-      },
-    ],
+    refreshTokens: {
+      type: [
+        {
+          token: String,
+          device: String,
+          expiresAt: Date,
+        },
+      ],
+      default: [],
+    },
+    verifyCodes: {
+      type: [
+        {
+          code: Number,
+          device: String,
+          expiresAt: Date,
+        },
+      ],
+      default: [],
+    },
   },
   { timestamps: true } // auto-manages createdAt and updatedAt
 );
