@@ -33,6 +33,7 @@ Using:
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 - [cookie-parser](https://www.npmjs.com/package/cookie-parser)
 - [express-rate-limit](https://www.npmjs.com/package/express-rate-limit)
+- [nodemailer](https://www.npmjs.com/package/nodemailer)
 
 # Initial Planned Folder Structure
 
