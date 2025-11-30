@@ -54,6 +54,13 @@ const userSchema = new Schema(
         expiresAt: Date,
       },
     ],
+    verifyCodes: [
+      {
+        code: Number,
+        device: String,
+        expiresAt: Date,
+      },
+    ],
   },
   { timestamps: true } // auto-manages createdAt and updatedAt
 );
