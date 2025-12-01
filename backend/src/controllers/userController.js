@@ -314,7 +314,7 @@ export async function forgotPassword(req, res) {
     ${process.env.APP_NAME}.
     `;
 
-    await sendEmail(email, "Verify Code", emailMessage);
+    await sendEmail(email, `Your Verify Code: ${digit}`, emailMessage);
 
     // Save the hashed verify code in the DB
     const expiresAt = new Date(Date.now() + 60 * 10); // 10 min
