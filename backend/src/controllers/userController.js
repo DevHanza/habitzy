@@ -256,6 +256,7 @@ export async function logoutAll(req, res) {
 export async function forgotPassword(req, res) {
   try {
     //
+
     const { email } = req.body;
     if (!email) {
       res.status(400).json({ message: "Email is required." });
@@ -274,6 +275,11 @@ export async function forgotPassword(req, res) {
         .status(404)
         .json({ message: "We couldn't find your account." });
     }
+
+    // Remove Expired Tokens
+    user.verifyCodes = user.verifyCodes.filter((vc) => {
+      return vc.expiresAt > new Date();
+    });
 
     // Generate a random 5-digit number
     const maxDigit = 10000;
@@ -311,12 +317,12 @@ export async function forgotPassword(req, res) {
     await sendEmail(email, "Verify Code", emailMessage);
 
     // Save the hashed verify code in the DB
-    const twoMins = new Date(Date.now() + 60 * 2);
+    const expiresAt = new Date(Date.now() + 60 * 10); // 10 min
 
     user.verifyCodes.push({
       code: hash,
       device,
-      expiresAt: twoMins,
+      expiresAt,
     });
 
     await user.save();
