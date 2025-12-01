@@ -6,6 +6,7 @@ import {
   verifyToken,
 } from "../utils/jwt.js";
 import { isProduction } from "../utils/envCheck.js";
+import { sendEmail } from "../utils/sendEmail.js";
 import isExpired from "../utils/isExpired.js";
 
 const WEEK_IN_MS = 1000 * 60 * 60 * 24 * 7;
@@ -282,6 +283,32 @@ export async function forgotPassword(req, res) {
 
     // Hashing the generated verify code
     const hash = bcrypt.hashSync(digit.toString(), 5);
+
+    // Send the email to the user
+
+    const emailMessage = `
+
+    Hi ${user.name},
+
+    We received a request to reset the password for your account.
+
+    Your verify code is:
+
+    <h2>${digit}</h2>
+
+    Please enter this code on the password reset screen to verify your identity and continue the process.
+    For security reasons, please do not share this code with anyone.
+
+    This code is valid for 10 minutes.
+
+    If you did not request a password reset, please ignore this email. 
+    Your password will remain unchanged.
+
+    Thank you,
+    ${process.env.APP_NAME}.
+    `;
+
+    await sendEmail(email, "Verify Code", emailMessage);
 
     // Save the hashed verify code in the DB
     const twoMins = new Date(Date.now() + 60 * 2);
