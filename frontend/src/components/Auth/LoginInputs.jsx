@@ -33,7 +33,7 @@ function LoginInputs() {
 
         <Text textAlign={{ base: "right" }} fontSize={14}>
           <Link
-            to="/reset-password"
+            to="/forgot-password"
             style={{ textDecoration: "underline", color: "white" }}
           >
             Forgot Password?
