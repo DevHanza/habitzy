@@ -277,8 +277,11 @@ export async function forgotPassword(req, res) {
     }
 
     // Remove Expired Tokens
+
     user.verifyCodes = user.verifyCodes.filter((vc) => {
-      return vc.expiresAt > new Date();
+      const now = new Date();
+      const expireDate = new Date(vc.expiresAt);
+      return expireDate > now;
     });
 
     // Generate a random 5-digit number
@@ -317,7 +320,7 @@ export async function forgotPassword(req, res) {
     await sendEmail(email, `Your Verify Code: ${digit}`, emailMessage);
 
     // Save the hashed verify code in the DB
-    const expiresAt = new Date(Date.now() + 60 * 10); // 10 min
+    const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 min
 
     user.verifyCodes.push({
       code: hash,
