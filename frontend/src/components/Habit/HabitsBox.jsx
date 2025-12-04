@@ -1,14 +1,16 @@
-import WidgetsWrapper from "../ui/WidgetWrapper";
-import HabitCard from "./HabitCard";
+import { useCallback } from "react";
+
+import WidgetsWrapper from "@/components/ui/WidgetWrapper";
+import HabitCard from "@/components/Habit/HabitCard";
+import AddHabitBox from "@/components/Habit/AddHabitBox";
+import useHabits from "@/hooks/useHabits";
+
 import { Plus } from "lucide-react";
 import { Button, Stack, VStack } from "@chakra-ui/react";
-import AddHabitBox from "./AddHabitBox";
-import useHabits from "@/hooks/useHabits";
-import { useCallback, useRef } from "react";
+
 import { moveItemsInList } from "@/utils/moveItemsInList";
 
 function HabitsBox() {
-  const addHabitBoxRef = useRef();
   const {
     habits,
     setHabits,
@@ -33,9 +35,10 @@ function HabitsBox() {
 
   function handleBottomAddHabit() {
     handleAddHabit();
-    if (addHabitBoxRef.current) {
-      addHabitBoxRef.current.scrollIntoView();
-    }
+    window.scrollTo(0, 0);
+    // if (addHabitBoxRef.current) {
+    //   addHabitBoxRef.current.scrollIntoView();
+    // }
   }
 
   return (
@@ -53,7 +56,7 @@ function HabitsBox() {
       buttonIcon={<Plus />}
     >
       <Stack gap={6}>
-        <VStack gap={2} ref={addHabitBoxRef}>
+        <VStack gap={2}>
           {!isAddingHabits && <AddHabitBox />}
           {habits.map((habit, index) => (
             <HabitCard
