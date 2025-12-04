@@ -11,9 +11,9 @@ import { globalLimiter } from "./middleware/rate-limiter.js";
 const app = express();
 
 const corsOptions = {
-  // origin: process.env.FRONTEND_URL,
+  origin: process.env.FRONTEND_URL,
   // methods: ["GET", "POST", "PUT", "DELETE"],
-  // credentials: true,
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
