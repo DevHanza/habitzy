@@ -9,6 +9,7 @@ import {
   logoutAll,
   forgotPassword,
   verifyCode,
+  resetPassword,
   // getUsers,
   // addUser,
   // deleteUser,
@@ -27,6 +28,7 @@ router.get("/logout", logout);
 router.get("/logout-all", logoutAll);
 router.post("/forgot-password", [forgotPasswordLimiter], forgotPassword);
 router.post("/verify", verifyCode);
+router.patch("/reset-password", resetPassword);
 
 router.get("/:userId", getUserByID);
 router.put("/:userId", updateUser);

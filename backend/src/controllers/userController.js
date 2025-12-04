@@ -399,11 +399,6 @@ export async function verifyCode(req, res) {
         .json({ message: "Verification Failed: Device Mismatch." });
     }
 
-    // // Delete the Verified code from the DB
-    // user.verifyCodes = user.verifyCodes.filter((vc) => {
-    //   return vc !== verifiedCode;
-    // });
-
     await user.save();
 
     res.json({
@@ -411,6 +406,69 @@ export async function verifyCode(req, res) {
       email,
     });
     //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
+
+export async function resetPassword(req, res) {
+  try {
+    const { email, code, newPassword } = req.body;
+
+    if (!email) {
+      res.status(400).json({ message: "Email is required." });
+    }
+
+    if (!code) {
+      res.status(404).json("Verification Code Required.");
+    }
+
+    if (!newPassword) {
+      res.status(400).json({ message: "Please provide a new password." });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "We couldn't find your account." });
+    }
+
+    // Check the verify code (Basic).
+
+    const verifyCodes = user.verifyCodes;
+    let verifiedCode;
+
+    for (const vc of verifyCodes) {
+      const isValidCode = await bcrypt.compare(code, vc.code);
+
+      if (isValidCode) {
+        verifiedCode = vc;
+        break;
+      }
+    }
+
+    if (!verifiedCode) {
+      return res.status(498).json({ message: "Invalid Code." });
+    }
+
+    // Change the password
+    const hash = bcrypt.hashSync(newPassword, 10);
+    user.password = hash;
+
+    // Delete the Verified code after password is changed.
+    user.verifyCodes = user.verifyCodes.filter((vc) => {
+      return vc !== verifiedCode;
+    });
+
+    await user.save();
+
+    res.json({
+      message: `Password is changed!`,
+      email,
+    });
   } catch (err) {
     //
     res.status(400).json({ message: err.message });
