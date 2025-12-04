@@ -341,6 +341,83 @@ export async function forgotPassword(req, res) {
   }
 }
 
+// VERIFY CODE
+export async function verifyCode(req, res) {
+  try {
+    //
+    const { code, email } = req.body;
+
+    if (!code) {
+      res.status(404).json("Verification Code Required.");
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "We couldn't find your account." });
+    }
+
+    const device = req.headers["user-agent"];
+    if (!device) {
+      return res
+        .status(404)
+        .json({ message: "A device identifier is required." });
+    }
+    //  #
+    const verifyCodes = user.verifyCodes;
+    let verifiedCode;
+
+    // Get the valid verify code ,if exists.
+    for (const vc of verifyCodes) {
+      const isValidCode = await bcrypt.compare(code, vc.code);
+
+      if (isValidCode) {
+        verifiedCode = vc;
+        break;
+      }
+    }
+
+    if (!verifiedCode) {
+      return res.status(498).json({ message: "Invalid Code." });
+    }
+
+    // Check: Is verify code expired?
+    const now = new Date();
+    const expiresAt = new Date(verifiedCode.expiresAt);
+    const isCodeExpired = expiresAt < now;
+
+    if (isCodeExpired) {
+      return res.status(498).json({ message: "Your Verify Code is expired." });
+    }
+    // #
+
+    // Block when a user tries to verify on a device different from the one that requested it.
+    if (device !== verifiedCode.device) {
+      return res
+        .status(401)
+        .json({ message: "Verification Failed: Device Mismatch." });
+    }
+
+    // // Delete the Verified code from the DB
+    // user.verifyCodes = user.verifyCodes.filter((vc) => {
+    //   return vc !== verifiedCode;
+    // });
+
+    await user.save();
+
+    res.json({
+      message: `Success! Your password for ${email} is now updated.`,
+      hashedCode: verifiedCode.code,
+    });
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
+
 export async function getUserByID(req, res) {
   const { userId } = req.params;
 
