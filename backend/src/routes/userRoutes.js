@@ -8,6 +8,7 @@ import {
   logout,
   logoutAll,
   forgotPassword,
+  verifyCode,
   // getUsers,
   // addUser,
   // deleteUser,
@@ -25,6 +26,7 @@ router.post("/refresh-token", refreshToken);
 router.get("/logout", logout);
 router.get("/logout-all", logoutAll);
 router.post("/forgot-password", [forgotPasswordLimiter], forgotPassword);
+router.patch("/verify", verifyCode);
 
 router.get("/:userId", getUserByID);
 router.put("/:userId", updateUser);
