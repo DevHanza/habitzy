@@ -407,8 +407,8 @@ export async function verifyCode(req, res) {
     await user.save();
 
     res.json({
-      message: `Success! Your password for ${email} is now updated.`,
-      hashedCode: verifiedCode.code,
+      message: `Verified!`,
+      email,
     });
     //
   } catch (err) {
