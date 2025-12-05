@@ -23,7 +23,7 @@ function Account() {
   return (
     <Container>
       <NavigateControls />
-      <Container maxW={"xl"}>
+      <Container maxW={"xl"} paddingInline={{ smDown: 0 }}>
         <Flex direction={"column"} gap={8}>
           {/* Profile Card - START*/}
           <Stack
