@@ -28,7 +28,7 @@ const users = [
 function Leaderboard() {
   const { user } = useUser();
   return (
-    <Container paddingInline={{ base: 0, md: "var(--chakra-spacing-4)" }}>
+    <Container paddingInline={{ smDown: 0}}>
       <NavigateControls />
       <Container maxW={"xl"} p={0}>
         <Flex direction={"column"} gap={8}>
