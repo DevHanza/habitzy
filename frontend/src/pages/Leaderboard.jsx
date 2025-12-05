@@ -28,11 +28,11 @@ const users = [
 function Leaderboard() {
   const { user } = useUser();
   return (
-    <Container>
+    <Container paddingInline={{ base: 0, md: "var(--chakra-spacing-4)" }}>
       <NavigateControls />
-      <Container maxW={"xl"}>
+      <Container maxW={"xl"} p={0}>
         <Flex direction={"column"} gap={8}>
-          <VStack>
+          <VStack px={{ base: "1rem", md: "none" }}>
             <Heading size={{ base: "2xl", md: "2xl" }}>Leaderboard</Heading>
             <Text textAlign={"center"} color={"fg.muted"} pb={6}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque a
@@ -40,7 +40,7 @@ function Leaderboard() {
             </Text>
             <Separator width={"100%"} />
           </VStack>
-          <VStack gap={2} width={"100%"}>
+          <VStack gap={2} width={"100%"} px={{ base: "1rem", md: "none" }}>
             {users.map((user, index) => (
               <LeaderboardCard
                 key={user.username}
