@@ -22,7 +22,7 @@ function QuoteBox() {
           <Spinner color="teal.500" size="md" />
         </Box>
       ) : (
-        <Stack gap={4}>
+        <Stack width={"100%"} gap={4}>
           <Heading
             fontWeight={500}
             size={{ base: "md", md: "lg" }}
