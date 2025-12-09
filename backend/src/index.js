@@ -29,7 +29,7 @@ app.use("/api/v1/user/:userId/dailylogs", dailyLogRoutes);
 
 // Test API
 app.get("/api/v1", (req, res) => {
-  res.send("API is working 🚀");
+  res.send({ message: "API is working 🚀" });
 });
 
 export default app;
