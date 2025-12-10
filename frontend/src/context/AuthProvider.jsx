@@ -7,7 +7,7 @@ const initialState = {
   accessToken: null,
 };
 
-function reducer(state, payload) {
+function reducer(state, action) {
   switch (action.type) {
     case "SET_TOKEN":
       return { ...state, accessToken: action.payload };
@@ -21,9 +21,10 @@ export const AuthProvider = ({ children }) => {
 
   async function login(email, password) {
     const res = await loginRequest(email, password);
+    const data = await res.json();
+
     if (!res.ok) throw Error(data.message);
 
-    const data = res.json();
     dispatch({ type: "SET_TOKEN", payload: data.accessToken });
 
     return true;
