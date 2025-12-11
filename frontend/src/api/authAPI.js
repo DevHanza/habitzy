@@ -8,3 +8,9 @@ export const loginRequest = (email, password) =>
     body: JSON.stringify({ email, password }),
   });
 
+export const refreshAccessTokenRequest = () =>
+  fetch(`${API}/refresh-token`, {
+    method: "POST",
+    credentials: "include",
+  });
+
