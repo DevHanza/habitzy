@@ -14,3 +14,8 @@ export const refreshAccessTokenRequest = () =>
     credentials: "include",
   });
 
+export const logoutRequest = () =>
+  fetch(`${API}/logout`, {
+    method: "GET",
+    credentials: "include",
+  });

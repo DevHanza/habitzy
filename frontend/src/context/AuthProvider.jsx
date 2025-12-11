@@ -1,6 +1,10 @@
 import { useEffect, useReducer } from "react";
 import { AuthContext } from "@/context/AuthContext";
-import { loginRequest, refreshAccessTokenRequest } from "@/api/authAPI";
+import {
+  loginRequest,
+  logoutRequest,
+  refreshAccessTokenRequest,
+} from "@/api/authAPI";
 
 const initialState = {
   user: null,
@@ -11,6 +15,8 @@ function reducer(state, action) {
   switch (action.type) {
     case "SET_TOKEN":
       return { ...state, accessToken: action.payload };
+    case "LOGOUT":
+      return { ...state, ...initialState };
     default:
       return state;
   }
@@ -18,6 +24,8 @@ function reducer(state, action) {
 
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const isLoggedIn = state.accessToken ? true : false;
 
   // Get Refresh Token on Initial Load
   useEffect(() => {
@@ -44,12 +52,24 @@ export const AuthProvider = ({ children }) => {
     return true;
   }
 
+  async function logout() {
+    const res = await logoutRequest();
+    const data = await res.json();
+
+    if (!res.ok) throw Error(data.message);
+
+    dispatch({ type: "LOGOUT" });
+    return true;
+  }
+
   return (
     <AuthContext.Provider
       value={{
         state,
+        isLoggedIn,
         accessToken: state.accessToken,
         login,
+        logout,
       }}
     >
       {children}
