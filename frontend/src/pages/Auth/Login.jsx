@@ -10,13 +10,14 @@ function Login() {
       heading="Log In"
       headingText={
         <Text color={"fg.muted"} textAlign={{ base: "center", lg: "left" }}>
-          Dont have an account?{" "}
+          Don't have an account?{" "}
           <Link
             to="/signup"
             style={{ textDecoration: "underline", color: "white" }}
           >
-            Create an Account
+            Sign up
           </Link>
+          .
         </Text>
       }
     >
