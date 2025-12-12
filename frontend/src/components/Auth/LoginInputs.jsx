@@ -43,11 +43,11 @@ function LoginInputs() {
 
       <Button>Log In</Button>
 
-      <Checkbox.Root defaultChecked variant={"solid"} colorPalette={"teal"}>
+      {/* <Checkbox.Root defaultChecked variant={"solid"} colorPalette={"teal"}>
         <Checkbox.HiddenInput />
         <Checkbox.Control />
         <Checkbox.Label cursor={"pointer"}>Keep me signed in</Checkbox.Label>
-      </Checkbox.Root>
+      </Checkbox.Root> */}
     </Stack>
   );
 }
