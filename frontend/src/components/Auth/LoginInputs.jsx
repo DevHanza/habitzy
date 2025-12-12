@@ -30,15 +30,6 @@ function LoginInputs() {
             />
           </Stack>
         </Field.Root>
-
-        <Text textAlign={{ base: "right" }} fontSize={14}>
-          <Link
-            to="/forgot-password"
-            style={{ textDecoration: "underline", color: "white" }}
-          >
-            Forgot Password?
-          </Link>
-        </Text>
       </Stack>
 
       <Button>Log In</Button>
@@ -48,6 +39,16 @@ function LoginInputs() {
         <Checkbox.Control />
         <Checkbox.Label cursor={"pointer"}>Keep me signed in</Checkbox.Label>
       </Checkbox.Root> */}
+
+      <Text
+        fontSize={14}
+        textAlign={{ base: "center" }}
+        textDecoration={"underline"}
+        as={Link}
+        to={"/forgot-password"}
+      >
+        Forgot Password?
+      </Text>
     </Stack>
   );
 }
