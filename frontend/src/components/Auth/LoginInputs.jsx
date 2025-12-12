@@ -42,6 +42,8 @@ function LoginInputs() {
 
       <Text
         fontSize={14}
+        color={"fg.muted"}
+        // _hover={{ color: "white" }}
         textAlign={{ base: "center" }}
         textDecoration={"underline"}
         as={Link}
