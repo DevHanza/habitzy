@@ -13,6 +13,8 @@ import {
   useBreakpointValue,
   VStack,
   Avatar,
+  HStack,
+  Button,
 } from "@chakra-ui/react";
 
 import { House, Crown, UserRound, Settings, Sun, Moon } from "lucide-react";
@@ -118,6 +120,11 @@ function DesktopMenu() {
           <Avatar.Fallback name={user.name} />
         </Avatar.Root>
       </Link>
+      <HStack>
+        <Button as={Link} to={"/login"} size={"xs"} colorPalette={"teal"}>
+          Sign in
+        </Button>
+      </HStack>
     </Stack>
   );
 }
