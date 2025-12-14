@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
 
   const isLoggedIn = state.accessToken ? true : false;
 
-  // Get Refresh Token on Initial Load
+  // Get Access Token on Initial Load
   useEffect(() => {
     // Note: This is a Immediately Invoked Function Expression (IIFE).
     (async function () {
