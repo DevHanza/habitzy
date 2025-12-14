@@ -4,7 +4,10 @@ import { Link } from "react-router";
 import { PasswordInput } from "@/components/ui/password-input";
 
 function LoginInputs() {
-  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+
 
   return (
     <Stack gap={4}>
