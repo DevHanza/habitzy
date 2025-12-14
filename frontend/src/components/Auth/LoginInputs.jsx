@@ -85,6 +85,8 @@ function LoginInputs() {
               required
               type="email"
               name="email"
+              minLength={5}
+              textTransform={"lowercase"}
             />
           </Field.Root>
           <Field.Root>
@@ -98,6 +100,8 @@ function LoginInputs() {
                 required
                 type="password"
                 name="password"
+                minLength={5}
+                maxLength={150}
               />
             </Stack>
           </Field.Root>
