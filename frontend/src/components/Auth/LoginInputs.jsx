@@ -10,30 +10,39 @@ function LoginInputs() {
 
 
   return (
-    <Stack gap={4}>
-      <Stack gap={3}>
-        {/* Inputs */}
-        <Field.Root required>
-          <Input
-            borderColor={"border.emphasized"}
-            placeholder="Email Address"
-            variant="subtle"
-            colorPalette={"teal"}
-          />
-        </Field.Root>
-        <Field.Root required>
-          <Stack gap="1" width={"100%"}>
-            <PasswordInput
+    <Stack gap={4} asChild>
+      <form action={handleSubmit}>
+        <Text>{error}</Text>
+        <Stack gap={3}>
+          {/* Inputs */}
+          <Field.Root>
+            <Input
               borderColor={"border.emphasized"}
-              value={password}
-              onChange={(e) => setPassword(e.currentTarget.value)}
-              placeholder="Password"
+              placeholder="Email Address"
               variant="subtle"
               colorPalette={"teal"}
+              autoComplete="true"
+              disabled={loading}
+              required
+              type="email"
+              name="email"
             />
-          </Stack>
-        </Field.Root>
-      </Stack>
+          </Field.Root>
+          <Field.Root>
+            <Stack gap="1" width={"100%"}>
+              <PasswordInput
+                borderColor={"border.emphasized"}
+                placeholder="Password"
+                variant="subtle"
+                colorPalette={"teal"}
+                disabled={loading}
+                required
+                type="password"
+                name="password"
+              />
+            </Stack>
+          </Field.Root>
+        </Stack>
 
         {/* <Button type="submit" disabled={loading}>
           Log In
@@ -56,17 +65,18 @@ function LoginInputs() {
         <Checkbox.Label cursor={"pointer"}>Keep me signed in</Checkbox.Label>
       </Checkbox.Root> */}
 
-      <Text
-        fontSize={14}
-        color={"fg.muted"}
-        // _hover={{ color: "white" }}
-        textAlign={{ base: "center" }}
-        textDecoration={"underline"}
-        as={Link}
-        to={"/forgot-password"}
-      >
-        Forgot Password?
-      </Text>
+        <Text
+          fontSize={14}
+          color={"fg.muted"}
+          // _hover={{ color: "white" }}
+          textAlign={{ base: "center" }}
+          textDecoration={"underline"}
+          as={Link}
+          to={"/forgot-password"}
+        >
+          Forgot Password?
+        </Text>
+      </form>
     </Stack>
   );
 }
