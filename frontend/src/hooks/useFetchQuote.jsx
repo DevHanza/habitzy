@@ -2,7 +2,7 @@ import { getCookie, setCookie } from "@/utils/cookieHelper";
 import { useEffect, useState } from "react";
 
 function useFetchQuote() {
-  const url = "https://api.realinspire.live/v1/quotes/random?maxLength=120";
+  const url = import.meta.env.VITE_QUOTES_API;
 
   const [quote, setQuote] = useState();
   const [loading, setLoading] = useState(true);

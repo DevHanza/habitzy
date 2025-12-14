@@ -1,22 +1,30 @@
 import { Text } from "@chakra-ui/react";
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
 
 import AuthPage from "@/components/layout/AuthPage";
 import LoginInputs from "@/components/Auth/LoginInputs";
+import { useAuth } from "@/hooks/useAuth";
 
 function Login() {
+  const { isLoggedIn } = useAuth();
+
+  if (isLoggedIn) {
+    return <Navigate to="/" replace />;
+  }
+
   return (
     <AuthPage
       heading="Log In"
       headingText={
         <Text color={"fg.muted"} textAlign={{ base: "center", lg: "left" }}>
-          Dont have an account?{" "}
+          Don't have an account?{" "}
           <Link
             to="/signup"
             style={{ textDecoration: "underline", color: "white" }}
           >
-            Create an Account
+            Sign up
           </Link>
+          .
         </Text>
       }
     >
