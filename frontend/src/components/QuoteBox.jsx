@@ -28,10 +28,10 @@ function QuoteBox() {
             size={{ base: "md", md: "lg" }}
             lineHeight={{ base: 1.25, md: 1.3 }}
           >
-            {quote[0].content}
+            {quote.quote}
           </Heading>
           <Text fontSize={"0.875rem"} color={"fg.muted"}>
-            — {quote[0].author}
+            — {quote.author}
           </Text>
         </Stack>
       )}
