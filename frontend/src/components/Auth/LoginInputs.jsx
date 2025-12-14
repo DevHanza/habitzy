@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Stack, Field, Input, Button, Checkbox, Text } from "@chakra-ui/react";
+import { Stack, Field, Input, Button, Text, Spinner } from "@chakra-ui/react";
 import { Link } from "react-router";
 import { PasswordInput } from "@/components/ui/password-input";
 
@@ -32,9 +32,22 @@ function LoginInputs() {
         </Field.Root>
       </Stack>
 
-      <Button>Log In</Button>
+        {/* <Button type="submit" disabled={loading}>
+          Log In
+        </Button> */}
 
-      {/* <Checkbox.Root defaultChecked variant={"solid"} colorPalette={"teal"}>
+        <Button type="submit" disabled={loading}>
+          {loading ? (
+            <>
+              <Spinner size={"sm"} />
+              Signing in...
+            </>
+          ) : (
+            " Log In"
+          )}
+        </Button>
+
+        {/* <Checkbox.Root defaultChecked variant={"solid"} colorPalette={"teal"}>
         <Checkbox.HiddenInput />
         <Checkbox.Control />
         <Checkbox.Label cursor={"pointer"}>Keep me signed in</Checkbox.Label>
