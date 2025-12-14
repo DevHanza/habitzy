@@ -86,7 +86,6 @@ function LoginInputs() {
               type="email"
               name="email"
               minLength={5}
-              textTransform={"lowercase"}
             />
           </Field.Root>
           <Field.Root>
