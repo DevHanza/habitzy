@@ -10,8 +10,11 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "react-router";
 import { PasswordInput } from "@/components/ui/password-input";
+import { useAuth } from "@/hooks/useAuth";
 
 function LoginInputs() {
+  const { login } = useAuth();
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -48,15 +51,25 @@ function LoginInputs() {
         //
       }
 
+      login(email, pass)
+        // .then(() => {
+          
+        // })
+        .catch(() => {
+          setLoading(false);
+          return setError("Invalid password.");
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+
       //
     } catch (err) {
       //
       setLoading(false);
       setError("Error! Authentication failed.");
-      // console.log(err);
+      console.log(err);
       //
-    } finally {
-      setLoading(false);
     }
   }
 
