@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Stack, Field, Input, Button, Text, Spinner } from "@chakra-ui/react";
+import {
+  Stack,
+  Field,
+  Input,
+  Button,
+  Text,
+  Spinner,
+  Alert,
+} from "@chakra-ui/react";
 import { Link } from "react-router";
 import { PasswordInput } from "@/components/ui/password-input";
 
@@ -48,14 +56,22 @@ function LoginInputs() {
       // console.log(err);
       //
     } finally {
-      // setLoading(false);
+      setLoading(false);
     }
   }
 
   return (
     <Stack gap={4} asChild>
       <form action={handleSubmit}>
-        <Text>{error}</Text>
+        {/* <Text>{error}</Text> */}
+
+        {error && (
+          <Alert.Root status="error">
+            <Alert.Indicator />
+            <Alert.Title>{error}</Alert.Title>
+          </Alert.Root>
+        )}
+
         <Stack gap={3}>
           {/* Inputs */}
           <Field.Root>
