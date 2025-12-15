@@ -57,6 +57,8 @@ function SignUpInputs() {
               variant="subtle"
               colorPalette={"teal"}
               name="name"
+              minLength="3"
+              maxLength="150"
             />
           </Field.Root>
           <Field.Root required>
@@ -78,6 +80,8 @@ function SignUpInputs() {
             variant="subtle"
             colorPalette={"teal"}
             name="email"
+            minLength="5"
+            type="email"
           />
         </Field.Root>
         <Field.Root required>
@@ -90,6 +94,9 @@ function SignUpInputs() {
               variant="subtle"
               colorPalette={"teal"}
               name="pass"
+              type="password"
+              minLength="5"
+              maxLength="150"
             />
             <PasswordStrengthMeter value={strength} colorPalette="red" />
           </Stack>
