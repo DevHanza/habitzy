@@ -23,7 +23,7 @@ function LoginInputs() {
     try {
       //
       let email = formData.get("email").trim().toLowerCase();
-      let pass = formData.get("password").trim();
+      let pass = formData.get("password");
 
       const emailRegex = /^[^@\s+]+@[^@\s]+\.[^@\s]+$/;
 
