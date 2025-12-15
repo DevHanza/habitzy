@@ -50,7 +50,7 @@ function SignUpInputs() {
     <Stack gap={3} asChild>
       <form action={handleSubmit}>
         <Stack gap={3} direction={{ base: "column", sm: "row" }}>
-          <Field.Root required>
+          <Field.Root required disabled={loading}>
             <Input
               borderColor={"border.emphasized"}
               placeholder="Name"
@@ -61,7 +61,7 @@ function SignUpInputs() {
               maxLength="150"
             />
           </Field.Root>
-          <Field.Root required>
+          <Field.Root required disabled={loading}>
             <Input
               borderColor={"border.emphasized"}
               placeholder="Username"
@@ -73,7 +73,7 @@ function SignUpInputs() {
         </Stack>
 
         {/* Inputs */}
-        <Field.Root required>
+        <Field.Root required disabled={loading}>
           <Input
             borderColor={"border.emphasized"}
             placeholder="Email Address"
@@ -84,7 +84,7 @@ function SignUpInputs() {
             type="email"
           />
         </Field.Root>
-        <Field.Root required>
+        <Field.Root required disabled={loading}>
           <Stack gap="1" width={"100%"}>
             <PasswordInput
               borderColor={"border.emphasized"}
