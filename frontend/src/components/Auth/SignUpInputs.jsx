@@ -85,11 +85,6 @@ function SignUpInputs() {
         //
       }
 
-      // {
-      //    "id": "693fded3e5448b5a3619ea81",
-      //    "message": "User registered successfully."
-      // }
-
       console.log(name, username, email, pass);
 
       //
