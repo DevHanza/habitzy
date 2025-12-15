@@ -27,7 +27,7 @@ function LoginInputs() {
 
       const emailRegex = /^[^@\s+]+@[^@\s]+\.[^@\s]+$/;
 
-      if (!email || email === "") {
+      if (!email || email.trim() === "") {
         //
         return setError("Email is required.");
         //
@@ -53,7 +53,7 @@ function LoginInputs() {
 
       login(email, pass)
         // .then(() => {
-          
+
         // })
         .catch(() => {
           setLoading(false);
