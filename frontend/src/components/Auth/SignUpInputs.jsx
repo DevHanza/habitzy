@@ -15,6 +15,8 @@ const strengthOptions = [
 ];
 
 function SignUpInputs() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [password, setPassword] = useState("");
 
   const strength = useMemo(() => {
@@ -66,9 +68,17 @@ function SignUpInputs() {
           <PasswordStrengthMeter value={strength} colorPalette="red" />
         </Stack>
       </Field.Root>
-      <Button mt={2} disabled={true}>
-        Create Account
-      </Button>
+
+        <Button mt={2} type="submit" disabled={loading}>
+          {loading ? (
+            <>
+              <Spinner size={"sm"} />
+              Signing in...
+            </>
+          ) : (
+            "Create Account"
+          )}
+        </Button>
       <Text
         mt={2}
         fontSize={14}
