@@ -25,49 +25,75 @@ function SignUpInputs() {
     return result.id;
   }, [password]);
 
-  return (
-    <Stack gap={3}>
-      <Stack gap={3} direction={{ base: "column", sm: "row" }}>
-        <Field.Root required>
-          <Input
-            borderColor={"border.emphasized"}
-            placeholder="Name"
-            variant="subtle"
-            colorPalette={"teal"}
-          />
-        </Field.Root>
-        <Field.Root required>
-          <Input
-            borderColor={"border.emphasized"}
-            placeholder="Username"
-            variant="subtle"
-            colorPalette={"teal"}
-          />
-        </Field.Root>
-      </Stack>
+  async function handleSubmit(formData) {
+    // setLoading(true);
+    try {
+      //
+      let name = formData.get("name").trim();
+      let username = formData.get("username").trim();
+      let email = formData.get("email").trim();
+      let pass = formData.get("pass").trim();
 
-      {/* Inputs */}
-      <Field.Root required>
-        <Input
-          borderColor={"border.emphasized"}
-          placeholder="Email Address"
-          variant="subtle"
-          colorPalette={"teal"}
-        />
-      </Field.Root>
-      <Field.Root required>
-        <Stack gap="1" width={"100%"}>
-          <PasswordInput
+      console.log(name, username, email, pass);
+
+      //
+    } catch (err) {
+      //
+      setLoading(false);
+      setError("Error! Authentication failed.");
+      console.log(err);
+      //
+    }
+  }
+
+  return (
+    <Stack gap={3} asChild>
+      <form action={handleSubmit}>
+        <Stack gap={3} direction={{ base: "column", sm: "row" }}>
+          <Field.Root required>
+            <Input
+              borderColor={"border.emphasized"}
+              placeholder="Name"
+              variant="subtle"
+              colorPalette={"teal"}
+              name="name"
+            />
+          </Field.Root>
+          <Field.Root required>
+            <Input
+              borderColor={"border.emphasized"}
+              placeholder="Username"
+              variant="subtle"
+              colorPalette={"teal"}
+              name="username"
+            />
+          </Field.Root>
+        </Stack>
+
+        {/* Inputs */}
+        <Field.Root required>
+          <Input
             borderColor={"border.emphasized"}
-            value={password}
-            onChange={(e) => setPassword(e.currentTarget.value)}
-            placeholder="Password"
+            placeholder="Email Address"
             variant="subtle"
             colorPalette={"teal"}
+            name="email"
           />
-          <PasswordStrengthMeter value={strength} colorPalette="red" />
-        </Stack>
-      </Field.Root>
+        </Field.Root>
+        <Field.Root required>
+          <Stack gap="1" width={"100%"}>
+            <PasswordInput
+              borderColor={"border.emphasized"}
+              value={password}
+              onChange={(e) => setPassword(e.currentTarget.value)}
+              placeholder="Password"
+              variant="subtle"
+              colorPalette={"teal"}
+              name="pass"
+            />
+            <PasswordStrengthMeter value={strength} colorPalette="red" />
+          </Stack>
+        </Field.Root>
 
         <Button mt={2} type="submit" disabled={loading}>
           {loading ? (
@@ -79,36 +105,37 @@ function SignUpInputs() {
             "Create Account"
           )}
         </Button>
-      <Text
-        mt={2}
-        fontSize={14}
-        color={"fg.muted"}
-        textAlign={{ base: "center", md: "left" }}
-      >
-        By creating an account, you agree to our{" "}
-        <Link
-          to={"/terms-and-conditions"}
-          style={{
-            textDecoration: "underline",
-            fontWeight: "500",
-            color: "white",
-          }}
+        <Text
+          mt={2}
+          fontSize={14}
+          color={"fg.muted"}
+          textAlign={{ base: "center", md: "left" }}
         >
-          Terms & Conditions
-        </Link>{" "}
-        and{" "}
-        <Link
-          to={"/privacy-policy"}
-          style={{
-            textDecoration: "underline",
-            fontWeight: "500",
-            color: "white",
-          }}
-        >
-          Privacy Policy
-        </Link>{" "}
-        .
-      </Text>
+          By creating an account, you agree to our{" "}
+          <Link
+            to={"/terms-and-conditions"}
+            style={{
+              textDecoration: "underline",
+              fontWeight: "500",
+              color: "white",
+            }}
+          >
+            Terms & Conditions
+          </Link>{" "}
+          and{" "}
+          <Link
+            to={"/privacy-policy"}
+            style={{
+              textDecoration: "underline",
+              fontWeight: "500",
+              color: "white",
+            }}
+          >
+            Privacy Policy
+          </Link>{" "}
+          .
+        </Text>
+      </form>
     </Stack>
   );
 }
