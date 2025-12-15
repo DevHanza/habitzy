@@ -68,7 +68,7 @@ function LoginInputs() {
       //
       setLoading(false);
       setError("Error! Authentication failed.");
-      console.log(err);
+      // console.log(err);
       //
     }
   }
