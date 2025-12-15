@@ -57,7 +57,7 @@ function LoginInputs() {
         // })
         .catch(() => {
           setLoading(false);
-          return setError("Invalid password.");
+          return setError("Error! Authentication failed.");
         })
         .finally(() => {
           setLoading(false);
