@@ -4,6 +4,7 @@ import {
   loginRequest,
   logoutRequest,
   refreshAccessTokenRequest,
+  registerRequest,
 } from "@/api/authAPI";
 
 const initialState = {
@@ -41,6 +42,24 @@ export const AuthProvider = ({ children }) => {
     //
   }, []);
 
+  async function register(name, email, username, password) {
+    try {
+      //
+      const res = await registerRequest(name, email, username, password);
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw Error(data.message);
+        return;
+      }
+
+      return data;
+      //
+    } catch (err) {
+      throw Error(err);
+    }
+  }
+
   async function login(email, password) {
     const res = await loginRequest(email, password);
     const data = await res.json();
@@ -68,6 +87,7 @@ export const AuthProvider = ({ children }) => {
         state,
         isLoggedIn,
         accessToken: state.accessToken,
+        register,
         login,
         logout,
       }}
