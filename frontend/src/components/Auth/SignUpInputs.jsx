@@ -68,6 +68,8 @@ function SignUpInputs() {
               variant="subtle"
               colorPalette={"teal"}
               name="username"
+              minLength="5"
+              maxLength="25"
             />
           </Field.Root>
         </Stack>
