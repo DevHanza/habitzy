@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
 
     dispatch({ type: "SET_TOKEN", payload: data.accessToken });
 
-    return true;
+    return data;
   }
 
   async function logout() {
@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }) => {
     if (!res.ok) throw Error(data.message);
 
     dispatch({ type: "LOGOUT" });
-    return true;
+    return data;
   }
 
   return (
