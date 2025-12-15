@@ -1,4 +1,4 @@
-import { Stack, Field, Input, Button, Text } from "@chakra-ui/react";
+import { Stack, Field, Input, Button, Text, Spinner } from "@chakra-ui/react";
 import { Link } from "react-router";
 import { passwordStrength } from "check-password-strength";
 import {
@@ -29,10 +29,66 @@ function SignUpInputs() {
     // setLoading(true);
     try {
       //
-      let name = formData.get("name").trim();
-      let username = formData.get("username").trim();
-      let email = formData.get("email").trim();
-      let pass = formData.get("pass").trim();
+      let name = formData.get("name");
+      let username = formData.get("username").trim().toLowerCase();
+      let email = formData.get("email").trim().toLowerCase();
+      let pass = formData.get("pass");
+
+      const emailRegex = /^[^@\s+]+@[^@\s]+\.[^@\s]+$/;
+      const usernameRegex = /^[a-zA-Z][a-zA-Z0-9_]+$/;
+
+      if (!name || name === "") {
+        //
+        return setError("Name is required.");
+        //
+      } else if (name.length < 3 || name.length > 150) {
+        //
+        return setError("Please enter a valid name.");
+        //
+      }
+
+      if (!username || username === "") {
+        //
+        return setError("Username is required.");
+        //
+      } else if (username.length < 2 || username.length > 25) {
+        //
+        return setError("Please enter a valid name.");
+        //
+      } else if (usernameRegex.test(name)) {
+        //
+        return setError("Please enter a valid name.");
+        //
+      }
+
+      if (!email || email.trim() === "") {
+        //
+        return setError("Email is required.");
+        //
+      } else if (email.length < 5) {
+        //
+        return setError("Email must be longer than 5 characters.");
+        //
+      } else if (!emailRegex.test(email)) {
+        //
+        return setError("Please enter a valid email address.");
+        //
+      }
+
+      if (!pass || pass === "") {
+        //
+        return setError("Password is required.");
+        //
+      } else if (pass.length < 5 || pass.length > 10) {
+        //
+        return setError("Invalid password.");
+        //
+      }
+
+      // {
+      //    "id": "693fded3e5448b5a3619ea81",
+      //    "message": "User registered successfully."
+      // }
 
       console.log(name, username, email, pass);
 
@@ -41,7 +97,7 @@ function SignUpInputs() {
       //
       setLoading(false);
       setError("Error! Authentication failed.");
-      console.log(err);
+      // console.log(err);
       //
     }
   }
@@ -108,7 +164,7 @@ function SignUpInputs() {
           {loading ? (
             <>
               <Spinner size={"sm"} />
-              Signing in...
+              Signing up...
             </>
           ) : (
             "Create Account"
