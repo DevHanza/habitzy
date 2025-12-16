@@ -61,24 +61,35 @@ export const AuthProvider = ({ children }) => {
   }
 
   async function login(email, password) {
-    const res = await loginRequest(email, password);
-    const data = await res.json();
+    try {
+      //
+      const res = await loginRequest(email, password);
+      const data = await res.json();
 
-    if (!res.ok) throw Error(data.message);
+      if (!res.ok) throw Error(data.message);
 
-    dispatch({ type: "SET_TOKEN", payload: data.accessToken });
+      dispatch({ type: "SET_TOKEN", payload: data.accessToken });
 
-    return data;
+      return data;
+    } catch (err) {
+      throw Error(err);
+    }
   }
 
   async function logout() {
-    const res = await logoutRequest();
-    const data = await res.json();
+    try {
+      //
+      const res = await logoutRequest();
+      const data = await res.json();
 
-    if (!res.ok) throw Error(data.message);
+      if (!res.ok) throw Error(data.message);
 
-    dispatch({ type: "LOGOUT" });
-    return data;
+      dispatch({ type: "LOGOUT" });
+      return data;
+      //
+    } catch (err) {
+      throw Error(err);
+    }
   }
 
   return (
