@@ -8,12 +8,13 @@ import {
   Spinner,
   Alert,
 } from "@chakra-ui/react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { PasswordInput } from "@/components/ui/password-input";
 import { useAuth } from "@/hooks/useAuth";
 
 function LoginInputs() {
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -52,10 +53,10 @@ function LoginInputs() {
       }
 
       login(email, pass)
-        // .then(() => {
-
-        // })
-        .catch(() => {
+        .then(() => {
+          navigate("/");
+        })
+        .catch((err) => {
           setLoading(false);
           return setError("Error! Authentication failed.");
         })
