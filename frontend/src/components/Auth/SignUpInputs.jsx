@@ -14,6 +14,7 @@ import {
   PasswordStrengthMeter,
 } from "@/components/ui/password-input";
 import { useMemo, useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 const strengthOptions = [
   { id: 1, value: "weak", minDiversity: 0, minLength: 0 },
@@ -23,6 +24,8 @@ const strengthOptions = [
 ];
 
 function SignUpInputs() {
+  const { register } = useAuth();
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
@@ -34,7 +37,7 @@ function SignUpInputs() {
   }, [password]);
 
   async function handleSubmit(formData) {
-    // setLoading(true);
+    setLoading(true);
     try {
       //
       let name = formData.get("name");
@@ -93,7 +96,18 @@ function SignUpInputs() {
         //
       }
 
-      console.log(name, username, email, pass);
+      register(name, email, username, pass)
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((err) => {
+          setLoading(false);
+          // console.log(err);
+          return setError("Error! Authentication failed.");
+        })
+        .finally(() => {
+          setLoading(false);
+        });
 
       //
     } catch (err) {
