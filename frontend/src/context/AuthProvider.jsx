@@ -51,10 +51,7 @@ export const AuthProvider = ({ children }) => {
       const res = await registerRequest(name, email, username, password);
       const data = await res.json();
 
-      if (!res.ok) {
-        throw Error(data.message);
-        return;
-      }
+      if (!res.ok) throw Error(data.message);
 
       return data;
       //
