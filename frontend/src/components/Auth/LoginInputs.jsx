@@ -30,25 +30,25 @@ function LoginInputs() {
 
       if (!email || email.trim() === "") {
         //
-        return setError("Email is required.");
+        throw new Error("Email is required.");
         //
       } else if (email.length < 5) {
         //
-        return setError("Email must be longer than 5 characters.");
+        throw new Error("Email must be longer than 5 characters.");
         //
       } else if (!emailRegex.test(email)) {
         //
-        return setError("Please enter a valid email address.");
+        throw new Error("Please enter a valid email address.");
         //
       }
 
       if (!pass || pass === "") {
         //
-        return setError("Password is required.");
+        throw new Error("Password is required.");
         //
       } else if (pass.length < 5 || pass.length > 10) {
         //
-        return setError("Invalid password.");
+        throw new Error("Invalid password.");
         //
       }
 
@@ -58,17 +58,20 @@ function LoginInputs() {
         })
         .catch((err) => {
           setLoading(false);
-          return setError("Error! Authentication failed.");
+          setError(err.message);
+          throw new Error("Error! Authentication failed.");
         })
         .finally(() => {
           setLoading(false);
         });
 
+      setLoading(false);
       //
     } catch (err) {
       //
       setLoading(false);
-      setError("Error! Authentication failed.");
+      setError(err.message);
+      // setError("Error! Authentication failed.");
       // console.log(err);
       //
     }
