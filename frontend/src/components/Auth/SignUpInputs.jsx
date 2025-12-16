@@ -40,7 +40,7 @@ function SignUpInputs() {
       let name = formData.get("name");
       let username = formData.get("username").trim().toLowerCase();
       let email = formData.get("email").trim().toLowerCase();
-      let pass = formData.get("pass");
+      let pass = formData.get("pass") || password;
 
       const emailRegex = /^[^@\s+]+@[^@\s]+\.[^@\s]+$/;
       const usernameRegex = /^[a-zA-Z][a-zA-Z0-9_]+$/;
@@ -63,7 +63,7 @@ function SignUpInputs() {
         //
         return setError("Please enter a valid name.");
         //
-      } else if (usernameRegex.test(name)) {
+      } else if (!usernameRegex.test(name)) {
         //
         return setError("Please enter a valid name.");
         //
