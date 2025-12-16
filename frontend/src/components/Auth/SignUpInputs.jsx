@@ -90,7 +90,7 @@ function SignUpInputs() {
         //
         return setError("Password is required.");
         //
-      } else if (pass.length < 5 || pass.length > 10) {
+      } else if (pass.length < 5 || pass.length > 150) {
         //
         return setError("Invalid password.");
         //
