@@ -111,6 +111,8 @@ function SignUpInputs() {
           setLoading(false);
         });
 
+      setLoading(false);
+
       //
     } catch (err) {
       //
