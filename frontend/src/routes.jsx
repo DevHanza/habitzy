@@ -8,6 +8,7 @@ import Settings from "@/pages/Settings";
 // Auth Pages
 import SignUp from "@/pages/Auth/SignUp";
 import Login from "@/pages/Auth/Login";
+import Logout from "@/pages/Auth/Logout";
 import ForgotPassword from "@/pages/Auth/ForgotPassword";
 import VerifyCode from "@/pages/Auth/VerifyCode";
 import ResetPassword from "@/pages/Auth/ResetPassword";
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/logout",
+    element: <Logout />,
   },
   {
     path: "/forgot-password",
