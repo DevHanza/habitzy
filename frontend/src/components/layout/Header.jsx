@@ -13,11 +13,21 @@ import {
   useBreakpointValue,
   VStack,
   Avatar,
-  HStack,
   Button,
+  Menu,
+  Portal,
 } from "@chakra-ui/react";
 
-import { House, Crown, UserRound, Settings, Sun, Moon } from "lucide-react";
+import {
+  House,
+  Crown,
+  UserRound,
+  Settings,
+  Sun,
+  Moon,
+  User,
+  LogOut,
+} from "lucide-react";
 import { Link } from "react-router";
 import { useColorMode } from "@/components/ui/color-mode";
 
@@ -60,6 +70,11 @@ const bottomNavItems = [
     link: "/settings",
     icon: <Settings />,
   },
+];
+
+const avatarMenuItems = [
+  { label: "Profile", link: "/profile", icon: User },
+  { label: "Settings", link: "/settings", icon: Settings },
 ];
 
 function Header() {
@@ -115,11 +130,40 @@ function DesktopMenu() {
         </IconButton>
       </Stack>
 
-      <Link to="/account">
-        <Avatar.Root size={"sm"} colorPalette={"teal"}>
-          <Avatar.Fallback name={user.name} />
-        </Avatar.Root>
-      </Link>
+      <Menu.Root positioning={{ placement: "bottom" }}>
+        <Menu.Trigger rounded="full" focusRing="outside" cursor={"pointer"}>
+          <Avatar.Root size={"sm"} colorPalette={"teal"}>
+            <Avatar.Fallback name={user.name} />
+          </Avatar.Root>
+        </Menu.Trigger>
+        <Portal>
+          <Menu.Positioner>
+            <Menu.Content>
+              {avatarMenuItems.map((item) => (
+                <Menu.Item
+                  key={item.label}
+                  value={item.label}
+                  as={Link}
+                  to={item.link}
+                  cursor={"pointer"}
+                >
+                  <Box flex="1">{item.label}</Box>
+                  <item.icon size={16} />
+                </Menu.Item>
+              ))}
+              <Menu.Item
+                value={"logout"}
+                as={Link}
+                to={"/logout"}
+                cursor={"pointer"}
+              >
+                <Box flex="1">Log out</Box>
+                <LogOut size={16} />
+              </Menu.Item>
+            </Menu.Content>
+          </Menu.Positioner>
+        </Portal>
+      </Menu.Root>
 
       <Button as={Link} to={"/login"} size={"xs"} colorPalette={"teal"}>
         Sign in
