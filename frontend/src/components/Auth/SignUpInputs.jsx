@@ -1,4 +1,12 @@
-import { Stack, Field, Input, Button, Text, Spinner } from "@chakra-ui/react";
+import {
+  Stack,
+  Field,
+  Input,
+  Button,
+  Text,
+  Spinner,
+  Alert,
+} from "@chakra-ui/react";
 import { Link } from "react-router";
 import { passwordStrength } from "check-password-strength";
 import {
@@ -100,6 +108,13 @@ function SignUpInputs() {
   return (
     <Stack gap={3} asChild>
       <form action={handleSubmit}>
+        {error && (
+          <Alert.Root status="error">
+            <Alert.Indicator />
+            <Alert.Title>{error}</Alert.Title>
+          </Alert.Root>
+        )}
+
         <Stack gap={3} direction={{ base: "column", sm: "row" }}>
           <Field.Root required disabled={loading}>
             <Input
