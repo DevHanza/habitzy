@@ -4,6 +4,7 @@ import {
   loginRequest,
   logoutRequest,
   refreshAccessTokenRequest,
+  registerRequest,
 } from "@/api/authAPI";
 
 const initialState = {
@@ -29,17 +30,35 @@ export const AuthProvider = ({ children }) => {
 
   // Get Access Token on Initial Load
   useEffect(() => {
-    // Note: This is a Immediately Invoked Function Expression (IIFE).
-    (async function () {
+    if (!isLoggedIn) return;
+
+    async function refreshAccessToken() {
       const res = await refreshAccessTokenRequest();
 
       if (!res.ok) return;
 
       const data = await res.json();
       dispatch({ type: "SET_TOKEN", payload: data.accessToken });
-    })();
+    }
+
+    refreshAccessToken();
     //
   }, []);
+
+  async function register(name, email, username, password) {
+    try {
+      //
+      const res = await registerRequest(name, email, username, password);
+      const data = await res.json();
+
+      if (!res.ok) throw Error(data.message);
+
+      return data;
+      //
+    } catch (err) {
+      throw Error(err);
+    }
+  }
 
   async function login(email, password) {
     const res = await loginRequest(email, password);
@@ -49,7 +68,7 @@ export const AuthProvider = ({ children }) => {
 
     dispatch({ type: "SET_TOKEN", payload: data.accessToken });
 
-    return true;
+    return data;
   }
 
   async function logout() {
@@ -59,7 +78,7 @@ export const AuthProvider = ({ children }) => {
     if (!res.ok) throw Error(data.message);
 
     dispatch({ type: "LOGOUT" });
-    return true;
+    return data;
   }
 
   return (
@@ -68,6 +87,7 @@ export const AuthProvider = ({ children }) => {
         state,
         isLoggedIn,
         accessToken: state.accessToken,
+        register,
         login,
         logout,
       }}

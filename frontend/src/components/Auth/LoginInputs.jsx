@@ -8,12 +8,13 @@ import {
   Spinner,
   Alert,
 } from "@chakra-ui/react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { PasswordInput } from "@/components/ui/password-input";
 import { useAuth } from "@/hooks/useAuth";
 
 function LoginInputs() {
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -23,52 +24,55 @@ function LoginInputs() {
     try {
       //
       let email = formData.get("email").trim().toLowerCase();
-      let pass = formData.get("password").trim();
+      let pass = formData.get("password");
 
       const emailRegex = /^[^@\s+]+@[^@\s]+\.[^@\s]+$/;
 
-      if (!email || email === "") {
+      if (!email || email.trim() === "") {
         //
-        return setError("Email is required.");
+        throw new Error("Email is required.");
         //
       } else if (email.length < 5) {
         //
-        return setError("Email must be longer than 5 characters.");
+        throw new Error("Email must be longer than 5 characters.");
         //
       } else if (!emailRegex.test(email)) {
         //
-        return setError("Please enter a valid email address.");
+        throw new Error("Please enter a valid email address.");
         //
       }
 
       if (!pass || pass === "") {
         //
-        return setError("Password is required.");
+        throw new Error("Password is required.");
         //
       } else if (pass.length < 5 || pass.length > 10) {
         //
-        return setError("Invalid password.");
+        throw new Error("Invalid password.");
         //
       }
 
       login(email, pass)
-        // .then(() => {
-          
-        // })
-        .catch(() => {
+        .then(() => {
+          navigate("/");
+        })
+        .catch((err) => {
           setLoading(false);
-          return setError("Invalid password.");
+          setError(err.message);
+          throw new Error("Error! Authentication failed.");
         })
         .finally(() => {
           setLoading(false);
         });
 
+      setLoading(false);
       //
     } catch (err) {
       //
       setLoading(false);
-      setError("Error! Authentication failed.");
-      console.log(err);
+      setError(err.message);
+      // setError("Error! Authentication failed.");
+      // console.log(err);
       //
     }
   }

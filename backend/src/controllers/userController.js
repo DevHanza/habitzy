@@ -7,6 +7,7 @@ import {
 } from "../utils/jwt.js";
 import { isProduction } from "../utils/envCheck.js";
 import { sendEmail } from "../utils/sendEmail.js";
+
 const WEEK_IN_MS = 1000 * 60 * 60 * 24 * 7;
 
 // REGISTER
@@ -31,7 +32,11 @@ export async function registerUser(req, res) {
 
     const newUser = new User(userData);
     await newUser.save();
-    res.status(201).json(newUser);
+
+    res.status(201).json({
+      id: newUser._id,
+      message: "User registered successfully.",
+    });
     //
   } catch (err) {
     //
