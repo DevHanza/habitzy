@@ -7,7 +7,7 @@ import {
   Spinner,
   Alert,
 } from "@chakra-ui/react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { passwordStrength } from "check-password-strength";
 import {
   PasswordInput,
@@ -25,6 +25,7 @@ const strengthOptions = [
 
 function SignUpInputs() {
   const { register } = useAuth();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -99,6 +100,7 @@ function SignUpInputs() {
       register(name, email, username, pass)
         .then((data) => {
           console.log(data);
+          navigate("/login");
         })
         .catch((err) => {
           setLoading(false);
