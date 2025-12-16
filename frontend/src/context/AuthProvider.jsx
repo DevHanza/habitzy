@@ -30,15 +30,18 @@ export const AuthProvider = ({ children }) => {
 
   // Get Access Token on Initial Load
   useEffect(() => {
-    // Note: This is a Immediately Invoked Function Expression (IIFE).
-    (async function () {
+    if (!isLoggedIn) return;
+
+    async function refreshAccessToken() {
       const res = await refreshAccessTokenRequest();
 
       if (!res.ok) return;
 
       const data = await res.json();
       dispatch({ type: "SET_TOKEN", payload: data.accessToken });
-    })();
+    }
+
+    refreshAccessToken();
     //
   }, []);
 
