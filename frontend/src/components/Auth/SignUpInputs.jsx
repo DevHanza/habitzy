@@ -51,49 +51,50 @@ function SignUpInputs() {
 
       if (!name || name === "") {
         //
-        return setError("Name is required.");
+        throw new Error("Name is required.");
         //
       } else if (name.length < 3 || name.length > 150) {
         //
-        return setError("Please enter a valid name.");
+        throw new Error("Please enter a valid name.");
         //
       }
 
       if (!username || username === "") {
         //
-        return setError("Username is required.");
+        throw new Error("Username is required.");
         //
       } else if (username.length < 2 || username.length > 25) {
         //
-        return setError("Please enter a valid name.");
+        throw new Error("Please enter a valid name.");
         //
       } else if (!usernameRegex.test(name)) {
         //
-        return setError("Please enter a valid name.");
+        throw new Error("Please enter a valid name.");
         //
       }
 
       if (!email || email.trim() === "") {
         //
-        return setError("Email is required.");
+        throw new Error("Email is required.");
         //
       } else if (email.length < 5) {
         //
-        return setError("Email must be longer than 5 characters.");
+        throw new Error("Email must be longer than 5 characters.");
         //
       } else if (!emailRegex.test(email)) {
         //
-        return setError("Please enter a valid email address.");
+        throw new Error("Please enter a valid email address.");
         //
       }
 
       if (!pass || pass === "") {
         //
-        return setError("Password is required.");
+        throw new Error("Password is required.");
         //
       } else if (pass.length < 5 || pass.length > 150) {
         //
-        return setError("Invalid password.");
+        throw new Error("Invalid Password");
+
         //
       }
 
@@ -105,7 +106,8 @@ function SignUpInputs() {
         .catch((err) => {
           setLoading(false);
           // console.log(err);
-          return setError("Error! Authentication failed.");
+          setError(err.message);
+          throw new Error("Error! Authentication failed.");
         })
         .finally(() => {
           setLoading(false);
@@ -117,8 +119,13 @@ function SignUpInputs() {
     } catch (err) {
       //
       setLoading(false);
-      setError("Error! Authentication failed.");
-      // console.log(err);
+
+      if (err) {
+      }
+      setError(err.message);
+      // setError("Error! Authentication failed.");
+      // console.log(err.name);
+      // console.log(err.message);
       //
     }
   }
