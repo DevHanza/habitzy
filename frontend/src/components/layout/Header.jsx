@@ -109,7 +109,7 @@ function DesktopMenu() {
           {(item) => (
             <Link to={item.link} key={item.link}>
               <IconButton
-                aria-label="Call support"
+                aria-label={item.label}
                 rounded="full"
                 variant={"subtle"}
                 size={"sm"}
