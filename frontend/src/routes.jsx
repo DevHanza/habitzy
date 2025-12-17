@@ -37,27 +37,27 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/signup",
+        path: "signup",
         element: <SignUp />,
       },
       {
-        path: "/login",
+        path: "login",
         element: <Login />,
       },
       {
-        path: "/logout",
+        path: "logout",
         element: <Logout />,
       },
       {
-        path: "/forgot-password",
+        path: "forgot-password",
         element: <ForgotPassword />,
       },
       {
-        path: "/verify",
+        path: "verify",
         element: <VerifyCode />,
       },
       {
-        path: "/reset-password",
+        path: "reset-password",
         element: <ResetPassword />,
       },
     ],
