@@ -1,5 +1,5 @@
 import SignUpInputs from "@/components/Auth/SignUpInputs";
-import AuthPage from "@/components/layout/AuthPage";
+import AuthPage from "@/components/layout/AuthLayout";
 import { Text } from "@chakra-ui/react";
 import { Link } from "react-router";
 

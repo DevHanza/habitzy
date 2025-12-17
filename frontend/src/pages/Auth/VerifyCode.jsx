@@ -1,6 +1,6 @@
 import { Text } from "@chakra-ui/react";
 
-import AuthPage from "@/components/layout/AuthPage";
+import AuthPage from "@/components/layout/AuthLayout";
 import VerifyCodeInputs from "@/components/Auth/VerifyCodeInputs";
 import { Navigate, useLocation } from "react-router";
 

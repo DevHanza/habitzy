@@ -1,6 +1,6 @@
 import { Text } from "@chakra-ui/react";
 
-import AuthPage from "@/components/layout/AuthPage";
+import AuthPage from "@/components/layout/AuthLayout";
 import ResetPasswordInputs from "@/components/Auth/ResetPasswordInputs";
 
 function ResetPassword() {
