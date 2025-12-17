@@ -8,7 +8,6 @@ function Logout() {
   const { isLoggedIn, logout } = useAuth();
 
   useEffect(() => {
-    throw Error("test");
     //
     if (!isLoggedIn) {
       console.log("You must log in first, order to logout.");
