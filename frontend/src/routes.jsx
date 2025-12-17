@@ -29,7 +29,13 @@ const router = createBrowserRouter([
       { path: "leaderboard", element: <Leaderboard /> },
       { path: "account", element: <Account /> },
       { path: "settings", element: <Settings /> },
-      // Auth
+    ],
+  },
+  // Auth Routes
+  {
+    path: "/",
+    errorElement: <ErrorPage />,
+    children: [
       {
         path: "/signup",
         element: <SignUp />,
@@ -56,7 +62,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-
   { path: "*", element: <Navigate to={"/"} replace /> },
 ]);
 
