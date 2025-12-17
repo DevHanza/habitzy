@@ -29,32 +29,34 @@ const router = createBrowserRouter([
       { path: "leaderboard", element: <Leaderboard /> },
       { path: "account", element: <Account /> },
       { path: "settings", element: <Settings /> },
+      // Auth
+      {
+        path: "/signup",
+        element: <SignUp />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/logout",
+        element: <Logout />,
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "/verify",
+        element: <VerifyCode />,
+      },
+      {
+        path: "/reset-password",
+        element: <ResetPassword />,
+      },
     ],
   },
-  {
-    path: "/signup",
-    element: <SignUp />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/logout",
-    element: <Logout />,
-  },
-  {
-    path: "/forgot-password",
-    element: <ForgotPassword />,
-  },
-  {
-    path: "/verify",
-    element: <VerifyCode />,
-  },
-  {
-    path: "/reset-password",
-    element: <ResetPassword />,
-  },
+
   { path: "*", element: <Navigate to={"/"} replace /> },
 ]);
 
