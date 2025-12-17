@@ -22,8 +22,9 @@ function Logout() {
           navigate("/");
         })
         .catch((err) => {
-          console.log(err.message);
-          navigate("/");
+          throw Error(err.message);
+          // console.log(err.message);
+          // navigate("/");
         });
     } catch (err) {
       throw Error(err.message);
