@@ -19,7 +19,7 @@ function Logout() {
       logout()
         .then((data) => {
           console.log(data.message);
-          navigate("/");
+          navigate("/login");
         })
         .catch((err) => {
           throw Error(err.message);
