@@ -74,7 +74,7 @@ const bottomNavItems = [
 ];
 
 const avatarMenuItems = [
-  { label: "Profile", link: "/profile", icon: User },
+  { label: "Profile", link: "/account", icon: User },
   { label: "Settings", link: "/settings", icon: Settings },
 ];
 
