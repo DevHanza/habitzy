@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
 
   // Get Access Token on Initial Load
   useEffect(() => {
-    if (!isLoggedIn) return;
+    // if (!isLoggedIn) return;
 
     async function refreshAccessToken() {
       const res = await refreshAccessTokenRequest();
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
 
     refreshAccessToken();
     //
-  }, []);
+  }, [isLoggedIn]);
 
   async function register(name, email, username, password) {
     try {
