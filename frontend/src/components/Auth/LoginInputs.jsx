@@ -66,7 +66,6 @@ function LoginInputs() {
           setLoading(false);
         });
 
-      setLoading(false);
       //
     } catch (err) {
       //
