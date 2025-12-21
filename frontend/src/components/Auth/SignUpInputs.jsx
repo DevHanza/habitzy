@@ -37,14 +37,15 @@ function SignUpInputs() {
     return result.id;
   }, [password]);
 
-  async function handleSubmit(formData) {
+  async function handleSubmit(e) {
+    e.preventDefault();
     setLoading(true);
     try {
       //
-      let name = formData.get("name");
-      let username = formData.get("username").trim().toLowerCase();
-      let email = formData.get("email").trim().toLowerCase();
-      let pass = formData.get("pass") || password;
+      let name = e.target.elements.name.value;
+      let username = e.target.elements.username.value.trim().toLowerCase();
+      let email = e.target.elements.email.value.trim().toLowerCase();
+      let pass = fe.target.elements.pass.value || password;
 
       const emailRegex = /^[^@\s+]+@[^@\s]+\.[^@\s]+$/;
       const usernameRegex = /^[a-zA-Z][a-zA-Z0-9_]+$/;
@@ -132,7 +133,7 @@ function SignUpInputs() {
 
   return (
     <Stack gap={3} asChild>
-      <form action={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         {error && (
           <Alert.Root status="error">
             <Alert.Indicator />
