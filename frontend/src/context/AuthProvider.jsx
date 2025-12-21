@@ -1,6 +1,7 @@
 import { useEffect, useReducer } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import {
+  forgotPasswordRequest,
   loginRequest,
   logoutRequest,
   refreshAccessTokenRequest,
@@ -92,6 +93,21 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  async function forgotPassword() {
+    try {
+      //
+      const res = await forgotPasswordRequest();
+      const data = await res.json();
+
+      if (!res.ok) throw Error(data.message);
+
+      return data;
+      //
+    } catch (err) {
+      throw Error(err);
+    }
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -101,6 +117,7 @@ export const AuthProvider = ({ children }) => {
         register,
         login,
         logout,
+        forgotPassword,
       }}
     >
       {children}
