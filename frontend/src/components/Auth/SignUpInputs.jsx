@@ -45,7 +45,7 @@ function SignUpInputs() {
       let name = e.target.elements.name.value;
       let username = e.target.elements.username.value.trim().toLowerCase();
       let email = e.target.elements.email.value.trim().toLowerCase();
-      let pass = fe.target.elements.pass.value || password;
+      let pass = e.target.elements.pass.value || password;
 
       const emailRegex = /^[^@\s+]+@[^@\s]+\.[^@\s]+$/;
       const usernameRegex = /^[a-zA-Z][a-zA-Z0-9_]+$/;
@@ -114,7 +114,6 @@ function SignUpInputs() {
           setLoading(false);
         });
 
-      setLoading(false);
 
       //
     } catch (err) {
