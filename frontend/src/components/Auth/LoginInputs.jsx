@@ -19,12 +19,13 @@ function LoginInputs() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  async function handleSubmit(formData) {
+  async function handleSubmit(e) {
+    e.preventDefault();
     setLoading(true);
     try {
       //
-      let email = formData.get("email").trim().toLowerCase();
-      let pass = formData.get("password");
+      let email = e.target.elements.email.value.trim().toLowerCase();
+      let pass = e.target.elements.password.value;
 
       const emailRegex = /^[^@\s+]+@[^@\s]+\.[^@\s]+$/;
 
@@ -79,7 +80,7 @@ function LoginInputs() {
 
   return (
     <Stack gap={4} asChild>
-      <form action={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         {/* <Text>{error}</Text> */}
 
         {error && (
