@@ -7,7 +7,7 @@ export const registerRequest = (name, email, username, password) =>
     credentials: "include",
     body: JSON.stringify({ name, email, username, password }),
   });
-  
+
 export const loginRequest = (email, password) =>
   fetch(`${API}/login`, {
     method: "POST",
@@ -26,4 +26,11 @@ export const logoutRequest = () =>
   fetch(`${API}/logout`, {
     method: "GET",
     credentials: "include",
+  });
+
+export const forgotPasswordRequest = () =>
+  fetch(`${API}/forgot-password/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
   });
