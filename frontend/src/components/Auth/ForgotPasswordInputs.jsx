@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { Stack, Field, Input, Button, Spinner } from "@chakra-ui/react";
+import { Stack, Field, Input, Button, Spinner, Alert } from "@chakra-ui/react";
 
 function ForgotPasswordInputs() {
   const navigate = useNavigate();
+  
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,7 +35,9 @@ function ForgotPasswordInputs() {
       //
     } catch (err) {
       //
-      console.log(err);
+      setIsLoading(false);
+      setError(err.message);
+      // console.log(err);
       //
     } finally {
       //
@@ -45,6 +49,12 @@ function ForgotPasswordInputs() {
   return (
     <form onSubmit={handleSubmit}>
       <Stack gap={4}>
+        {error && (
+          <Alert.Root status="error">
+            <Alert.Indicator />
+            <Alert.Title>{error}</Alert.Title>
+          </Alert.Root>
+        )}
         <Stack gap={3}>
           {/* Inputs */}
           <Field.Root required>
