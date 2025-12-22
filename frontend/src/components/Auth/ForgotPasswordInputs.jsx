@@ -1,20 +1,22 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Stack, Field, Input, Button, Spinner, Alert } from "@chakra-ui/react";
+import { useAuth } from "@/hooks/useAuth";
 
 function ForgotPasswordInputs() {
   const navigate = useNavigate();
-  
-  const [isLoading, setIsLoading] = useState(false);
+  const { forgotPassword } = useAuth();
+
+  const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setLoading(true);
 
     try {
       //
-      const email = e.target.elements.email.value.trim().toLowerCase();
+      let email = e.target.email.value.trim().toLowerCase();
 
       const emailRegex = /^[^@\s+]+@[^@\s]+\.[^@\s]+$/;
 
@@ -31,24 +33,34 @@ function ForgotPasswordInputs() {
         throw new Error("Please enter a valid email address.");
         //
       }
-      navigate("/verify", { state: { email: email } });
+
+      forgotPassword(email)
+        .then(() => {
+          navigate("/verify", { state: { email: email } });
+        })
+        .catch((err) => {
+          setLoading(false);
+          setError(err.message);
+          throw new Error("Error! Authentication failed.");
+          // console.log(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+
       //
     } catch (err) {
       //
-      setIsLoading(false);
-      setError(err.message);
       // console.log(err);
-      //
-    } finally {
-      //
-      setIsLoading(false);
+      setLoading(false);
+      setError(err.message);
       //
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Stack gap={4}>
+    <Stack gap={4} asChild>
+      <form onSubmit={handleSubmit}>
         {error && (
           <Alert.Root status="error">
             <Alert.Indicator />
@@ -80,8 +92,8 @@ function ForgotPasswordInputs() {
             "Send Verification Code"
           )}
         </Button>
-      </Stack>
-    </form>
+      </form>
+    </Stack>
   );
 }
 
