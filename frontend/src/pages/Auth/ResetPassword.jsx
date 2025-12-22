@@ -10,7 +10,7 @@ function ResetPassword() {
   const email = location.state?.email;
   const code = location.state?.code;
 
-  if (!email) {
+  if (!email || !code) {
     return <Navigate to="/" replace />;
   }
 
