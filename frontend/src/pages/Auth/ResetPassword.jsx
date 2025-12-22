@@ -18,8 +18,8 @@ function ResetPassword() {
       heading="Reset Password"
       headingText={
         <Text color={"fg.muted"} textAlign={{ base: "center", lg: "left" }}>
-          We recommend choosing a strong password that you haven’t used before
-          for <b>{email}</b>.
+          We recommend choosing a strong password that you haven’t used before.
+          {/* for <b>{email}</b>. */}
         </Text>
       }
     >
