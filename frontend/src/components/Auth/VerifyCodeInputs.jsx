@@ -3,11 +3,37 @@ import { Stack, PinInput, Button } from "@chakra-ui/react";
 
 function VerifyCodeInputs() {
   const { verifyCode } = useAuth;
+
   const [code, setCode] = useState();
   const [isValidLength, setIsValidLength] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     //
+    e.preventDefault();
+
+    try {
+      //
+      const vCode = e.target.verifycode.value;
+
+      if (!vCode || vCode.trim() === "") {
+        //
+        throw new Error("Verify Code is required.");
+        //
+      } else if (vCode.length !== 5) {
+        //
+        throw new Error("Verify code must be must be exactly 5 digits.");
+        //
+      }
+      //
+    } catch (err) {
+      //
+      setLoading(false);
+      setError(err.message);
+      // setError("Error! Authentication failed.");
+      // console.log(err);
+      //
+    }
   };
 
   const handleInputs = (e) => {
@@ -38,7 +64,7 @@ function VerifyCodeInputs() {
             autoFocus
             required
           >
-            <PinInput.HiddenInput />
+            <PinInput.HiddenInput name="verifycode" />
             <PinInput.Control display={"flex"} width={"100%"}>
               <PinInput.Input
                 flex={1}
@@ -79,7 +105,9 @@ function VerifyCodeInputs() {
           </PinInput.Root>
         </Stack>
 
-        <Button disabled={!isValidLength}>Verify</Button>
+        <Button type="submit" disabled={!isValidLength}>
+          Verify
+        </Button>
       </form>
     </Stack>
   );
