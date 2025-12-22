@@ -28,7 +28,7 @@ export const logoutRequest = () =>
     credentials: "include",
   });
 
-export const forgotPasswordRequest = () =>
+export const forgotPasswordRequest = (email) =>
   fetch(`${API}/forgot-password/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
