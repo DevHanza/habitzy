@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Stack, Field, Input, Button } from "@chakra-ui/react";
+import { Stack, Field, Button, Spinner } from "@chakra-ui/react";
 
 import { passwordStrength } from "check-password-strength";
 import {
@@ -15,6 +15,8 @@ const strengthOptions = [
 ];
 
 function ResetPasswordInputs({ email, code }) {
+  const [loading, setLoading] = useState(false);
+
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -68,7 +70,16 @@ function ResetPasswordInputs({ email, code }) {
           </Field.Root>
         </Stack>
 
-        <Button disabled={true}>Reset Password</Button>
+        <Button type="submit" disabled={true}>
+          {loading ? (
+            <>
+              <Spinner size={"sm"} />
+              Verifying...
+            </>
+          ) : (
+            "Reset Password"
+          )}
+        </Button>
       </form>
     </Stack>
   );
