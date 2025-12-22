@@ -21,8 +21,10 @@ function VerifyCodeInputs() {
         //
       } else if (vCode.length !== 5) {
         //
-        throw new Error("Verify code must be must be exactly 5 digits.");
+        throw new Error("Verify code must be exactly 5 digits.");
         //
+      } else if (Number.isNaN(Number(vCode))) {
+        throw new Error("Verify code must be a digit.");
       }
       //
     } catch (err) {
