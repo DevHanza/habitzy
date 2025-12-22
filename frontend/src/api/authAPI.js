@@ -34,3 +34,10 @@ export const forgotPasswordRequest = (email) =>
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email }),
   });
+
+export const verifyCodeRequest = (email, code) =>
+  fetch(`${API}/verify/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, code }),
+  });
