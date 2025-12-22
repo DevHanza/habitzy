@@ -415,6 +415,11 @@ export async function verifyCode(req, res) {
         .json({ message: "Verification Failed: Device Mismatch." });
     }
 
+    // Delete the Verified code, once it checked.
+    user.verifyCodes = user.verifyCodes.filter((vc) => {
+      return vc !== verifiedCode;
+    });
+
     await user.save();
 
     res.json({
