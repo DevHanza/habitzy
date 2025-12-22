@@ -24,39 +24,45 @@ function ResetPasswordInputs({ email, code }) {
     return result.id;
   }, [password]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
-    <Stack gap={4}>
-      <Stack gap={3}>
-        {/* Inputs */}
+    <Stack gap={4} asChild>
+      <form onSubmit={handleSubmit}>
+        <Stack gap={3}>
+          {/* Inputs */}
 
-        <Field.Root required>
-          <Stack gap="1" width={"100%"}>
-            <PasswordInput
-              borderColor={"border.emphasized"}
-              value={password}
-              onChange={(e) => setPassword(e.currentTarget.value)}
-              placeholder="Password"
-              variant="subtle"
-              colorPalette={"teal"}
-            />
-          </Stack>
-        </Field.Root>
-        <Field.Root required>
-          <Stack gap="1" width={"100%"}>
-            <PasswordInput
-              borderColor={"border.emphasized"}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.currentTarget.value)}
-              placeholder="Confirm Password"
-              variant="subtle"
-              colorPalette={"teal"}
-            />
-            <PasswordStrengthMeter value={strength} colorPalette="red" />
-          </Stack>
-        </Field.Root>
-      </Stack>
+          <Field.Root required>
+            <Stack gap="1" width={"100%"}>
+              <PasswordInput
+                borderColor={"border.emphasized"}
+                value={password}
+                onChange={(e) => setPassword(e.currentTarget.value)}
+                placeholder="Password"
+                variant="subtle"
+                colorPalette={"teal"}
+              />
+            </Stack>
+          </Field.Root>
+          <Field.Root required>
+            <Stack gap="1" width={"100%"}>
+              <PasswordInput
+                borderColor={"border.emphasized"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.currentTarget.value)}
+                placeholder="Confirm Password"
+                variant="subtle"
+                colorPalette={"teal"}
+              />
+              <PasswordStrengthMeter value={strength} colorPalette="red" />
+            </Stack>
+          </Field.Root>
+        </Stack>
 
-      <Button disabled={true}>Reset Password</Button>
+        <Button disabled={true}>Reset Password</Button>
+      </form>
     </Stack>
   );
 }
