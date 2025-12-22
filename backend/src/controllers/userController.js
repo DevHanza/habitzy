@@ -416,9 +416,9 @@ export async function verifyCode(req, res) {
     }
 
     // Delete the Verified code, once it checked.
-    user.verifyCodes = user.verifyCodes.filter((vc) => {
-      return vc !== verifiedCode;
-    });
+    // user.verifyCodes = user.verifyCodes.filter((vc) => {
+    //   return vc !== verifiedCode;
+    // });
 
     await user.save();
 
