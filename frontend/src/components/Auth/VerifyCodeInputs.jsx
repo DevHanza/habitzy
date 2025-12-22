@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Stack, PinInput, Button, Alert } from "@chakra-ui/react";
 
 function VerifyCodeInputs() {
-
   const [code, setCode] = useState();
   const [isValidLength, setIsValidLength] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e) => {
     //
@@ -110,8 +110,15 @@ function VerifyCodeInputs() {
           </PinInput.Root>
         </Stack>
 
-        <Button type="submit" disabled={!isValidLength}>
-          Verify
+        <Button type="submit" disabled={!isValidLength || loading}>
+          {loading ? (
+            <>
+              <Spinner size={"sm"} />
+              Verifying...
+            </>
+          ) : (
+            "Verify"
+          )}
         </Button>
       </form>
     </Stack>
