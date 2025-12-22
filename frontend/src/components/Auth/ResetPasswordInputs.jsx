@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Stack, Field, Button, Spinner } from "@chakra-ui/react";
+import { Stack, Field, Button, Alert, Spinner } from "@chakra-ui/react";
 
 import { passwordStrength } from "check-password-strength";
 import {
@@ -16,6 +16,7 @@ const strengthOptions = [
 
 function ResetPasswordInputs({ email, code }) {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -33,6 +34,13 @@ function ResetPasswordInputs({ email, code }) {
   return (
     <Stack gap={4} asChild>
       <form onSubmit={handleSubmit}>
+        {error && (
+          <Alert.Root status="error">
+            <Alert.Indicator />
+            <Alert.Title>{error}</Alert.Title>
+          </Alert.Root>
+        )}
+
         <Stack gap={3}>
           {/* Inputs */}
 
