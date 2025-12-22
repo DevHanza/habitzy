@@ -41,3 +41,10 @@ export const verifyCodeRequest = (email, code) =>
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, code }),
   });
+
+export const resetPasswordRequest = (email, code, newPassword) =>
+  fetch(`${API}/reset-password/`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, code, newPassword }),
+  });
