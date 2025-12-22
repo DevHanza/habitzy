@@ -35,7 +35,7 @@ function VerifyCodeInputs({ email }) {
         .then((data) => {
           console.log(data);
           setError("");
-          // navigate("/");
+          navigate("/reset-password", { state: { email: email } });
         })
         .catch((err) => {
           setLoading(false);
