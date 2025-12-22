@@ -1,9 +1,26 @@
+import { useState } from "react";
 import { Stack, PinInput, Button } from "@chakra-ui/react";
 
 function VerifyCodeInputs() {
+  const { verifyCode } = useAuth;
+  const [code, setCode] = useState();
+  const [isValidLength, setIsValidLength] = useState(false);
 
   const handleSubmit = () => {
     //
+  };
+
+  const handleInputs = (e) => {
+    // console.log(e.target.value);
+
+    const digit = e.target.value;
+    setCode(digit);
+
+    if (digit.length === 5) {
+      setIsValidLength(true);
+    } else {
+      setIsValidLength(false);
+    }
   };
 
   return (
@@ -11,6 +28,8 @@ function VerifyCodeInputs() {
       <form onSubmit={handleSubmit}>
         <Stack gap={3}>
           <PinInput.Root
+            otp
+            onChange={handleInputs}
             size={"xl"}
             width={"100%"}
             colorPalette={"teal"}
@@ -60,7 +79,8 @@ function VerifyCodeInputs() {
           </PinInput.Root>
         </Stack>
 
-      <Button disabled={true}>Verify</Button>
+        <Button disabled={!isValidLength}>Verify</Button>
+      </form>
     </Stack>
   );
 }
