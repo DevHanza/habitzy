@@ -8,6 +8,7 @@ import { Navigate, useLocation } from "react-router";
 function ResetPassword() {
   const location = useLocation();
   const email = location.state?.email;
+  const code = location.state?.code;
 
   if (!email) {
     return <Navigate to="/" replace />;
@@ -18,12 +19,12 @@ function ResetPassword() {
       heading="Reset Password"
       headingText={
         <Text color={"fg.muted"} textAlign={{ base: "center", lg: "left" }}>
-          We recommend choosing a strong password that you haven’t used before.
+          We recommend choosing a strong password that you haven't used before.
           {/* for <b>{email}</b>. */}
         </Text>
       }
     >
-      <ResetPasswordInputs email={email} />
+      <ResetPasswordInputs email={email} code={code} />
     </AuthPage>
   );
 }

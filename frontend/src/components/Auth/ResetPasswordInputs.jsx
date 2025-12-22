@@ -14,7 +14,7 @@ const strengthOptions = [
   { id: 4, value: "very-strong", minDiversity: 4, minLength: 10 },
 ];
 
-function ResetPasswordInputs({ email }) {
+function ResetPasswordInputs({ email, code }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
