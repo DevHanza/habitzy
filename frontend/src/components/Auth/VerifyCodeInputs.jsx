@@ -34,6 +34,7 @@ function VerifyCodeInputs({ email }) {
       verifyCode(email, vCode)
         .then((data) => {
           console.log(data);
+          setError("");
           // navigate("/");
         })
         .catch((err) => {
