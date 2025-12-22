@@ -43,6 +43,10 @@ function ResetPasswordInputs({ email, code }) {
                 placeholder="Password"
                 variant="subtle"
                 colorPalette={"teal"}
+                type="password"
+                name="password"
+                minLength="5"
+                maxLength="150"
               />
             </Stack>
           </Field.Root>
@@ -55,6 +59,9 @@ function ResetPasswordInputs({ email, code }) {
                 placeholder="Confirm Password"
                 variant="subtle"
                 colorPalette={"teal"}
+                type="password"
+                minLength="5"
+                maxLength="150"
               />
               <PasswordStrengthMeter value={strength} colorPalette="red" />
             </Stack>
