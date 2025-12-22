@@ -353,7 +353,11 @@ export async function verifyCode(req, res) {
     const { code, email } = req.body;
 
     if (!code) {
-      res.status(404).json("Verification Code Required.");
+      return res.status(404).json({ message: "Verification Code Required." });
+    } else if (code.length !== 5) {
+      return res
+        .status(406)
+        .json({ message: "Verification Code must be exactly 5 digits." });
     }
 
     const user = await User.findOne({ email });
