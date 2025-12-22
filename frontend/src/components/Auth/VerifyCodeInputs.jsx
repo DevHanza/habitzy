@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Stack, PinInput, Button } from "@chakra-ui/react";
+import { Stack, PinInput, Button, Alert } from "@chakra-ui/react";
 
 function VerifyCodeInputs() {
-  const { verifyCode } = useAuth;
 
   const [code, setCode] = useState();
   const [isValidLength, setIsValidLength] = useState(false);
@@ -52,6 +51,12 @@ function VerifyCodeInputs() {
   return (
     <Stack gap={4} asChild>
       <form onSubmit={handleSubmit}>
+        {error && (
+          <Alert.Root status="error">
+            <Alert.Indicator />
+            <Alert.Title>{error}</Alert.Title>
+          </Alert.Root>
+        )}
         <Stack gap={3}>
           <PinInput.Root
             otp
