@@ -93,10 +93,10 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  async function forgotPassword() {
+  async function forgotPassword(email) {
     try {
       //
-      const res = await forgotPasswordRequest();
+      const res = await forgotPasswordRequest(email);
       const data = await res.json();
 
       if (!res.ok) throw Error(data.message);
