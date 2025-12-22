@@ -21,7 +21,7 @@ function VerifyCode() {
         </Text>
       }
     >
-      <VerifyCodeInputs />
+      <VerifyCodeInputs email={email} />
     </AuthPage>
   );
 }

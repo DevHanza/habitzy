@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Stack, PinInput, Button, Alert } from "@chakra-ui/react";
 
-function VerifyCodeInputs() {
+function VerifyCodeInputs({ email }) {
   const [code, setCode] = useState();
   const [isValidLength, setIsValidLength] = useState(false);
   const [error, setError] = useState("");
