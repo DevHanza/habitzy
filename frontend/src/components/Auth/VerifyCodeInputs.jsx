@@ -17,6 +17,7 @@ function VerifyCodeInputs() {
             invalid={false}
             attached
             autoFocus
+            required
           >
             <PinInput.HiddenInput />
             <PinInput.Control display={"flex"} width={"100%"}>
@@ -24,26 +25,36 @@ function VerifyCodeInputs() {
                 flex={1}
                 index={0}
                 borderColor={"border.emphasized"}
+                maxLength={1}
+                required
               />
               <PinInput.Input
                 flex={1}
                 index={1}
                 borderColor={"border.emphasized"}
+                maxLength={1}
+                required
               />
               <PinInput.Input
                 flex={1}
                 index={2}
                 borderColor={"border.emphasized"}
+                required
+                maxLength={1}
               />
               <PinInput.Input
                 flex={1}
                 index={3}
                 borderColor={"border.emphasized"}
+                required
+                maxLength={1}
               />
               <PinInput.Input
                 flex={1}
                 index={4}
                 borderColor={"border.emphasized"}
+                required
+                maxLength={1}
               />
             </PinInput.Control>
           </PinInput.Root>
