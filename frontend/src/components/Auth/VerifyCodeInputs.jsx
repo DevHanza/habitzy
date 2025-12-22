@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { Stack, PinInput, Button, Alert, Spinner } from "@chakra-ui/react";
 import { useAuth } from "@/hooks/useAuth";
 
 function VerifyCodeInputs({ email }) {
+  const navigate = useNavigate();
+
   const [code, setCode] = useState();
   const [isValidLength, setIsValidLength] = useState(false);
   const [error, setError] = useState("");
@@ -35,7 +38,7 @@ function VerifyCodeInputs({ email }) {
         .then((data) => {
           console.log(data);
           setError("");
-          navigate("/reset-password", { state: { email: email } });
+          navigate("/reset-password", { state: { email: email, code: code } });
         })
         .catch((err) => {
           setLoading(false);
