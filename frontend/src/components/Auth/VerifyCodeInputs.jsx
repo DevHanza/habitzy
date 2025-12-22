@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Stack, PinInput, Button, Alert } from "@chakra-ui/react";
+import { Stack, PinInput, Button, Alert, Spinner } from "@chakra-ui/react";
 import { useAuth } from "@/hooks/useAuth";
 
 function VerifyCodeInputs({ email }) {
@@ -34,15 +34,19 @@ function VerifyCodeInputs({ email }) {
       verifyCode(email, vCode)
         .then((data) => {
           console.log(data);
+          // navigate("/");
         })
         .catch((err) => {
-          console.log(err.message);
           setLoading(false);
+          // console.log(err.message);
+          setError(err.message);
+          throw new Error("Error! Verification failed.");
         })
         .finally(() => {
           setLoading(false);
           //
         });
+
       //
     } catch (err) {
       //
