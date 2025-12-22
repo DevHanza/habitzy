@@ -59,12 +59,13 @@ function ForgotPasswordInputs() {
           {/* Inputs */}
           <Field.Root required>
             <Input
-              name="email"
-              type="email"
               borderColor={"border.emphasized"}
               placeholder="Email Address"
               variant="subtle"
               colorPalette={"teal"}
+              minLength="5"
+              type="email"
+              name="email"
             />
           </Field.Root>
         </Stack>
