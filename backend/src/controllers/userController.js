@@ -354,10 +354,17 @@ export async function verifyCode(req, res) {
 
     if (!code) {
       return res.status(404).json({ message: "Verification Code Required." });
+      //
     } else if (code.length !== 5) {
       return res
-        .status(406)
+        .status(422)
         .json({ message: "Verification Code must be exactly 5 digits." });
+      //
+    } else if (Number.isNaN(Number(vCode))) {
+      return res
+        .status(422)
+        .json({ message: "Verification Code must be a number." });
+      //
     }
 
     const user = await User.findOne({ email });
