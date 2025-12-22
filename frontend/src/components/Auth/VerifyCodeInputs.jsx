@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Stack, PinInput, Button, Alert } from "@chakra-ui/react";
+import { useAuth } from "@/hooks/useAuth";
 
 function VerifyCodeInputs({ email }) {
   const [code, setCode] = useState();
@@ -7,9 +8,12 @@ function VerifyCodeInputs({ email }) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const { verifyCode } = useAuth();
+
   const handleSubmit = (e) => {
     //
     e.preventDefault();
+    setLoading(true);
 
     try {
       //
@@ -26,6 +30,19 @@ function VerifyCodeInputs({ email }) {
       } else if (Number.isNaN(Number(vCode))) {
         throw new Error("Verify code must be a number.");
       }
+
+      verifyCode(email, vCode)
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((err) => {
+          console.log(err.message);
+          setLoading(false);
+        })
+        .finally(() => {
+          setLoading(false);
+          //
+        });
       //
     } catch (err) {
       //
