@@ -360,7 +360,7 @@ export async function verifyCode(req, res) {
         .status(422)
         .json({ message: "Verification Code must be exactly 5 digits." });
       //
-    } else if (Number.isNaN(Number(vCode))) {
+    } else if (Number.isNaN(Number(code))) {
       return res
         .status(422)
         .json({ message: "Verification Code must be a number." });
