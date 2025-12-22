@@ -6,6 +6,7 @@ import {
   logoutRequest,
   refreshAccessTokenRequest,
   registerRequest,
+  verifyCodeRequest,
 } from "@/api/authAPI";
 
 const initialState = {
@@ -108,6 +109,21 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  async function verifyCode(email, code) {
+    try {
+      //
+      const res = await verifyCodeRequest(email, code);
+      const data = await res.json();
+
+      if (!res.ok) throw Error(data.message);
+
+      return data;
+      //
+    } catch (err) {
+      throw Error(err);
+    }
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -118,6 +134,7 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         forgotPassword,
+        verifyCode,
       }}
     >
       {children}
