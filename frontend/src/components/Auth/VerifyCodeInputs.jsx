@@ -36,7 +36,7 @@ function VerifyCodeInputs({ email }) {
 
       verifyCode(email, vCode)
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           setError("");
           navigate("/reset-password", { state: { email: email, code: code } });
         })
