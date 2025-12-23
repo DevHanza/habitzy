@@ -2,7 +2,7 @@
 
 Habit Tracker with MERN Stack (React + Chakra UI)
 <br/><br/>
-![Habit Tracker Stack](https://go-skill-icons.vercel.app/api/icons?i=react,js,mongodb,express)
+![Habit Tracker Stack](https://go-skill-icons.vercel.app/api/icons?i=react,nodejs,mongodb,express)
 
 # Stack
 
