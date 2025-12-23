@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/password-input";
 import { useMemo, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { validateEmail, validatePassword } from "@/utils/validateInputs";
 
 const strengthOptions = [
   { id: 1, value: "weak", minDiversity: 0, minLength: 0 },
@@ -47,7 +48,6 @@ function SignUpInputs() {
       let email = e.target.elements.email.value.trim().toLowerCase();
       let pass = e.target.elements.pass.value || password;
 
-      const emailRegex = /^[^@\s+]+@[^@\s]+\.[^@\s]+$/;
       const usernameRegex = /^[a-zA-Z][a-zA-Z0-9_]+$/;
 
       if (!name || name === "") {
@@ -74,30 +74,8 @@ function SignUpInputs() {
         //
       }
 
-      if (!email || email.trim() === "") {
-        //
-        throw new Error("Email is required.");
-        //
-      } else if (email.length < 5) {
-        //
-        throw new Error("Email must be longer than 5 characters.");
-        //
-      } else if (!emailRegex.test(email)) {
-        //
-        throw new Error("Please enter a valid email address.");
-        //
-      }
-
-      if (!pass || pass === "") {
-        //
-        throw new Error("Password is required.");
-        //
-      } else if (pass.length < 5 || pass.length > 150) {
-        //
-        throw new Error("Invalid Password");
-
-        //
-      }
+      validateEmail(email);
+      validatePassword(pass);
 
       register(name, email, username, pass)
         .then((data) => {
@@ -113,7 +91,6 @@ function SignUpInputs() {
         .finally(() => {
           setLoading(false);
         });
-
 
       //
     } catch (err) {
