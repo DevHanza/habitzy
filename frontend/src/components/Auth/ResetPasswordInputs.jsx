@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Stack, Field, Button, Alert, Spinner } from "@chakra-ui/react";
 
+import { useAuth } from "@/hooks/useAuth";
 import { passwordStrength } from "check-password-strength";
 import {
   PasswordInput,
@@ -15,11 +16,11 @@ const strengthOptions = [
 ];
 
 function ResetPasswordInputs({ email, code }) {
+  const { resetPassword } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
 
   const strength = useMemo(() => {
     if (!password) return 0;
@@ -49,6 +50,20 @@ function ResetPasswordInputs({ email, code }) {
         throw new Error("Emails must match each other.");
       }
 
+      resetPassword(email, code, newPassword)
+        .then((data) => {
+          //
+          console.log(data);
+        })
+        .catch((err) => {
+          //
+          setError(err.message);
+          throw new Error("Error! Authentication failed.");
+        })
+        .finally(() => {
+          //
+          setLoading(false);
+        });
       //
     } catch (err) {
       //
@@ -93,8 +108,6 @@ function ResetPasswordInputs({ email, code }) {
             <Stack gap="1" width={"100%"}>
               <PasswordInput
                 borderColor={"border.emphasized"}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.currentTarget.value)}
                 placeholder="Confirm Password"
                 variant="subtle"
                 colorPalette={"teal"}
