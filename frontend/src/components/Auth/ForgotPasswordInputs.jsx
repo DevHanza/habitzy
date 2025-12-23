@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Stack, Field, Input, Button, Spinner, Alert } from "@chakra-ui/react";
 import { useAuth } from "@/hooks/useAuth";
+import { validateEmail } from "@/utils/validateInputs";
 
 function ForgotPasswordInputs() {
   const navigate = useNavigate();
@@ -16,23 +17,9 @@ function ForgotPasswordInputs() {
 
     try {
       //
-      let email = e.target.email.value.trim().toLowerCase();
+      const email = e.target.email.value;
 
-      const emailRegex = /^[^@\s+]+@[^@\s]+\.[^@\s]+$/;
-
-      if (!email || email.trim() === "") {
-        //
-        throw new Error("Email is required.");
-        //
-      } else if (email.length < 5) {
-        //
-        throw new Error("Email must be longer than 5 characters.");
-        //
-      } else if (!emailRegex.test(email)) {
-        //
-        throw new Error("Please enter a valid email address.");
-        //
-      }
+      validateEmail(email);
 
       forgotPassword(email)
         .then(() => {
