@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router";
 import {
   Stack,
   Field,
@@ -8,9 +9,10 @@ import {
   Spinner,
   Alert,
 } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router";
 import { PasswordInput } from "@/components/ui/password-input";
+
 import { useAuth } from "@/hooks/useAuth";
+import { validateEmail, validatePassword } from "@/utils/validateInputs";
 
 function LoginInputs() {
   const { login } = useAuth();
@@ -24,34 +26,11 @@ function LoginInputs() {
     setLoading(true);
     try {
       //
-      let email = e.target.elements.email.value.trim().toLowerCase();
+      let email = e.target.elements.email.value;
       let pass = e.target.elements.password.value;
 
-      const emailRegex = /^[^@\s+]+@[^@\s]+\.[^@\s]+$/;
-
-      if (!email || email.trim() === "") {
-        //
-        throw new Error("Email is required.");
-        //
-      } else if (email.length < 5) {
-        //
-        throw new Error("Email must be longer than 5 characters.");
-        //
-      } else if (!emailRegex.test(email)) {
-        //
-        throw new Error("Please enter a valid email address.");
-        //
-      }
-
-      if (!pass || pass === "") {
-        //
-        throw new Error("Password is required.");
-        //
-      } else if (pass.length < 5 || pass.length > 10) {
-        //
-        throw new Error("Invalid password.");
-        //
-      }
+      validateEmail(email);
+      validatePassword(pass);
 
       login(email, pass)
         .then(() => {
