@@ -8,6 +8,7 @@ import {
   PasswordInput,
   PasswordStrengthMeter,
 } from "@/components/ui/password-input";
+import { validateEmail, validatePassword } from "@/utils/validateInputs";
 
 const strengthOptions = [
   { id: 1, value: "weak", minDiversity: 0, minLength: 0 },
@@ -40,15 +41,8 @@ function ResetPasswordInputs({ email, code }) {
       let newPassword = e.target.password.value;
       let confirmPassword = e.target.confirmPassword.value;
 
-      if (!newPassword || newPassword === "") {
-        //
-        throw new Error("Password is required.");
-        //
-      } else if (newPassword.length < 5 || newPassword.length > 10) {
-        //
-        throw new Error("Invalid password.");
-        //
-      }
+      validatePassword(newPassword);
+      validateEmail(email);
 
       if (newPassword !== confirmPassword) {
         throw new Error("Emails must match each other.");
