@@ -46,6 +46,7 @@ function ResetPasswordInputs({ email, code }) {
       let confirmPassword = e.target.confirmPassword.value;
 
       validatePassword(newPassword);
+      validatePassword(confirmPassword);
       validateEmail(email);
       validateVerifyCode(code);
 
