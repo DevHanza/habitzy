@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router";
 import { Stack, Field, Button, Alert, Spinner } from "@chakra-ui/react";
 
 import { useAuth } from "@/hooks/useAuth";
@@ -17,6 +18,9 @@ const strengthOptions = [
 
 function ResetPasswordInputs({ email, code }) {
   const { resetPassword } = useAuth();
+
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -53,7 +57,9 @@ function ResetPasswordInputs({ email, code }) {
       resetPassword(email, code, newPassword)
         .then((data) => {
           //
-          console.log(data);
+          // console.log(data);
+          navigate("/login");
+          setError("");
         })
         .catch((err) => {
           //
