@@ -15,7 +15,11 @@ import {
 } from "@/components/ui/password-input";
 import { useMemo, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
-import { validateEmail, validatePassword } from "@/utils/validateInputs";
+import {
+  validateEmail,
+  validatePassword,
+  validateUsername,
+} from "@/utils/validateInputs";
 
 const strengthOptions = [
   { id: 1, value: "weak", minDiversity: 0, minLength: 0 },
@@ -48,8 +52,6 @@ function SignUpInputs() {
       let email = e.target.elements.email.value.trim().toLowerCase();
       let pass = e.target.elements.pass.value || password;
 
-      const usernameRegex = /^[a-zA-Z][a-zA-Z0-9_]+$/;
-
       if (!name || name === "") {
         //
         throw new Error("Name is required.");
@@ -60,20 +62,7 @@ function SignUpInputs() {
         //
       }
 
-      if (!username || username === "") {
-        //
-        throw new Error("Username is required.");
-        //
-      } else if (username.length < 2 || username.length > 25) {
-        //
-        throw new Error("Please enter a valid name.");
-        //
-      } else if (!usernameRegex.test(name)) {
-        //
-        throw new Error("Please enter a valid name.");
-        //
-      }
-
+      validateUsername(username);
       validateEmail(email);
       validatePassword(pass);
 
