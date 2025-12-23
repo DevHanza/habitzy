@@ -127,7 +127,7 @@ export async function loginUser(req, res) {
   } catch (err) {
     //
     if (err.message === "jwt must be provided") {
-      res.status(400).json({ message: "Invalid refresh token." });
+      return res.status(400).json({ message: "Invalid refresh token." });
     }
 
     res.status(400).json({ message: err.message });
@@ -164,7 +164,7 @@ export async function refreshToken(req, res) {
   } catch (err) {
     //
     if (err.message === "jwt must be provided") {
-      res.status(400).json({ message: "Invalid refresh token." });
+      return res.status(400).json({ message: "Invalid refresh token." });
     }
 
     res.status(400).json({ message: err.message });
@@ -263,7 +263,7 @@ export async function forgotPassword(req, res) {
 
     const { email } = req.body;
     if (!email) {
-      res.status(400).json({ message: "Email is required." });
+      return res.status(400).json({ message: "Email is required." });
     }
 
     const device = req.headers["user-agent"];
@@ -439,15 +439,15 @@ export async function resetPassword(req, res) {
     const { email, code, newPassword } = req.body;
 
     if (!email) {
-      res.status(400).json({ message: "Email is required." });
+      return res.status(400).json({ message: "Email is required." });
     }
 
     if (!code) {
-      res.status(404).json("Verification Code Required.");
+      return res.status(404).json("Verification Code Required.");
     }
 
     if (!newPassword) {
-      res.status(400).json({ message: "Please provide a new password." });
+      return res.status(400).json({ message: "Please provide a new password." });
     }
 
     const user = await User.findOne({ email });
@@ -525,7 +525,7 @@ export async function updateUser(req, res) {
     });
 
     if (!updateUser) {
-      res.status(404).json({ message: "User not found." });
+      return res.status(404).json({ message: "User not found." });
     }
     res.json(updatedUser);
   } catch (err) {
