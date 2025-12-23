@@ -29,6 +29,35 @@ function ResetPasswordInputs({ email, code }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
+    try {
+      //
+      let newPassword = e.target.password.value;
+      let confirmPassword = e.target.confirmPassword.value;
+
+      if (!newPassword || newPassword === "") {
+        //
+        throw new Error("Password is required.");
+        //
+      } else if (newPassword.length < 5 || newPassword.length > 10) {
+        //
+        throw new Error("Invalid password.");
+        //
+      }
+
+      if (newPassword !== confirmPassword) {
+        throw new Error("Emails must match each other.");
+      }
+
+      //
+    } catch (err) {
+      //
+      setLoading(false);
+      setError(err.message);
+      // setError("Error! Authentication failed.");
+      // console.log(err);
+      //
+    }
   };
 
   return (
@@ -70,6 +99,7 @@ function ResetPasswordInputs({ email, code }) {
                 variant="subtle"
                 colorPalette={"teal"}
                 type="password"
+                name="confirmPassword"
                 minLength="5"
                 maxLength="150"
               />
@@ -78,7 +108,7 @@ function ResetPasswordInputs({ email, code }) {
           </Field.Root>
         </Stack>
 
-        <Button type="submit" disabled={true}>
+        <Button type="submit" disabled={loading}>
           {loading ? (
             <>
               <Spinner size={"sm"} />
