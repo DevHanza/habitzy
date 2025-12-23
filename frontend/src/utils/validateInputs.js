@@ -36,6 +36,8 @@ export function validatePassword(pass) {
 }
 
 export function validateUsername(username) {
+  const usernameRegex = /^[a-zA-Z][a-zA-Z0-9_]+$/;
+
   if (!username || username === "") {
     //
     throw new Error("Username is required.");
@@ -44,7 +46,7 @@ export function validateUsername(username) {
     //
     throw new Error("Please enter a valid name.");
     //
-  } else if (!usernameRegex.test(name)) {
+  } else if (!usernameRegex.test(username)) {
     //
     throw new Error("Please enter a valid name.");
     //
