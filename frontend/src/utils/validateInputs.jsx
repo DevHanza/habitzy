@@ -34,3 +34,21 @@ export function validatePassword(pass) {
   }
   return true;
 }
+
+export function validateUsername(username) {
+  if (!username || username === "") {
+    //
+    throw new Error("Username is required.");
+    //
+  } else if (username.length < 2 || username.length > 25) {
+    //
+    throw new Error("Please enter a valid name.");
+    //
+  } else if (!usernameRegex.test(name)) {
+    //
+    throw new Error("Please enter a valid name.");
+    //
+  }
+
+  return true;
+}
