@@ -1,5 +1,7 @@
 export function validateEmail(email) {
   //
+  email = email.trim().toLowerCase();
+
   const emailRegex = /^[^@\s+]+@[^@\s]+\.[^@\s]+$/;
 
   if (!email || email.trim() === "") {
