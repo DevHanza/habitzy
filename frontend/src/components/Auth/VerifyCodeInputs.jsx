@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Stack, PinInput, Button, Alert, Spinner } from "@chakra-ui/react";
 import { useAuth } from "@/hooks/useAuth";
+import { validateEmail, validateVerifyCode } from "@/utils/validateInputs";
 
 function VerifyCodeInputs({ email }) {
   const navigate = useNavigate();
@@ -22,17 +23,8 @@ function VerifyCodeInputs({ email }) {
       //
       const vCode = e.target.verifycode.value;
 
-      if (!vCode || vCode.trim() === "") {
-        //
-        throw new Error("Verify Code is required.");
-        //
-      } else if (vCode.length !== 5) {
-        //
-        throw new Error("Verify code must be exactly 5 digits.");
-        //
-      } else if (Number.isNaN(Number(vCode))) {
-        throw new Error("Verify code must be a number.");
-      }
+      validateVerifyCode(vCode);
+      validateEmail(email);
 
       verifyCode(email, vCode)
         .then((data) => {
