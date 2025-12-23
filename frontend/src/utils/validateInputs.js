@@ -54,3 +54,19 @@ export function validateUsername(username) {
 
   return true;
 }
+
+export function validateVerifyCode(vCode) {
+  if (!vCode || vCode.trim() === "") {
+    //
+    throw new Error("Verify Code is required.");
+    //
+  } else if (vCode.length !== 5) {
+    //
+    throw new Error("Verify code must be exactly 5 digits.");
+    //
+  } else if (Number.isNaN(Number(vCode))) {
+    throw new Error("Verify code must be a number.");
+  }
+
+  return true;
+}
