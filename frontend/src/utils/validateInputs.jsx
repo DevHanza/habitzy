@@ -21,3 +21,16 @@ export function validateEmail(email) {
   return true;
   //
 }
+
+export function validatePassword(pass) {
+  if (!pass || pass === "") {
+    //
+    throw new Error("Password is required.");
+    //
+  } else if (pass.length < 5 || pass.length > 10) {
+    //
+    throw new Error("Invalid password.");
+    //
+  }
+  return true;
+}
