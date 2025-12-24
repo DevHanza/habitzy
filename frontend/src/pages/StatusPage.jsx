@@ -21,10 +21,8 @@ function StatusPage() {
     success: false,
     title: "Something went wrong!",
     message: `${import.meta.env.VITE_APP_NAME} has encountered an error. Contact ${import.meta.env.VITE_SUPPORT_EMAIL} if the problem persists.`,
-    cta: "Close",
-    ctaFunc: () => {
-      navigate("/");
-    },
+    btn: "Close",
+    btnLink: "/",
   };
 
   const status = location.state?.status || initialStatus;
@@ -81,9 +79,11 @@ function StatusPage() {
           <Button
             colorPalette={import.meta.env.VITE_APP_COLOR}
             width={"100%"}
-            onClick={status.ctaFunc}
+            onClick={() => {
+              navigate(status.btnLink);
+            }}
           >
-            {status.cta || "Close"}
+            {status.btn || "Close"}
           </Button>
         </Stack>
       </WidgetWrapper>
