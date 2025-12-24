@@ -13,6 +13,7 @@ import ForgotPassword from "@/pages/Auth/ForgotPassword";
 import VerifyCode from "@/pages/Auth/VerifyCode";
 import ResetPassword from "@/pages/Auth/ResetPassword";
 import ErrorPage from "@/pages/ErrorPage";
+import StatusPage from "@/pages/StatusPage";
 
 const Home = lazy(async () => {
   // await new Promise((r) => setTimeout(r, 1500)); // Simulated 1.5s delay
@@ -32,6 +33,11 @@ const router = createBrowserRouter([
     ],
   },
   // Auth Routes
+  {
+    path: "status",
+    element: <StatusPage />,
+    errorElement: <ErrorPage />,
+  },
   {
     path: "/",
     errorElement: <ErrorPage />,
