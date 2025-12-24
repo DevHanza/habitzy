@@ -1,4 +1,4 @@
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import {
   Container,
   Heading,
@@ -14,6 +14,7 @@ import crossCircleAnimation from "@/assets/lottie/circle_cross.json";
 
 function StatusPage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const isDesktop = useBreakpointValue({ base: false, md: true });
 
   const initialStatus = {
@@ -22,7 +23,7 @@ function StatusPage() {
     message: `${import.meta.env.VITE_APP_NAME} has encountered an error. Contact ${import.meta.env.VITE_SUPPORT_EMAIL} if the problem persists.`,
     cta: "Close",
     ctaFunc: () => {
-      // console.log("Clicked!");
+      navigate("/");
     },
   };
 
