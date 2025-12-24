@@ -27,8 +27,6 @@ function StatusPage() {
 
   const status = location.state?.status || initialStatus;
 
-  console.log(status);
-
   return (
     <Container
       maxW={"lg"}
