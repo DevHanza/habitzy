@@ -23,6 +23,7 @@ Using:
 - [Frimousse](https://github.com/liveblocks/frimousse)
 - [check-password-strength](https://github.com/deanilvincent/check-password-strength)
 - [Lucide Icons](https://lucide.dev/guide/packages/lucide-react)
+- [lottie-react](https://www.npmjs.com/package/lottie-react)
 
 ### Backend Libraries
 
