@@ -52,7 +52,7 @@ const userSchema = new Schema(
       },
     },
     settings: {
-      isDarkMode: {
+      darkmode: {
         type: Boolean,
         default: true,
       },
