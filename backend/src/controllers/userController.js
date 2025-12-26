@@ -382,7 +382,7 @@ export async function verifyCode(req, res) {
     }
     //  #
     const verifyCodes = user.verifyCodes;
-    let verifiedCode;
+    let verifiedCode = null;
 
     // Get the valid verify code ,if exists.
     for (const vc of verifyCodes) {
@@ -393,6 +393,18 @@ export async function verifyCode(req, res) {
         break;
       }
     }
+
+    // Set the code as Verified: true
+
+    user.verifyCodes = user.verifyCodes.map((vc) => {
+      //
+      if (vc === verifiedCode) {
+        return { ...vc, verified: true };
+      }
+
+      return vc;
+      //
+    });
 
     if (!verifiedCode) {
       return res.status(498).json({ message: "Invalid Code." });
@@ -447,7 +459,9 @@ export async function resetPassword(req, res) {
     }
 
     if (!newPassword) {
-      return res.status(400).json({ message: "Please provide a new password." });
+      return res
+        .status(400)
+        .json({ message: "Please provide a new password." });
     }
 
     const user = await User.findOne({ email });
@@ -480,9 +494,9 @@ export async function resetPassword(req, res) {
     user.password = hash;
 
     // Delete the Verified code after password is changed.
-    user.verifyCodes = user.verifyCodes.filter((vc) => {
-      return vc !== verifiedCode;
-    });
+    // user.verifyCodes = user.verifyCodes.filter((vc) => {
+    //   return vc !== verifiedCode;
+    // });
 
     await user.save();
 
