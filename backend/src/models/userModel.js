@@ -37,17 +37,20 @@ const userSchema = new Schema(
       minLength: 5,
       maxLength: 150,
     },
-    currentStreak: {
-      type: Number,
-      required: [true, "Current streak is required"],
-      min: [0, "Current streak cannot be negative"],
-      default: 0,
+    streak: {
+      currentStreak: {
+        type: Number,
+        required: [true, "Current streak is required"],
+        min: [0, "Current streak cannot be negative"],
+        default: 0,
+      },
+      longestStreak: {
+        type: Number,
+        required: [true, "Longest streak is required"],
+        min: [0, "Longest streak cannot be negative"],
+        default: 0,
+      },
     },
-    longestStreak: {
-      type: Number,
-      required: [true, "Longest streak is required"],
-      min: [0, "Longest streak cannot be negative"],
-      default: 0,
     },
     refreshTokens: {
       type: [
