@@ -65,6 +65,10 @@ const userSchema = new Schema(
           code: String,
           device: String,
           expiresAt: Date,
+          verified: {
+            type: Boolean,
+            default: false,
+          },
         },
       ],
       default: [],
