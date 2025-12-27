@@ -58,7 +58,17 @@ function ResetPasswordInputs({ email, code }) {
         .then((data) => {
           //
           // console.log(data);
-          navigate("/login");
+          navigate("/status", {
+            state: {
+              status: {
+                success: true,
+                title: "Password Changed!",
+                message: `Your password has been changed successfully. Now, you can now log in with your new password.`,
+                btn: "Got it!",
+                btnLink: "/",
+              },
+            },
+          });
           setError("");
         })
         .catch((err) => {

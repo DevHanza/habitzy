@@ -382,7 +382,7 @@ export async function verifyCode(req, res) {
     }
     //  #
     const verifyCodes = user.verifyCodes;
-    let verifiedCode;
+    let verifiedCode = null;
 
     // Get the valid verify code ,if exists.
     for (const vc of verifyCodes) {
@@ -393,6 +393,24 @@ export async function verifyCode(req, res) {
         break;
       }
     }
+
+    if (verifiedCode.verified) {
+      return res
+        .status(498)
+        .json({ message: "This code has already been used." });
+    }
+
+    // Set the code as Verified: true
+
+    user.verifyCodes = user.verifyCodes.map((vc) => {
+      //
+      if (vc === verifiedCode) {
+        return { ...vc, verified: true };
+      }
+
+      return vc;
+      //
+    });
 
     if (!verifiedCode) {
       return res.status(498).json({ message: "Invalid Code." });
@@ -406,7 +424,6 @@ export async function verifyCode(req, res) {
     if (isCodeExpired) {
       return res.status(498).json({ message: "Your Verify Code is expired." });
     }
-    // #
 
     // Block when a user tries to verify on a device different from the one that requested it.
     if (device !== verifiedCode.device) {
@@ -414,11 +431,6 @@ export async function verifyCode(req, res) {
         .status(401)
         .json({ message: "Verification Failed: Device Mismatch." });
     }
-
-    // Delete the Verified code, once it checked.
-    // user.verifyCodes = user.verifyCodes.filter((vc) => {
-    //   return vc !== verifiedCode;
-    // });
 
     await user.save();
 
@@ -447,7 +459,9 @@ export async function resetPassword(req, res) {
     }
 
     if (!newPassword) {
-      return res.status(400).json({ message: "Please provide a new password." });
+      return res
+        .status(400)
+        .json({ message: "Please provide a new password." });
     }
 
     const user = await User.findOne({ email });
@@ -474,6 +488,12 @@ export async function resetPassword(req, res) {
     if (!verifiedCode) {
       return res.status(498).json({ message: "Invalid Code." });
     }
+    //
+    else if (!verifiedCode.verified) {
+      return res
+        .status(401)
+        .json({ message: "Please verify your code first." });
+    }
 
     // Change the password
     const hash = bcrypt.hashSync(newPassword, 10);
@@ -481,7 +501,7 @@ export async function resetPassword(req, res) {
 
     // Delete the Verified code after password is changed.
     user.verifyCodes = user.verifyCodes.filter((vc) => {
-      return vc !== verifiedCode;
+      return vc.verified != true;
     });
 
     await user.save();
