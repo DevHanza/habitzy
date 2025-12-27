@@ -494,9 +494,9 @@ export async function resetPassword(req, res) {
     user.password = hash;
 
     // Delete the Verified code after password is changed.
-    // user.verifyCodes = user.verifyCodes.filter((vc) => {
-    //   return vc !== verifiedCode;
-    // });
+    user.verifyCodes = user.verifyCodes.filter((vc) => {
+      return vc.verified != true;
+    });
 
     await user.save();
 
