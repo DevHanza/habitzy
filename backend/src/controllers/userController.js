@@ -394,6 +394,12 @@ export async function verifyCode(req, res) {
       }
     }
 
+    if (verifiedCode.verified) {
+      return res
+        .status(498)
+        .json({ message: "This code has already been used." });
+    }
+
     // Set the code as Verified: true
 
     user.verifyCodes = user.verifyCodes.map((vc) => {
