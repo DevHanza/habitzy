@@ -482,6 +482,12 @@ export async function resetPassword(req, res) {
     if (!verifiedCode) {
       return res.status(498).json({ message: "Invalid Code." });
     }
+    //
+    else if (!verifiedCode.verified) {
+      return res
+        .status(401)
+        .json({ message: "Please verify your code first." });
+    }
 
     // Change the password
     const hash = bcrypt.hashSync(newPassword, 10);
