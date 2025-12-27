@@ -418,7 +418,6 @@ export async function verifyCode(req, res) {
     if (isCodeExpired) {
       return res.status(498).json({ message: "Your Verify Code is expired." });
     }
-    // #
 
     // Block when a user tries to verify on a device different from the one that requested it.
     if (device !== verifiedCode.device) {
@@ -426,11 +425,6 @@ export async function verifyCode(req, res) {
         .status(401)
         .json({ message: "Verification Failed: Device Mismatch." });
     }
-
-    // Delete the Verified code, once it checked.
-    // user.verifyCodes = user.verifyCodes.filter((vc) => {
-    //   return vc !== verifiedCode;
-    // });
 
     await user.save();
 
