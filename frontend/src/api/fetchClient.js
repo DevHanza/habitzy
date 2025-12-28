@@ -1,3 +1,7 @@
+import { useAuth } from "@/hooks/useAuth";
+
+const { refreshAccessToken } = useAuth();
+
 export async function fetchClient(url, method = "GET", body, accessToken) {
   //
   const request = async (accToken) => {
