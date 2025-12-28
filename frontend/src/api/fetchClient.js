@@ -6,8 +6,10 @@ export async function fetchClient({
   onRefresh,
 }) {
   //
+
+  const API_URL = `${import.meta.env.VITE_BACKEND_API}/${url}`;
   const request = async (accToken) => {
-    return fetch(url, {
+    return fetch(API_URL, {
       method,
       headers: {
         "Content-Type": "application/json",
