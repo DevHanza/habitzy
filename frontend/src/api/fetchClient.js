@@ -1,8 +1,10 @@
-import { useAuth } from "@/hooks/useAuth";
-
-const { refreshAccessToken } = useAuth();
-
-export async function fetchClient(url, method = "GET", body, accessToken) {
+export async function fetchClient(
+  url,
+  method = "GET",
+  body,
+  accessToken,
+  onRefresh
+) {
   //
   const request = async (accToken) => {
     return fetch(url, {
@@ -18,8 +20,8 @@ export async function fetchClient(url, method = "GET", body, accessToken) {
 
   let res = await request(accessToken);
 
-  if (res.status === 401) {
-    const newAccessToken = await refreshAccessToken();
+  if (res.status === 401 && onRefresh) {
+    const newAccessToken = await onRefresh();
 
     if (!newAccessToken) return res;
 
