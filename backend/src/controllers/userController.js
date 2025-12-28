@@ -3,7 +3,7 @@ import { User } from "../models/userModel.js";
 import {
   generateAccessToken,
   generateRefreshToken,
-  verifyToken,
+  verifyRefreshToken,
 } from "../utils/jwt.js";
 import { isProduction } from "../utils/envCheck.js";
 import { sendEmail } from "../utils/sendEmail.js";
@@ -53,7 +53,7 @@ export async function loginUser(req, res) {
 
     if (oldRefreshToken) {
       // Is Refresh token Valid?
-      const payload = verifyToken(oldRefreshToken);
+      const payload = verifyRefreshToken(oldRefreshToken);
 
       // Is Refresh token expired?
       const now = Math.floor(new Date() / 1000);
@@ -142,7 +142,7 @@ export async function refreshToken(req, res) {
     const token = req.cookies.refreshToken;
     if (!token) return res.status(401).json({ message: "No token found." });
 
-    const payload = verifyToken(token);
+    const payload = verifyRefreshToken(token);
 
     const user = await User.findById(payload.userId);
     if (!user) {
@@ -179,7 +179,7 @@ export async function logout(req, res) {
     const token = req.cookies.refreshToken;
     if (!token) return res.status(401).json({ message: "No token found." });
 
-    const payload = verifyToken(token);
+    const payload = verifyRefreshToken(token);
 
     const user = await User.findById(payload.userId);
     if (!user) {
@@ -213,7 +213,7 @@ export async function logoutAll(req, res) {
     const token = req.cookies.refreshToken;
     if (!token) return res.status(401).json({ message: "No token found." });
 
-    const payload = verifyToken(token);
+    const payload = verifyRefreshToken(token);
 
     // 48-Hour Logout Security
 
