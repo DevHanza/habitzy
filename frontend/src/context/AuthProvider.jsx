@@ -32,21 +32,34 @@ export const AuthProvider = ({ children }) => {
   const isLoggedIn = state.accessToken ? true : false;
 
   // Get Access Token on Initial Load
-  useEffect(() => {
-    // if (!isLoggedIn) return;
+  useEffect(
+    () => {
+      // if (!isLoggedIn) return;
 
-    async function refreshAccessToken() {
+      refreshAccessToken();
+      //
+    },
+    [
+      // isLoggedIn
+    ]
+  );
+
+  async function refreshAccessToken() {
+    try {
+      //
       const res = await refreshAccessTokenRequest();
 
       if (!res.ok) return;
 
       const data = await res.json();
       dispatch({ type: "SET_TOKEN", payload: data.accessToken });
-    }
 
-    refreshAccessToken();
-    //
-  }, [isLoggedIn]);
+      return data;
+      //
+    } catch (err) {
+      throw Error(err);
+    }
+  }
 
   async function register(name, email, username, password) {
     try {
@@ -149,6 +162,7 @@ export const AuthProvider = ({ children }) => {
         register,
         login,
         logout,
+        refreshAccessToken,
         forgotPassword,
         verifyCode,
         resetPassword,
