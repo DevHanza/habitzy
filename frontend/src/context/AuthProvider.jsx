@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useCallback, useEffect, useReducer } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import {
   forgotPasswordRequest,
@@ -9,6 +9,7 @@ import {
   resetPasswordRequest,
   verifyCodeRequest,
 } from "@/api/authAPI";
+import { fetchClient } from "@/api/fetchClient";
 
 const initialState = {
   user: null,
@@ -35,7 +36,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(
     () => {
       // if (!isLoggedIn) return;
-
       refreshAccessToken();
       //
     },
@@ -60,6 +60,19 @@ export const AuthProvider = ({ children }) => {
       throw Error(err);
     }
   }
+
+  const authFetch = useCallback(
+    //
+    async (options) => {
+      return fetchClient({
+        ...options,
+        accessToken: state.accessToken,
+        onRefresh: refreshAccessToken,
+      });
+    },
+    //
+    [state.accessToken, refreshAccessToken]
+  );
 
   async function register(name, email, username, password) {
     try {
@@ -159,6 +172,7 @@ export const AuthProvider = ({ children }) => {
         state,
         isLoggedIn,
         accessToken: state.accessToken,
+        authFetch,
         register,
         login,
         logout,
