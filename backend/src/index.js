@@ -37,4 +37,13 @@ app.get("/api/v1", (req, res) => {
   return res.status(200).json({ message: "API is working 🚀" });
 });
 
+// 404 page
+app.use((req, res) => {
+  res.status(404).json({
+    error: "Route not found",
+    path: req.originalUrl,
+    method: req.method,
+  });
+});
+
 export default app;
