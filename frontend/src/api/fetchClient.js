@@ -1,17 +1,17 @@
-export async function fetchClient(
+export async function fetchClient({
   url,
   method = "GET",
   body,
   accessToken,
-  onRefresh
-) {
+  onRefresh,
+}) {
   //
   const request = async (accToken) => {
     return fetch(url, {
       method,
       headers: {
         "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${accToken}` } : {}),
+        ...(accToken ? { Authorization: `Bearer ${accToken}` } : {}),
       },
       credentials: "include",
       body: body ? JSON.stringify(body) : undefined,
