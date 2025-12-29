@@ -10,6 +10,7 @@ import habitRoutes from "./routes/habitRoutes.js";
 import dailyLogRoutes from "./routes/dailyLogRoutes.js";
 
 import { globalLimiter } from "./middleware/rate-limiter.js";
+import { authenticateAccessToken } from "./middleware/authenticateAccessToken.js";
 
 const app = express();
 
@@ -29,8 +30,7 @@ app.use(
 
 // Load routes
 app.use("/api/v1/user", userRoutes);
-app.use("/api/v1/user/:userId/habits", habitRoutes);
-app.use("/api/v1/user/:userId/dailylogs", dailyLogRoutes);
+app.use("/api/v1/user/habits", authenticateAccessToken, habitRoutes);
 
 // Test API
 app.get("/api/v1", (req, res) => {
