@@ -6,12 +6,12 @@ export function authenticateAccessToken(req, res, next) {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(" ")[1];
 
-    console.log(`token: ${token} \n`);
+    // console.log(`token: ${token} \n`);
 
     if (!token) return res.sendStatus(401);
 
     const payload = verifyAccessToken(token);
-    console.log(payload);
+    // console.log(payload);
 
     // Send the userId to the route
     req.user = {
