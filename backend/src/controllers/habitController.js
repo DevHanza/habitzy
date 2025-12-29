@@ -18,7 +18,7 @@ export async function getHabits(req, res) {
 
 export async function addHabit(req, res) {
   try {
-    const { userId } = req.params;
+    const userId = req.user.userId;
 
     if (!userId) {
       res.status(404).json({ message: "userId not found." });
