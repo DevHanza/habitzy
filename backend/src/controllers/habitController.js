@@ -27,7 +27,7 @@ export async function addHabit(req, res) {
   try {
     const userId = req.user.userId;
     const { title, description, icon } = req.body;
-    
+
     if (!userId) {
       return res.status(400).json({ message: "User not found." });
     }
@@ -50,7 +50,10 @@ export async function addHabit(req, res) {
     const newHabit = new Habit(habitData);
     await newHabit.save();
 
-    res.status(201).json(newHabit);
+    res.status(201).json({
+      message: "Habit created successfully.",
+      _id: newHabit._id,
+    });
     //
   } catch (err) {
     //
