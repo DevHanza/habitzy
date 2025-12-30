@@ -30,7 +30,7 @@ router.post("/forgot-password", [forgotPasswordLimiter], forgotPassword);
 router.post("/verify", verifyCode);
 router.patch("/reset-password", resetPassword);
 
-router.get("/:userId", getUserByID);
-router.put("/:userId", updateUser);
+// router.get("/:userId", getUserByID);
+// router.put("/:userId", updateUser);
 
 export default router;
