@@ -22,7 +22,7 @@ export async function fetchClient({
 
   let res = await request(accessToken);
 
-  if (res.status === 401 && onRefresh) {
+  if ((res.status === 401 || res.status) === 498 && onRefresh) {
     const newAccessToken = await onRefresh();
 
     if (!newAccessToken) return res;

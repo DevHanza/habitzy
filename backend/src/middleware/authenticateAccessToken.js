@@ -21,7 +21,11 @@ export function authenticateAccessToken(req, res, next) {
     next();
     //
   } catch (err) {
-    //
+    // 
+    if (err.message === "jwt expired") {
+      return res.status(498).json({ message: err.message });
+    }
+
     res.status(400).json({ message: err.message });
     //
   }
