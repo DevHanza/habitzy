@@ -90,7 +90,7 @@ export async function loginUser(req, res) {
     // Check: Device is available?
     if (!device) {
       return res
-        .status(404)
+        .status(400)
         .json({ message: "A device identifier is required." });
     }
 
