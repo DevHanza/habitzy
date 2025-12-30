@@ -15,6 +15,11 @@ const habitSchema = new Schema(
     description: {
       type: String,
     },
+    icon: {
+      type: String,
+      required: true,
+      default: "✨",
+    },
     isCompleted: {
       type: Boolean,
       required: [true, "isCompleted is required."],
