@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import {
   getHabits,
+  addHabit,
   // getHabitByID,
   // deleteHabit,
   // updateHabit,
@@ -11,6 +12,7 @@ import {
 const router = Router();
 
 router.get("/", getHabits);
+router.post("/", addHabit);
 
 // router.get("/:habitId", getHabitByID);
 // router.delete("/:habitId", deleteHabit);

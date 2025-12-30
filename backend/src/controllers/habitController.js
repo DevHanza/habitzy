@@ -19,20 +19,30 @@ export async function getHabits(req, res) {
 export async function addHabit(req, res) {
   try {
     const userId = req.user.userId;
-
+    const { title, description, icon } = req.body;
+    
     if (!userId) {
-      res.status(404).json({ message: "userId not found." });
+      return res.status(400).json({ message: "User not found." });
+    }
+
+    if (!title) {
+      return res.status(400).json({ message: "Title is required." });
+    }
+
+    if (!icon) {
+      return res.status(400).json({ message: "Icon is required." });
     }
 
     const habitData = {
-      userId: userId,
-      title: req.body.title,
-      description: req.body.description,
-      isCompleted: false,
+      userId,
+      icon,
+      title,
+      description: description ? description : "",
     };
 
     const newHabit = new Habit(habitData);
     await newHabit.save();
+    
     res.status(201).json(newHabit);
     //
   } catch (err) {
