@@ -3,9 +3,9 @@ import { Router } from "express";
 import {
   getHabits,
   addHabit,
+  updateHabit,
   // getHabitByID,
   // deleteHabit,
-  // updateHabit,
 } from "../controllers/habitController.js";
 
 // Enable "mergeParams" so we can access ":id" from parent route
@@ -13,9 +13,9 @@ const router = Router();
 
 router.get("/", getHabits);
 router.post("/", addHabit);
+router.put("/:habitId", updateHabit);
 
 // router.get("/:habitId", getHabitByID);
 // router.delete("/:habitId", deleteHabit);
-// router.put("/:habitId", updateHabit);
 
 export default router;

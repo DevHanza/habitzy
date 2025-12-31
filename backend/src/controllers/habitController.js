@@ -63,6 +63,64 @@ export async function addHabit(req, res) {
   }
 }
 
+export async function updateHabit(req, res) {
+  try {
+    //
+    const userId = req.user.userId;
+    const { habitId } = req.params;
+
+    if (!req.body) {
+      return res.status(400).json({
+        message: "At least one field must be provided.",
+      });
+    }
+
+    const { icon, title, description, isCompleted } = req.body;
+    const newHabitData = { icon, title, description, isCompleted };
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not found." });
+    }
+
+    if (!habitId) {
+      return res.status(400).json({ message: "Habit ID is required." });
+    }
+
+    // Check if, all the fields are empty?
+
+    const allFieldsEmpty = Object.values(newHabitData).every(
+      (value) => value === undefined
+    );
+
+    if (allFieldsEmpty) {
+      return res.status(400).json({ message: "No fields provided to update." });
+    }
+
+    const updatedHabit = await Habit.findOneAndUpdate(
+      {
+        _id: habitId,
+        userId: userId,
+      },
+      { $set: newHabitData },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedHabit) {
+      return res.status(404).json({ message: "Habit not found." });
+    }
+
+    res.json({
+      message: "Habit updated successfully.",
+      _id: updatedHabit._id,
+    });
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
+
 // export async function deleteHabit(req, res) {
 //   try {
 //     const { userId, habitId } = req.params;
@@ -81,31 +139,6 @@ export async function addHabit(req, res) {
 //     }
 
 //     res.json({ message: "Habit  is Deleted.", deletedHabit });
-//   } catch (err) {
-//     res.status(400).json({ message: err.message });
-//   }
-// }
-
-// export async function updateHabit(req, res) {
-//   try {
-//     const { userId, habitId } = req.params;
-
-//     const newHabitData = req.body;
-
-//     const updatedHabit = await Habit.findOneAndUpdate(
-//       {
-//         _id: habitId,
-//         userId: userId,
-//       },
-//       { $set: newHabitData },
-//       { new: true, runValidators: true }
-//     );
-
-//     if (!updatedHabit) {
-//       return res.status(404).json({ message: "User not found." });
-//     }
-
-//     res.json(updatedHabit);
 //   } catch (err) {
 //     res.status(400).json({ message: err.message });
 //   }
