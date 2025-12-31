@@ -8,7 +8,13 @@ export function authenticateAccessToken(req, res, next) {
 
     // console.log(`token: ${token} \n`);
 
-    if (!token) return res.sendStatus(401);
+    if (!authHeader || !token) return res.sendStatus(401);
+
+    if (
+      !authHeader.startsWith("Bearer ") ||
+      authHeader.split(" ")[0] !== "Bearer"
+    )
+      return res.sendStatus(401);
 
     const payload = verifyAccessToken(token);
     // console.log(payload);
@@ -21,7 +27,7 @@ export function authenticateAccessToken(req, res, next) {
     next();
     //
   } catch (err) {
-    // 
+    //
     if (err.message === "jwt expired") {
       return res.status(498).json({ message: err.message });
     }
