@@ -13,7 +13,7 @@ export async function getHabits(req, res) {
     if (!habits) {
       return res
         .status(404)
-        .json({ message: "No Habits for this user or wrong User ID." });
+        .json({ message: "No habits found for this user." });
     }
 
     res.json(habits);
