@@ -196,7 +196,9 @@ export async function logout(req, res) {
   try {
     //
     const token = req.cookies.refreshToken;
-    if (!token) return res.status(401).json({ message: "No token found." });
+    if (!token) {
+      return res.status(401).json({ message: "No token found." });
+    }
 
     const payload = verifyRefreshToken(token);
 
