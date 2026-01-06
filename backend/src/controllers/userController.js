@@ -156,11 +156,14 @@ export async function refreshToken(req, res) {
   try {
     //
     const token = req.cookies.refreshToken;
-    if (!token) return res.status(401).json({ message: "No token found." });
 
+    if (!token) {
+      return res.status(401).json({ message: "No token found." });
+    }
     const payload = verifyRefreshToken(token);
 
     const user = await User.findById(payload.userId);
+
     if (!user) {
       return res.status(401).json({ message: "User not found." });
     }
@@ -169,7 +172,7 @@ export async function refreshToken(req, res) {
       (tokenItem) => tokenItem.token === token
     );
     if (!storedToken) {
-      return res.status(401).json({ message: "Invalid token." });
+      return res.status(401).json({ message: "Invalid authentication token." });
     }
 
     // Send New token to the client
@@ -180,7 +183,7 @@ export async function refreshToken(req, res) {
   } catch (err) {
     //
     if (err.message === "jwt must be provided") {
-      return res.status(400).json({ message: "Invalid refresh token." });
+      return res.status(401).json({ message: "Invalid refresh token." });
     }
 
     res.status(400).json({ message: err.message });
