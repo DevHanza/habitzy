@@ -478,7 +478,7 @@ export async function resetPassword(req, res) {
     }
 
     if (!code) {
-      return res.status(404).json("Verification Code Required.");
+      return res.status(400).json("Verification code is required.");
     }
 
     if (!newPassword) {
@@ -509,13 +509,13 @@ export async function resetPassword(req, res) {
     }
 
     if (!verifiedCode) {
-      return res.status(498).json({ message: "Invalid Code." });
+      return res.status(400).json({ message: "Invalid verification code." });
     }
     //
     else if (!verifiedCode.verified) {
       return res
-        .status(401)
-        .json({ message: "Please verify your code first." });
+        .status(400)
+        .json({ message: "Please verify your verification code first." });
     }
 
     // Change the password
@@ -530,7 +530,7 @@ export async function resetPassword(req, res) {
     await user.save();
 
     res.json({
-      message: `Password is changed!`,
+      message: `Password changed successfully.`,
       email,
     });
   } catch (err) {
