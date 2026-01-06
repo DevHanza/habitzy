@@ -14,14 +14,32 @@ const WEEK_IN_MS = 1000 * 60 * 60 * 24 * 7;
 export async function registerUser(req, res) {
   try {
     //
-    const userData = {
-      name: req.body.name,
-      email: req.body.email,
-      username: req.body.username,
-      password: req.body.password,
-    };
 
-    const exitingUser = await User.findOne({ email: req.body.email });
+    if (!req.body) {
+      return res.status(400).json({
+        message: "Required fields are missing.",
+      });
+    }
+
+    const { name, email, username, password } = req.body;
+
+    if (!name) {
+      return res.status(400).json({ message: "Name is required." });
+    }
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required." });
+    }
+
+    if (!username) {
+      return res.status(400).json({ message: "Username is required." });
+    }
+
+    if (!password) {
+      return res.status(400).json({ message: "Password is required." });
+    }
+
+    const exitingUser = await User.findOne({ email });
 
     if (exitingUser) {
       return res.status(409).json({ message: "User already exists." });
