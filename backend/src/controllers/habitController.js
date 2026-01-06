@@ -121,6 +121,8 @@ export async function updateHabit(req, res) {
   }
 }
 
+export async function deleteHabit(req, res) {}
+
 // export async function deleteHabit(req, res) {
 //   try {
 //     const { userId, habitId } = req.params;
