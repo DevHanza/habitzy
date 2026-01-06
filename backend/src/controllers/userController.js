@@ -374,17 +374,19 @@ export async function verifyCode(req, res) {
     const { code, email } = req.body;
 
     if (!code) {
-      return res.status(404).json({ message: "Verification Code Required." });
+      return res
+        .status(400)
+        .json({ message: "Verification code is required." });
       //
     } else if (code.length !== 5) {
       return res
-        .status(422)
-        .json({ message: "Verification Code must be exactly 5 digits." });
+        .status(400)
+        .json({ message: "Verification code must be exactly 5 digits." });
       //
     } else if (Number.isNaN(Number(code))) {
       return res
-        .status(422)
-        .json({ message: "Verification Code must be a number." });
+        .status(400)
+        .json({ message: "Verification Code must be numeric." });
       //
     }
 
@@ -397,9 +399,7 @@ export async function verifyCode(req, res) {
 
     const device = req.headers["user-agent"];
     if (!device) {
-      return res
-        .status(404)
-        .json({ message: "A device identifier is required." });
+      return res.status(401).json({ message: "Unrecognized device." });
     }
     //  #
     const verifyCodes = user.verifyCodes;
@@ -417,8 +417,8 @@ export async function verifyCode(req, res) {
 
     if (verifiedCode.verified) {
       return res
-        .status(498)
-        .json({ message: "This code has already been used." });
+        .status(409)
+        .json({ message: "This verification code has already been used." });
     }
 
     // Set the code as Verified: true
@@ -434,7 +434,7 @@ export async function verifyCode(req, res) {
     });
 
     if (!verifiedCode) {
-      return res.status(498).json({ message: "Invalid Code." });
+      return res.status(400).json({ message: "Invalid verification code." });
     }
 
     // Check: Is verify code expired?
@@ -443,20 +443,22 @@ export async function verifyCode(req, res) {
     const isCodeExpired = expiresAt < now;
 
     if (isCodeExpired) {
-      return res.status(498).json({ message: "Your Verify Code is expired." });
+      return res
+        .status(410)
+        .json({ message: "Your verification code has expired." });
     }
 
     // Block when a user tries to verify on a device different from the one that requested it.
     if (device !== verifiedCode.device) {
       return res
         .status(401)
-        .json({ message: "Verification Failed: Device Mismatch." });
+        .json({ message: "Verification failed: device mismatch." });
     }
 
     await user.save();
 
     res.json({
-      message: `Verified!`,
+      message: `Verification successful.`,
       email,
     });
     //
