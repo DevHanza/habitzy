@@ -231,10 +231,12 @@ export async function logout(req, res) {
 export async function logoutAll(req, res) {
   try {
     //
-    const token = req.cookies.refreshToken;
-    if (!token) return res.status(401).json({ message: "No token found." });
+    const { refreshToken } = req.cookies;
+    if (!refreshToken) {
+      return res.status(401).json({ message: "No token found." });
+    }
 
-    const payload = verifyRefreshToken(token);
+    const payload = verifyRefreshToken(refreshToken);
 
     // 48-Hour Logout Security
 
@@ -246,8 +248,8 @@ export async function logoutAll(req, res) {
     const isTwoDaysAfter = now > twoDaysAfterLoggedIn;
 
     if (!isTwoDaysAfter) {
-      return res.status(401).json({
-        message: "You must wait 48 hours before signing out of all devices.",
+      return res.status(429).json({
+        message: "You must wait 48 hours before signing out from all devices.",
       });
     }
 
