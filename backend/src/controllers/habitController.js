@@ -121,7 +121,40 @@ export async function updateHabit(req, res) {
   }
 }
 
-export async function deleteHabit(req, res) {}
+export async function deleteHabit(req, res) {
+  try {
+    //
+    const userId = req.user.userId;
+    const { habitId } = req.params;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not found." });
+    }
+
+    if (!habitId) {
+      return res.status(400).json({ message: "Habit ID is required." });
+    }
+
+    const deletedHabit = await Habit.findOneAndDelete({
+      _id: habitId,
+      userId: userId,
+    });
+
+    if (!deletedHabit) {
+      return res.status(404).json({ message: "Habit not found." });
+    }
+
+    res.json({
+      message: "Habit deleted successfully.",
+      _id: deletedHabit._id,
+    });
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
 
 // export async function deleteHabit(req, res) {
 //   try {
