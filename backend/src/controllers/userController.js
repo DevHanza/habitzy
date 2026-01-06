@@ -286,14 +286,12 @@ export async function forgotPassword(req, res) {
 
     const { email } = req.body;
     if (!email) {
-      return res.status(400).json({ message: "Email is required." });
+      return res.status(401).json({ message: "Email is required." });
     }
 
     const device = req.headers["user-agent"];
     if (!device) {
-      return res
-        .status(404)
-        .json({ message: "A device identifier is required." });
+      return res.status(401).json({ message: "Unrecognized device." });
     }
 
     const user = await User.findOne({ email });
