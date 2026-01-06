@@ -107,9 +107,7 @@ export async function loginUser(req, res) {
 
     // Check: Device is available?
     if (!device) {
-      return res
-        .status(400)
-        .json({ message: "A device identifier is required." });
+      return res.status(401).json({ message: "Unrecognized device." });
     }
 
     // Delete expired refresh tokens from the DB
