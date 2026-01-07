@@ -32,16 +32,6 @@ export const AuthProvider = ({ children }) => {
 
   const isLoggedIn = state.accessToken ? true : false;
 
-  // Get Access Token on Initial Load
-  useEffect(() => {
-    // if (!isLoggedIn) return;
-    refreshAccessToken();
-    //
-  }, [
-    // isLoggedIn
-    refreshAccessToken,
-  ]);
-
   const refreshAccessToken = useCallback(async () => {
     try {
       //
@@ -58,6 +48,16 @@ export const AuthProvider = ({ children }) => {
       throw Error(err);
     }
   }, []);
+
+  // Get Access Token on Initial Load
+  useEffect(() => {
+    // if (!isLoggedIn) return;
+    refreshAccessToken();
+    //
+  }, [
+    // isLoggedIn
+    refreshAccessToken,
+  ]);
 
   const authFetch = useCallback(
     //
