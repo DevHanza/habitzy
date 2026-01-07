@@ -33,18 +33,33 @@ export const AuthProvider = ({ children }) => {
   const isLoggedIn = state.accessToken ? true : false;
 
   // Get Access Token on Initial Load
-  useEffect(
-    () => {
-      // if (!isLoggedIn) return;
-      refreshAccessToken();
-      //
-    },
-    [
-      // isLoggedIn
-    ]
-  );
+  useEffect(() => {
+    // if (!isLoggedIn) return;
+    refreshAccessToken();
+    //
+  }, [
+    // isLoggedIn
+    refreshAccessToken,
+  ]);
 
-  async function refreshAccessToken() {
+  // async function refreshAccessToken() {
+  //   try {
+  //     //
+  //     const res = await refreshAccessTokenRequest();
+
+  //     if (!res.ok) return;
+
+  //     const data = await res.json();
+  //     dispatch({ type: "SET_TOKEN", payload: data.accessToken });
+
+  //     return data;
+  //     //
+  //   } catch (err) {
+  //     throw Error(err);
+  //   }
+  // }
+
+  const refreshAccessToken = useCallback(async () => {
     try {
       //
       const res = await refreshAccessTokenRequest();
@@ -59,7 +74,7 @@ export const AuthProvider = ({ children }) => {
     } catch (err) {
       throw Error(err);
     }
-  }
+  }, []);
 
   const authFetch = useCallback(
     //
