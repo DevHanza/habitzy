@@ -42,23 +42,6 @@ export const AuthProvider = ({ children }) => {
     refreshAccessToken,
   ]);
 
-  // async function refreshAccessToken() {
-  //   try {
-  //     //
-  //     const res = await refreshAccessTokenRequest();
-
-  //     if (!res.ok) return;
-
-  //     const data = await res.json();
-  //     dispatch({ type: "SET_TOKEN", payload: data.accessToken });
-
-  //     return data;
-  //     //
-  //   } catch (err) {
-  //     throw Error(err);
-  //   }
-  // }
-
   const refreshAccessToken = useCallback(async () => {
     try {
       //
