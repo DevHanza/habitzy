@@ -179,9 +179,29 @@ export const HabitProvider = ({ children }) => {
     );
   };
 
-  const removeHabit = useCallback((id) => {
-    setHabits((prev) => prev.filter((habit) => habit._id !== id));
-  }, []);
+  const removeHabit = useCallback(
+    (id) => {
+      //
+      authFetch({
+        url: `user/habits/${id}`,
+        method: "DELETE",
+      })
+        .then(async (response) => {
+          //
+          const data = await response.json();
+          console.log(data);
+
+          setHabits((prev) => prev.filter((habit) => habit._id !== id));
+          //
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+        
+      // setHabits((prev) => prev.filter((habit) => habit._id !== id));
+    },
+    [authFetch]
+  );
 
   const toggleHabit = useCallback((id) => {
     setHabits((prev) =>
