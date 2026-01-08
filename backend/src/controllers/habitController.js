@@ -8,7 +8,9 @@ export async function getHabits(req, res) {
       res.status(404).json({ message: "User not found." });
     }
 
-    const habits = await Habit.find({ userId: userId });
+    const habits = await Habit.find({ userId: userId }).select(
+      "_id icon title description isCompleted"
+    );
 
     if (!habits) {
       return res
