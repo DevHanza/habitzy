@@ -60,8 +60,8 @@ function HabitsBox() {
           {!isAddingHabits && <AddHabitBox />}
           {habits.map((habit, index) => (
             <HabitCard
-              key={habit.id}
-              id={habit.id}
+              key={habit._id}
+              id={habit._id}
               index={index}
               label={habit.title}
               icon={habit.icon}
