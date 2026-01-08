@@ -45,11 +45,14 @@ function HabitsBox() {
 
   // Pragmatic Drag & Drop Features
 
-  const moveItems = useCallback((fromIndex, toIndex) => {
-    setHabits((currentHabits) => {
-      return moveItemsInList(currentHabits, fromIndex, toIndex);
-    });
-  }, []);
+  const moveItems = useCallback(
+    (fromIndex, toIndex) => {
+      setHabits((currentHabits) => {
+        return moveItemsInList(currentHabits, fromIndex, toIndex);
+      });
+    },
+    [setHabits]
+  );
 
   // Functions for adding habits
   function handleAddHabit() {
