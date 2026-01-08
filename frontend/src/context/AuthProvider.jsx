@@ -28,8 +28,6 @@ function reducer(state, action) {
   }
 }
 
-// console.log(isLoggedInCookie);
-
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
