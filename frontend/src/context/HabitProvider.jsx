@@ -116,14 +116,14 @@ export const HabitProvider = ({ children }) => {
   };
 
   const editHabit = (id, selectedEmoji, label) => {
-    const habit = habits.find((habit) => habit.id === id);
+    const habit = habits.find((habit) => habit._id === id);
 
     // Return if there's no changes
     if (selectedEmoji === habit.icon && label === habit.title) return;
 
     setHabits((prevHabits) =>
       prevHabits.map((habit) =>
-        habit.id === id
+        habit._id === id
           ? { ...habit, icon: selectedEmoji, title: label }
           : habit
       )
@@ -131,13 +131,13 @@ export const HabitProvider = ({ children }) => {
   };
 
   const removeHabit = useCallback((id) => {
-    setHabits((prev) => prev.filter((habit) => habit.id !== id));
+    setHabits((prev) => prev.filter((habit) => habit._id !== id));
   }, []);
 
   const toggleHabit = useCallback((id) => {
     setHabits((prev) =>
       prev.map((habit) =>
-        habit.id === id ? { ...habit, isCompleted: !habit.isCompleted } : habit
+        habit._id === id ? { ...habit, isCompleted: !habit.isCompleted } : habit
       )
     );
   }, []);

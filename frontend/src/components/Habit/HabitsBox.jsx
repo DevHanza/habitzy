@@ -33,9 +33,7 @@ function HabitsBox() {
     })
       .then(async (response) => {
         const data = await response.json();
-        // console.log(data);
         setHabits(data);
-        console.log(data);
       })
       .catch((err) => {
         console.log(err);
