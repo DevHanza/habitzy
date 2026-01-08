@@ -170,13 +170,49 @@ export const HabitProvider = ({ children }) => {
     // Return if there's no changes
     if (selectedEmoji === habit.icon && label === habit.title) return;
 
-    setHabits((prevHabits) =>
-      prevHabits.map((habit) =>
-        habit._id === id
-          ? { ...habit, icon: selectedEmoji, title: label }
-          : habit
-      )
-    );
+    //
+    authFetch({
+      url: `user/habits/${id}`,
+      method: "PATCH",
+      body: {
+        icon: selectedEmoji,
+        title: label,
+        // description: "",
+        // isCompleted: false,
+      },
+    })
+      .then(async (response) => {
+        //
+        // const data = await response.json();
+        // console.log(data);
+
+        // #########
+
+        setHabits((prevHabits) =>
+          prevHabits.map((habit) =>
+            habit._id === id
+              ? { ...habit, icon: selectedEmoji, title: label }
+              : habit
+          )
+        );
+        //
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // const habit = habits.find((habit) => habit._id === id);
+
+    // // Return if there's no changes
+    // if (selectedEmoji === habit.icon && label === habit.title) return;
+
+    // setHabits((prevHabits) =>
+    //   prevHabits.map((habit) =>
+    //     habit._id === id
+    //       ? { ...habit, icon: selectedEmoji, title: label }
+    //       : habit
+    //   )
+    // );
   };
 
   const removeHabit = useCallback(
