@@ -188,8 +188,8 @@ export const HabitProvider = ({ children }) => {
       })
         .then(async (response) => {
           //
-          const data = await response.json();
-          console.log(data);
+          // const data = await response.json();
+          // console.log(data);
 
           setHabits((prev) => prev.filter((habit) => habit._id !== id));
           //
@@ -197,7 +197,7 @@ export const HabitProvider = ({ children }) => {
         .catch((err) => {
           console.log(err);
         });
-        
+
       // setHabits((prev) => prev.filter((habit) => habit._id !== id));
     },
     [authFetch]
