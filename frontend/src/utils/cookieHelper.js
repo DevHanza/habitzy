@@ -41,3 +41,7 @@ export function getCookie(name) {
     console.warn("Failed to parse quote from cookie:", error);
   }
 }
+
+export function deleteCookie(name) {
+  document.cookie = `${name}=;Max-Age=0; path=/;"`;
+}
