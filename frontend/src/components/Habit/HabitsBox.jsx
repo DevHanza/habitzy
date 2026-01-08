@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 
 import WidgetsWrapper from "@/components/ui/WidgetWrapper";
 import HabitCard from "@/components/Habit/HabitCard";
@@ -9,11 +9,8 @@ import { Plus } from "lucide-react";
 import { Button, Stack, VStack } from "@chakra-ui/react";
 
 import { moveItemsInList } from "@/utils/moveItemsInList";
-import { useAuth } from "@/hooks/useAuth";
 
 function HabitsBox() {
-  const { isLoggedIn, authFetch } = useAuth();
-
   const {
     habits,
     setHabits,
@@ -22,24 +19,6 @@ function HabitsBox() {
     toggleHabit,
     removeHabit,
   } = useHabits();
-
-  // Load Habits from DB on Init.
-  useEffect(() => {
-    //
-    if (!isLoggedIn) return;
-
-    authFetch({
-      url: "user/habits",
-    })
-      .then(async (response) => {
-        const data = await response.json();
-        setHabits(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    //
-  }, [isLoggedIn, authFetch, setHabits]);
 
   // Pragmatic Drag & Drop Features
 

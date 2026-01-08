@@ -1,5 +1,6 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { HabitContext } from "@/context/HabitContext";
+import { useAuth } from "@/hooks/useAuth";
 
 const habitsList = [
   { _id: 1, icon: "📖", title: "Read a book", isCompleted: false },
@@ -107,6 +108,29 @@ const habitsList = [
 export const HabitProvider = ({ children }) => {
   const [habits, setHabits] = useState(habitsList);
   const [isAddingHabits, setIsAddingHabits] = useState(true);
+
+  const { isLoggedIn, authFetch } = useAuth();
+
+  // Load User's Habits from DB on Init.
+  useEffect(() => {
+    //
+    if (!isLoggedIn) return;
+
+    authFetch({
+      url: "user/habits",
+    })
+      .then(async (response) => {
+        const data = await response.json();
+        setHabits(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    console.log("setHabits useEffect!");
+
+    //
+  }, [isLoggedIn, authFetch, setHabits]);
 
   const addHabit = (habit) => {
     setHabits((prev) => [
