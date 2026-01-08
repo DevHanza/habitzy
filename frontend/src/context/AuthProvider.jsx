@@ -10,6 +10,7 @@ import {
   verifyCodeRequest,
 } from "@/api/authAPI";
 import { fetchClient } from "@/api/fetchClient";
+import { deleteCookie, getCookie, setCookie } from "@/utils/cookieHelper";
 
 const initialState = {
   user: null,
@@ -26,6 +27,8 @@ function reducer(state, action) {
       return state;
   }
 }
+
+// console.log(isLoggedInCookie);
 
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -51,7 +54,11 @@ export const AuthProvider = ({ children }) => {
 
   // Get Access Token on Initial Load
   useEffect(() => {
-    // if (!isLoggedIn) return;
+    const isLoggedInCookie = Boolean(getCookie("IsLoggedIn"));
+    // console.log("isLoggedInCookie: ", isLoggedInCookie);
+
+    if (!isLoggedInCookie) return;
+
     refreshAccessToken();
     //
   }, [
@@ -96,6 +103,7 @@ export const AuthProvider = ({ children }) => {
       if (!res.ok) throw Error(data.message);
 
       dispatch({ type: "SET_TOKEN", payload: data.accessToken });
+      setCookie("IsLoggedIn", true, import.meta.env.VITE_LOGIN_EXPIRY_DAYS);
 
       return data;
     } catch (err) {
@@ -112,6 +120,8 @@ export const AuthProvider = ({ children }) => {
       if (!res.ok) throw Error(data.message);
 
       dispatch({ type: "LOGOUT" });
+      deleteCookie("IsLoggedIn");
+
       return data;
       //
     } catch (err) {
