@@ -126,17 +126,42 @@ export const HabitProvider = ({ children }) => {
       .catch((err) => {
         console.log(err);
       });
-
-    console.log("setHabits useEffect!");
-
     //
   }, [isLoggedIn, authFetch, setHabits]);
 
   const addHabit = (habit) => {
-    setHabits((prev) => [
-      { id: habits.length + 1, isCompleted: false, ...habit },
-      ...prev,
-    ]);
+    //
+    authFetch({
+      url: "user/habits",
+      method: "POST",
+      body: {
+        icon: habit?.icon,
+        title: habit?.title,
+      },
+    })
+      .then(async (response) => {
+        //
+        const data = await response.json();
+        // console.log(data);
+
+        setHabits((prev) => [
+          {
+            _id: data._id,
+            ...habit,
+            isCompleted: false,
+          },
+          ...prev,
+        ]);
+        //
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // setHabits((prev) => [
+    //   { id: habits.length + 1, isCompleted: false, ...habit },
+    //   ...prev,
+    // ]);
   };
 
   const editHabit = (id, selectedEmoji, label) => {
