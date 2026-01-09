@@ -131,37 +131,40 @@ export const HabitProvider = ({ children }) => {
 
   const addHabit = (habit) => {
     //
-    authFetch({
-      url: "user/habits",
-      method: "POST",
-      body: {
-        icon: habit?.icon,
-        title: habit?.title,
-      },
-    })
-      .then(async (response) => {
-        //
-        const data = await response.json();
-        // console.log(data);
 
-        setHabits((prev) => [
-          {
-            _id: data._id,
-            ...habit,
-            isCompleted: false,
-          },
-          ...prev,
-        ]);
-        //
+    if (isLoggedIn) {
+      authFetch({
+        url: "user/habits",
+        method: "POST",
+        body: {
+          icon: habit?.icon,
+          title: habit?.title,
+        },
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then(async (response) => {
+          //
+          const data = await response.json();
+          // console.log(data);
 
-    // setHabits((prev) => [
-    //   { id: habits.length + 1, isCompleted: false, ...habit },
-    //   ...prev,
-    // ]);
+          setHabits((prev) => [
+            {
+              _id: data._id,
+              ...habit,
+              isCompleted: false,
+            },
+            ...prev,
+          ]);
+          //
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setHabits((prev) => [
+        { id: habits.length + 1, isCompleted: false, ...habit },
+        ...prev,
+      ]);
+    }
   };
 
   const editHabit = (id, selectedEmoji, label) => {
@@ -170,102 +173,113 @@ export const HabitProvider = ({ children }) => {
     // Return if there's no changes
     if (selectedEmoji === habit.icon && label === habit.title) return;
 
-    //
-    authFetch({
-      url: `user/habits/${id}`,
-      method: "PATCH",
-      body: {
-        icon: selectedEmoji,
-        title: label,
-        // description: "",
-        // isCompleted: false,
-      },
-    })
-      .then(async (response) => {
-        //
-        // const data = await response.json();
-        // console.log(data);
-
-        // #########
-
-        setHabits((prevHabits) =>
-          prevHabits.map((habit) =>
-            habit._id === id
-              ? { ...habit, icon: selectedEmoji, title: label }
-              : habit
-          )
-        );
-        //
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    // const habit = habits.find((habit) => habit._id === id);
-
-    // // Return if there's no changes
-    // if (selectedEmoji === habit.icon && label === habit.title) return;
-
-    // setHabits((prevHabits) =>
-    //   prevHabits.map((habit) =>
-    //     habit._id === id
-    //       ? { ...habit, icon: selectedEmoji, title: label }
-    //       : habit
-    //   )
-    // );
-  };
-
-  const removeHabit = useCallback(
-    (id) => {
+    if (isLoggedIn) {
       //
       authFetch({
         url: `user/habits/${id}`,
-        method: "DELETE",
+        method: "PATCH",
+        body: {
+          icon: selectedEmoji,
+          title: label,
+          // description: "",
+          // isCompleted: false,
+        },
       })
         .then(async (response) => {
           //
           // const data = await response.json();
           // console.log(data);
 
-          setHabits((prev) => prev.filter((habit) => habit._id !== id));
+          // #########
+
+          setHabits((prevHabits) =>
+            prevHabits.map((habit) =>
+              habit._id === id
+                ? { ...habit, icon: selectedEmoji, title: label }
+                : habit
+            )
+          );
           //
         })
         .catch((err) => {
           console.log(err);
         });
+    } else {
+      //
+      setHabits((prevHabits) =>
+        prevHabits.map((habit) =>
+          habit._id === id
+            ? { ...habit, icon: selectedEmoji, title: label }
+            : habit
+        )
+      );
+      //
+    }
+  };
 
-      // setHabits((prev) => prev.filter((habit) => habit._id !== id));
+  const removeHabit = useCallback(
+    (id) => {
+      if (isLoggedIn) {
+        //
+        authFetch({
+          url: `user/habits/${id}`,
+          method: "DELETE",
+        })
+          .then(async (response) => {
+            //
+            // const data = await response.json();
+            // console.log(data);
+
+            setHabits((prev) => prev.filter((habit) => habit._id !== id));
+            //
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        setHabits((prev) => prev.filter((habit) => habit._id !== id));
+      }
     },
-    [authFetch]
+    [authFetch, isLoggedIn]
   );
 
   const toggleHabit = useCallback(
     (id) => {
       //
       //
-      authFetch({
-        url: `user/habits/${id}/toggleStatus`,
-        method: "PATCH",
-      })
-        .then(async (response) => {
-          //
-          // const data = await response.json();
-          // console.log(data);
-          //
-
-          setHabits((prev) =>
-            prev.map((habit) =>
-              habit._id === id
-                ? { ...habit, isCompleted: !habit.isCompleted }
-                : habit
-            )
-          );
+      if (isLoggedIn) {
+        authFetch({
+          url: `user/habits/${id}/toggleStatus`,
+          method: "PATCH",
         })
-        .catch((err) => {
-          console.log(err);
-        });
+          .then(async (response) => {
+            //
+            // const data = await response.json();
+            // console.log(data);
+            //
+
+            setHabits((prev) =>
+              prev.map((habit) =>
+                habit._id === id
+                  ? { ...habit, isCompleted: !habit.isCompleted }
+                  : habit
+              )
+            );
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        setHabits((prev) =>
+          prev.map((habit) =>
+            habit._id === id
+              ? { ...habit, isCompleted: !habit.isCompleted }
+              : habit
+          )
+        );
+      }
     },
-    [authFetch]
+    [authFetch, isLoggedIn]
   );
 
   return (
