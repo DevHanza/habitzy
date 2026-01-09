@@ -239,13 +239,34 @@ export const HabitProvider = ({ children }) => {
     [authFetch]
   );
 
-  const toggleHabit = useCallback((id) => {
-    setHabits((prev) =>
-      prev.map((habit) =>
-        habit._id === id ? { ...habit, isCompleted: !habit.isCompleted } : habit
-      )
-    );
-  }, []);
+  const toggleHabit = useCallback(
+    (id) => {
+      //
+      //
+      authFetch({
+        url: `user/habits/${id}/toggleStatus`,
+        method: "PATCH",
+      })
+        .then(async (response) => {
+          //
+          // const data = await response.json();
+          // console.log(data);
+          //
+
+          setHabits((prev) =>
+            prev.map((habit) =>
+              habit._id === id
+                ? { ...habit, isCompleted: !habit.isCompleted }
+                : habit
+            )
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    [authFetch]
+  );
 
   return (
     <HabitContext.Provider
