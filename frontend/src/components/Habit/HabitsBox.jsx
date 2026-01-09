@@ -5,8 +5,14 @@ import HabitCard from "@/components/Habit/HabitCard";
 import AddHabitBox from "@/components/Habit/AddHabitBox";
 import useHabits from "@/hooks/useHabits";
 
-import { Plus } from "lucide-react";
-import { Button, Stack, VStack } from "@chakra-ui/react";
+import { BookOpenCheck, Plus } from "lucide-react";
+import {
+  Button,
+  Stack,
+  VStack,
+  ButtonGroup,
+  EmptyState,
+} from "@chakra-ui/react";
 
 import { moveItemsInList } from "@/utils/moveItemsInList";
 
@@ -61,21 +67,54 @@ function HabitsBox() {
       <Stack gap={6}>
         <VStack gap={2}>
           {!isAddingHabits && <AddHabitBox />}
-          {habits.map((habit, index) => (
-            <HabitCard
-              key={habit._id}
-              id={habit._id}
-              index={index}
-              label={habit.title}
-              icon={habit.icon}
-              isCompleted={habit.isCompleted}
-              toggleHabit={toggleHabit}
-              moveItems={moveItems}
-              removeHabit={removeHabit}
-            />
-          ))}
+          {habits.length > 0 ? (
+            habits.map((habit, index) => (
+              <HabitCard
+                key={habit._id}
+                id={habit._id}
+                index={index}
+                label={habit.title}
+                icon={habit.icon}
+                isCompleted={habit.isCompleted}
+                toggleHabit={toggleHabit}
+                moveItems={moveItems}
+                removeHabit={removeHabit}
+              />
+            ))
+          ) : (
+            <EmptyState.Root
+              // background={"#2c2c2c"}
+              pt={16}
+              pb={24}
+            >
+              <EmptyState.Content>
+                <EmptyState.Indicator>
+                  {/* <HiColorSwatch /> */}
+                  <BookOpenCheck />
+                </EmptyState.Indicator>
+                <VStack textAlign="center">
+                  <EmptyState.Title>Start adding habits</EmptyState.Title>
+                  <EmptyState.Description>
+                    Add a new daily habit to get started.
+                  </EmptyState.Description>
+                </VStack>
+                <ButtonGroup>
+                  <Button
+                    size={"sm"}
+                    onClick={handleBottomAddHabit}
+                    disabled={!isAddingHabits}
+                    colorPalette={"teal"}
+                  >
+                    Create a Habit
+                  </Button>
+                </ButtonGroup>
+              </EmptyState.Content>
+            </EmptyState.Root>
+          )}
+
+          {/* {habits.length > 0 && } */}
         </VStack>
-        <VStack>
+        <VStack display={habits.length > 0 ? "flex" : "none"}>
           <Button
             variant="solid"
             colorPalette={"teal"}
