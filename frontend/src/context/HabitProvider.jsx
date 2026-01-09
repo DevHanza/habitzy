@@ -161,7 +161,7 @@ export const HabitProvider = ({ children }) => {
         });
     } else {
       setHabits((prev) => [
-        { id: habits.length + 1, isCompleted: false, ...habit },
+        { _id: habits.length + 1, isCompleted: false, ...habit },
         ...prev,
       ]);
     }
