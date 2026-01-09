@@ -15,13 +15,13 @@ function StreakBox() {
   }, [habits]);
 
   useEffect(() => {
-    if (allCompleted) {
+    if (allCompleted && habits.length > 0) {
       runOncePerDay("#incrementStreak", () => {
         incrementStreak();
         console.log("Streak incremented!");
       });
     }
-  }, [allCompleted, incrementStreak]);
+  }, [allCompleted, incrementStreak, habits.length]);
 
   return (
     <WidgetWrapper py={6}>
