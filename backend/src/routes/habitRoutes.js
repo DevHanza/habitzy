@@ -5,6 +5,7 @@ import {
   addHabit,
   updateHabit,
   deleteHabit,
+  toggleHabitStatus,
   // getHabitByID,
 } from "../controllers/habitController.js";
 
@@ -14,6 +15,7 @@ const router = Router();
 router.get("/", getHabits);
 router.post("/", addHabit);
 router.patch("/:habitId", updateHabit);
+router.patch("/:habitId/toggleStatus", toggleHabitStatus);
 router.delete("/:habitId", deleteHabit);
 
 // router.get("/:habitId", getHabitByID);
