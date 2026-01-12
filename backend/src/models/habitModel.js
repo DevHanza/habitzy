@@ -19,11 +19,6 @@ const habitSchema = new Schema(
       type: String,
       required: [true, "Icon is required."],
     },
-    isCompleted: {
-      type: Boolean,
-      default: false,
-      required: [true, "Habit Status is required."],
-    },
   },
   { timestamps: true } // auto-manages createdAt and updatedAt
 );
