@@ -4,15 +4,16 @@ import normalizeDate from "../utils/normalizeDate.js";
 
 export async function getHabits(req, res) {
   try {
+    //
     const userId = req.user.userId;
 
     if (!userId) {
       res.status(404).json({ message: "User not found." });
     }
 
-    const habits = await Habit.find({ userId: userId }).select(
-      "_id icon title description isCompleted"
-    );
+    const habits = await Habit.find({ userId: userId })
+      .select("_id icon title description")
+      .lean();
 
     if (!habits) {
       return res
@@ -20,7 +21,27 @@ export async function getHabits(req, res) {
         .json({ message: "No habits found for this user." });
     }
 
-    res.json(habits);
+    const currentDate = normalizeDate();
+
+    const dailyLog = await DailyLog.findOne({ userId, date: currentDate });
+
+    if (!dailyLog) {
+      return res
+        .status(404)
+        .json({ message: "No daily log found for this user." });
+    }
+
+    const completedHabitsSet =
+      new Set(dailyLog?.completedHabits.map((id) => id.toString())) ?? [];
+
+    const updatedHabits = habits.map((habit) => {
+      return {
+        ...habit,
+        isCompleted: completedHabitsSet.has(habit._id.toString()),
+      };
+    });
+    res.json(updatedHabits);
+    //
   } catch (err) {
     // console.log(err);
     res.status(400).json({ message: err.message });
