@@ -100,8 +100,8 @@ export async function updateHabit(req, res) {
       });
     }
 
-    const { icon, title, description, isCompleted } = req.body;
-    const newHabitData = { icon, title, description, isCompleted };
+    const { icon, title, description } = req.body;
+    const newHabitData = { icon, title, description };
 
     if (!userId) {
       return res.status(400).json({ message: "User not found." });
