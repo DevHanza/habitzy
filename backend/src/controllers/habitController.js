@@ -1,4 +1,6 @@
 import { Habit } from "../models/habitModel.js";
+import { DailyLog } from "../models/dailyLogModel.js";
+import normalizeDate from "../utils/normalizeDate.js";
 
 export async function getHabits(req, res) {
   try {
@@ -172,22 +174,40 @@ export async function toggleHabitStatus(req, res) {
       return res.status(400).json({ message: "Habit ID is required." });
     }
 
-    const updatedHabit = await Habit.findOneAndUpdate(
-      {
-        _id: habitId,
-        userId: userId,
-      },
-      [{ $set: { isCompleted: { $not: "$isCompleted" } } }],
-      { new: true, runValidators: true }
-    );
+    const habit = await Habit.findById(habitId).lean();
 
-    if (!updatedHabit) {
+    if (!habit) {
       return res.status(404).json({ message: "Habit not found." });
     }
 
+    const currentDate = normalizeDate();
+
+    const dailyLog = await DailyLog.findOneAndUpdate(
+      { userId, date: currentDate },
+      { $setOnInsert: { userId, date: currentDate, completedHabits: [] } },
+      { new: true, upsert: true }
+    );
+
+    if (!dailyLog) {
+      return res.status(404).json({ message: "Daily Log not found." });
+    }
+
+    const isCompleted = dailyLog.completedHabits.some(
+      (id) => id.toString() === habitId
+    );
+
+    // Update completion
+    await DailyLog.updateOne(
+      { _id: dailyLog._id },
+      isCompleted
+        ? { $pull: { completedHabits: habitId } }
+        : { $addToSet: { completedHabits: habitId } }
+    );
+
     res.json({
-      message: "Habit status updated successfully.",
-      _id: updatedHabit._id,
+      message: "Habit status updated.",
+      _id: habit._id,
+      isCompleted: !isCompleted,
     });
     //
   } catch (err) {
