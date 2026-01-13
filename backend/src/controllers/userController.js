@@ -562,9 +562,7 @@ export async function getDailyLeaderboard(req, res) {
       });
     }
 
-    res.json({
-      leaderboard: [...leaderboardUsers],
-    });
+    res.json(leaderboardUsers);
     //
   } catch (err) {
     //
