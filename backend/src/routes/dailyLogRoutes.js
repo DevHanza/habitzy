@@ -1,16 +1,14 @@
 import { Router } from "express";
-import {
-  getDailyLogsByUser,
-  addDailyLog,
-  updateDailyLog,
-} from "../controllers/dailyLogController.js";
+import // getDailyLogsByUser,
+// addDailyLog,
+// updateDailyLog,
+"../controllers/dailyLogController.js";
 
 // Enable "mergeParams" so we can access ":id" from parent route
 const router = Router({ mergeParams: true });
 
-router.get("/", getDailyLogsByUser);
-router.post("/", addDailyLog);
-
-router.put("/:dailyLogId", updateDailyLog);
+// router.get("/", getDailyLogsByUser);
+// router.post("/", addDailyLog);
+// router.put("/:dailyLogId", updateDailyLog);
 
 export default router;
