@@ -45,10 +45,14 @@ export async function registerUser(req, res) {
       return res.status(409).json({ message: "User already exists." });
     }
 
-    const hash = bcrypt.hashSync(userData.password, 10);
-    userData.password = hash;
+    const hashedPassword = bcrypt.hashSync(password, 10);
 
-    const newUser = new User(userData);
+    const newUser = new User({
+      name,
+      email,
+      username,
+      password: hashedPassword,
+    });
     await newUser.save();
 
     res.status(201).json({
