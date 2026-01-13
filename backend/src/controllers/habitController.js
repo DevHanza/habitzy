@@ -23,7 +23,12 @@ export async function getHabits(req, res) {
 
     const currentDate = normalizeDate();
 
-    const dailyLog = await DailyLog.findOne({ userId, date: currentDate });
+    // const dailyLog = await DailyLog.findOne({ userId, date: currentDate });
+    const dailyLog = await DailyLog.findOneAndUpdate(
+      { userId, date: currentDate },
+      { $setOnInsert: { userId, date: currentDate, completedHabits: [] } },
+      { new: true, upsert: true }
+    );
 
     if (!dailyLog) {
       return res
