@@ -185,22 +185,25 @@ export const HabitProvider = ({ children }) => {
           // isCompleted: false,
         },
       })
-        .then(async (response) => {
-          //
-          // const data = await response.json();
-          // console.log(data);
+        .then(async () =>
+          // response
+          {
+            //
+            // const data = await response.json();
+            // console.log(data);
 
-          // #########
+            // #########
 
-          setHabits((prevHabits) =>
-            prevHabits.map((habit) =>
-              habit._id === id
-                ? { ...habit, icon: selectedEmoji, title: label }
-                : habit
-            )
-          );
-          //
-        })
+            setHabits((prevHabits) =>
+              prevHabits.map((habit) =>
+                habit._id === id
+                  ? { ...habit, icon: selectedEmoji, title: label }
+                  : habit
+              )
+            );
+            //
+          }
+        )
         .catch((err) => {
           console.log(err);
         });
@@ -225,14 +228,17 @@ export const HabitProvider = ({ children }) => {
           url: `user/habits/${id}`,
           method: "DELETE",
         })
-          .then(async (response) => {
-            //
-            // const data = await response.json();
-            // console.log(data);
+          .then(async () =>
+            // response
+            {
+              //
+              // const data = await response.json();
+              // console.log(data);
 
-            setHabits((prev) => prev.filter((habit) => habit._id !== id));
-            //
-          })
+              setHabits((prev) => prev.filter((habit) => habit._id !== id));
+              //
+            }
+          )
           .catch((err) => {
             console.log(err);
           });
@@ -252,20 +258,23 @@ export const HabitProvider = ({ children }) => {
           url: `user/habits/${id}/toggleStatus`,
           method: "PATCH",
         })
-          .then(async (response) => {
-            //
-            // const data = await response.json();
-            // console.log(data);
-            //
+          .then(async () =>
+            // response
+            {
+              //
+              // const data = await response.json();
+              // console.log(data);
+              //
 
-            setHabits((prev) =>
-              prev.map((habit) =>
-                habit._id === id
-                  ? { ...habit, isCompleted: !habit.isCompleted }
-                  : habit
-              )
-            );
-          })
+              setHabits((prev) =>
+                prev.map((habit) =>
+                  habit._id === id
+                    ? { ...habit, isCompleted: !habit.isCompleted }
+                    : habit
+                )
+              );
+            }
+          )
           .catch((err) => {
             console.log(err);
           });
