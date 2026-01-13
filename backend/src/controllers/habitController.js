@@ -13,6 +13,7 @@ export async function getHabits(req, res) {
 
     const habits = await Habit.find({ userId: userId })
       .select("_id icon title description")
+      .sort({ createdAt: -1 })
       .lean();
 
     if (!habits) {
