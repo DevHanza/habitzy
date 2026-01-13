@@ -8,6 +8,8 @@ import {
   forgotPassword,
   verifyCode,
   resetPassword,
+  //
+  getDailyLeaderboard,
   // getUserByID,
   // updateUser,
   // getUsers,
@@ -30,6 +32,7 @@ router.post("/forgot-password", [forgotPasswordLimiter], forgotPassword);
 router.post("/verify", verifyCode);
 router.patch("/reset-password", resetPassword);
 
+router.get("/leaderboard", getDailyLeaderboard);
 // router.get("/:userId", getUserByID);
 // router.put("/:userId", updateUser);
 

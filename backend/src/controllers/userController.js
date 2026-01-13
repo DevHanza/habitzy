@@ -544,6 +544,35 @@ export async function resetPassword(req, res) {
   }
 }
 
+// LEADERBOARD
+
+export async function getDailyLeaderboard(req, res) {
+  try {
+    //
+
+    const leaderboardUsers = await User.find()
+      .sort({ "streak.currentStreak": -1 })
+      .select("name username streak.currentStreak")
+      .limit(20)
+      .lean();
+
+    if (!leaderboardUsers) {
+      return res.status(404).json({
+        message: "No Users found.",
+      });
+    }
+
+    res.json({
+      leaderboard: [...leaderboardUsers],
+    });
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
+
 // export async function getUserByID(req, res) {
 //   const { userId } = req.params;
 
