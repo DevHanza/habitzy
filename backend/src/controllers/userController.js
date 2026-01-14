@@ -181,7 +181,16 @@ export async function refreshToken(req, res) {
 
     // Send New token to the client
     const newAccessToken = generateAccessToken(user._id);
-    res.json({ accessToken: newAccessToken });
+    res.json({
+      accessToken: newAccessToken,
+      user: {
+        name: user.name,
+        email: user.email,
+        username: user.username,
+        streak: user.streak,
+        settings: user.settings,
+      },
+    });
 
     //
   } catch (err) {
