@@ -10,6 +10,8 @@ function StreakBox() {
   const { habits } = useHabits();
   const { user, incrementStreak } = useUser();
 
+  const isStreakZero = user.currentStreak > 0;
+
   const allCompleted = useMemo(() => {
     return habits.every((habit) => habit.isCompleted);
   }, [habits]);
@@ -18,7 +20,7 @@ function StreakBox() {
     if (allCompleted && habits.length > 0) {
       runOncePerDay("#incrementStreak", () => {
         incrementStreak();
-        console.log("Streak incremented!");
+        // console.log("Streak incremented!");
       });
     }
   }, [allCompleted, incrementStreak, habits.length]);
@@ -37,14 +39,24 @@ function StreakBox() {
             {user.currentStreak}
           </Heading>
           <Image
-            src="https://emojicdn.elk.sh/🔥?style=facebook"
+            src={
+              isStreakZero
+                ? "https://emojicdn.elk.sh/🔥?style=facebook"
+                : "https://emojicdn.elk.sh/🌱?style=facebook"
+            }
             height={{ base: "1.75rem", md: "2.75rem" }}
           />
         </HStack>
 
         <VStack gap={0}>
-          <Heading size={{ base: "lg", md: "xl" }}>You're on a streak!</Heading>
-          <Text color={"fg.muted"}>Consistency is power.</Text>
+          <Heading size={{ base: "lg", md: "xl" }}>
+            {isStreakZero ? "Keep the streak alive!" : "Start a streak!"}
+          </Heading>
+          <Text color={"fg.muted"}>
+            {isStreakZero
+              ? "Consistency is power."
+              : "Consistency starts today."}
+          </Text>
         </VStack>
       </Stack>
     </WidgetWrapper>
