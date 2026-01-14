@@ -63,15 +63,25 @@ function Account() {
                 emoji="🔥"
                 heading={user?.streak.currentStreak}
                 text="Day streak"
-                background={"yellow.500"}
+                // background={"yellow.500"}
               />
-              <StatCard emoji="📈" heading="#23" text="Global rank" />
+              <StatCard
+                emoji="📈"
+                heading="#23"
+                text="Global rank"
+                filter={"blur(4px);"}
+              />
               <StatCard
                 emoji="🎯"
                 heading={user?.streak.longestStreak}
                 text="Longest streak"
               />
-              <StatCard emoji="📅" heading={joinedDate} text="Joined date" />
+              <StatCard
+                emoji="📅"
+                heading={joinedDate}
+                text="Joined date"
+                filter={"blur(4px);"}
+              />
             </Grid>
           </Stack>
           {/* Statistics - End*/}
@@ -87,11 +97,11 @@ function StatCard({
   heading = "heading",
   text = "Text",
   emoji = "🔴",
-  // ...props
+  ...props
 }) {
   return (
     <Box
-      // {...props}
+      {...props}
       p={3}
       border={"1px solid"}
       borderColor={"fg/30"}
