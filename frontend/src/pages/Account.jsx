@@ -1,3 +1,4 @@
+import { useAuth } from "@/hooks/useAuth";
 import {
   Flex,
   Container,
@@ -11,11 +12,11 @@ import {
 } from "@chakra-ui/react";
 
 import NavigateControls from "@/components/layout/NavigateControls";
-import useUser from "@/hooks/useUser";
 
 function Account() {
-  const { user } = useUser();
-  const joinedDate = new Date(user.createdAt).toLocaleDateString("en-US", {
+  const { user } = useAuth();
+
+  const joinedDate = new Date().toLocaleDateString("en-US", {
     month: "short",
     year: "numeric",
   });
@@ -37,9 +38,9 @@ function Account() {
             borderRadius={12}
           >
             <Heading size={"2xl"} lineHeight={1}>
-              {user.name}
+              {user?.name}
             </Heading>
-            <Text lineHeight={1}>@{user.username}</Text>
+            <Text lineHeight={1}>@{user?.username}</Text>
           </Stack>
           {/* Profile Card - END */}
 
@@ -60,14 +61,14 @@ function Account() {
             <Grid templateColumns={"repeat(2, 1fr)"} gap={2}>
               <StatCard
                 emoji="🔥"
-                heading={user.currentStreak}
+                heading={user?.streak.currentStreak}
                 text="Day streak"
                 background={"yellow.500"}
               />
               <StatCard emoji="📈" heading="#23" text="Global rank" />
               <StatCard
                 emoji="🎯"
-                heading={user.longestStreak}
+                heading={user?.streak.longestStreak}
                 text="Longest streak"
               />
               <StatCard emoji="📅" heading={joinedDate} text="Joined date" />
@@ -86,7 +87,7 @@ function StatCard({
   heading = "heading",
   text = "Text",
   emoji = "🔴",
-  ...props
+  // ...props
 }) {
   return (
     <Box
