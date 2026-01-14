@@ -1,5 +1,4 @@
 import HabitsTrackerLogo from "@/components/layout/Logo";
-import useUser from "@/hooks/useUser";
 import HoverWrapper from "@/components/ui/HoverWrapper";
 
 import {
@@ -101,9 +100,8 @@ function Header() {
 }
 
 function DesktopMenu() {
-  const { user } = useUser();
   const { colorMode, toggleColorMode } = useColorMode();
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, user } = useAuth();
   return (
     <Stack direction={"row"} gap={4} alignItems={"center"}>
       <Stack gap={2} direction={"row"}>
@@ -179,8 +177,7 @@ function DesktopMenu() {
 }
 
 function MobileMenu() {
-  const { user } = useUser();
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, user } = useAuth();
   // const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Stack direction={"row"} gap={4} alignItems={"center"}>
