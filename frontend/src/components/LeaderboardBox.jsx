@@ -15,7 +15,7 @@ function LeaderboardBox() {
     })
       .then(async (response) => {
         const data = await response.json();
-        setUsers(data);
+        setUsers(data.slice(0, 20));
       })
       .catch((err) => {
         console.log(err);
