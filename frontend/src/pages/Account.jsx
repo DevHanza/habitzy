@@ -47,7 +47,7 @@ function Account() {
           {/* About - Start */}
           <Stack gap={2}>
             <Heading>About</Heading>
-            <Text>
+            <Text filter={"blur(4px);"}>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit,
               numquam! Quas tempora est aliquid dolorem sit provident nam
               ducimus quis autem.
