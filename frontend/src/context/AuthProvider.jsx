@@ -20,7 +20,11 @@ const initialState = {
 function reducer(state, action) {
   switch (action.type) {
     case "SET_TOKEN":
-      return { ...state, accessToken: action.payload };
+      return {
+        ...state,
+        user: action.payload.user,
+        accessToken: action.payload.accessToken,
+      };
     case "LOGOUT":
       return { ...state, ...initialState };
     default:
@@ -41,7 +45,12 @@ export const AuthProvider = ({ children }) => {
       if (!res.ok) return;
 
       const data = await res.json();
-      dispatch({ type: "SET_TOKEN", payload: data.accessToken });
+      // console.log(data);
+
+      dispatch({
+        type: "SET_TOKEN",
+        payload: { accessToken: data.accessToken, user: data.user },
+      });
 
       return data;
       //
@@ -100,7 +109,11 @@ export const AuthProvider = ({ children }) => {
 
       if (!res.ok) throw Error(data.message);
 
-      dispatch({ type: "SET_TOKEN", payload: data.accessToken });
+      dispatch({
+        type: "SET_TOKEN",
+        payload: { accessToken: data.accessToken, user: data.user },
+      });
+
       setCookie("IsLoggedIn", true, import.meta.env.VITE_LOGIN_EXPIRY_DAYS);
 
       return data;
@@ -176,6 +189,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         state,
+        user: state.user,
         isLoggedIn,
         accessToken: state.accessToken,
         authFetch,
