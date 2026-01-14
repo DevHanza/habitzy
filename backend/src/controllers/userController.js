@@ -550,7 +550,9 @@ export async function getDailyLeaderboard(req, res) {
   try {
     //
 
-    const leaderboardUsers = await User.find()
+    const leaderboardUsers = await User.find({
+      "streak.currentStreak": { $gt: 0 },
+    })
       .sort({ "streak.currentStreak": -1 })
       .select("name username streak.currentStreak")
       .limit(20)
