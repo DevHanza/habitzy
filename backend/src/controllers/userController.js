@@ -141,8 +141,16 @@ export async function loginUser(req, res) {
       maxAge: WEEK_IN_MS,
     });
 
-    res.json({ accessToken });
-
+    res.json({
+      accessToken,
+      user: {
+        name: user.name,
+        email: user.email,
+        username: user.username,
+        streak: user.streak,
+        settings: user.settings,
+      },
+    });
     //
   } catch (err) {
     //
