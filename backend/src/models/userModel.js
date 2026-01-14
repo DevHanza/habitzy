@@ -51,12 +51,6 @@ const userSchema = new Schema(
         default: 0,
       },
     },
-    settings: {
-      darkmode: {
-        type: Boolean,
-        default: true,
-      },
-    },
     refreshTokens: {
       type: [
         {

@@ -148,7 +148,6 @@ export async function loginUser(req, res) {
         email: user.email,
         username: user.username,
         streak: user.streak,
-        settings: user.settings,
       },
     });
     //
@@ -196,7 +195,6 @@ export async function refreshToken(req, res) {
         email: user.email,
         username: user.username,
         streak: user.streak,
-        settings: user.settings,
       },
     });
 
