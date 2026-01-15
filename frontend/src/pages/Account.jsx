@@ -69,14 +69,13 @@ function Account() {
 
           {/* About - Start */}
           <Stack gap={2}>
-            <Text fontStyle={"italic"} color={"fg.muted"}>
-              No Description.
-            </Text>
-            <Text>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit,
-              numquam! Quas tempora est aliquid dolorem sit provident nam
-              ducimus quis autem.
-            </Text>
+            {user?.description ? (
+              <Text>{user?.description}</Text>
+            ) : (
+              <Text fontStyle={"italic"} color={"fg.muted"}>
+                No Description.
+              </Text>
+            )}
           </Stack>
           {/* About - ENd */}
 
