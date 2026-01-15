@@ -9,6 +9,7 @@ import {
   Box,
   Grid,
   Image,
+  Avatar,
 } from "@chakra-ui/react";
 
 import NavigateControls from "@/components/layout/NavigateControls";
@@ -16,10 +17,7 @@ import NavigateControls from "@/components/layout/NavigateControls";
 function Account() {
   const { user } = useAuth();
 
-  const joinedDate = new Date().toLocaleDateString("en-US", {
-    month: "short",
-    year: "numeric",
-  });
+  console.log("Rerendered!");
 
   return (
     <Container>
@@ -28,26 +26,53 @@ function Account() {
         <Flex direction={"column"} gap={8}>
           {/* Profile Card - START*/}
           <Stack
-            gap={2}
-            background={"teal.focusRing/15"}
-            border={"2px solid"}
-            borderColor={"teal.focusRing"}
-            px={4}
-            py={8}
             width={"100%"}
-            borderRadius={12}
+            gap={0}
+            position={"relative"}
+            mb={{ base: 6, md: 8 }}
           >
+            <Box
+              height={32}
+              borderRadius={12}
+              style={{
+                backgroundColor: "#14b8a5",
+                opacity: 0.8,
+                background:
+                  "radial-gradient(circle, transparent 20%, rgb(229, 229, 247) 20%, rgb(229, 229, 247) 80%, transparent 80%, transparent) 0% 0% / 50px 50px, radial-gradient(circle, transparent 20%, rgb(229, 229, 247) 20%, rgb(229, 229, 247) 80%, transparent 80%, transparent) 25px 25px / 50px 50px, linear-gradient(rgb(20 184 165 / 0.6) 2px, transparent 2px) 0px -1px / 25px 25px, linear-gradient(90deg, rgb(20, 184, 165) 2px, rgb(229, 229, 247) 2px) -1px 0px / 25px 25px",
+                backgroundSize: "50px 50px, 50px 50px, 25px 25px, 25px 25px",
+              }}
+            ></Box>
+            <Avatar.Root
+              // transform={"translate(10%, -55%)"}
+              // mb={"-10%"}
+              position={"absolute"}
+              left={2}
+              bottom={{ base: -8, md: -10 }}
+              width={24}
+              height={24}
+              colorPalette={"teal"}
+            >
+              <Avatar.Fallback name={user?.name} fontSize={28} />
+            </Avatar.Root>
+          </Stack>
+
+          {/* Profile Card - END */}
+
+          <Stack gap={2} width={"100%"}>
             <Heading size={"2xl"} lineHeight={1}>
               {user?.name}
             </Heading>
-            <Text lineHeight={1}>@{user?.username}</Text>
+            <Text lineHeight={1} color={"fg.muted"}>
+              @{user?.username}
+            </Text>
           </Stack>
-          {/* Profile Card - END */}
 
           {/* About - Start */}
           <Stack gap={2}>
-            <Heading>About</Heading>
-            <Text filter={"blur(4px);"}>
+            <Text fontStyle={"italic"} color={"fg.muted"}>
+              No Description.
+            </Text>
+            <Text>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit,
               numquam! Quas tempora est aliquid dolorem sit provident nam
               ducimus quis autem.
@@ -56,7 +81,7 @@ function Account() {
           {/* About - ENd */}
 
           {/* Statistics - Start*/}
-          <Stack gap={2}>
+          <Stack gap={4}>
             <Heading>Statistics</Heading>
             <Grid templateColumns={"repeat(2, 1fr)"} gap={2}>
               <StatCard
@@ -65,22 +90,11 @@ function Account() {
                 text="Day streak"
                 // background={"yellow.500"}
               />
-              <StatCard
-                emoji="📈"
-                heading="#23"
-                text="Global rank"
-                filter={"blur(4px);"}
-              />
+
               <StatCard
                 emoji="🎯"
                 heading={user?.streak.longestStreak}
                 text="Longest streak"
-              />
-              <StatCard
-                emoji="📅"
-                heading={joinedDate}
-                text="Joined date"
-                filter={"blur(4px);"}
               />
             </Grid>
           </Stack>
