@@ -7,7 +7,7 @@ import {
   Flex,
   Stack,
 } from "@chakra-ui/react";
-import { Link, useRouteError } from "react-router";
+import { useRouteError } from "react-router";
 
 function ErrorPage() {
   const error = useRouteError();
@@ -29,11 +29,11 @@ function ErrorPage() {
           <Text textAlign={"center"} color={"fg.subtle"}>
             Oops! We couldn’t find that page. You can go back to the homepage.
           </Text>
-          <Link to={"/"}>
+          <a href={"/"}>
             <Button marginTop={5} colorPalette={"teal"}>
               Go to Homepage
             </Button>
-          </Link>
+          </a>
         </Stack>
       </Flex>
     </Container>
