@@ -83,7 +83,7 @@ export const AuthProvider = ({ children }) => {
       });
     },
     //
-    [state.accessToken, refreshAccessToken]
+    [state.accessToken, refreshAccessToken],
   );
 
   async function register(name, email, username, password) {

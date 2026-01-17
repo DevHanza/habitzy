@@ -17,8 +17,6 @@ import NavigateControls from "@/components/layout/NavigateControls";
 function Account() {
   const { user } = useAuth();
 
-  console.log("Rerendered!");
-
   return (
     <Container>
       <NavigateControls />
@@ -85,14 +83,14 @@ function Account() {
             <Grid templateColumns={"repeat(2, 1fr)"} gap={2}>
               <StatCard
                 emoji="🔥"
-                heading={user?.streak.currentStreak}
+                heading={user?.streak?.currentStreak}
                 text="Day streak"
                 // background={"yellow.500"}
               />
 
               <StatCard
                 emoji="🎯"
-                heading={user?.streak.longestStreak}
+                heading={user?.streak?.longestStreak}
                 text="Longest streak"
               />
             </Grid>
