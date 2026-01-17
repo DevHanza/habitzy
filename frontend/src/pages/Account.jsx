@@ -13,9 +13,16 @@ import {
 } from "@chakra-ui/react";
 
 import NavigateControls from "@/components/layout/NavigateControls";
+import { Navigate } from "react-router";
 
 function Account() {
-  const { user } = useAuth();
+  const { isLoggedIn, user } = useAuth();
+
+  if (!isLoggedIn) {
+    return <Navigate to={"/"} />;
+  }
+
+  console.log("ACCOUNT PAGE RERENDERED!");
 
   return (
     <Container>
