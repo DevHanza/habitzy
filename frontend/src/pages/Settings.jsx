@@ -1,3 +1,4 @@
+import { Navigate, Link } from "react-router";
 import useUser from "@/hooks/useUser";
 import NavigateControls from "@/components/layout/NavigateControls";
 import SettingsInput from "@/components/SettingsInput";
@@ -19,9 +20,15 @@ import {
   Portal,
 } from "@chakra-ui/react";
 
-import { Link } from "react-router";
+import { useAuth } from "@/hooks/useAuth";
 
 function Settings() {
+  const { isLoggedIn } = useAuth();
+
+  if (!isLoggedIn) {
+    return <Navigate to={"/"} />;
+  }
+
   return (
     <Container>
       <NavigateControls />
