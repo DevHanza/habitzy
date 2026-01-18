@@ -17,6 +17,7 @@ import {
   CloseButton,
   Dialog,
   Portal,
+  Input,
 } from "@chakra-ui/react";
 
 import { useAuth } from "@/hooks/useAuth";
@@ -61,24 +62,24 @@ function AccountSettings() {
 
         <SettingsInput
           label="Name"
-          placeholder="eg: Dev Hanza"
+          placeholder="eg: Your Name"
           defaultValue={user?.name}
           name="name"
           setUser={setUser}
         />
         <SettingsInput
           label="Username"
-          placeholder="eg: @devhanza (Without '@')"
+          placeholder="eg: @yourname (Without '@')"
           defaultValue={user?.username}
           name="username"
           setUser={setUser}
         />
-        <SettingsInput
+        <UserEmailInput
           label="Email"
-          placeholder="eg: devhanza@mail.com"
-          defaultValue={user?.email}
-          name="email"
-          setUser={setUser}
+          value={user?.email}
+          disabled={true}
+          // name="email"
+          // setUser={setUser}
         />
 
         <Field.Root required gap={4}>
@@ -178,3 +179,20 @@ function DeleteAccountSettings() {
 }
 
 export default Settings;
+
+function UserEmailInput({ ...props }) {
+  return (
+    <Field.Root required gap={4}>
+      <Field.Label>Email Address</Field.Label>
+      <Input
+        {...props}
+        placeholder={"jhondoe@email.com"}
+        disabled={true}
+        colorPalette={"teal"}
+        size={"sm"}
+        name={"email"}
+        // borderColor={"border.emphasized"}
+      />
+    </Field.Root>
+  );
+}
