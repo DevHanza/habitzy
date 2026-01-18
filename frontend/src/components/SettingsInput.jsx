@@ -16,19 +16,11 @@ function SettingsInput({ label, placeholder, defaultValue, name, setUser }) {
     const prevValue = prevValueRef.current;
     const newValue = e.target.elements[name]?.value;
 
-    if (prevValue === newValue) {
-      return;
-    }
+    if (prevValue === newValue) return;
 
     prevValueRef.current = newValue;
-    // console.log("Changed:", newValue);
 
-    setUser((prevUser) => {
-      return {
-        ...prevUser,
-        name: newValue,
-      };
-    });
+    setUser({ [name]: newValue });
   };
 
   return (

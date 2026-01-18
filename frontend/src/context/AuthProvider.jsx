@@ -19,14 +19,26 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
+    //
     case "SET_TOKEN":
       return {
         ...state,
         user: action.payload.user,
         accessToken: action.payload.accessToken,
       };
+    //
     case "LOGOUT":
       return { ...state, ...initialState };
+    //
+    case "SET_USER":
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...action.payload,
+        },
+      };
+    //
     default:
       return state;
   }
@@ -34,6 +46,8 @@ function reducer(state, action) {
 
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  console.log(state.user);
 
   const isLoggedIn = state.accessToken ? true : false;
 
@@ -185,11 +199,26 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  async function setUser(updatedUserProp) {
+    try {
+      //
+      dispatch({
+        type: "SET_USER",
+        payload: updatedUserProp,
+      });
+
+      //
+    } catch (err) {
+      throw Error(err);
+    }
+  }
+
   return (
     <AuthContext.Provider
       value={{
         state,
         user: state.user,
+        setUser,
         isLoggedIn,
         accessToken: state.accessToken,
         authFetch,

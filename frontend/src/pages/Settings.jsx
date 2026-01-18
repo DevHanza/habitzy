@@ -1,5 +1,4 @@
 import { Navigate, Link } from "react-router";
-import useUser from "@/hooks/useUser";
 import NavigateControls from "@/components/layout/NavigateControls";
 import SettingsInput from "@/components/SettingsInput";
 import { useColorMode } from "@/components/ui/color-mode";
@@ -47,7 +46,7 @@ function Settings() {
 }
 
 function AccountSettings() {
-  const { user, setUser } = useUser();
+  const { user, setUser } = useAuth();
 
   return (
     <Stack gap={8}>
@@ -57,27 +56,27 @@ function AccountSettings() {
 
       <Stack gap={4}>
         <Avatar.Root size={"2xl"} colorPalette={"teal"}>
-          <Avatar.Fallback name={user.name} />
+          <Avatar.Fallback name={user?.name} />
         </Avatar.Root>
 
         <SettingsInput
           label="Name"
           placeholder="eg: Dev Hanza"
-          defaultValue={user.name}
+          defaultValue={user?.name}
           name="name"
           setUser={setUser}
         />
         <SettingsInput
           label="Username"
           placeholder="eg: @devhanza (Without '@')"
-          defaultValue={user.username}
+          defaultValue={user?.username}
           name="username"
           setUser={setUser}
         />
         <SettingsInput
           label="Email"
           placeholder="eg: devhanza@mail.com"
-          defaultValue={user.email}
+          defaultValue={user?.email}
           name="email"
           setUser={setUser}
         />
