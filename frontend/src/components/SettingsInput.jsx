@@ -12,9 +12,11 @@ function SettingsInput({ label, placeholder, defaultValue, name, setUser }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const input = e.target.elements[name];
+    input.focus();
 
     const prevValue = prevValueRef.current;
-    const newValue = e.target.elements[name]?.value;
+    const newValue = input?.value;
 
     if (prevValue === newValue) return;
 
