@@ -28,7 +28,7 @@ export async function getHabits(req, res) {
     const dailyLog = await DailyLog.findOneAndUpdate(
       { userId, date: currentDate },
       { $setOnInsert: { userId, date: currentDate, completedHabits: [] } },
-      { new: true, upsert: true }
+      { new: true, upsert: true },
     );
 
     if (!dailyLog) {
@@ -119,9 +119,7 @@ export async function updateHabit(req, res) {
 
     // Check if, all the fields are empty?
 
-    const allFieldsEmpty = Object.values(newHabitData).every(
-      (value) => value === undefined
-    );
+    const allFieldsEmpty = !req.body || Object.keys(req.body).length === 0;
 
     if (allFieldsEmpty) {
       return res.status(400).json({ message: "No fields provided to update." });
@@ -133,7 +131,7 @@ export async function updateHabit(req, res) {
         userId: userId,
       },
       { $set: newHabitData },
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
 
     if (!updatedHabit) {
@@ -212,7 +210,7 @@ export async function toggleHabitStatus(req, res) {
     const dailyLog = await DailyLog.findOneAndUpdate(
       { userId, date: currentDate },
       { $setOnInsert: { userId, date: currentDate, completedHabits: [] } },
-      { new: true, upsert: true }
+      { new: true, upsert: true },
     );
 
     if (!dailyLog) {
@@ -220,7 +218,7 @@ export async function toggleHabitStatus(req, res) {
     }
 
     const isCompleted = dailyLog.completedHabits.some(
-      (id) => id.toString() === habitId
+      (id) => id.toString() === habitId,
     );
 
     // Update completion
@@ -228,7 +226,7 @@ export async function toggleHabitStatus(req, res) {
       { _id: dailyLog._id },
       isCompleted
         ? { $pull: { completedHabits: habitId } }
-        : { $addToSet: { completedHabits: habitId } }
+        : { $addToSet: { completedHabits: habitId } },
     );
 
     res.json({
