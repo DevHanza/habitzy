@@ -8,8 +8,8 @@ import {
   forgotPassword,
   verifyCode,
   resetPassword,
-  //
   getDailyLeaderboard,
+  updateUser,
   // getUserByID,
   // updateUser,
   // getUsers,
@@ -17,12 +17,14 @@ import {
   // deleteUser,
 } from "../controllers/userController.js";
 import { forgotPasswordLimiter } from "../middleware/rate-limiter.js";
-
+import { authenticateAccessToken } from "../middleware/authenticateAccessToken.js";
 const router = Router();
 
 // router.get("/", getUsers);
 // router.post("/", addUser);
 // router.delete("/:userId", deleteUser);
+router.patch("/", [authenticateAccessToken], updateUser);
+
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/refresh-token", refreshToken);

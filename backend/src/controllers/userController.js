@@ -588,6 +588,52 @@ export async function getDailyLeaderboard(req, res) {
   }
 }
 
+// UPDATE SETTINGS
+
+export async function updateUser(req, res) {
+  try {
+    //
+    const allFieldsEmpty = !req.body || Object.keys(req.body).length === 0;
+
+    if (allFieldsEmpty) {
+      return res.status(400).json({ message: "No fields provided to update." });
+    }
+
+    const userId = req.user.userId;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not found." });
+    }
+
+    const { name, username } = req.body;
+    const newUserData = { name, username };
+
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: userId },
+      {
+        $set: {
+          ...newUserData,
+        },
+      },
+      { new: true, runValidators: true },
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res.json({
+      message: "User updated successfully.",
+      _id: updatedUser._id,
+    });
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
+
 // export async function getUserByID(req, res) {
 //   const { userId } = req.params;
 
