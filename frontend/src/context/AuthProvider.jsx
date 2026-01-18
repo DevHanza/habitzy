@@ -200,10 +200,31 @@ export const AuthProvider = ({ children }) => {
   async function setUser(updatedUserProp) {
     try {
       //
-      dispatch({
-        type: "SET_USER",
-        payload: updatedUserProp,
-      });
+      // dispatch({
+      //   type: "SET_USER",
+      //   payload: updatedUserProp,
+      // });
+
+      authFetch({
+        url: "user",
+        method: "PATCH",
+        body: { ...updatedUserProp },
+      })
+        .then(async () =>
+          // response
+          {
+            // const data = await response.json();
+            //
+            dispatch({
+              type: "SET_USER",
+              payload: updatedUserProp,
+            });
+            //
+          },
+        )
+        .catch((err) => {
+          console.log(err);
+        });
 
       //
     } catch (err) {
