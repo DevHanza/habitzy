@@ -27,7 +27,7 @@ function SettingsInput({ label, placeholder, defaultValue, name, setUser }) {
     <form onSubmit={handleSubmit}>
       <Field.Root required gap={4}>
         <Field.Label>{label}</Field.Label>
-        <Box display={"inline-flex"} gap={2}>
+        <Box display={"inline-flex"} width={"100%"} gap={2}>
           <Input
             placeholder={placeholder}
             disabled={!isEditing}
