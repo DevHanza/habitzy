@@ -22,8 +22,6 @@ function Account() {
     return <Navigate to={"/"} />;
   }
 
-  console.log("ACCOUNT PAGE RERENDERED!");
-
   return (
     <Container>
       <NavigateControls />

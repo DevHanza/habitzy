@@ -47,8 +47,6 @@ function reducer(state, action) {
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  console.log(state.user);
-
   const isLoggedIn = state.accessToken ? true : false;
 
   const refreshAccessToken = useCallback(async () => {

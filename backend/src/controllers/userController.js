@@ -116,7 +116,7 @@ export async function loginUser(req, res) {
 
     // Delete expired refresh tokens from the DB
     user.refreshTokens = user.refreshTokens.filter(
-      (token) => token.expiresAt > new Date()
+      (token) => token.expiresAt > new Date(),
     );
 
     const accessToken = generateAccessToken(user._id);
@@ -180,7 +180,7 @@ export async function refreshToken(req, res) {
     }
 
     const storedToken = user.refreshTokens.find(
-      (tokenItem) => tokenItem.token === token
+      (tokenItem) => tokenItem.token === token,
     );
     if (!storedToken) {
       return res.status(401).json({ message: "Invalid authentication token." });
@@ -227,7 +227,7 @@ export async function logout(req, res) {
     }
 
     user.refreshTokens = user.refreshTokens.filter(
-      (tokenItem) => tokenItem.token !== token
+      (tokenItem) => tokenItem.token !== token,
     );
 
     await user.save();
