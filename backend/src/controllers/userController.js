@@ -283,18 +283,18 @@ export async function logoutAll(req, res) {
 
     // 48-Hour Logout Security
 
-    // const now = new Date();
-    // const issuedAt = new Date(payload?.iat * 1000);
-    // const twoDaysAfterLoggedIn = new Date();
-    // twoDaysAfterLoggedIn.setDate(issuedAt.getDate() + 2);
+    const now = new Date();
+    const issuedAt = new Date(payload?.iat * 1000);
+    const twoDaysAfterLoggedIn = new Date();
+    twoDaysAfterLoggedIn.setDate(issuedAt.getDate() + 2);
 
-    // const isTwoDaysAfter = now > twoDaysAfterLoggedIn;
+    const isTwoDaysAfter = now > twoDaysAfterLoggedIn;
 
-    // if (!isTwoDaysAfter) {
-    //   return res.status(429).json({
-    //     message: "You must wait 48 hours before signing out from all devices.",
-    //   });
-    // }
+    if (!isTwoDaysAfter) {
+      return res.status(429).json({
+        message: "You must wait 48 hours before signing out from all devices.",
+      });
+    }
 
     //
 
