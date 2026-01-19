@@ -1,4 +1,4 @@
-import { Navigate, Link } from "react-router";
+import { Navigate, Link, useNavigate } from "react-router";
 import NavigateControls from "@/components/layout/NavigateControls";
 import SettingsInput from "@/components/SettingsInput";
 import { useColorMode } from "@/components/ui/color-mode";
@@ -48,6 +48,7 @@ function Settings() {
 }
 
 function AccountSettings() {
+  const navigate = useNavigate();
   const { user, setUser } = useAuth();
 
   return (
@@ -86,7 +87,7 @@ function AccountSettings() {
         <Field.Root required gap={4}>
           <Field.Label>Password</Field.Label>
           <Box display={"inline-flex"} gap={2}>
-            <Link to={"/reset-password"}>
+            <Link to={"/forgot-password"}>
               <Button size={"sm"} colorPalette={"teal"}>
                 Reset Password
               </Button>
