@@ -39,6 +39,7 @@ function Settings() {
           <Separator />
           <Preferences />
           <Separator />
+          <Sessions />
           <DeleteAccountSettings />
         </Flex>
       </Container>
@@ -116,6 +117,34 @@ function Preferences() {
           <Switch.Control />
           <Switch.Label>Enable Dark Mode</Switch.Label>
         </Switch.Root>
+      </Stack>
+    </Stack>
+  );
+}
+
+function Sessions() {
+  const { logoutAll } = useAuth();
+
+  function handleLogoutAll() {
+    logoutAll();
+  }
+
+  return (
+    <Stack gap={8}>
+      {/* Title */}
+      <Heading size={"xl"} lineHeight={1}>
+        Sessions
+      </Heading>
+      {/* Items */}
+      <Stack gap={4} justifyContent={"space-between"}>
+        <Button
+          size={"sm"}
+          width={"fit-content"}
+          colorPalette={"teal"}
+          onClick={handleLogoutAll}
+        >
+          Log out everywhere
+        </Button>
       </Stack>
     </Stack>
   );
