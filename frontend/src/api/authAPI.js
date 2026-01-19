@@ -27,6 +27,11 @@ export const logoutRequest = () =>
     method: "GET",
     credentials: "include",
   });
+export const logoutAllRequest = () =>
+  fetch(`${API}/logout-all`, {
+    method: "GET",
+    credentials: "include",
+  });
 
 export const forgotPasswordRequest = (email) =>
   fetch(`${API}/forgot-password/`, {

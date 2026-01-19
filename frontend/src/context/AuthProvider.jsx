@@ -3,6 +3,7 @@ import { AuthContext } from "@/context/AuthContext";
 import {
   forgotPasswordRequest,
   loginRequest,
+  logoutAllRequest,
   logoutRequest,
   refreshAccessTokenRequest,
   registerRequest,
@@ -151,6 +152,23 @@ export const AuthProvider = ({ children }) => {
       throw Error(err);
     }
   }
+  async function logoutAll() {
+    try {
+      //
+      const res = await logoutAllRequest();
+      const data = await res.json();
+
+      if (!res.ok) throw Error(data.message);
+
+      dispatch({ type: "LOGOUT" });
+      deleteCookie("IsLoggedIn");
+
+      return data;
+      //
+    } catch (err) {
+      throw Error(err);
+    }
+  }
 
   async function forgotPassword(email) {
     try {
@@ -244,6 +262,7 @@ export const AuthProvider = ({ children }) => {
         register,
         login,
         logout,
+        logoutAll,
         refreshAccessToken,
         forgotPassword,
         verifyCode,
