@@ -55,7 +55,12 @@ export const AuthProvider = ({ children }) => {
       //
       const res = await refreshAccessTokenRequest();
 
-      if (!res.ok) return;
+      if (!res.ok) {
+        dispatch({ type: "LOGOUT" });
+        deleteCookie("IsLoggedIn");
+
+        return;
+      }
 
       const data = await res.json();
       // console.log(data);
