@@ -658,6 +658,33 @@ export async function updateUser(req, res) {
   }
 }
 
+export async function deleteUser(req, res) {
+  try {
+    //
+    const userId = req.user.userId;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not found." });
+    }
+
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res.json({
+      message: "User deleted successfully.",
+      _id: deletedUser._id,
+    });
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
+
 // export async function getUserByID(req, res) {
 //   const { userId } = req.params;
 

@@ -10,6 +10,7 @@ import {
   resetPassword,
   getDailyLeaderboard,
   updateUser,
+  deleteUser,
   // getUserByID,
   // updateUser,
   // getUsers,
@@ -23,7 +24,11 @@ const router = Router();
 // router.get("/", getUsers);
 // router.post("/", addUser);
 // router.delete("/:userId", deleteUser);
+
+// Update User Details
 router.patch("/", [authenticateAccessToken], updateUser);
+// Delete Account
+router.delete("/", [authenticateAccessToken], deleteUser);
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
