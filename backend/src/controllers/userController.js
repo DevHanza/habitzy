@@ -1,5 +1,9 @@
 import bcrypt from "bcrypt";
+
 import { User } from "../models/userModel.js";
+import { Habit } from "../models/habitModel.js";
+import { DailyLog } from "../models/dailyLogModel.js";
+
 import {
   generateAccessToken,
   generateRefreshToken,
@@ -672,7 +676,7 @@ export async function deleteUser(req, res) {
     const userId = req.user.userId;
 
     if (!userId) {
-      return res.status(400).json({ message: "User not found." });
+      return res.status(404).json({ message: "User not found." });
     }
 
     const deletedUser = await User.findByIdAndDelete(userId);
@@ -680,6 +684,15 @@ export async function deleteUser(req, res) {
     if (!deletedUser) {
       return res.status(404).json({ message: "User not found." });
     }
+
+    const deletedHabits = await Habit.deleteMany({ userId });
+    const deletedDailyLogs = await DailyLog.deleteMany({ userId });
+
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      sameSite: "strict",
+      secure: isProduction, // set to false for local envs
+    });
 
     res.json({
       message: "User deleted successfully.",
