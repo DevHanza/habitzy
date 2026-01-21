@@ -21,6 +21,7 @@ import {
 } from "@chakra-ui/react";
 
 import { useAuth } from "@/hooks/useAuth";
+import { deleteCookie } from "@/utils/cookieHelper";
 
 function Settings() {
   const { isLoggedIn } = useAuth();
@@ -48,7 +49,6 @@ function Settings() {
 }
 
 function AccountSettings() {
-  const navigate = useNavigate();
   const { user, setUser } = useAuth();
 
   return (
@@ -152,6 +152,28 @@ function Sessions() {
 }
 
 function DeleteAccountSettings() {
+  const navigate = useNavigate();
+  const { authFetch } = useAuth();
+
+  async function handleDeleteAccount() {
+    try {
+      //
+      await authFetch({
+        url: "user",
+        method: "DELETE",
+      });
+
+      deleteCookie("IsLoggedIn");
+      deleteCookie("quote");
+      navigate("/");
+      window.location.reload();
+
+      //
+    } catch (err) {
+      console.error("Failed to delete account:", err);
+    }
+  }
+
   return (
     <Stack gap={8}>
       {/* Title */}
@@ -194,7 +216,9 @@ function DeleteAccountSettings() {
                   <Dialog.ActionTrigger asChild>
                     <Button variant="outline">Cancel</Button>
                   </Dialog.ActionTrigger>
-                  <Button colorPalette="red">Delete</Button>
+                  <Button colorPalette="red" onClick={handleDeleteAccount}>
+                    Delete
+                  </Button>
                 </Dialog.Footer>
                 <Dialog.CloseTrigger asChild>
                   <CloseButton size="sm" />

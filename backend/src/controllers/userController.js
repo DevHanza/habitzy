@@ -294,7 +294,6 @@ export async function logoutAll(req, res) {
     }
 
     // 48-Hour Logout Security
-
     const now = new Date();
     const issuedAt = new Date(payload?.iat * 1000);
     const twoDaysAfterLoggedIn = new Date();
@@ -307,7 +306,6 @@ export async function logoutAll(req, res) {
         message: "You must wait 48 hours before signing out from all devices.",
       });
     }
-
     //
 
     const user = await User.findById(payload.userId);

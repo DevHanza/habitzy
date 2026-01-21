@@ -157,6 +157,7 @@ export const AuthProvider = ({ children }) => {
       throw Error(err);
     }
   }
+
   async function logoutAll() {
     try {
       //
