@@ -3,10 +3,10 @@ import {
   Container,
   Flex,
   VStack,
+  HStack,
   Heading,
   Text,
   Separator,
-  HStack,
 } from "@chakra-ui/react";
 import LeaderboardCard from "@/components/LeaderboardCard";
 import UserLeaderboardCard from "@/components/UserLeaderboardCard";
@@ -33,49 +33,58 @@ function Leaderboard() {
   }, [authFetch, setUsers]);
 
   return (
-    <Container paddingInline={{ smDown: 0 }}>
+    <Container paddingInline={{ smDown: 0 }} position={"relative"}>
       <NavigateControls />
-      <Container maxW={"xl"} p={0}>
-        <Flex direction={"column"} gap={8}>
-          <VStack px={{ base: "1rem", md: "none" }}>
-            <Heading size={{ base: "2xl", md: "2xl" }}>Leaderboard</Heading>
-            <Text textAlign={"center"} color={"fg.muted"} pb={6}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque a
-              pariatur doloribus.
-            </Text>
-            <Separator width={"100%"} />
-          </VStack>
-          <VStack gap={2} width={"100%"} px={{ base: "1rem", md: "none" }}>
-            {users.map((user, index) => (
-              <LeaderboardCard
-                key={user.username}
-                rank={index + 1}
-                name={user.name}
-                username={user.username}
-                streak={user.streak?.currentStreak}
-              />
-            ))}
-          </VStack>
-        </Flex>
-      </Container>
-      <HStack
-        position={"sticky"}
-        bottom={{ base: "var(--bottom-nav-height)", md: 0 }}
-        left={{ base: "var(--bottom-nav-height)", md: 0 }}
-        background={"bg.muted"}
-        width={"100%"}
-        zIndex={10}
-        py={2}
-        mt={2}
-      >
+      <VStack>
         <Container maxW={"xl"}>
-          <UserLeaderboardCard
-            rank={"10%"}
-            streak={users.streak?.currentStreak}
-            name={user?.name}
-          />
+          <Flex direction={"column"} gap={8}>
+            <VStack px={{ base: "1rem", md: "none" }}>
+              <Heading size={{ base: "2xl", md: "2xl" }}>Leaderboard</Heading>
+              <Text textAlign={"center"} color={"fg.muted"} pb={6}>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque a
+                pariatur doloribus.
+              </Text>
+              <Separator width={"100%"} />
+            </VStack>
+          </Flex>
         </Container>
-      </HStack>
+
+        <VStack width={"100%"}>
+          <Container maxW={"xl"}>
+            <VStack gap={2} width={"100%"} px={{ base: "1rem", md: "none" }}>
+              {users.map((user, index) => (
+                <LeaderboardCard
+                  key={user._id}
+                  rank={index + 1}
+                  name={user.name}
+                  username={user.username}
+                  streak={user.streak?.currentStreak}
+                />
+              ))}
+            </VStack>
+          </Container>
+
+          <HStack
+            position={"sticky"}
+            bottom={{ base: "var(--bottom-nav-height)", md: 0 }}
+            left={{ base: "var(--bottom-nav-height)", md: 0 }}
+            background={"bg.muted"}
+            borderRadius={4}
+            width={"100%"}
+            zIndex={10}
+            py={2}
+            mt={2}
+          >
+            <Container maxW={"xl"}>
+              <UserLeaderboardCard
+                rank={"10%"}
+                streak={users.streak?.currentStreak}
+                name={user?.name}
+              />
+            </Container>
+          </HStack>
+        </VStack>
+      </VStack>
     </Container>
   );
 }
