@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Container,
   Flex,
@@ -7,28 +8,32 @@ import {
   Separator,
   HStack,
 } from "@chakra-ui/react";
-// import LeaderboardCard from "@/components/LeaderboardCard";
 import LeaderboardCard from "@/components/LeaderboardCard";
 import UserLeaderboardCard from "@/components/UserLeaderboardCard";
 import NavigateControls from "@/components/layout/NavigateControls";
-import useUser from "@/hooks/useUser";
-const users = [
-  { name: "Brook Lesnar", username: "brookkiller", streak: 45 },
-  { name: "Diego Ramirez", username: "drz_90", streak: 34 },
-  { name: "Alice Wong", username: "awong23", streak: 27 },
-  { name: "Hana Kimura", username: "hanak", streak: 22 },
-  { name: "Sophia Turner", username: "sophiat", streak: 19 },
-  { name: "Liam Carter", username: "lcarter7", streak: 16 },
-  { name: "Shane Nelson", username: "shanethedev", streak: 12 },
-  { name: "Marcus Reid", username: "mr_reid", streak: 8 },
-  { name: "Emma Brooks", username: "emmbrooks", streak: 5 },
-  { name: "John Lennon", username: "johnnybeat", streak: 3 },
-];
+import { useAuth } from "@/hooks/useAuth";
 
 function Leaderboard() {
-  const { user } = useUser();
+  const { user, authFetch } = useAuth();
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    //
+    authFetch({
+      url: "user/leaderboard",
+    })
+      .then(async (response) => {
+        const data = await response.json();
+        setUsers(data.slice(0, 20));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    //
+  }, [authFetch, setUsers]);
+
   return (
-    <Container paddingInline={{ smDown: 0}}>
+    <Container paddingInline={{ smDown: 0 }}>
       <NavigateControls />
       <Container maxW={"xl"} p={0}>
         <Flex direction={"column"} gap={8}>
@@ -47,7 +52,7 @@ function Leaderboard() {
                 rank={index + 1}
                 name={user.name}
                 username={user.username}
-                streak={user.streak}
+                streak={user.streak?.currentStreak}
               />
             ))}
           </VStack>
@@ -66,8 +71,8 @@ function Leaderboard() {
         <Container maxW={"xl"}>
           <UserLeaderboardCard
             rank={"10%"}
-            streak={user.currentStreak}
-            name={user.name}
+            streak={users.streak?.currentStreak}
+            name={user?.name}
           />
         </Container>
       </HStack>
