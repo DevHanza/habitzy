@@ -13,11 +13,7 @@ function Home() {
 
   return (
     <Container>
-      <Flex
-        gap={4}
-        direction={{ base: "column", md: "row" }}
-        minHeight={"100vh"}
-      >
+      <Flex gap={4} direction={{ base: "column", md: "row" }}>
         {isDesktop ? (
           <Stack flex={1} display={{ base: "none", lg: "flex" }}>
             <QuoteBox />
