@@ -78,7 +78,7 @@ function Leaderboard() {
         <Container maxW={"xl"}>
           <UserLeaderboardCard
             rank={"10%"}
-            streak={users.streak?.currentStreak}
+            streak={user?.streak?.currentStreak}
             name={user?.name}
           />
         </Container>
