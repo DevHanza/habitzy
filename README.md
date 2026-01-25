@@ -35,6 +35,7 @@ Using:
 - [cookie-parser](https://www.npmjs.com/package/cookie-parser)
 - [express-rate-limit](https://www.npmjs.com/package/express-rate-limit)
 - [nodemailer](https://www.npmjs.com/package/nodemailer)
+- [nodemon](https://www.npmjs.com/package/nodemon)
 
 # Initial Planned Folder Structure
 
