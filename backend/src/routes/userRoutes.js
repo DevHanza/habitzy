@@ -9,6 +9,7 @@ import {
   verifyCode,
   resetPassword,
   getDailyLeaderboard,
+  getDailyLeaderboardRank,
   updateUser,
   deleteUser,
   // getUserByID,
@@ -25,11 +26,7 @@ const router = Router();
 // router.post("/", addUser);
 // router.delete("/:userId", deleteUser);
 
-// Update User Details
-router.patch("/", [authenticateAccessToken], updateUser);
-// Delete Account
-router.delete("/", [authenticateAccessToken], deleteUser);
-
+// Auth
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/refresh-token", refreshToken);
@@ -39,7 +36,17 @@ router.post("/forgot-password", [forgotPasswordLimiter], forgotPassword);
 router.post("/verify", verifyCode);
 router.patch("/reset-password", resetPassword);
 
+// Update User Details
+router.patch("/", [authenticateAccessToken], updateUser);
+// Delete Account
+router.delete("/", [authenticateAccessToken], deleteUser);
+
 router.get("/leaderboard", getDailyLeaderboard);
+router.get(
+  "/leaderboard-rank",
+  [authenticateAccessToken],
+  getDailyLeaderboardRank,
+);
 // router.get("/:userId", getUserByID);
 // router.put("/:userId", updateUser);
 
