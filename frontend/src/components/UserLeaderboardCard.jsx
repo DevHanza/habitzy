@@ -9,7 +9,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 
-function UserLeaderboardCard({ rank = "10%", streak = 0, name = "DevHanza" }) {
+function UserLeaderboardCard({ rank = "0%", streak = 0, name = "DevHanza" }) {
   return (
     <Box
       borderRadius={6}

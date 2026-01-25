@@ -16,7 +16,9 @@ import { useAuth } from "@/hooks/useAuth";
 function Leaderboard() {
   const { user, authFetch } = useAuth();
   const [users, setUsers] = useState([]);
+  const [userRank, setUserRank] = useState();
 
+  // Fetch Leaderboard
   useEffect(() => {
     //
     authFetch({
@@ -31,6 +33,22 @@ function Leaderboard() {
       });
     //
   }, [authFetch, setUsers]);
+
+  // Fetch Leaderboard Rank
+  useEffect(() => {
+    //
+    authFetch({
+      url: "user/leaderboard-rank",
+    })
+      .then(async (response) => {
+        const data = await response.json();
+        setUserRank(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    //
+  }, [authFetch, setUserRank]);
 
   return (
     <>
@@ -77,7 +95,7 @@ function Leaderboard() {
       >
         <Container maxW={"xl"}>
           <UserLeaderboardCard
-            rank={"10%"}
+            rank={userRank?.percentage + "%"}
             streak={user?.streak?.currentStreak}
             name={user?.name}
           />
