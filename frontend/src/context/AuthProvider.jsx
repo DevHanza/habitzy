@@ -12,6 +12,7 @@ import {
 } from "@/api/authAPI";
 import { fetchClient } from "@/api/fetchClient";
 import { deleteCookie, getCookie, setCookie } from "@/utils/cookieHelper";
+import { toaster } from "@/components/ui/toaster";
 
 const initialState = {
   user: null,
@@ -172,7 +173,14 @@ export const AuthProvider = ({ children }) => {
       return data;
       //
     } catch (err) {
+      //
+      toaster.create({
+        title: `${err}`,
+        type: "error",
+        closable: true,
+      });
       throw Error(err);
+      //
     }
   }
 
