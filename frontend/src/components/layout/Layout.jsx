@@ -2,6 +2,7 @@ import { Outlet } from "react-router";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Stack } from "@chakra-ui/react";
+import { Toaster } from "@/components/ui/toaster";
 
 function Layout() {
   return (
@@ -15,6 +16,7 @@ function Layout() {
       <Stack height={"100%"} justifyContent={"space-between"} flex={1} gap={8}>
         <main>
           <Outlet />
+          <Toaster />
         </main>
         <Footer />
       </Stack>
