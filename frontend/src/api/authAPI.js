@@ -1,4 +1,4 @@
-const API = `${import.meta.env.VITE_BACKEND_API}/user`;
+const API = `${import.meta.env.VITE_BACKEND_API}/auth`;
 
 export const registerRequest = (name, email, username, password) =>
   fetch(`${API}/register`, {
