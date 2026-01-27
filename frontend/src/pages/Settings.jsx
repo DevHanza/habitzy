@@ -22,6 +22,7 @@ import {
 
 import { useAuth } from "@/hooks/useAuth";
 import { deleteCookie } from "@/utils/cookieHelper";
+import { toaster } from "@/components/ui/toaster";
 
 function Settings() {
   const { isLoggedIn } = useAuth();
@@ -158,10 +159,21 @@ function DeleteAccountSettings() {
   async function handleDeleteAccount() {
     try {
       //
-      await authFetch({
+      const res = await authFetch({
         url: "user",
         method: "DELETE",
       });
+      
+      const data = await res.json();
+
+      if (!res.ok) {
+        toaster.create({
+          title: `${data.message}`,
+          type: "error",
+          closable: true,
+        });
+        throw Error(data.message);
+      }
 
       deleteCookie("IsLoggedIn");
       deleteCookie("quote");
@@ -170,7 +182,7 @@ function DeleteAccountSettings() {
 
       //
     } catch (err) {
-      console.error("Failed to delete account:", err);
+      throw Error(err);
     }
   }
 
