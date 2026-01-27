@@ -1,13 +1,16 @@
 import { Router } from "express";
 import {
-  getDailyLeaderboard,
-  getDailyLeaderboardRank,
+  getUser,
   updateUser,
   deleteUser,
+  getDailyLeaderboard,
+  getDailyLeaderboardRank,
 } from "../controllers/userController.js";
 import { authenticateAccessToken } from "../middleware/authenticateAccessToken.js";
 
 const router = Router();
+
+router.get("/", [authenticateAccessToken], getUser);
 
 // Update User Details
 router.patch("/", [authenticateAccessToken], updateUser);

@@ -9,6 +9,39 @@ import { isProduction } from "../utils/envCheck.js";
 
 // USER
 
+export async function getUser(req, res) {
+  try {
+    //
+    const userId = req.user.userId;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not found." });
+    }
+
+    const user = await User.findById(userId)
+      .select("name email username streak")
+      .lean();
+
+    if (!user) {
+      return res.status(401).json({ message: "User not found." });
+    }
+
+    res.json({
+      user: {
+        name: user.name,
+        email: user.email,
+        username: user.username,
+        streak: user.streak,
+      },
+    });
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
+
 export async function updateUser(req, res) {
   try {
     //
