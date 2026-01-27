@@ -232,10 +232,6 @@ export const AuthProvider = ({ children }) => {
   async function setUser(updatedUserProp) {
     try {
       //
-      // dispatch({
-      //   type: "SET_USER",
-      //   payload: updatedUserProp,
-      // });
 
       authFetch({
         url: "user",
@@ -268,6 +264,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         state,
+        authDispatch: dispatch,
         user: state.user,
         setUser,
         isLoggedIn,
