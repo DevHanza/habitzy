@@ -289,7 +289,6 @@ export async function logoutAll(req, res) {
     }
 
     const payload = verifyRefreshToken(refreshToken);
-
     if (!payload) {
       return res.status(404).json({ message: "Invalid token." });
     }
@@ -297,19 +296,25 @@ export async function logoutAll(req, res) {
     // 48-Hour Logout Security
     const now = new Date();
     const issuedAt = new Date(payload?.iat * 1000);
-    const twoDaysAfterLoggedIn = new Date();
-    twoDaysAfterLoggedIn.setDate(issuedAt.getDate() + 2);
+    const twoDaysAfter = new Date(issuedAt);
+    twoDaysAfter.setDate(issuedAt.getDate() + 2);
 
-    const isTwoDaysAfter = now > twoDaysAfterLoggedIn;
+    const isTwoDays = now > twoDaysAfter;
 
-    if (!isTwoDaysAfter) {
+    if (!isTwoDays) {
       return res.status(429).json({
         message: "You must wait 48 hours before signing out from all devices.",
       });
     }
     //
 
-    const user = await User.findById(payload.userId);
+    const userId = payload.userId;
+
+    if (!userId) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(401).json({ message: "User not found." });
     }
