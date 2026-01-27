@@ -758,7 +758,32 @@ export async function updateUser(req, res) {
 export async function deleteUser(req, res) {
   try {
     //
-    const userId = req.user.userId;
+    const { refreshToken } = req.cookies;
+    if (!refreshToken) {
+      return res.status(401).json({ message: "No token found." });
+    }
+
+    const payload = verifyRefreshToken(refreshToken);
+    if (!payload) {
+      return res.status(404).json({ message: "Invalid token." });
+    }
+
+    // 48-Hour Logout Security
+    const now = new Date();
+    const issuedAt = new Date(payload?.iat * 1000);
+    const twoDaysAfter = new Date(issuedAt);
+    twoDaysAfter.setDate(issuedAt.getDate() + 2);
+
+    const isTwoDays = now > twoDaysAfter;
+
+    if (!isTwoDays) {
+      return res.status(429).json({
+        message: "You must wait 48 hours before signing out from all devices.",
+      });
+    }
+    //
+
+    const userId = payload.userId ?? req.user.userId;
 
     if (!userId) {
       return res.status(404).json({ message: "User not found." });
