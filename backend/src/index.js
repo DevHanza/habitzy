@@ -30,7 +30,7 @@ app.use(
 );
 
 // Load routes
-app.use("/api/v1/user", authRoutes);
+app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/user/habits", authenticateAccessToken, habitRoutes);
 
