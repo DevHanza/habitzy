@@ -30,7 +30,7 @@ function reducer(state, action) {
       };
     //
     case "LOGOUT":
-      return { ...state, ...initialState };
+      return initialState;
     //
     case "SET_USER":
       return {
