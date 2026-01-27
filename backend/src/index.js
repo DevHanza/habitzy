@@ -7,6 +7,7 @@ dotenv.config();
 
 import userRoutes from "./routes/userRoutes.js";
 import habitRoutes from "./routes/habitRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 import dailyLogRoutes from "./routes/dailyLogRoutes.js";
 
 import { globalLimiter } from "./middleware/rate-limiter.js";
@@ -25,10 +26,11 @@ app.use(
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], //
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
-  })
+  }),
 );
 
 // Load routes
+app.use("/api/v1/user", authRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/user/habits", authenticateAccessToken, habitRoutes);
 
