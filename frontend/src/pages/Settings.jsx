@@ -163,7 +163,7 @@ function DeleteAccountSettings() {
         url: "user",
         method: "DELETE",
       });
-      
+
       const data = await res.json();
 
       if (!res.ok) {
@@ -174,11 +174,21 @@ function DeleteAccountSettings() {
         });
         throw Error(data.message);
       }
-
       deleteCookie("IsLoggedIn");
       deleteCookie("quote");
-      navigate("/");
-      window.location.reload();
+
+      navigate("/status", {
+        state: {
+          status: {
+            success: true,
+            title: "Your Account is Deleted",
+            message:
+              "Your account has been permanently deleted. Thank you for the time you spent with us.",
+            btn: "Back to Home",
+            btnLink: "/",
+          },
+        },
+      });
 
       //
     } catch (err) {
@@ -199,7 +209,6 @@ function DeleteAccountSettings() {
           erased. We don't store backups, so be sure to save anything important
           first.
         </Text>
-
         <Dialog.Root role="alertdialog" placement={"center"}>
           <Dialog.Trigger asChild>
             <Button
