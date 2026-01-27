@@ -47,7 +47,7 @@ function reducer(state, action) {
 }
 
 export const AuthProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, authDispatch] = useReducer(reducer, initialState);
 
   const isLoggedIn = state.accessToken ? true : false;
 
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
       const res = await refreshAccessTokenRequest();
 
       if (!res.ok) {
-        dispatch({ type: "LOGOUT" });
+        authDispatch({ type: "LOGOUT" });
         deleteCookie("IsLoggedIn");
 
         return;
@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }) => {
       const data = await res.json();
       // console.log(data);
 
-      dispatch({
+      authDispatch({
         type: "SET_TOKEN",
         payload: { accessToken: data.accessToken, user: data.user },
       });
@@ -128,7 +128,7 @@ export const AuthProvider = ({ children }) => {
 
       if (!res.ok) throw Error(data.message);
 
-      dispatch({
+      authDispatch({
         type: "SET_TOKEN",
         payload: { accessToken: data.accessToken, user: data.user },
       });
@@ -149,7 +149,7 @@ export const AuthProvider = ({ children }) => {
 
       if (!res.ok) throw Error(data.message);
 
-      dispatch({ type: "LOGOUT" });
+      authDispatch({ type: "LOGOUT" });
       deleteCookie("IsLoggedIn");
 
       return data;
@@ -167,7 +167,7 @@ export const AuthProvider = ({ children }) => {
 
       if (!res.ok) throw Error(data.message);
 
-      dispatch({ type: "LOGOUT" });
+      authDispatch({ type: "LOGOUT" });
       deleteCookie("IsLoggedIn");
 
       return data;
@@ -243,7 +243,7 @@ export const AuthProvider = ({ children }) => {
           {
             // const data = await response.json();
             //
-            dispatch({
+            authDispatch({
               type: "SET_USER",
               payload: updatedUserProp,
             });
@@ -264,7 +264,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         state,
-        authDispatch: dispatch,
+        authDispatch,
         user: state.user,
         setUser,
         isLoggedIn,
