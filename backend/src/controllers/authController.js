@@ -199,7 +199,9 @@ export async function refreshToken(req, res) {
     }
     const payload = verifyRefreshToken(token);
 
-    const user = await User.findById(payload.userId);
+    const user = await User.findById(payload.userId)
+      .select("refreshTokens")
+      .lean();
 
     if (!user) {
       return res.status(401).json({ message: "User not found." });
