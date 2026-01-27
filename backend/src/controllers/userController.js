@@ -7,6 +7,114 @@ import { DailyLog } from "../models/dailyLogModel.js";
 import { verifyRefreshToken } from "../utils/jwt.js";
 import { isProduction } from "../utils/envCheck.js";
 
+// USER
+
+export async function updateUser(req, res) {
+  try {
+    //
+    const allFieldsEmpty = !req.body || Object.keys(req.body).length === 0;
+
+    if (allFieldsEmpty) {
+      return res.status(400).json({ message: "No fields provided to update." });
+    }
+
+    const userId = req.user.userId;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not found." });
+    }
+
+    const { name, username } = req.body;
+    const newUserData = { name, username };
+
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: userId },
+      {
+        $set: {
+          ...newUserData,
+        },
+      },
+      { new: true, runValidators: true },
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res.json({
+      message: "User updated successfully.",
+      _id: updatedUser._id,
+    });
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
+
+export async function deleteUser(req, res) {
+  try {
+    //
+    const { refreshToken } = req.cookies;
+    if (!refreshToken) {
+      return res.status(401).json({ message: "No token found." });
+    }
+
+    const payload = verifyRefreshToken(refreshToken);
+    if (!payload) {
+      return res.status(404).json({ message: "Invalid token." });
+    }
+
+    // 48-Hour Logout Security
+    const now = new Date();
+    const issuedAt = new Date(payload?.iat * 1000);
+    const twoDaysAfter = new Date(issuedAt);
+    twoDaysAfter.setDate(issuedAt.getDate() + 2);
+
+    const isTwoDays = now > twoDaysAfter;
+
+    if (!isTwoDays) {
+      return res.status(403).json({
+        message:
+          "You must wait 48 hours after login before deleting your account.",
+      });
+    }
+    //
+
+    const userId = payload.userId ?? req.user.userId;
+
+    if (!userId) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    const deletedHabits = await Habit.deleteMany({ userId });
+    const deletedDailyLogs = await DailyLog.deleteMany({ userId });
+
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      sameSite: "strict",
+      secure: isProduction, // set to false for local envs
+    });
+
+    res.json({
+      message: "User deleted successfully.",
+      _id: deletedUser._id,
+    });
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
+
 // LEADERBOARD
 
 export async function getDailyLeaderboard(req, res) {
@@ -108,114 +216,6 @@ export async function getDailyLeaderboardRank(req, res) {
       rank,
       total: leaderboardUsersCount,
       percentage: rankPercentage,
-    });
-    //
-  } catch (err) {
-    //
-    res.status(400).json({ message: err.message });
-    //
-  }
-}
-
-// UPDATE SETTINGS
-
-export async function updateUser(req, res) {
-  try {
-    //
-    const allFieldsEmpty = !req.body || Object.keys(req.body).length === 0;
-
-    if (allFieldsEmpty) {
-      return res.status(400).json({ message: "No fields provided to update." });
-    }
-
-    const userId = req.user.userId;
-
-    if (!userId) {
-      return res.status(400).json({ message: "User not found." });
-    }
-
-    const { name, username } = req.body;
-    const newUserData = { name, username };
-
-    const updatedUser = await User.findOneAndUpdate(
-      { _id: userId },
-      {
-        $set: {
-          ...newUserData,
-        },
-      },
-      { new: true, runValidators: true },
-    );
-
-    if (!updatedUser) {
-      return res.status(404).json({ message: "User not found." });
-    }
-
-    res.json({
-      message: "User updated successfully.",
-      _id: updatedUser._id,
-    });
-    //
-  } catch (err) {
-    //
-    res.status(400).json({ message: err.message });
-    //
-  }
-}
-
-export async function deleteUser(req, res) {
-  try {
-    //
-    const { refreshToken } = req.cookies;
-    if (!refreshToken) {
-      return res.status(401).json({ message: "No token found." });
-    }
-
-    const payload = verifyRefreshToken(refreshToken);
-    if (!payload) {
-      return res.status(404).json({ message: "Invalid token." });
-    }
-
-    // 48-Hour Logout Security
-    const now = new Date();
-    const issuedAt = new Date(payload?.iat * 1000);
-    const twoDaysAfter = new Date(issuedAt);
-    twoDaysAfter.setDate(issuedAt.getDate() + 2);
-
-    const isTwoDays = now > twoDaysAfter;
-
-    if (!isTwoDays) {
-      return res.status(403).json({
-        message:
-          "You must wait 48 hours after login before deleting your account.",
-      });
-    }
-    //
-
-    const userId = payload.userId ?? req.user.userId;
-
-    if (!userId) {
-      return res.status(404).json({ message: "User not found." });
-    }
-
-    const deletedUser = await User.findByIdAndDelete(userId);
-
-    if (!deletedUser) {
-      return res.status(404).json({ message: "User not found." });
-    }
-
-    const deletedHabits = await Habit.deleteMany({ userId });
-    const deletedDailyLogs = await DailyLog.deleteMany({ userId });
-
-    res.clearCookie("refreshToken", {
-      httpOnly: true,
-      sameSite: "strict",
-      secure: isProduction, // set to false for local envs
-    });
-
-    res.json({
-      message: "User deleted successfully.",
-      _id: deletedUser._id,
     });
     //
   } catch (err) {
