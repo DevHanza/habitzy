@@ -302,7 +302,7 @@ export async function logoutAll(req, res) {
     const isTwoDays = now > twoDaysAfter;
 
     if (!isTwoDays) {
-      return res.status(429).json({
+      return res.status(403).json({
         message: "You must wait 48 hours before signing out from all devices.",
       });
     }
@@ -777,8 +777,8 @@ export async function deleteUser(req, res) {
     const isTwoDays = now > twoDaysAfter;
 
     if (!isTwoDays) {
-      return res.status(429).json({
-        message: "You must wait 48 hours before signing out from all devices.",
+      return res.status(403).json({
+        message: "You must wait 48 hours after login before deleting your account.",
       });
     }
     //
