@@ -15,7 +15,6 @@ import { deleteCookie, getCookie, setCookie } from "@/utils/cookieHelper";
 import { toaster } from "@/components/ui/toaster";
 
 const initialState = {
-  user: null,
   accessToken: null,
 };
 
@@ -25,21 +24,11 @@ function reducer(state, action) {
     case "SET_TOKEN":
       return {
         ...state,
-        user: action.payload.user,
         accessToken: action.payload.accessToken,
       };
     //
     case "LOGOUT":
       return initialState;
-    //
-    case "SET_USER":
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          ...action.payload,
-        },
-      };
     //
     default:
       return state;
@@ -68,7 +57,9 @@ export const AuthProvider = ({ children }) => {
 
       authDispatch({
         type: "SET_TOKEN",
-        payload: { accessToken: data.accessToken, user: data.user },
+        payload: {
+          accessToken: data.accessToken,
+        },
       });
 
       return data;
@@ -130,7 +121,6 @@ export const AuthProvider = ({ children }) => {
 
       authDispatch({
         type: "SET_TOKEN",
-        payload: { accessToken: data.accessToken, user: data.user },
       });
 
       setCookie("IsLoggedIn", true, import.meta.env.VITE_LOGIN_EXPIRY_DAYS);
@@ -229,44 +219,11 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  async function setUser(updatedUserProp) {
-    try {
-      //
-
-      authFetch({
-        url: "user",
-        method: "PATCH",
-        body: { ...updatedUserProp },
-      })
-        .then(async () =>
-          // response
-          {
-            // const data = await response.json();
-            //
-            authDispatch({
-              type: "SET_USER",
-              payload: updatedUserProp,
-            });
-            //
-          },
-        )
-        .catch((err) => {
-          console.log(err);
-        });
-
-      //
-    } catch (err) {
-      throw Error(err);
-    }
-  }
-
   return (
     <AuthContext.Provider
       value={{
         state,
         authDispatch,
-        user: state.user,
-        setUser,
         isLoggedIn,
         accessToken: state.accessToken,
         authFetch,
