@@ -12,9 +12,11 @@ import LeaderboardCard from "@/components/LeaderboardCard";
 import UserLeaderboardCard from "@/components/UserLeaderboardCard";
 import NavigateControls from "@/components/layout/NavigateControls";
 import { useAuth } from "@/hooks/useAuth";
+import { useUser } from "@/hooks/useUser";
 
 function Leaderboard() {
-  const { user, authFetch } = useAuth();
+  const { authFetch } = useAuth();
+  const { user } = useUser();
   const [users, setUsers] = useState([]);
   const [userRank, setUserRank] = useState();
 
