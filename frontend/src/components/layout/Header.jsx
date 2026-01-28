@@ -141,7 +141,7 @@ function DesktopMenu({ isLoggedIn, user }) {
         <Menu.Root positioning={{ placement: "bottom" }}>
           <Menu.Trigger rounded="full" focusRing="outside" cursor={"pointer"}>
             <Avatar.Root size={"sm"} colorPalette={"teal"}>
-              <Avatar.Fallback name={user.name} />
+              <Avatar.Fallback name={user?.name} />
             </Avatar.Root>
           </Menu.Trigger>
           <Portal>
@@ -201,7 +201,7 @@ function MobileMenu({ user, isLoggedIn }) {
           <Menu.Root positioning={{ placement: "bottom" }}>
             <Menu.Trigger rounded="full" focusRing="outside" cursor={"pointer"}>
               <Avatar.Root size={"sm"} colorPalette={"teal"}>
-                <Avatar.Fallback name={user.name} />
+                <Avatar.Fallback name={user?.name} />
               </Avatar.Root>
             </Menu.Trigger>
             <Portal>
