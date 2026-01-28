@@ -2,7 +2,7 @@ import React, { useMemo, useEffect } from "react";
 import WidgetWrapper from "./ui/WidgetWrapper";
 import { HStack, VStack, Stack, Image, Heading, Text } from "@chakra-ui/react";
 import useHabits from "@/hooks/useHabits";
-import useUser from "@/hooks/useUser";
+import { useUser } from "@/hooks/useUser";
 
 import runOncePerDay from "@/utils/runOncePerDay";
 
@@ -10,7 +10,7 @@ function StreakBox() {
   const { habits } = useHabits();
   const { user, incrementStreak } = useUser();
 
-  const isStreakZero = user.currentStreak > 0;
+  const hasStreak = user?.streak?.currentStreak > 0;
 
   const allCompleted = useMemo(() => {
     return habits.every((habit) => habit.isCompleted);
@@ -36,11 +36,11 @@ function StreakBox() {
             lineHeight={1}
             letterSpacing={1}
           >
-            {user.currentStreak}
+            {user?.streak?.currentStreak}
           </Heading>
           <Image
             src={
-              isStreakZero
+              hasStreak
                 ? "https://emojicdn.elk.sh/🔥?style=facebook"
                 : "https://emojicdn.elk.sh/🌱?style=facebook"
             }
@@ -50,12 +50,10 @@ function StreakBox() {
 
         <VStack gap={0}>
           <Heading size={{ base: "lg", md: "xl" }}>
-            {isStreakZero ? "Keep the streak alive!" : "Start a streak!"}
+            {hasStreak ? "Keep the streak alive!" : "Start a streak!"}
           </Heading>
           <Text color={"fg.muted"}>
-            {isStreakZero
-              ? "Consistency is power."
-              : "Consistency starts today."}
+            {hasStreak ? "Consistency is power." : "Consistency starts today."}
           </Text>
         </VStack>
       </Stack>
