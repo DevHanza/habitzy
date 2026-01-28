@@ -11,7 +11,7 @@ function reducer(state, action) {
     //
     case "SET_USER":
       return {
-        ...action.payload.user,
+        user: action.payload.user,
       };
     //
     case "UPDATE_USER":
@@ -74,6 +74,8 @@ export const UserProvider = ({ children }) => {
   //
 
   async function updateUser(updatedUserProp) {
+    // console.log(updatedUserProp);
+
     try {
       //
 
@@ -115,7 +117,7 @@ export const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ user: state, userDispatch, updateUser, incrementStreak }}
+      value={{ user: state.user, userDispatch, updateUser, incrementStreak }}
     >
       {children}
     </UserContext.Provider>
