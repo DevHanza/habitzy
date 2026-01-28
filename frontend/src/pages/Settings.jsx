@@ -23,6 +23,7 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 import { deleteCookie } from "@/utils/cookieHelper";
 import { toaster } from "@/components/ui/toaster";
+import { useUser } from "@/hooks/useUser";
 
 function Settings() {
   const { isLoggedIn } = useAuth();
@@ -50,7 +51,8 @@ function Settings() {
 }
 
 function AccountSettings() {
-  const { user, setUser } = useAuth();
+  const { setUser } = useAuth();
+  const { user } = useUser();
 
   return (
     <Stack gap={8}>
