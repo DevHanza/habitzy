@@ -121,6 +121,9 @@ export const AuthProvider = ({ children }) => {
 
       authDispatch({
         type: "SET_TOKEN",
+        payload: {
+          accessToken: data.accessToken,
+        },
       });
 
       setCookie("IsLoggedIn", true, import.meta.env.VITE_LOGIN_EXPIRY_DAYS);
