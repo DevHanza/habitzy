@@ -169,12 +169,12 @@ export async function loginUser(req, res) {
 
     res.json({
       accessToken,
-      user: {
-        name: user.name,
-        email: user.email,
-        username: user.username,
-        streak: user.streak,
-      },
+      // user: {
+      //   name: user.name,
+      //   email: user.email,
+      //   username: user.username,
+      //   streak: user.streak,
+      // },
     });
     //
   } catch (err) {
@@ -218,12 +218,12 @@ export async function refreshToken(req, res) {
     const newAccessToken = generateAccessToken(user._id);
     res.json({
       accessToken: newAccessToken,
-      user: {
-        name: user.name,
-        email: user.email,
-        username: user.username,
-        streak: user.streak,
-      },
+      // user: {
+      //   name: user.name,
+      //   email: user.email,
+      //   username: user.username,
+      //   streak: user.streak,
+      // },
     });
 
     //
