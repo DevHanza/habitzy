@@ -30,6 +30,7 @@ import {
 import { Link } from "react-router";
 import { useColorMode } from "@/components/ui/color-mode";
 import { useAuth } from "@/hooks/useAuth";
+import { useUser } from "@/hooks/useUser";
 
 const desktopMenuItems = [
   {
@@ -79,6 +80,8 @@ const avatarMenuItems = [
 
 function Header() {
   const isDesktop = useBreakpointValue({ base: false, md: true });
+  const { isLoggedIn } = useAuth();
+  const { user } = useUser();
 
   return (
     <header className="sticky-header">
@@ -90,7 +93,11 @@ function Header() {
             alignItems={"center"}
           >
             <HabitsTrackerLogo />
-            {isDesktop ? <DesktopMenu /> : <MobileMenu />}
+            {isDesktop ? (
+              <DesktopMenu user={user} isLoggedIn={isLoggedIn} />
+            ) : (
+              <MobileMenu user={user} isLoggedIn={isLoggedIn} />
+            )}
           </Flex>
         </Container>
       </Box>
@@ -99,9 +106,9 @@ function Header() {
   );
 }
 
-function DesktopMenu() {
+function DesktopMenu({ isLoggedIn, user }) {
   const { colorMode, toggleColorMode } = useColorMode();
-  const { isLoggedIn, user } = useAuth();
+
   return (
     <Stack direction={"row"} gap={4} alignItems={"center"}>
       <Stack gap={2} direction={"row"}>
@@ -176,8 +183,7 @@ function DesktopMenu() {
   );
 }
 
-function MobileMenu() {
-  const { isLoggedIn, user } = useAuth();
+function MobileMenu({ user, isLoggedIn }) {
   // const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Stack direction={"row"} gap={4} alignItems={"center"}>
