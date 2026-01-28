@@ -14,9 +14,11 @@ import {
 
 import NavigateControls from "@/components/layout/NavigateControls";
 import { Navigate } from "react-router";
+import { useUser } from "@/hooks/useUser";
 
 function Account() {
-  const { isLoggedIn, user } = useAuth();
+  const { isLoggedIn } = useAuth();
+  const { user } = useUser();
 
   if (!isLoggedIn) {
     return <Navigate to={"/"} />;
