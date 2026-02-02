@@ -1,3 +1,5 @@
+[![wakatime](https://wakatime.com/badge/user/cf3817f9-1dca-4dc8-876a-c4ae6f6942cc/project/7d1a3222-8c10-4ee7-b5c3-56cb82fb1679.svg)](https://wakatime.com/badge/user/cf3817f9-1dca-4dc8-876a-c4ae6f6942cc/project/7d1a3222-8c10-4ee7-b5c3-56cb82fb1679)
+
 # Habit-Tracker
 
 Habit Tracker with MERN Stack (React + Chakra UI)
