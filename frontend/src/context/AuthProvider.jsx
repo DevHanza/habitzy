@@ -225,10 +225,10 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        state,
-        authDispatch,
+        // state,
+        // accessToken: state.accessToken,
+        // authDispatch,
         isLoggedIn,
-        accessToken: state.accessToken,
         authFetch,
         register,
         login,
