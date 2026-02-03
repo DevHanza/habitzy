@@ -16,6 +16,7 @@ import { toaster } from "@/components/ui/toaster";
 
 const initialState = {
   accessToken: null,
+  isLoadingUser: true,
 };
 
 function reducer(state, action) {
@@ -25,10 +26,17 @@ function reducer(state, action) {
       return {
         ...state,
         accessToken: action.payload.accessToken,
+        isLoadingUser: false,
+      };
+    //
+    case "SET_LOADING":
+      return {
+        ...state,
+        isLoadingUser: action.payload,
       };
     //
     case "LOGOUT":
-      return initialState;
+      return { ...initialState, isLoadingUser: false };
     //
     default:
       return state;
@@ -74,7 +82,10 @@ export const AuthProvider = ({ children }) => {
     const isLoggedInCookie = Boolean(getCookie("IsLoggedIn"));
     // console.log("isLoggedInCookie: ", isLoggedInCookie);
 
-    if (!isLoggedInCookie) return;
+    if (!isLoggedInCookie) {
+      authDispatch({ type: "SET_LOADING", payload: false });
+      return;
+    }
 
     refreshAccessToken();
     //
@@ -229,6 +240,7 @@ export const AuthProvider = ({ children }) => {
         // accessToken: state.accessToken,
         // authDispatch,
         isLoggedIn,
+        isLoadingUser: state.isLoadingUser,
         authFetch,
         register,
         login,

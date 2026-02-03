@@ -106,7 +106,7 @@ const habitsList = [
 ];
 
 export const HabitProvider = ({ children }) => {
-  const [habits, setHabits] = useState(habitsList);
+  const [habits, setHabits] = useState([]);
   const [isAddingHabits, setIsAddingHabits] = useState(true);
 
   const { isLoggedIn, authFetch } = useAuth();
@@ -114,7 +114,10 @@ export const HabitProvider = ({ children }) => {
   // Load User's Habits from DB on Init.
   useEffect(() => {
     //
-    if (!isLoggedIn) return;
+    if (!isLoggedIn) {
+      setHabits(habitsList);
+      return;
+    }
 
     authFetch({
       url: "user/habits",
