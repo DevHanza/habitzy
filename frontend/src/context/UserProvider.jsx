@@ -16,7 +16,7 @@ function reducer(state, action) {
     //
     case "UPDATE_USER":
       return {
-        ...state,
+        // ...state,
         user: {
           ...state.user,
           ...action.payload,
@@ -25,8 +25,12 @@ function reducer(state, action) {
     //
     case "INCREMENT_STREAK":
       return {
-        ...state,
-        currentStreak: state.currentStreak++,
+        user: {
+          ...state.user,
+          streak: {
+            currentStreak: state.user.streak.currentStreak + 1,
+          },
+        },
       };
     //
     case "CLEAR_USER":
@@ -117,7 +121,12 @@ export const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ user: state.user, userDispatch, updateUser, incrementStreak }}
+      value={{
+        user: state.user,
+        //  userDispatch,
+        updateUser,
+        incrementStreak,
+      }}
     >
       {children}
     </UserContext.Provider>
