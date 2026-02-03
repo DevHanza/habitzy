@@ -198,11 +198,11 @@ export const HabitProvider = ({ children }) => {
               prevHabits.map((habit) =>
                 habit._id === id
                   ? { ...habit, icon: selectedEmoji, title: label }
-                  : habit
-              )
+                  : habit,
+              ),
             );
             //
-          }
+          },
         )
         .catch((err) => {
           console.log(err);
@@ -213,8 +213,8 @@ export const HabitProvider = ({ children }) => {
         prevHabits.map((habit) =>
           habit._id === id
             ? { ...habit, icon: selectedEmoji, title: label }
-            : habit
-        )
+            : habit,
+        ),
       );
       //
     }
@@ -237,7 +237,7 @@ export const HabitProvider = ({ children }) => {
 
               setHabits((prev) => prev.filter((habit) => habit._id !== id));
               //
-            }
+            },
           )
           .catch((err) => {
             console.log(err);
@@ -246,7 +246,7 @@ export const HabitProvider = ({ children }) => {
         setHabits((prev) => prev.filter((habit) => habit._id !== id));
       }
     },
-    [authFetch, isLoggedIn]
+    [authFetch, isLoggedIn],
   );
 
   const toggleHabit = useCallback(
@@ -270,10 +270,10 @@ export const HabitProvider = ({ children }) => {
                 prev.map((habit) =>
                   habit._id === id
                     ? { ...habit, isCompleted: !habit.isCompleted }
-                    : habit
-                )
+                    : habit,
+                ),
               );
-            }
+            },
           )
           .catch((err) => {
             console.log(err);
@@ -283,12 +283,12 @@ export const HabitProvider = ({ children }) => {
           prev.map((habit) =>
             habit._id === id
               ? { ...habit, isCompleted: !habit.isCompleted }
-              : habit
-          )
+              : habit,
+          ),
         );
       }
     },
-    [authFetch, isLoggedIn]
+    [authFetch, isLoggedIn],
   );
 
   return (
