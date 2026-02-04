@@ -12,11 +12,15 @@ import {
   VStack,
   ButtonGroup,
   EmptyState,
+  Spinner,
 } from "@chakra-ui/react";
 
 import { moveItemsInList } from "@/utils/moveItemsInList";
+import { useAuth } from "@/hooks/useAuth";
 
 function HabitsBox() {
+  const { isLoadingUser } = useAuth();
+
   const {
     habits,
     setHabits,
@@ -34,7 +38,7 @@ function HabitsBox() {
         return moveItemsInList(currentHabits, fromIndex, toIndex);
       });
     },
-    [setHabits]
+    [setHabits],
   );
 
   // Functions for adding habits
@@ -79,6 +83,7 @@ function HabitsBox() {
                 toggleHabit={toggleHabit}
                 moveItems={moveItems}
                 removeHabit={removeHabit}
+                isLoadingUser={isLoadingUser}
               />
             ))
           ) : (
