@@ -16,7 +16,7 @@ import { toaster } from "@/components/ui/toaster";
 
 const initialState = {
   accessToken: null,
-  isLoadingUser: true,
+  isAuthLoading: true,
 };
 
 function reducer(state, action) {
@@ -26,17 +26,17 @@ function reducer(state, action) {
       return {
         ...state,
         accessToken: action.payload.accessToken,
-        isLoadingUser: false,
+        isAuthLoading: false,
       };
     //
     case "SET_LOADING":
       return {
         ...state,
-        isLoadingUser: action.payload,
+        isAuthLoading: action.payload,
       };
     //
     case "LOGOUT":
-      return { ...initialState, isLoadingUser: false };
+      return { ...initialState, isAuthLoading: false };
     //
     default:
       return state;
@@ -240,7 +240,7 @@ export const AuthProvider = ({ children }) => {
         // accessToken: state.accessToken,
         // authDispatch,
         isLoggedIn,
-        isLoadingUser: state.isLoadingUser,
+        isAuthLoading: state.isAuthLoading,
         authFetch,
         register,
         login,

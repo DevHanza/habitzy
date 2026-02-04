@@ -19,7 +19,7 @@ import { moveItemsInList } from "@/utils/moveItemsInList";
 import { useAuth } from "@/hooks/useAuth";
 
 function HabitsBox() {
-  const { isLoadingUser } = useAuth();
+  const { isAuthLoading } = useAuth();
 
   const {
     habits,
@@ -83,7 +83,7 @@ function HabitsBox() {
                 toggleHabit={toggleHabit}
                 moveItems={moveItems}
                 removeHabit={removeHabit}
-                isLoadingUser={isLoadingUser}
+                isAuthLoading={isAuthLoading}
               />
             ))
           ) : (

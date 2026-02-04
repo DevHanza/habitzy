@@ -25,7 +25,7 @@ const HabitCard = memo(function HabitCard({
   toggleHabit,
   moveItems,
   removeHabit,
-  isLoadingUser,
+  isAuthLoading,
 }) {
   const ref = useRef();
   const [isDragging, setIsDragging] = useState();
@@ -79,7 +79,7 @@ const HabitCard = memo(function HabitCard({
     });
   }, [index, moveItems]);
 
-  if (isLoadingUser) {
+  if (isAuthLoading) {
     return <HabitsCardSkeleton />;
   }
 
