@@ -18,7 +18,7 @@ function AddHabitBox({ setIsAddingHabits }) {
 
     if (inputRef.current) {
       addHabit({
-        icon: selectedEmoji || "✨",
+        icon: selectedEmoji ?? "✨",
         title: inputRef.current.value,
       });
       inputRef.current.value = "";
