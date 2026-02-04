@@ -42,7 +42,7 @@ function reducer(state, action) {
 }
 
 export const UserProvider = ({ children }) => {
-  const [state, userDispatch] = useReducer(reducer, initialState);
+  const [userState, userDispatch] = useReducer(reducer, initialState);
   const { isLoggedIn, authFetch } = useAuth();
 
   //
@@ -122,7 +122,7 @@ export const UserProvider = ({ children }) => {
   return (
     <UserContext.Provider
       value={{
-        user: state.user,
+        user: userState.user,
         //  userDispatch,
         updateUser,
         incrementStreak,
