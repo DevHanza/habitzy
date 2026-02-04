@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useReducer, useEffect, useCallback } from "react";
 import { HabitContext } from "@/context/HabitContext";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -105,9 +105,77 @@ const habitsList = [
   // { _id: 100, icon: "🎻", title: "Play violin", isCompleted: false },
 ];
 
+const initialState = {
+  habits: [],
+  isHabitLoading: true,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    //
+    case "SET_HABITS":
+      return {
+        ...state,
+        habits: [...action.payload],
+        isHabitLoading: false,
+      };
+    //
+    case "ADD_HABIT":
+      return {
+        ...state,
+        habits: [action.payload, ...state.habits],
+      };
+    //
+    case "EDIT_HABIT":
+      const { id: editHabitID, selectedEmoji, title } = action.payload;
+
+      const updatedHabits = state.habits.map((habit) =>
+        habit._id === editHabitID
+          ? { ...habit, icon: selectedEmoji, title }
+          : habit,
+      );
+
+      return {
+        ...state,
+        habits: [...updatedHabits],
+      };
+    //
+    case "DELETE_HABIT":
+      //
+      const { id: deleteHabitID } = action.payload;
+      const deletedHabits = state.habits.filter(
+        (habit) => habit._id !== deleteHabitID,
+      );
+
+      return {
+        ...state,
+        habits: deletedHabits,
+      };
+    //
+    case "TOGGLE_HABIT":
+      const { id: toggleHabitID } = action.payload;
+
+      const toggledHabits = state.habits.map((habit) =>
+        habit._id === toggleHabitID
+          ? {
+              ...habit,
+              isCompleted: !habit.isCompleted,
+            }
+          : habit,
+      );
+
+      return {
+        ...state,
+        habits: toggledHabits,
+      };
+    //
+    default:
+      return state;
+  }
+}
+
 export const HabitProvider = ({ children }) => {
-  const [habits, setHabits] = useState([]);
-  const [isAddingHabits, setIsAddingHabits] = useState(true);
+  const [habitState, habitDispatch] = useReducer(reducer, initialState);
 
   const { isLoggedIn, authFetch } = useAuth();
 
@@ -115,7 +183,7 @@ export const HabitProvider = ({ children }) => {
   useEffect(() => {
     //
     if (!isLoggedIn) {
-      setHabits(habitsList);
+      habitDispatch({ type: "SET_HABITS", payload: habitsList });
       return;
     }
 
@@ -124,17 +192,17 @@ export const HabitProvider = ({ children }) => {
     })
       .then(async (response) => {
         const data = await response.json();
-        setHabits(data);
+        console.log(data);
+
+        habitDispatch({ type: "SET_HABITS", payload: data });
       })
       .catch((err) => {
         console.log(err);
       });
-    //
-  }, [isLoggedIn, authFetch, setHabits]);
+  }, [isLoggedIn, authFetch]);
 
+  // Add Habits
   const addHabit = (habit) => {
-    //
-
     if (isLoggedIn) {
       authFetch({
         url: "user/habits",
@@ -145,33 +213,36 @@ export const HabitProvider = ({ children }) => {
         },
       })
         .then(async (response) => {
-          //
           const data = await response.json();
           // console.log(data);
 
-          setHabits((prev) => [
-            {
-              _id: data._id,
-              ...habit,
-              isCompleted: false,
-            },
-            ...prev,
-          ]);
+          const habitData = {
+            _id: data._id,
+            ...habit,
+            isCompleted: false,
+          };
+
+          habitDispatch({ type: "ADD_HABIT", payload: habitData });
           //
         })
         .catch((err) => {
           console.log(err);
         });
     } else {
-      setHabits((prev) => [
-        { _id: habits.length + 1, isCompleted: false, ...habit },
-        ...prev,
-      ]);
+      const habitData = {
+        _id: habitState.habits.length + 1,
+        ...habit,
+        isCompleted: false,
+      };
+
+      habitDispatch({ type: "ADD_HABIT", payload: habitData });
     }
   };
 
+  // Edit Habits
   const editHabit = (id, selectedEmoji, label) => {
-    const habit = habits.find((habit) => habit._id === id);
+    //
+    const habit = habitState.habits.find((habit) => habit._id === id);
 
     // Return if there's no changes
     if (selectedEmoji === habit.icon && label === habit.title) return;
@@ -191,20 +262,17 @@ export const HabitProvider = ({ children }) => {
         .then(async () =>
           // response
           {
-            //
             // const data = await response.json();
             // console.log(data);
 
-            // #########
-
-            setHabits((prevHabits) =>
-              prevHabits.map((habit) =>
-                habit._id === id
-                  ? { ...habit, icon: selectedEmoji, title: label }
-                  : habit,
-              ),
-            );
-            //
+            habitDispatch({
+              type: "EDIT_HABIT",
+              payload: {
+                id,
+                selectedEmoji,
+                title: label,
+              },
+            });
           },
         )
         .catch((err) => {
@@ -212,17 +280,19 @@ export const HabitProvider = ({ children }) => {
         });
     } else {
       //
-      setHabits((prevHabits) =>
-        prevHabits.map((habit) =>
-          habit._id === id
-            ? { ...habit, icon: selectedEmoji, title: label }
-            : habit,
-        ),
-      );
+      habitDispatch({
+        type: "EDIT_HABIT",
+        payload: {
+          id,
+          selectedEmoji,
+          title: label,
+        },
+      });
       //
     }
   };
 
+  //  Delete Habits
   const removeHabit = useCallback(
     (id) => {
       if (isLoggedIn) {
@@ -234,24 +304,33 @@ export const HabitProvider = ({ children }) => {
           .then(async () =>
             // response
             {
-              //
               // const data = await response.json();
               // console.log(data);
 
-              setHabits((prev) => prev.filter((habit) => habit._id !== id));
-              //
+              habitDispatch({
+                type: "DELETE_HABIT",
+                payload: {
+                  id,
+                },
+              });
             },
           )
           .catch((err) => {
             console.log(err);
           });
       } else {
-        setHabits((prev) => prev.filter((habit) => habit._id !== id));
+        habitDispatch({
+          type: "DELETE_HABIT",
+          payload: {
+            id,
+          },
+        });
       }
     },
     [authFetch, isLoggedIn],
   );
 
+  // Toggle Habits
   const toggleHabit = useCallback(
     (id) => {
       //
@@ -264,31 +343,27 @@ export const HabitProvider = ({ children }) => {
           .then(async () =>
             // response
             {
-              //
               // const data = await response.json();
               // console.log(data);
-              //
 
-              setHabits((prev) =>
-                prev.map((habit) =>
-                  habit._id === id
-                    ? { ...habit, isCompleted: !habit.isCompleted }
-                    : habit,
-                ),
-              );
+              habitDispatch({
+                type: "TOGGLE_HABIT",
+                payload: {
+                  id,
+                },
+              });
             },
           )
           .catch((err) => {
             console.log(err);
           });
       } else {
-        setHabits((prev) =>
-          prev.map((habit) =>
-            habit._id === id
-              ? { ...habit, isCompleted: !habit.isCompleted }
-              : habit,
-          ),
-        );
+        habitDispatch({
+          type: "TOGGLE_HABIT",
+          payload: {
+            id,
+          },
+        });
       }
     },
     [authFetch, isLoggedIn],
@@ -297,10 +372,7 @@ export const HabitProvider = ({ children }) => {
   return (
     <HabitContext.Provider
       value={{
-        habits,
-        setHabits,
-        isAddingHabits,
-        setIsAddingHabits,
+        habits: habitState.habits,
         addHabit,
         editHabit,
         removeHabit,
