@@ -4,6 +4,7 @@ import { useEffect, useReducer } from "react";
 
 const initialState = {
   user: null,
+  isUserLoading: true,
 };
 
 function reducer(state, action) {
@@ -11,12 +12,14 @@ function reducer(state, action) {
     //
     case "SET_USER":
       return {
+        ...state,
         user: action.payload.user,
+        isUserLoading: false,
       };
     //
     case "UPDATE_USER":
       return {
-        // ...state,
+        ...state,
         user: {
           ...state.user,
           ...action.payload,
@@ -25,8 +28,8 @@ function reducer(state, action) {
     //
     case "INCREMENT_STREAK":
       return {
+        ...state,
         user: {
-          ...state.user,
           streak: {
             currentStreak: state.user.streak.currentStreak + 1,
           },
@@ -123,7 +126,7 @@ export const UserProvider = ({ children }) => {
     <UserContext.Provider
       value={{
         user: userState.user,
-        //  userDispatch,
+        isUserLoading: userState.isUserLoading,
         updateUser,
         incrementStreak,
       }}
