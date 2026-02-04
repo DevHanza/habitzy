@@ -192,7 +192,7 @@ export const HabitProvider = ({ children }) => {
     })
       .then(async (response) => {
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
 
         habitDispatch({ type: "SET_HABITS", payload: data });
       })
@@ -373,6 +373,7 @@ export const HabitProvider = ({ children }) => {
     <HabitContext.Provider
       value={{
         habits: habitState.habits,
+        isHabitLoading: habitState.isHabitLoading,
         addHabit,
         editHabit,
         removeHabit,
