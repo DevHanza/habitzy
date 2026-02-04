@@ -44,7 +44,9 @@ function reducer(state, action) {
 }
 
 export const AuthProvider = ({ children }) => {
-  const [state, authDispatch] = useReducer(reducer, initialState);
+  const [authState, authDispatch] = useReducer(reducer, initialState);
+
+  const isLoggedIn = Boolean(authState.accessToken);
 
   const isLoggedIn = state.accessToken ? true : false;
 
@@ -99,12 +101,12 @@ export const AuthProvider = ({ children }) => {
     async (options) => {
       return fetchClient({
         ...options,
-        accessToken: state.accessToken,
+        accessToken: authState.accessToken,
         onRefresh: refreshAccessToken,
       });
     },
     //
-    [state.accessToken, refreshAccessToken],
+    [authState.accessToken, refreshAccessToken],
   );
 
   async function register(name, email, username, password) {
@@ -236,11 +238,11 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        // state,
-        // accessToken: state.accessToken,
+        // authState,
+        // accessToken: authState.accessToken,
         // authDispatch,
         isLoggedIn,
-        isAuthLoading: state.isAuthLoading,
+        isAuthLoading: authState.isAuthLoading,
         authFetch,
         register,
         login,
