@@ -70,88 +70,87 @@ const HabitCard = memo(function HabitCard({
     });
   }, [index, moveItems]);
 
+  if (isEditing) {
+    return (
+      <EditHabitBox
+        setIsEditing={setIsEditing}
+        id={id}
+        label={label}
+        icon={icon}
+      />
+    );
+  }
+
   return (
-    <>
-      {isEditing ? (
-        <EditHabitBox
-          setIsEditing={setIsEditing}
-          id={id}
-          label={label}
-          icon={icon}
-        />
-      ) : (
-        ""
-      )}
-      <Box gap={0} width={"100%"} display={isEditing ? "none" : "block"}>
-        <HabitContextMenu
-          setIsEditing={setIsEditing}
-          habitId={id}
-          removeHabit={removeHabit}
+    <Box gap={0} width={"100%"} display={isEditing ? "none" : "block"}>
+      <HabitContextMenu
+        setIsEditing={setIsEditing}
+        habitId={id}
+        removeHabit={removeHabit}
+      >
+        <Box
+          borderRadius={6}
+          px={3}
+          py={4}
+          border={"0.5px solid"}
+          borderColor={"border"}
+          bg={"bg.subtle"}
+          width={"100%"}
+          position={"relative"}
+          _hover={{
+            bg: "bg.emphasized",
+            cursor: "pointer",
+          }}
+          ref={ref}
+          opacity={isDragging ? 0.5 : 1}
+          outline={isDraggingOver ? "2px dashed" : 0}
+          outlineColor={"teal.500"}
         >
-          <Box
-            borderRadius={6}
-            px={3}
-            py={4}
-            border={"0.5px solid"}
-            borderColor={"border"}
-            bg={"bg.subtle"}
-            width={"100%"}
-            position={"relative"}
-            _hover={{
-              bg: "bg.emphasized",
-              cursor: "pointer",
+          <span
+            style={{ position: "absolute", inset: 0, zIndex: 5 }}
+            onClick={() => {
+              toggleHabit(id);
             }}
-            ref={ref}
-            opacity={isDragging ? 0.5 : 1}
-            outline={isDraggingOver ? "2px dashed" : 0}
-            outlineColor={"teal.500"}
+          ></span>
+
+          <Stack
+            flexDirection={"row"}
+            align="flex-start"
+            flex="1"
+            alignItems={"center"}
           >
-            <span
-              style={{ position: "absolute", inset: 0, zIndex: 5 }}
-              onClick={() => {
+            <Image
+              src={`https://emojicdn.elk.sh/${icon}?style=facebook`}
+              opacity={isCompleted ? 0.5 : 1}
+              height={{ base: "1rem", md: "1.5rem" }}
+              width={{ base: "1rem", md: "1.5rem" }}
+            />
+            <Checkbox.Root
+              variant={"solid"}
+              colorPalette={"teal"}
+              checked={isCompleted}
+              onCheckedChange={() => {
                 toggleHabit(id);
               }}
-            ></span>
-
-            <Stack
-              flexDirection={"row"}
-              align="flex-start"
-              flex="1"
-              alignItems={"center"}
+              width={"100%"}
+              justifyContent={"space-between"}
             >
-              <Image
-                src={`https://emojicdn.elk.sh/${icon}?style=facebook`}
-                opacity={isCompleted ? 0.5 : 1}
-                height={{ base: "1rem", md: "1.5rem" }}
-                width={{ base: "1rem", md: "1.5rem" }}
-              />
-              <Checkbox.Root
-                variant={"solid"}
-                colorPalette={"teal"}
-                checked={isCompleted}
-                onCheckedChange={() => {
-                  toggleHabit(id);
-                }}
-                width={"100%"}
-                justifyContent={"space-between"}
+              <Checkbox.Label
+                textDecoration={isCompleted ? "line-through" : ""}
+                fontSize={{ base: "1.125rem", md: "1.25rem" }}
+                color={isCompleted ? "fg.subtle" : ""}
+                textAlign={"left"}
+                lineHeight={1.25}
               >
-                <Checkbox.Label
-                  textDecoration={isCompleted ? "line-through" : ""}
-                  fontSize={{ base: "1.125rem", md: "1.25rem" }}
-                  color={isCompleted ? "fg.subtle" : ""}
-                  textAlign={"left"}
-                  lineHeight={1.25}
-                >
-                  {label}
-                </Checkbox.Label>
-                <Checkbox.HiddenInput />
-                <Checkbox.Control />
-              </Checkbox.Root>
-            </Stack>
-          </Box>
-        </HabitContextMenu>
-      </Box>
-    </>
+                {label}
+              </Checkbox.Label>
+              <Checkbox.HiddenInput />
+              <Checkbox.Control />
+            </Checkbox.Root>
+          </Stack>
+        </Box>
+      </HabitContextMenu>
+    </Box>
   );
 });
 
