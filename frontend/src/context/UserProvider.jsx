@@ -96,7 +96,7 @@ export const UserProvider = ({ children }) => {
             userDispatch({
               type: "UPDATE_USER",
               payload: {
-                payload: updatedUserProp,
+                ...updatedUserProp,
               },
             });
 

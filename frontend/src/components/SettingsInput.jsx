@@ -2,7 +2,7 @@ import { Box, Field, Input, IconButton } from "@chakra-ui/react";
 import { Check, Pencil } from "lucide-react";
 import { useRef, useState } from "react";
 
-function SettingsInput({ label, placeholder, defaultValue, name, setUser }) {
+function SettingsInput({ label, placeholder, defaultValue, name, updateUser }) {
   const prevValueRef = useRef(defaultValue);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -22,7 +22,7 @@ function SettingsInput({ label, placeholder, defaultValue, name, setUser }) {
 
     prevValueRef.current = newValue;
 
-    setUser({ [name]: newValue });
+    updateUser({ [name]: newValue });
   };
 
   return (

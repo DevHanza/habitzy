@@ -51,8 +51,7 @@ function Settings() {
 }
 
 function AccountSettings() {
-  const { setUser } = useAuth();
-  const { user } = useUser();
+  const { user, updateUser } = useUser();
 
   return (
     <Stack gap={8}>
@@ -70,21 +69,21 @@ function AccountSettings() {
           placeholder="eg: Your Name"
           defaultValue={user?.name}
           name="name"
-          setUser={setUser}
+          updateUser={updateUser}
         />
         <SettingsInput
           label="Username"
           placeholder="eg: @yourname (Without '@')"
           defaultValue={user?.username}
           name="username"
-          setUser={setUser}
+          updateUser={updateUser}
         />
         <UserEmailInput
           label="Email"
-          value={user?.email}
+          defaultValue={user?.email}
           disabled={true}
           // name="email"
-          // setUser={setUser}
+          // updateUser={updateUser}
         />
 
         <Field.Root required gap={4}>
