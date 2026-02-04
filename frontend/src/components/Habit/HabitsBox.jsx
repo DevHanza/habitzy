@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useState, useCallback } from "react";
 
 import WidgetsWrapper from "@/components/ui/WidgetWrapper";
 import HabitCard from "@/components/Habit/HabitCard";
@@ -19,16 +19,10 @@ import { moveItemsInList } from "@/utils/moveItemsInList";
 import { useAuth } from "@/hooks/useAuth";
 
 function HabitsBox() {
-  const { isAuthLoading } = useAuth();
+  const [isAddingHabits, setIsAddingHabits] = useState(false);
 
-  const {
-    habits,
-    setHabits,
-    isAddingHabits,
-    setIsAddingHabits,
-    toggleHabit,
-    removeHabit,
-  } = useHabits();
+  const { isAuthLoading } = useAuth();
+  const { habits, setHabits, toggleHabit, removeHabit } = useHabits();
 
   // Pragmatic Drag & Drop Features
 
@@ -58,7 +52,7 @@ function HabitsBox() {
     <WidgetsWrapper
       btnlinkprops={{
         onClick: handleAddHabit,
-        disabled: !isAddingHabits,
+        disabled: isAddingHabits,
       }}
       // bg={"none"}
       // bg={"bg.subtle"}
@@ -70,7 +64,9 @@ function HabitsBox() {
     >
       <Stack gap={6}>
         <VStack gap={2}>
-          {!isAddingHabits && <AddHabitBox />}
+          {isAddingHabits && (
+            <AddHabitBox setIsAddingHabits={setIsAddingHabits} />
+          )}
           {habits.length > 0 ? (
             habits.map((habit, index) => (
               <HabitCard
@@ -107,7 +103,7 @@ function HabitsBox() {
                   <Button
                     size={"sm"}
                     onClick={handleBottomAddHabit}
-                    disabled={!isAddingHabits}
+                    disabled={isAddingHabits}
                     colorPalette={"teal"}
                   >
                     Create a Habit
@@ -125,7 +121,7 @@ function HabitsBox() {
             colorPalette={"teal"}
             width={"100%"}
             onClick={handleBottomAddHabit}
-            disabled={!isAddingHabits}
+            disabled={isAddingHabits}
           >
             <Plus /> Add a Habit
           </Button>
