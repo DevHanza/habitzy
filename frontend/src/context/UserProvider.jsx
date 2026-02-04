@@ -30,6 +30,7 @@ function reducer(state, action) {
       return {
         ...state,
         user: {
+          ...state.user,
           streak: {
             currentStreak: state.user.streak.currentStreak + 1,
           },
