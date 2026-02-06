@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from "react";
+import { useMemo, memo, useEffect } from "react";
 import WidgetWrapper from "./ui/WidgetWrapper";
 import { HStack, VStack, Stack, Image, Heading, Text } from "@chakra-ui/react";
 import useHabits from "@/hooks/useHabits";
@@ -61,4 +61,4 @@ function StreakBox() {
   );
 }
 
-export default React.memo(StreakBox);
+export default memo(StreakBox);
