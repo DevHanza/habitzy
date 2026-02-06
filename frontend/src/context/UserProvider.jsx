@@ -17,6 +17,12 @@ function reducer(state, action) {
         isUserLoading: false,
       };
     //
+    case "SET_LOADING":
+      return {
+        ...state,
+        isUserLoading: action.payload,
+      };
+    //
     case "UPDATE_USER":
       return {
         ...state,
