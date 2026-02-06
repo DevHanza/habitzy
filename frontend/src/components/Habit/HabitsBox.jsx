@@ -18,8 +18,6 @@ function HabitsBox() {
   const { habits, isHabitLoading, setHabits, toggleHabit, removeHabit } =
     useHabits();
 
-  console.log("isHabitLoading: ", isHabitLoading);
-
   // Pragmatic Drag & Drop Features
 
   const moveItems = useCallback(
