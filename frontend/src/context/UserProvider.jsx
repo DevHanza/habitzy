@@ -62,16 +62,31 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     if (isAuthLoading) return;
 
-    if (!isLoggedIn) return;
+    if (!isLoggedIn) {
+      userDispatch({
+        type: "SET_LOADING",
+        payload: false,
+      });
+      return;
+    }
     //
     const fetchUser = async () => {
-      const response = await authFetch({
+      const res = await authFetch({
         url: "user",
         method: "GET",
       });
 
+      if (!res.ok) {
+        userDispatch({
+          type: "SET_LOADING",
+          payload: false,
+        });
+
+        return;
+      }
+
       //
-      const data = await response.json();
+      const data = await res.json();
       // console.log(data);
       userDispatch({
         type: "SET_USER",
