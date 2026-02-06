@@ -5,7 +5,7 @@ import HabitCard from "@/components/Habit/HabitCard";
 import AddHabitBox from "@/components/Habit/AddHabitBox";
 import useHabits from "@/hooks/useHabits";
 import HabitCardSkeleton from "@/components/Habit/HabitCardSkeleton";
-import HabitsBoxEmpty from "./HabitsBoxEmpty";
+import HabitsBoxEmpty from "@/components/Habit/HabitsBoxEmpty";
 
 import { Plus } from "lucide-react";
 import { Button, Stack, VStack } from "@chakra-ui/react";
