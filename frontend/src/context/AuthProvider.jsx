@@ -48,8 +48,6 @@ export const AuthProvider = ({ children }) => {
 
   const isLoggedIn = Boolean(authState.accessToken);
 
-  const isLoggedIn = state.accessToken ? true : false;
-
   const refreshAccessToken = useCallback(async () => {
     try {
       //
