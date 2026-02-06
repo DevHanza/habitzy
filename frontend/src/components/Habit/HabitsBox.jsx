@@ -4,25 +4,21 @@ import WidgetsWrapper from "@/components/ui/WidgetWrapper";
 import HabitCard from "@/components/Habit/HabitCard";
 import AddHabitBox from "@/components/Habit/AddHabitBox";
 import useHabits from "@/hooks/useHabits";
+import HabitCardSkeleton from "@/components/Habit/HabitCardSkeleton";
+import HabitsBoxEmpty from "./HabitsBoxEmpty";
 
-import { BookOpenCheck, Plus } from "lucide-react";
-import {
-  Button,
-  Stack,
-  VStack,
-  ButtonGroup,
-  EmptyState,
-  Spinner,
-} from "@chakra-ui/react";
+import { Plus } from "lucide-react";
+import { Button, Stack, VStack } from "@chakra-ui/react";
 
 import { moveItemsInList } from "@/utils/moveItemsInList";
-import { useAuth } from "@/hooks/useAuth";
 
 function HabitsBox() {
   const [isAddingHabits, setIsAddingHabits] = useState(false);
 
-  const { isAuthLoading } = useAuth();
-  const { habits, setHabits, toggleHabit, removeHabit } = useHabits();
+  const { habits, isHabitLoading, setHabits, toggleHabit, removeHabit } =
+    useHabits();
+
+  console.log("isHabitLoading: ", isHabitLoading);
 
   // Pragmatic Drag & Drop Features
 
@@ -48,6 +44,50 @@ function HabitsBox() {
     // }
   }
 
+  const skeletonHabitCards = Array.from({ length: 8 }, (_, index) => (
+    <HabitCardSkeleton key={index} />
+  ));
+
+  const habitCards = (
+    <>
+      {habits.length > 0 ? (
+        habits.map((habit, index) => (
+          <HabitCard
+            key={habit._id}
+            index={index}
+            id={habit._id}
+            icon={habit.icon}
+            label={habit.title}
+            toggleHabit={toggleHabit}
+            isCompleted={habit.isCompleted}
+            removeHabit={removeHabit}
+            moveItems={moveItems}
+          />
+        ))
+      ) : (
+        <HabitsBoxEmpty
+          isAddingHabits={isAddingHabits}
+          handleBottomAddHabit={handleBottomAddHabit}
+        />
+      )}
+    </>
+  );
+
+  const renderHabits = () => {
+    if (isHabitLoading) return skeletonHabitCards;
+
+    if (habits.length > 0) {
+      return habitCards;
+    } else {
+      return (
+        <HabitsBoxEmpty
+          isAddingHabits={isAddingHabits}
+          handleBottomAddHabit={handleBottomAddHabit}
+        />
+      );
+    }
+  };
+
   return (
     <WidgetsWrapper
       btnlinkprops={{
@@ -67,53 +107,12 @@ function HabitsBox() {
           {isAddingHabits && (
             <AddHabitBox setIsAddingHabits={setIsAddingHabits} />
           )}
-          {habits.length > 0 ? (
-            habits.map((habit, index) => (
-              <HabitCard
-                key={habit._id}
-                id={habit._id}
-                index={index}
-                label={habit.title}
-                icon={habit.icon}
-                isCompleted={habit.isCompleted}
-                toggleHabit={toggleHabit}
-                moveItems={moveItems}
-                removeHabit={removeHabit}
-                isAuthLoading={isAuthLoading}
-              />
-            ))
-          ) : (
-            <EmptyState.Root
-              // background={"#2c2c2c"}
-              pt={16}
-              pb={24}
-            >
-              <EmptyState.Content>
-                <EmptyState.Indicator>
-                  {/* <HiColorSwatch /> */}
-                  <BookOpenCheck />
-                </EmptyState.Indicator>
-                <VStack textAlign="center">
-                  <EmptyState.Title>Start adding habits</EmptyState.Title>
-                  <EmptyState.Description>
-                    Add a new daily habit to get started.
-                  </EmptyState.Description>
-                </VStack>
-                <ButtonGroup>
-                  <Button
-                    size={"sm"}
-                    onClick={handleBottomAddHabit}
-                    disabled={isAddingHabits}
-                    colorPalette={"teal"}
-                  >
-                    Create a Habit
-                  </Button>
-                </ButtonGroup>
-              </EmptyState.Content>
-            </EmptyState.Root>
-          )}
 
-          {/* {habits.length > 0 && } */}
+          {
+            //
+            renderHabits()
+            //
+          }
         </VStack>
         <VStack display={habits.length > 0 ? "flex" : "none"}>
           <Button
