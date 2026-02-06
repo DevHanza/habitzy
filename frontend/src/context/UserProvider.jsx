@@ -54,6 +54,8 @@ export const UserProvider = ({ children }) => {
   //
 
   useEffect(() => {
+    if (isAuthLoading) return;
+
     if (!isLoggedIn) return;
     //
     const fetchUser = async () => {
@@ -75,7 +77,7 @@ export const UserProvider = ({ children }) => {
 
     fetchUser();
     //
-  }, [authFetch, isLoggedIn]);
+  }, [authFetch, isLoggedIn, isAuthLoading]);
 
   //
   //
