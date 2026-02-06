@@ -177,11 +177,14 @@ function reducer(state, action) {
 export const HabitProvider = ({ children }) => {
   const [habitState, habitDispatch] = useReducer(reducer, initialState);
 
-  const { isLoggedIn, authFetch } = useAuth();
+  const { isLoggedIn, isAuthLoading, authFetch } = useAuth();
 
   // Load User's Habits from DB on Init.
   useEffect(() => {
     //
+
+    if (isAuthLoading) return;
+
     if (!isLoggedIn) {
       habitDispatch({ type: "SET_HABITS", payload: habitsList });
       return;
@@ -199,7 +202,7 @@ export const HabitProvider = ({ children }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, [isLoggedIn, authFetch]);
+  }, [isLoggedIn, authFetch, isAuthLoading]);
 
   // Add Habits
   const addHabit = (habit) => {
