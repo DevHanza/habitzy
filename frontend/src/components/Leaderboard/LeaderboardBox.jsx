@@ -1,6 +1,6 @@
 import { VStack, EmptyState } from "@chakra-ui/react";
 import WidgetsWrapper from "@/components/ui/WidgetWrapper";
-import LeaderboardCard from "@/components/LeaderboardCard";
+import LeaderboardCard from "@/components/Leaderboard/LeaderboardCard";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { TrendingUp } from "lucide-react";

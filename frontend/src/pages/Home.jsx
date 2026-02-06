@@ -5,7 +5,7 @@ import HabitsBox from "@/components/Habit/HabitsBox";
 import { Container, Flex, Stack } from "@chakra-ui/react";
 // import GreetingBox from "@/components/GreetingBox";
 
-import LeaderboardBox from "@/components/LeaderboardBox";
+import LeaderboardBox from "@/components/Leaderboard/LeaderboardBox";
 import StreakBox from "@/components/StreakBox";
 
 function Home() {

@@ -8,8 +8,8 @@ import {
   Text,
   Separator,
 } from "@chakra-ui/react";
-import LeaderboardCard from "@/components/LeaderboardCard";
-import UserLeaderboardCard from "@/components/UserLeaderboardCard";
+import LeaderboardCard from "@/components/Leaderboard/LeaderboardCard";
+import UserLeaderboardCard from "@/components/Leaderboard/UserLeaderboardCard";
 import NavigateControls from "@/components/layout/NavigateControls";
 import { useAuth } from "@/hooks/useAuth";
 import { useUser } from "@/hooks/useUser";
