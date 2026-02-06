@@ -15,6 +15,7 @@ import {
   Button,
   Menu,
   Portal,
+  SkeletonCircle,
 } from "@chakra-ui/react";
 
 import {
@@ -81,7 +82,7 @@ const avatarMenuItems = [
 function Header() {
   const isDesktop = useBreakpointValue({ base: false, md: true });
   const { isLoggedIn } = useAuth();
-  const { user } = useUser();
+  const { user, isUserLoading } = useUser();
 
   return (
     <header className="sticky-header">
@@ -94,9 +95,17 @@ function Header() {
           >
             <HabitsTrackerLogo />
             {isDesktop ? (
-              <DesktopMenu user={user} isLoggedIn={isLoggedIn} />
+              <DesktopMenu
+                user={user}
+                isLoggedIn={isLoggedIn}
+                isUserLoading={isUserLoading}
+              />
             ) : (
-              <MobileMenu user={user} isLoggedIn={isLoggedIn} />
+              <MobileMenu
+                user={user}
+                isLoggedIn={isLoggedIn}
+                isUserLoading={isUserLoading}
+              />
             )}
           </Flex>
         </Container>
@@ -106,7 +115,7 @@ function Header() {
   );
 }
 
-function DesktopMenu({ isLoggedIn, user }) {
+function DesktopMenu({ isLoggedIn, user, isUserLoading }) {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
@@ -140,9 +149,11 @@ function DesktopMenu({ isLoggedIn, user }) {
       {isLoggedIn && (
         <Menu.Root positioning={{ placement: "bottom" }}>
           <Menu.Trigger rounded="full" focusRing="outside" cursor={"pointer"}>
-            <Avatar.Root size={"sm"} colorPalette={"teal"}>
-              <Avatar.Fallback name={user?.name} />
-            </Avatar.Root>
+            <SkeletonCircle loading={isUserLoading}>
+              <Avatar.Root size={"sm"} colorPalette={"teal"}>
+                <Avatar.Fallback name={user?.name} />
+              </Avatar.Root>
+            </SkeletonCircle>
           </Menu.Trigger>
           <Portal>
             <Menu.Positioner>
@@ -183,7 +194,7 @@ function DesktopMenu({ isLoggedIn, user }) {
   );
 }
 
-function MobileMenu({ user, isLoggedIn }) {
+function MobileMenu({ user, isLoggedIn, isUserLoading }) {
   // const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Stack direction={"row"} gap={4} alignItems={"center"}>
@@ -200,9 +211,11 @@ function MobileMenu({ user, isLoggedIn }) {
         {isLoggedIn && (
           <Menu.Root positioning={{ placement: "bottom" }}>
             <Menu.Trigger rounded="full" focusRing="outside" cursor={"pointer"}>
-              <Avatar.Root size={"sm"} colorPalette={"teal"}>
-                <Avatar.Fallback name={user?.name} />
-              </Avatar.Root>
+              <SkeletonCircle loading={isUserLoading}>
+                <Avatar.Root size={"sm"} colorPalette={"teal"}>
+                  <Avatar.Fallback name={user?.name} />
+                </Avatar.Root>
+              </SkeletonCircle>
             </Menu.Trigger>
             <Portal>
               <Menu.Positioner>
