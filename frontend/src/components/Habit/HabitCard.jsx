@@ -1,13 +1,5 @@
-import {
-  Box,
-  Stack,
-  Checkbox,
-  Image,
-  Skeleton,
-  SkeletonCircle,
-  SkeletonText,
-} from "@chakra-ui/react";
 import { memo, useEffect, useRef, useState } from "react";
+import { Box, Stack, Checkbox, Image } from "@chakra-ui/react";
 import {
   draggable,
   dropTargetForElements,
@@ -25,7 +17,6 @@ const HabitCard = memo(function HabitCard({
   toggleHabit,
   moveItems,
   removeHabit,
-  isAuthLoading,
 }) {
   const ref = useRef();
   const [isDragging, setIsDragging] = useState();
@@ -78,10 +69,6 @@ const HabitCard = memo(function HabitCard({
       },
     });
   }, [index, moveItems]);
-
-  if (isAuthLoading) {
-    return <HabitsCardSkeleton />;
-  }
 
   if (isEditing) {
     return (
@@ -168,25 +155,3 @@ const HabitCard = memo(function HabitCard({
 });
 
 export default HabitCard;
-
-// Skeleton for loading state
-function HabitsCardSkeleton() {
-  return (
-    <Box
-      borderRadius={6}
-      px={3}
-      py={4}
-      border={"0.5px solid"}
-      borderColor={"border"}
-      bg={"bg.subtle"}
-      width={"100%"}
-      position={"relative"}
-      outlineColor={"teal.500"}
-    >
-      <Stack gap={3} direction={"vertical"} alignItems={"center"}>
-        <SkeletonCircle size="6" />
-        <SkeletonText noOfLines={1} />
-      </Stack>
-    </Box>
-  );
-}
