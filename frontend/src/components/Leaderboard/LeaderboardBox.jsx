@@ -1,9 +1,11 @@
-import { VStack, EmptyState } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { VStack } from "@chakra-ui/react";
 import WidgetsWrapper from "@/components/ui/WidgetWrapper";
 import LeaderboardCard from "@/components/Leaderboard/LeaderboardCard";
-import { useEffect, useState } from "react";
+import LeaderboardBoxEmpty from "@/components/Leaderboard/LeaderboardBoxEmpty";
+
 import { useAuth } from "@/hooks/useAuth";
-import { TrendingUp } from "lucide-react";
+
 
 function LeaderboardBox() {
   const { authFetch } = useAuth();
@@ -42,7 +44,7 @@ function LeaderboardBox() {
             />
           ))
         ) : (
-          <LeaderboardEmptyState />
+          <LeaderboardBoxEmpty />
         )}
       </VStack>
     </WidgetsWrapper>
@@ -50,21 +52,3 @@ function LeaderboardBox() {
 }
 
 export default LeaderboardBox;
-
-function LeaderboardEmptyState() {
-  return (
-    <EmptyState.Root size={"sm"}>
-      <EmptyState.Content>
-        <EmptyState.Indicator>
-          <TrendingUp />
-        </EmptyState.Indicator>
-        <VStack textAlign="center">
-          <EmptyState.Title>No rankings yet</EmptyState.Title>
-          <EmptyState.Description>
-            Start completing tasks to rank up.
-          </EmptyState.Description>
-        </VStack>
-      </EmptyState.Content>
-    </EmptyState.Root>
-  );
-}
