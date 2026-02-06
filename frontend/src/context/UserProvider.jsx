@@ -47,7 +47,7 @@ function reducer(state, action) {
 
 export const UserProvider = ({ children }) => {
   const [userState, userDispatch] = useReducer(reducer, initialState);
-  const { isLoggedIn, authFetch } = useAuth();
+  const { isLoggedIn, isAuthLoading, authFetch } = useAuth();
 
   //
   //
