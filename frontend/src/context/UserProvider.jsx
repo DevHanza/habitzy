@@ -56,8 +56,33 @@ export const UserProvider = ({ children }) => {
   const { isLoggedIn, isAuthLoading, authFetch } = useAuth();
 
   //
-  //
-  //
+  async function fetchUser() {
+    const res = await authFetch({
+      url: "user",
+      method: "GET",
+    });
+
+    const data = await res.json();
+    // console.log(data);
+
+    if (!res.ok) {
+      userDispatch({
+        type: "SET_LOADING",
+        payload: false,
+      });
+
+      throw Error(data.message);
+    }
+
+    userDispatch({
+      type: "SET_USER",
+      payload: {
+        user: data.user,
+      },
+    });
+
+    return data;
+  }
 
   useEffect(() => {
     if (isAuthLoading) return;
@@ -69,34 +94,6 @@ export const UserProvider = ({ children }) => {
       });
       return;
     }
-    //
-    const fetchUser = async () => {
-      const res = await authFetch({
-        url: "user",
-        method: "GET",
-      });
-
-      const data = await res.json();
-      // console.log(data);
-
-      if (!res.ok) {
-        userDispatch({
-          type: "SET_LOADING",
-          payload: false,
-        });
-
-        throw Error(data.message);
-      }
-
-      userDispatch({
-        type: "SET_USER",
-        payload: {
-          user: data.user,
-        },
-      });
-
-      return data;
-    };
 
     fetchUser();
     //
@@ -112,29 +109,26 @@ export const UserProvider = ({ children }) => {
     try {
       //
 
-      authFetch({
+      const res = await authFetch({
         url: "user",
         method: "PATCH",
         body: { ...updatedUserProp },
-      })
-        .then(async () =>
-          // response
-          {
-            // const data = await response.json();
-            //
-            userDispatch({
-              type: "UPDATE_USER",
-              payload: {
-                ...updatedUserProp,
-              },
-            });
+      });
 
-            //
-          },
-        )
-        .catch((err) => {
-          console.log(err);
-        });
+      const data = await res.json();
+
+      if (!res.ok) {
+        return data;
+      }
+
+      userDispatch({
+        type: "UPDATE_USER",
+        payload: {
+          ...updatedUserProp,
+        },
+      });
+
+      return data;
 
       //
     } catch (err) {
