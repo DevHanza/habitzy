@@ -76,24 +76,26 @@ export const UserProvider = ({ children }) => {
         method: "GET",
       });
 
+      const data = await res.json();
+      // console.log(data);
+
       if (!res.ok) {
         userDispatch({
           type: "SET_LOADING",
           payload: false,
         });
 
-        return;
+        throw Error(data.message);
       }
 
-      //
-      const data = await res.json();
-      // console.log(data);
       userDispatch({
         type: "SET_USER",
         payload: {
           user: data.user,
         },
       });
+
+      return data;
     };
 
     fetchUser();
