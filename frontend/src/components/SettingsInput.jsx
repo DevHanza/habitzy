@@ -1,4 +1,4 @@
-import { Box, Field, Input, IconButton } from "@chakra-ui/react";
+import { Field, Input, IconButton, HStack } from "@chakra-ui/react";
 import { Check, Pencil } from "lucide-react";
 import { useRef, useState } from "react";
 
@@ -27,9 +27,9 @@ function SettingsInput({ label, placeholder, defaultValue, name, updateUser }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Field.Root required gap={4}>
-        <Field.Label>{label}</Field.Label>
-        <Box display={"inline-flex"} width={"100%"} gap={2}>
+      <HStack>
+        <Field.Root required>
+          <Field.Label>{label}</Field.Label>
           <Input
             placeholder={placeholder}
             disabled={!isEditing}
@@ -39,18 +39,18 @@ function SettingsInput({ label, placeholder, defaultValue, name, updateUser }) {
             name={name}
             // borderColor={"border.emphasized"}
           />
-          <IconButton
-            aria-label={`Edit ${label}`}
-            size={"sm"}
-            variant={isEditing ? "solid" : "subtle"}
-            onClick={toggleEditing}
-            colorPalette={"teal"}
-            type="submit"
-          >
-            {isEditing ? <Check /> : <Pencil />}
-          </IconButton>
-        </Box>
-      </Field.Root>
+        </Field.Root>
+        <IconButton
+          aria-label={`Edit ${label}`}
+          size={"sm"}
+          variant={isEditing ? "solid" : "subtle"}
+          onClick={toggleEditing}
+          colorPalette={"teal"}
+          type="submit"
+        >
+          {isEditing ? <Check /> : <Pencil />}
+        </IconButton>
+      </HStack>
     </form>
   );
 }
