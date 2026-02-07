@@ -9,7 +9,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 function LeaderboardBox() {
   const { authFetch } = useAuth();
-  const [users, setUsers] = useState([]);
+  const [leadUsers, setLeadUsers] = useState([]);
 
   useEffect(() => {
     //
@@ -18,13 +18,13 @@ function LeaderboardBox() {
     })
       .then(async (response) => {
         const data = await response.json();
-        setUsers(data.slice(0, 20));
+        setLeadUsers(data.slice(0, 20));
       })
       .catch((err) => {
         console.log(err);
       });
     //
-  }, [authFetch, setUsers]);
+  }, [authFetch, setLeadUsers]);
 
   return (
     <WidgetsWrapper
@@ -34,7 +34,7 @@ function LeaderboardBox() {
     >
       <VStack gap={2}>
         {users.length >= 1 ? (
-          users.map((user, index) => (
+              leadUsers.map((user, index) => (
             <LeaderboardCard
               key={user._id}
               rank={index + 1}
