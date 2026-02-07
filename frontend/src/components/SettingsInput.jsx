@@ -2,7 +2,15 @@ import { Field, Input, IconButton, HStack } from "@chakra-ui/react";
 import { Check, Pencil } from "lucide-react";
 import { useRef, useState } from "react";
 
-function SettingsInput({ label, placeholder, defaultValue, name, updateUser }) {
+function SettingsInput({
+  label,
+  placeholder,
+  defaultValue,
+  name,
+  updateUser,
+  invalid,
+  invalidMessage = "Something went wrong!",
+}) {
   const prevValueRef = useRef(defaultValue);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -27,9 +35,9 @@ function SettingsInput({ label, placeholder, defaultValue, name, updateUser }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <HStack>
-        <Field.Root required>
-          <Field.Label>{label}</Field.Label>
+      <Field.Root required invalid={invalid}>
+        <Field.Label>{label}</Field.Label>
+        <HStack width={"full"}>
           <Input
             placeholder={placeholder}
             disabled={!isEditing}
@@ -39,18 +47,19 @@ function SettingsInput({ label, placeholder, defaultValue, name, updateUser }) {
             name={name}
             // borderColor={"border.emphasized"}
           />
-        </Field.Root>
-        <IconButton
-          aria-label={`Edit ${label}`}
-          size={"sm"}
-          variant={isEditing ? "solid" : "subtle"}
-          onClick={toggleEditing}
-          colorPalette={"teal"}
-          type="submit"
-        >
-          {isEditing ? <Check /> : <Pencil />}
-        </IconButton>
-      </HStack>
+          <IconButton
+            aria-label={`Edit ${label}`}
+            size={"sm"}
+            variant={isEditing ? "solid" : "subtle"}
+            onClick={toggleEditing}
+            colorPalette={"teal"}
+            type="submit"
+          >
+            {isEditing ? <Check /> : <Pencil />}
+          </IconButton>
+        </HStack>
+        <Field.ErrorText>{invalidMessage}</Field.ErrorText>
+      </Field.Root>
     </form>
   );
 }
