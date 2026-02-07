@@ -17,7 +17,7 @@ import { useUser } from "@/hooks/useUser";
 function Leaderboard() {
   const { authFetch } = useAuth();
   const { user } = useUser();
-  const [users, setUsers] = useState([]);
+  const [leadUsers, setLeadUsers] = useState([]);
   const [userRank, setUserRank] = useState();
 
   // Fetch Leaderboard
@@ -28,13 +28,13 @@ function Leaderboard() {
     })
       .then(async (response) => {
         const data = await response.json();
-        setUsers(data.slice(0, 20));
+        setLeadUsers(data.slice(0, 20));
       })
       .catch((err) => {
         console.log(err);
       });
     //
-  }, [authFetch, setUsers]);
+  }, [authFetch, setLeadUsers]);
 
   // Fetch Leaderboard Rank
   useEffect(() => {
@@ -72,7 +72,7 @@ function Leaderboard() {
 
           <Container maxW={"xl"}>
             <VStack gap={2} width={"100%"}>
-              {users.map((user, index) => (
+              {leadUsers.map((user, index) => (
                 <LeaderboardCard
                   key={user._id}
                   rank={index + 1}
