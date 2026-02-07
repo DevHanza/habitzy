@@ -13,44 +13,106 @@ import UserLeaderboardCard from "@/components/Leaderboard/UserLeaderboardCard";
 import NavigateControls from "@/components/layout/NavigateControls";
 import { useAuth } from "@/hooks/useAuth";
 import { useUser } from "@/hooks/useUser";
+import LeaderboardCardSkeleton from "@/components/Leaderboard/LeaderboardCardSkeleton";
+import LeaderboardBoxEmpty from "@/components/Leaderboard/LeaderboardBoxEmpty";
 
 function Leaderboard() {
-  const { authFetch } = useAuth();
+  const { authFetch, isAuthLoading } = useAuth();
   const { user } = useUser();
-  const [leadUsers, setLeadUsers] = useState([]);
-  const [userRank, setUserRank] = useState();
+
+  // leaderboard
+  // setLeaderboard
+
+  const [leaderboard, setLeaderboard] = useState({
+    users: [],
+    rank: null,
+    isLoadingUsers: true,
+    isLoadingRank: true,
+  });
+
+  const hasleadUsers = leaderboard.users.length > 0;
 
   // Fetch Leaderboard
   useEffect(() => {
+    if (isAuthLoading) return;
     //
     authFetch({
       url: "user/leaderboard",
     })
       .then(async (response) => {
         const data = await response.json();
-        setLeadUsers(data.slice(0, 20));
+        //
+        setLeaderboard((prev) => ({
+          ...prev,
+          users: data,
+          isLoadingUsers: false,
+        }));
+        //
       })
       .catch((err) => {
         console.log(err);
+        //
+        setLeaderboard((prev) => ({
+          ...prev,
+          isLoadingUsers: false,
+        }));
+        //
       });
     //
-  }, [authFetch, setLeadUsers]);
+  }, [authFetch, setLeaderboard, isAuthLoading]);
 
   // Fetch Leaderboard Rank
   useEffect(() => {
+    if (isAuthLoading) return;
     //
     authFetch({
       url: "user/leaderboard-rank",
     })
       .then(async (response) => {
         const data = await response.json();
-        setUserRank(data);
+        //
+        setLeaderboard((prev) => ({
+          ...prev,
+          rank: data,
+          isLoadingRank: false,
+        }));
+        //
       })
       .catch((err) => {
         console.log(err);
+        //
+        setLeaderboard((prev) => ({
+          ...prev,
+          isLoadingRank: false,
+        }));
+        //
       });
     //
-  }, [authFetch, setUserRank]);
+  }, [authFetch, setLeaderboard, isAuthLoading]);
+
+  const skeletonLeaderboardCards = Array.from({ length: 8 }, (_, index) => (
+    <LeaderboardCardSkeleton key={index} />
+  ));
+
+  const leaderboardCards = leaderboard.users.map((user, index) => (
+    <LeaderboardCard
+      key={user._id}
+      rank={index + 1}
+      name={user.name}
+      username={user.username}
+      streak={user.streak?.currentStreak}
+    />
+  ));
+
+  const renderLeaderboardCards = () => {
+    if (leaderboard.isLoadingUsers) return skeletonLeaderboardCards;
+
+    if (hasleadUsers) {
+      return leaderboardCards;
+    } else {
+      return <LeaderboardBoxEmpty />;
+    }
+  };
 
   return (
     <>
@@ -72,15 +134,7 @@ function Leaderboard() {
 
           <Container maxW={"xl"}>
             <VStack gap={2} width={"100%"}>
-              {leadUsers.map((user, index) => (
-                <LeaderboardCard
-                  key={user._id}
-                  rank={index + 1}
-                  name={user.name}
-                  username={user.username}
-                  streak={user.streak?.currentStreak}
-                />
-              ))}
+              {renderLeaderboardCards()}
             </VStack>
           </Container>
         </VStack>
@@ -97,9 +151,10 @@ function Leaderboard() {
       >
         <Container maxW={"xl"}>
           <UserLeaderboardCard
-            rank={userRank?.percentage + "%"}
+            isLoading={leaderboard.isLoadingRank}
+            rank={leaderboard.rank?.percentage + "%"}
             streak={user?.streak?.currentStreak}
-            name={user?.name}
+            // name={user?.name}
           />
         </Container>
       </HStack>
