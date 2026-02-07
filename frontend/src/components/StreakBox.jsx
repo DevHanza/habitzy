@@ -58,20 +58,18 @@ function StreakBox() {
           </HStack>
         </Skeleton>
 
-        <VStack gap={0}>
-          <Skeleton loading={isUserLoading}>
+        <Skeleton loading={isUserLoading}>
+          <VStack gap={0}>
             <Heading size={{ base: "lg", md: "xl" }}>
               {hasStreak ? "Keep the streak alive!" : "Start a streak!"}
             </Heading>
-          </Skeleton>
-          <Skeleton loading={isUserLoading}>
             <Text color={"fg.muted"}>
               {hasStreak
                 ? "Consistency is power."
                 : "Consistency starts today."}
             </Text>
-          </Skeleton>
-        </VStack>
+          </VStack>
+        </Skeleton>
       </Stack>
     </WidgetWrapper>
   );
