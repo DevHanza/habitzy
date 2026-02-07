@@ -18,6 +18,8 @@ function HabitsBox() {
   const { habits, isHabitLoading, setHabits, toggleHabit, removeHabit } =
     useHabits();
 
+  const hasHabits = habits.length > 0;
+
   // Pragmatic Drag & Drop Features
 
   const moveItems = useCallback(
@@ -48,7 +50,7 @@ function HabitsBox() {
 
   const habitCards = (
     <>
-      {habits.length > 0 ? (
+      {hasHabits ? (
         habits.map((habit, index) => (
           <HabitCard
             key={habit._id}
@@ -74,7 +76,7 @@ function HabitsBox() {
   const renderHabits = () => {
     if (isHabitLoading) return skeletonHabitCards;
 
-    if (habits.length > 0) {
+    if (hasHabits) {
       return habitCards;
     } else {
       return (
