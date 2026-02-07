@@ -35,7 +35,7 @@ function LeaderboardBox() {
     <LeaderboardCardSkeleton key={index} />
   ));
 
-  const LeaderboardCards = leadUsers.map((user, index) => (
+  const leaderboardCards = leadUsers.map((user, index) => (
     <LeaderboardCard
       key={user._id}
       rank={index + 1}
@@ -50,9 +50,9 @@ function LeaderboardBox() {
     if (isLoading) return skeletonLeaderboardCards;
 
     if (hasleadUsers) {
-      return LeaderboardCards;
+      return leaderboardCards;
     } else {
-      return skeletonLeaderboardCards;
+      return <LeaderboardBoxEmpty />;
     }
   };
 
