@@ -1,6 +1,4 @@
-import { Navigate, Link, useNavigate } from "react-router";
-import NavigateControls from "@/components/layout/NavigateControls";
-import SettingsInput from "@/components/SettingsInput";
+import { Link, useNavigate } from "react-router";
 import { useColorMode } from "@/components/ui/color-mode";
 import {
   Box,
@@ -19,17 +17,21 @@ import {
   Portal,
   Input,
 } from "@chakra-ui/react";
-
-import { useAuth } from "@/hooks/useAuth";
 import { deleteCookie } from "@/utils/cookieHelper";
 import { toaster } from "@/components/ui/toaster";
+
+import NavigateControls from "@/components/layout/NavigateControls";
+import SettingsInput from "@/components/SettingsInput";
+import LoadingScreen from "@/components/ui/LoadingScreen";
+
+import { useAuth } from "@/hooks/useAuth";
 import { useUser } from "@/hooks/useUser";
 
 function Settings() {
-  const { isLoggedIn } = useAuth();
+  const { isUserLoading } = useUser();
 
-  if (!isLoggedIn) {
-    return <Navigate to={"/"} />;
+  if (isUserLoading) {
+    return <LoadingScreen />;
   }
 
   return (
