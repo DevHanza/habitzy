@@ -48,30 +48,19 @@ function HabitsBox() {
     <HabitCardSkeleton key={index} />
   ));
 
-  const habitCards = (
-    <>
-      {hasHabits ? (
-        habits.map((habit, index) => (
-          <HabitCard
-            key={habit._id}
-            index={index}
-            id={habit._id}
-            icon={habit.icon}
-            label={habit.title}
-            toggleHabit={toggleHabit}
-            isCompleted={habit.isCompleted}
-            removeHabit={removeHabit}
-            moveItems={moveItems}
-          />
-        ))
-      ) : (
-        <HabitsBoxEmpty
-          isAddingHabits={isAddingHabits}
-          handleBottomAddHabit={handleBottomAddHabit}
-        />
-      )}
-    </>
-  );
+  const habitCards = habits.map((habit, index) => (
+    <HabitCard
+      key={habit._id}
+      index={index}
+      id={habit._id}
+      icon={habit.icon}
+      label={habit.title}
+      toggleHabit={toggleHabit}
+      isCompleted={habit.isCompleted}
+      removeHabit={removeHabit}
+      moveItems={moveItems}
+    />
+  ));
 
   const renderHabits = () => {
     if (isHabitLoading) return skeletonHabitCards;
