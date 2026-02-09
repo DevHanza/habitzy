@@ -8,8 +8,9 @@ function SettingsInput({
   defaultValue,
   name,
   updateUser,
-  invalid,
-  invalidMessage = "Something went wrong!",
+  validator, // Add validator function as prop
+  // invalid,
+  // errMessage = "Something went wrong!",
 }) {
   const prevValueRef = useRef(defaultValue);
   const [isEditing, setIsEditing] = useState(false);
@@ -26,7 +27,19 @@ function SettingsInput({
     const prevValue = prevValueRef.current;
     const newValue = input?.value;
 
-    if (prevValue === newValue) return;
+      if (prevValue === newValue) return;
+
+      // Run validator if provided
+      if (validator) {
+        const validationResult = validator(newValue);
+        if (!validationResult) {
+          setError({
+            status: true,
+            message: `Invalid ${name}`,
+          });
+          return;
+        }
+      }
 
     prevValueRef.current = newValue;
 

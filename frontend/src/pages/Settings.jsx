@@ -26,6 +26,7 @@ import LoadingScreen from "@/components/ui/LoadingScreen";
 
 import { useAuth } from "@/hooks/useAuth";
 import { useUser } from "@/hooks/useUser";
+import { validateUsername } from "@/utils/validateInputs";
 
 function Settings() {
   const { isUserLoading } = useUser();
@@ -51,6 +52,8 @@ function Settings() {
     </Container>
   );
 }
+
+export default Settings;
 
 function AccountSettings() {
   const { user, updateUser } = useUser();
@@ -79,6 +82,7 @@ function AccountSettings() {
           defaultValue={user?.username}
           name="username"
           updateUser={updateUser}
+          validator={validateUsername}
         />
         <UserEmailInput
           label="Email"
@@ -255,8 +259,6 @@ function DeleteAccountSettings() {
     </Stack>
   );
 }
-
-export default Settings;
 
 function UserEmailInput({ ...props }) {
   return (
