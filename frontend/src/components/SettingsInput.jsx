@@ -1,4 +1,5 @@
 import { Field, Input, IconButton, HStack } from "@chakra-ui/react";
+import { toaster } from "@/components/ui/toaster";
 import { Check, Pencil } from "lucide-react";
 import { useRef, useState } from "react";
 
@@ -14,18 +15,23 @@ function SettingsInput({
 }) {
   const prevValueRef = useRef(defaultValue);
   const [isEditing, setIsEditing] = useState(false);
+  const [error, setError] = useState({
+    status: false,
+    message: "",
+  });
 
   const toggleEditing = () => {
     setIsEditing((prev) => !prev);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const input = e.target.elements[name];
-    input.focus();
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const input = e.target.elements[name];
+      input.focus();
 
-    const prevValue = prevValueRef.current;
-    const newValue = input?.value;
+      const prevValue = prevValueRef.current;
+      const newValue = input?.value;
 
       if (prevValue === newValue) return;
 
@@ -41,14 +47,40 @@ function SettingsInput({
         }
       }
 
-    prevValueRef.current = newValue;
+      prevValueRef.current = newValue;
 
-    updateUser({ [name]: newValue });
+      //
+
+      setError({
+        status: false,
+        message: "",
+      });
+
+      const res = await updateUser({ [name]: newValue });
+
+      // console.log(res.message);
+
+      toaster.create({
+        title: `${res.message}`,
+        type: "success",
+        closable: true,
+      });
+
+      // if (!res.ok) {
+      //   console.log("ERROR!");
+      // }
+    } catch (err) {
+      setError({
+        status: true,
+        message: err.message,
+      });
+      throw Error(err);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <Field.Root required invalid={invalid}>
+      <Field.Root required invalid={error.status}>
         <Field.Label>{label}</Field.Label>
         <HStack width={"full"}>
           <Input
@@ -71,7 +103,7 @@ function SettingsInput({
             {isEditing ? <Check /> : <Pencil />}
           </IconButton>
         </HStack>
-        <Field.ErrorText>{invalidMessage}</Field.ErrorText>
+        <Field.ErrorText>{error.message}</Field.ErrorText>
       </Field.Root>
     </form>
   );
