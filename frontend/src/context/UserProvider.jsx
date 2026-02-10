@@ -118,7 +118,8 @@ export const UserProvider = ({ children }) => {
       const data = await res.json();
 
       if (!res.ok) {
-        return data;
+        // return data;
+        throw Error(data.message);
       }
 
       userDispatch({
