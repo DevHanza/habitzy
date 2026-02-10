@@ -38,7 +38,10 @@ function SettingsInput({
       const prevValue = prevValueRef.current;
       const newValue = input?.value;
 
-      if (prevValue === newValue) return;
+      if (prevValue === newValue) {
+        setIsEditing(false);
+        return
+      }
 
       // Run validator if provided
       if (validator) {
