@@ -1,7 +1,7 @@
 import { Field, Input, IconButton, HStack } from "@chakra-ui/react";
 import { toaster } from "@/components/ui/toaster";
-import { Check, Pencil } from "lucide-react";
-import { useRef, useState } from "react";
+import { Check, Pencil, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 function SettingsInput({
   label,
@@ -13,6 +13,7 @@ function SettingsInput({
   // invalid,
   // errMessage = "Something went wrong!",
 }) {
+  const inputRef = useRef(null);
   const prevValueRef = useRef(defaultValue);
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState({
@@ -20,15 +21,19 @@ function SettingsInput({
     message: "",
   });
 
-  const toggleEditing = () => {
-    setIsEditing((prev) => !prev);
-  };
+  useEffect(() => {
+    if (!error.status) {
+      inputRef.current?.focus();
+    }
+  }, [isEditing]);
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
+      // console.log("Submitted!");
+
       const input = e.target.elements[name];
-      input.focus();
+      // input.focus();
 
       const prevValue = prevValueRef.current;
       const newValue = input?.value;
@@ -47,6 +52,7 @@ function SettingsInput({
         }
       }
 
+      setIsEditing(false);
       prevValueRef.current = newValue;
 
       //
@@ -90,18 +96,52 @@ function SettingsInput({
             defaultValue={defaultValue}
             size={"sm"}
             name={name}
+            ref={inputRef}
             // borderColor={"border.emphasized"}
           />
-          <IconButton
-            aria-label={`Edit ${label}`}
-            size={"sm"}
-            variant={isEditing ? "solid" : "subtle"}
-            onClick={toggleEditing}
-            colorPalette={"teal"}
-            type="submit"
-          >
-            {isEditing ? <Check /> : <Pencil />}
-          </IconButton>
+
+          {isEditing ? (
+            <HStack>
+              <IconButton
+                aria-label={`Save edit ${label}`}
+                size={"sm"}
+                variant={"solid"}
+                colorPalette={import.meta.env.VITE_APP_COLOR}
+                type="submit"
+              >
+                <Check />
+              </IconButton>
+              <IconButton
+                aria-label={`Cancel edit ${label}`}
+                size={"sm"}
+                variant={"subtle"}
+                onClick={(e) => {
+                  setIsEditing(false);
+                  setError({
+                    status: false,
+                    message: "",
+                  });
+
+                  inputRef.current.value = prevValueRef.current;
+                }}
+                colorPalette={"red"}
+              >
+                <X />
+              </IconButton>
+            </HStack>
+          ) : (
+            <IconButton
+              aria-label={`Edit ${label}`}
+              size={"sm"}
+              variant={"solid"}
+              onClick={() => {
+                setIsEditing(true);
+              }}
+              colorPalette={"teal"}
+            >
+              <Pencil />
+            </IconButton>
+          )}
         </HStack>
         <Field.ErrorText>{error.message}</Field.ErrorText>
       </Field.Root>
