@@ -1,4 +1,3 @@
-import { useAuth } from "@/hooks/useAuth";
 import {
   Flex,
   Container,
@@ -13,15 +12,15 @@ import {
 } from "@chakra-ui/react";
 
 import NavigateControls from "@/components/layout/NavigateControls";
-import { Navigate } from "react-router";
+import LoadingScreen from "@/components/ui/LoadingScreen";
+
 import { useUser } from "@/hooks/useUser";
 
 function Account() {
-  const { isLoggedIn } = useAuth();
-  const { user } = useUser();
+  const { isUserLoading, user } = useUser();
 
-  if (!isLoggedIn) {
-    return <Navigate to={"/"} />;
+  if (isUserLoading) {
+    return <LoadingScreen />;
   }
 
   return (
