@@ -26,7 +26,7 @@ import LoadingScreen from "@/components/ui/LoadingScreen";
 
 import { useAuth } from "@/hooks/useAuth";
 import { useUser } from "@/hooks/useUser";
-import { validateUsername } from "@/utils/validateInputs";
+import { validateName, validateUsername } from "@/utils/validateInputs";
 
 function Settings() {
   const { isUserLoading } = useUser();
@@ -75,6 +75,7 @@ function AccountSettings() {
           defaultValue={user?.name}
           name="name"
           updateUser={updateUser}
+          validator={validateName}
         />
         <SettingsInput
           label="Username"
