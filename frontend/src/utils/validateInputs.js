@@ -1,3 +1,18 @@
+export function validateName(name) {
+  //
+  if (!name || name === "") {
+    //
+    throw new Error("Name is required.");
+    //
+  } else if (name.length < 3 || name.length > 150) {
+    //
+    throw new Error("Please enter a valid name.");
+    //
+  }
+
+  return true;
+}
+
 export function validateEmail(email) {
   //
   email = email.trim().toLowerCase();
