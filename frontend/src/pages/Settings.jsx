@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, Navigate } from "react-router";
 import { useColorMode } from "@/components/ui/color-mode";
 import {
   Box,
@@ -29,10 +29,15 @@ import { useUser } from "@/hooks/useUser";
 import { validateName, validateUsername } from "@/utils/validateInputs";
 
 function Settings() {
+  const { isLoggedIn } = useAuth();
   const { isUserLoading } = useUser();
 
   if (isUserLoading) {
     return <LoadingScreen />;
+  }
+
+  if (!isUserLoading && !isLoggedIn) {
+    return <Navigate to={"/login"} />;
   }
 
   return (
