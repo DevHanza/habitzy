@@ -6,6 +6,7 @@ import { DailyLog } from "../models/dailyLogModel.js";
 
 import { verifyRefreshToken } from "../utils/jwt.js";
 import { isProduction } from "../utils/envCheck.js";
+import normalizeDate from "../utils/normalizeDate.js";
 
 // USER
 
@@ -249,6 +250,110 @@ export async function getDailyLeaderboardRank(req, res) {
       rank,
       total: leaderboardUsersCount,
       percentage: rankPercentage,
+    });
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
+
+// STREAK
+export async function incrementStreak(req, res) {
+  try {
+    //
+
+    const userId = req.user.userId;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not found." });
+    }
+
+    const habits = await Habit.find({ userId: userId })
+      .select("_id")
+      .sort({ createdAt: -1 })
+      .lean();
+
+    if (!habits) {
+      return res
+        .status(404)
+        .json({ message: "No habits found for this user." });
+    }
+
+    const currentDate = normalizeDate();
+
+    const dailyLog = await DailyLog.findOne({
+      userId,
+      date: currentDate,
+    }).lean();
+
+    if (!dailyLog) {
+      return res
+        .status(404)
+        .json({ message: "No daily log found for this user." });
+    }
+
+    // Compare habits lists
+
+    const userHabitsList = habits
+      .map((habit) => {
+        return habit._id;
+      })
+      .sort();
+
+    const dailyLogList = dailyLog.completedHabits.sort();
+
+    if (userHabitsList.length !== dailyLogList.length) {
+      return res.status(409).json({
+        message: "All habits must be completed.",
+      });
+    }
+
+    const isAllHabitsCompleted = userHabitsList.every((value, i) => {
+      return value.equals(dailyLogList[i]);
+    });
+
+    // Increment the streak
+
+    if (!isAllHabitsCompleted) {
+      return res.status(409).json({
+        message: "All habits must be completed.",
+      });
+    }
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      [
+        //
+        {
+          $set: {
+            "streak.currentStreak": { $add: ["$streak.currentStreak", 1] },
+          },
+        },
+        //
+        {
+          $set: {
+            "streak.longestStreak": {
+              $cond: {
+                if: { $gt: ["$streak.currentStreak", "$streak.longestStreak"] },
+                then: "$streak.currentStreak",
+                else: "$streak.longestStreak",
+              },
+            },
+          },
+        },
+        //
+      ],
+      { new: true }, // returns the updated document
+    );
+
+    if (!user) {
+      return res.status(401).json({ message: "User not found." });
+    }
+
+    res.json({
+      streak: user.streak,
     });
     //
   } catch (err) {

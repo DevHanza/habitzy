@@ -5,6 +5,7 @@ import {
   deleteUser,
   getDailyLeaderboard,
   getDailyLeaderboardRank,
+  incrementStreak,
 } from "../controllers/userController.js";
 import { authenticateAccessToken } from "../middleware/authenticateAccessToken.js";
 
@@ -23,5 +24,7 @@ router.get(
   [authenticateAccessToken],
   getDailyLeaderboardRank,
 );
+
+router.post("/increment-streak", [authenticateAccessToken], incrementStreak);
 
 export default router;
