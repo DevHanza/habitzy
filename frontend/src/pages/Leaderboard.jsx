@@ -17,7 +17,7 @@ import LeaderboardCardSkeleton from "@/components/Leaderboard/LeaderboardCardSke
 import LeaderboardBoxEmpty from "@/components/Leaderboard/LeaderboardBoxEmpty";
 
 function Leaderboard() {
-  const { authFetch, isAuthLoading } = useAuth();
+  const { isLoggedIn, authFetch, isAuthLoading } = useAuth();
   const { user } = useUser();
 
   // leaderboard
@@ -63,7 +63,7 @@ function Leaderboard() {
 
   // Fetch Leaderboard Rank
   useEffect(() => {
-    if (isAuthLoading) return;
+    if (isAuthLoading || !isLoggedIn) return;
     //
     authFetch({
       url: "user/leaderboard-rank",
@@ -139,25 +139,27 @@ function Leaderboard() {
           </Container>
         </VStack>
       </Container>
-      <HStack
-        position={"fixed"}
-        bottom={{ base: "var(--bottom-nav-height)", md: 0 }}
-        // left={{ base: "var(--bottom-nav-height)", md: 0 }}
-        background={"bg.muted"}
-        width={"100%"}
-        zIndex={10}
-        py={2}
-        mt={2}
-      >
-        <Container maxW={"xl"}>
-          <UserLeaderboardCard
-            isLoading={leaderboard.isLoadingRank}
-            rank={leaderboard.rank?.percentage + "%"}
-            streak={user?.streak?.currentStreak}
-            // name={user?.name}
-          />
-        </Container>
-      </HStack>
+      {isLoggedIn && (
+        <HStack
+          position={"fixed"}
+          bottom={{ base: "var(--bottom-nav-height)", md: 0 }}
+          // left={{ base: "var(--bottom-nav-height)", md: 0 }}
+          background={"bg.muted"}
+          width={"100%"}
+          zIndex={10}
+          py={2}
+          mt={2}
+        >
+          <Container maxW={"xl"}>
+            <UserLeaderboardCard
+              isLoading={leaderboard.isLoadingRank}
+              rank={leaderboard.rank?.percentage + "%"}
+              streak={user?.streak?.currentStreak}
+              // name={user?.name}
+            />
+          </Container>
+        </HStack>
+      )}
     </>
   );
 }
