@@ -27,57 +27,50 @@ function SettingsInput({
     }
   }, [isEditing]);
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     try {
+      //
       e.preventDefault();
-      // console.log("Submitted!");
 
       const input = e.target.elements[name];
-      // input.focus();
-
       const prevValue = prevValueRef.current;
       const newValue = input?.value;
 
       if (prevValue === newValue) {
         setIsEditing(false);
-        return
+        return;
       }
 
       // Run validator if provided
       if (validator) {
         const validationResult = validator(newValue);
         if (!validationResult) {
-          setError({
-            status: true,
-            message: `Invalid ${name}`,
-          });
-          return;
+          throw Error(`Invalid ${name}`);
         }
       }
 
+      const res = await updateUser({ [name]: newValue });
+
+      if (error.status) {
+        return;
+      }
+
+      // console.log(res.message);
+
       setIsEditing(false);
       prevValueRef.current = newValue;
-
-      //
 
       setError({
         status: false,
         message: "",
       });
 
-      const res = await updateUser({ [name]: newValue });
-
-      // console.log(res.message);
-
       toaster.create({
         title: `${res.message}`,
         type: "success",
         closable: true,
       });
-
-      // if (!res.ok) {
-      //   console.log("ERROR!");
-      // }
+      //
     } catch (err) {
       setError({
         status: true,
@@ -85,7 +78,21 @@ function SettingsInput({
       });
       throw Error(err);
     }
-  };
+  }
+
+  function enableEdit() {
+    setIsEditing(true);
+  }
+
+  async function cancelEdit() {
+    setIsEditing(false);
+    setError({
+      status: false,
+      message: "",
+    });
+
+    inputRef.current.value = prevValueRef.current;
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -95,7 +102,7 @@ function SettingsInput({
           <Input
             placeholder={placeholder}
             disabled={!isEditing}
-            colorPalette={"teal"}
+            colorPalette={import.meta.env.VITE_APP_COLOR}
             defaultValue={defaultValue}
             size={"sm"}
             name={name}
@@ -118,15 +125,7 @@ function SettingsInput({
                 aria-label={`Cancel edit ${label}`}
                 size={"sm"}
                 variant={"subtle"}
-                onClick={(e) => {
-                  setIsEditing(false);
-                  setError({
-                    status: false,
-                    message: "",
-                  });
-
-                  inputRef.current.value = prevValueRef.current;
-                }}
+                onClick={cancelEdit}
                 colorPalette={"red"}
               >
                 <X />
@@ -137,10 +136,8 @@ function SettingsInput({
               aria-label={`Edit ${label}`}
               size={"sm"}
               variant={"solid"}
-              onClick={() => {
-                setIsEditing(true);
-              }}
-              colorPalette={"teal"}
+              onClick={enableEdit}
+              colorPalette={import.meta.env.VITE_APP_COLOR}
             >
               <Pencil />
             </IconButton>
