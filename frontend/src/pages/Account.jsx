@@ -10,17 +10,24 @@ import {
   Image,
   Avatar,
 } from "@chakra-ui/react";
+import { Navigate } from "react-router";
 
 import NavigateControls from "@/components/layout/NavigateControls";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 
+import { useAuth } from "@/hooks/useAuth";
 import { useUser } from "@/hooks/useUser";
 
 function Account() {
+  const { isLoggedIn } = useAuth();
   const { isUserLoading, user } = useUser();
 
   if (isUserLoading) {
     return <LoadingScreen />;
+  }
+
+  if (!isUserLoading && !isLoggedIn) {
+    return <Navigate to={"/"} />;
   }
 
   return (
