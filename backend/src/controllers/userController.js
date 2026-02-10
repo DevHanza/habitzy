@@ -23,7 +23,7 @@ export async function getUser(req, res) {
       .lean();
 
     if (!user) {
-      return res.status(401).json({ message: "User not found." });
+      return res.status(404).json({ message: "User not found." });
     }
 
     res.json({
@@ -91,12 +91,12 @@ export async function deleteUser(req, res) {
     //
     const { refreshToken } = req.cookies;
     if (!refreshToken) {
-      return res.status(401).json({ message: "No token found." });
+      return res.status(404).json({ message: "No token found." });
     }
 
     const payload = verifyRefreshToken(refreshToken);
     if (!payload) {
-      return res.status(404).json({ message: "Invalid token." });
+      return res.status(401).json({ message: "Invalid token." });
     }
 
     // 48-Hour Logout Security
