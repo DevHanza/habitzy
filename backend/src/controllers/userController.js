@@ -270,6 +270,25 @@ export async function incrementStreak(req, res) {
       return res.status(400).json({ message: "User not found." });
     }
 
+    const currentDate = normalizeDate();
+
+    // Check if streak is already incremented for the day
+
+    const user = await User.findById(userId).select("streak").lean();
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    const updatedAt = normalizeDate(user.streak.updatedAt);
+    const isStreakUpdated = updatedAt.getTime() === currentDate.getTime();
+
+    if (isStreakUpdated) {
+      return res
+        .status(409)
+        .send({ message: "Streak already updated for today." });
+    }
+
     const habits = await Habit.find({ userId: userId })
       .select("_id")
       .sort({ createdAt: -1 })
@@ -280,8 +299,6 @@ export async function incrementStreak(req, res) {
         .status(404)
         .json({ message: "No habits found for this user." });
     }
-
-    const currentDate = normalizeDate();
 
     const dailyLog = await DailyLog.findOne({
       userId,
@@ -322,13 +339,14 @@ export async function incrementStreak(req, res) {
       });
     }
 
-    const user = await User.findByIdAndUpdate(
+    const updatedUser = await User.findByIdAndUpdate(
       userId,
       [
         //
         {
           $set: {
             "streak.currentStreak": { $add: ["$streak.currentStreak", 1] },
+            "streak.updatedAt": currentDate,
           },
         },
         //
@@ -348,8 +366,8 @@ export async function incrementStreak(req, res) {
       { new: true }, // returns the updated document
     );
 
-    if (!user) {
-      return res.status(401).json({ message: "User not found." });
+    if (!updatedUser) {
+      return res.status(500).json({ message: "Failed to update the user." });
     }
 
     res.json({
