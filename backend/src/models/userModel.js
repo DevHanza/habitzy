@@ -50,6 +50,11 @@ const userSchema = new Schema(
         min: [0, "Longest streak cannot be negative"],
         default: 0,
       },
+      updatedAt: {
+        type: Date,
+        required: [true, "Streak updatedAt streak is required"],
+        default: new Date(),
+      },
     },
     refreshTokens: {
       type: [
@@ -76,7 +81,7 @@ const userSchema = new Schema(
       default: [],
     },
   },
-  { timestamps: true } // auto-manages createdAt and updatedAt
+  { timestamps: true }, // auto-manages createdAt and updatedAt
 );
 
 export const User = mongoose.model("User", userSchema);
