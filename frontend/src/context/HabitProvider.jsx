@@ -376,6 +376,7 @@ export const HabitProvider = ({ children }) => {
     <HabitContext.Provider
       value={{
         habits: habitState.habits,
+        habitDispatch,
         isHabitLoading: habitState.isHabitLoading,
         addHabit,
         editHabit,
