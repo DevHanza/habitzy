@@ -31,7 +31,7 @@ function LeaderboardBox() {
 
   //
 
-  const skeletonLeaderboardCards = Array.from({ length: 8 }, (_, index) => (
+  const skeletonLeaderboardCards = Array.from({ length: 6 }, (_, index) => (
     <LeaderboardCardSkeleton key={index} />
   ));
 

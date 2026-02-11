@@ -44,7 +44,7 @@ function HabitsBox() {
     // }
   }
 
-  const skeletonHabitCards = Array.from({ length: 8 }, (_, index) => (
+  const skeletonHabitCards = Array.from({ length: 7 }, (_, index) => (
     <HabitCardSkeleton key={index} />
   ));
 
