@@ -57,31 +57,35 @@ export const UserProvider = ({ children }) => {
 
   //
   async function fetchUser() {
-    const res = await authFetch({
-      url: "user",
-      method: "GET",
-    });
-
-    const data = await res.json();
-    // console.log(data);
-
-    if (!res.ok) {
-      userDispatch({
-        type: "SET_LOADING",
-        payload: false,
+    try {
+      const res = await authFetch({
+        url: "user",
+        method: "GET",
       });
 
-      throw Error(data.message);
+      const data = await res.json();
+      // console.log(data);
+
+      if (!res.ok) {
+        userDispatch({
+          type: "SET_LOADING",
+          payload: false,
+        });
+
+        throw Error(data.message);
+      }
+
+      userDispatch({
+        type: "SET_USER",
+        payload: {
+          user: data.user,
+        },
+      });
+
+      return data;
+    } catch (err) {
+      throw Error(err);
     }
-
-    userDispatch({
-      type: "SET_USER",
-      payload: {
-        user: data.user,
-      },
-    });
-
-    return data;
   }
 
   useEffect(() => {
@@ -104,11 +108,8 @@ export const UserProvider = ({ children }) => {
   //
 
   async function updateUser(updatedUserProp) {
-    // console.log(updatedUserProp);
-
     try {
       //
-
       const res = await authFetch({
         url: "user",
         method: "PATCH",
@@ -138,9 +139,15 @@ export const UserProvider = ({ children }) => {
   }
 
   const incrementStreak = () => {
-    userDispatch({
-      type: "INCREMENT_STREAK",
-    });
+    try {
+      // 
+      userDispatch({
+        type: "INCREMENT_STREAK",
+      });
+      // 
+    } catch (err) {
+      throw Error(err);
+    }
   };
 
   return (
