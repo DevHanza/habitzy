@@ -154,6 +154,7 @@ export const UserProvider = ({ children }) => {
     <UserContext.Provider
       value={{
         user: userState.user,
+        userDispatch,
         isUserLoading: userState.isUserLoading,
         updateUser,
         incrementStreak,
