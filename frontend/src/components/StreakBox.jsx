@@ -9,14 +9,17 @@ import {
   Text,
   Skeleton,
 } from "@chakra-ui/react";
+import { toaster } from "@/components/ui/toaster";
 import useHabits from "@/hooks/useHabits";
 import { useUser } from "@/hooks/useUser";
 
 import runOncePerDay from "@/utils/runOncePerDay";
+import { useAuth } from "@/hooks/useAuth";
 
 function StreakBox() {
+  const { authFetch } = useAuth();
+  const { user, isUserLoading, userDispatch } = useUser();
   const { habits } = useHabits();
-  const { user, isUserLoading, incrementStreak } = useUser();
 
   const hasStreak = user?.streak?.currentStreak > 0;
 
@@ -25,13 +28,43 @@ function StreakBox() {
   }, [habits]);
 
   useEffect(() => {
+    async function incrementStreak() {
+      try {
+        //
+        const res = await authFetch({
+          url: "user/increment-streak",
+          method: "POST",
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw Error(data.message);
+        }
+
+        userDispatch({
+          type: "INCREMENT_STREAK",
+        });
+        //
+      } catch (err) {
+        toaster.create({
+          title: `${err.message}`,
+          type: "warning",
+          closable: true,
+        });
+        throw Error(err);
+      }
+    }
+
     if (allCompleted && habits.length > 0) {
       runOncePerDay("#incrementStreak", () => {
+        //
         incrementStreak();
         // console.log("Streak incremented!");
+        //
       });
     }
-  }, [allCompleted, incrementStreak, habits.length]);
+  }, [allCompleted, habits.length]);
 
   return (
     <WidgetWrapper py={6}>
