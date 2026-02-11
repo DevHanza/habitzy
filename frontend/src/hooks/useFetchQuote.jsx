@@ -1,5 +1,5 @@
-import { getCookie, setCookie } from "@/utils/cookieHelper";
 import { useEffect, useState } from "react";
+import normalizeDate from "@/utils/normalizeDate";
 
 function useFetchQuote() {
   const url = import.meta.env.VITE_QUOTES_API;
@@ -9,43 +9,52 @@ function useFetchQuote() {
   const [error, setError] = useState();
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
+    async function fetchQuote() {
+      try {
+        //
+        const today = normalizeDate();
+        const tommorrow = normalizeDate();
+        tommorrow.setDate(today.getDate() + 1);
 
-    const quoteCookie = getCookie("quote");
+        const cachedQuote = localStorage.getItem("quote");
+        const cachedQuoteExpiry = Number(localStorage.getItem("quote_expiry"));
 
-    if (quoteCookie) {
-      const savedQuote = JSON.parse(quoteCookie);
-      setQuote(savedQuote);
-      setLoading(false);
-      return;
+        if (cachedQuote && cachedQuoteExpiry) {
+          const isQuoteExpired = today.getTime() > cachedQuoteExpiry;
+          //
+          if (!isQuoteExpired) {
+            const data = JSON.parse(cachedQuote);
+            setQuote(data);
+            setLoading(false);
+            return;
+          }
+          //
+        }
+
+        const res = await fetch(url);
+
+        if (!res.ok) {
+          throw Error(`An error has occurred: ${res.status}`);
+        }
+
+        const data = await res.json();
+
+        setQuote(data);
+        setLoading(false);
+        localStorage.setItem("quote", JSON.stringify(data));
+        localStorage.setItem("quote_expiry", tommorrow.getTime());
+        console.log(quote);
+
+        //
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+        throw Error(err.message);
+      }
     }
 
-    const controller = new AbortController();
-    const signal = controller.signal;
-
-    fetch(url)
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-        return res.json();
-      })
-      .then((json) => {
-        if (!signal.aborted) {
-          setQuote(json);
-          const quoteData = JSON.stringify(json);
-          setCookie("quote", quoteData, 1);
-        }
-      })
-      .catch((err) => {
-        if (!signal.aborted) setError(err);
-        console.error(err);
-      })
-      .finally(() => {
-        if (!signal.aborted) setLoading(false);
-      });
-
-    return () => controller.abort(); // abort if component unmounts
-  }, [url]);
+    fetchQuote();
+  }, []);
 
   return { quote, loading, error };
 }
