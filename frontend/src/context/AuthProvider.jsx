@@ -81,7 +81,6 @@ export const AuthProvider = ({ children }) => {
   // Get Access Token on Initial Load
   useEffect(() => {
     const isLoggedInCookie = Boolean(getCookie("IsLoggedIn"));
-    // console.log("isLoggedInCookie: ", isLoggedInCookie);
 
     if (!isLoggedInCookie) {
       authDispatch({ type: "SET_LOADING", payload: false });
@@ -90,10 +89,7 @@ export const AuthProvider = ({ children }) => {
 
     refreshAccessToken();
     //
-  }, [
-    // isLoggedIn
-    refreshAccessToken,
-  ]);
+  }, [refreshAccessToken]);
 
   const authFetch = useCallback(
     //
@@ -157,7 +153,6 @@ export const AuthProvider = ({ children }) => {
       authDispatch({ type: "LOGOUT" });
       deleteCookie("IsLoggedIn");
       localStorage.clear();
-
 
       return data;
       //
