@@ -56,6 +56,7 @@ export const AuthProvider = ({ children }) => {
       if (!res.ok) {
         authDispatch({ type: "LOGOUT" });
         deleteCookie("IsLoggedIn");
+        localStorage.clear();
 
         return;
       }
@@ -155,6 +156,8 @@ export const AuthProvider = ({ children }) => {
 
       authDispatch({ type: "LOGOUT" });
       deleteCookie("IsLoggedIn");
+      localStorage.clear();
+
 
       return data;
       //
@@ -173,6 +176,7 @@ export const AuthProvider = ({ children }) => {
 
       authDispatch({ type: "LOGOUT" });
       deleteCookie("IsLoggedIn");
+      localStorage.clear();
 
       return data;
       //
