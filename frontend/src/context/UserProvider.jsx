@@ -138,18 +138,6 @@ export const UserProvider = ({ children }) => {
     }
   }
 
-  const incrementStreak = () => {
-    try {
-      // 
-      userDispatch({
-        type: "INCREMENT_STREAK",
-      });
-      // 
-    } catch (err) {
-      throw Error(err);
-    }
-  };
-
   return (
     <UserContext.Provider
       value={{
@@ -157,7 +145,6 @@ export const UserProvider = ({ children }) => {
         userDispatch,
         isUserLoading: userState.isUserLoading,
         updateUser,
-        incrementStreak,
       }}
     >
       {children}
