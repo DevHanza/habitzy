@@ -216,34 +216,34 @@ export const HabitProvider = ({ children }) => {
   }, [isLoggedIn, authFetch, isAuthLoading]);
 
   // Add Habits
-  const addHabit = (habit) => {
+  const addHabit = async (habit) => {
     try {
       //
       if (isLoggedIn) {
-        authFetch({
+        //
+        const res = await authFetch({
           url: "user/habits",
           method: "POST",
           body: {
             icon: habit?.icon,
             title: habit?.title,
           },
-        })
-          .then(async (response) => {
-            const data = await response.json();
-            // console.log(data);
+        });
 
-            const habitData = {
-              _id: data._id,
-              ...habit,
-              isCompleted: false,
-            };
+        const data = await res.json();
 
-            habitDispatch({ type: "ADD_HABIT", payload: habitData });
-            //
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        if (!res.ok) {
+          throw Error(data.message);
+        }
+
+        const habitData = {
+          _id: data._id,
+          ...habit,
+          isCompleted: false,
+        };
+
+        habitDispatch({ type: "ADD_HABIT", payload: habitData });
+        //
       } else {
         const habitData = {
           _id: habitState.habits.length + 1,
@@ -260,7 +260,7 @@ export const HabitProvider = ({ children }) => {
   };
 
   // Edit Habits
-  const editHabit = (id, selectedEmoji, label) => {
+  const editHabit = async (id, selectedEmoji, label) => {
     try {
       //
       const habit = habitState.habits.find((habit) => habit._id === id);
@@ -270,7 +270,7 @@ export const HabitProvider = ({ children }) => {
 
       if (isLoggedIn) {
         //
-        authFetch({
+        const res = await authFetch({
           url: `user/habits/${id}`,
           method: "PATCH",
           body: {
@@ -279,26 +279,23 @@ export const HabitProvider = ({ children }) => {
             // description: "",
             // isCompleted: false,
           },
-        })
-          .then(async () =>
-            // response
-            {
-              // const data = await response.json();
-              // console.log(data);
+        });
 
-              habitDispatch({
-                type: "EDIT_HABIT",
-                payload: {
-                  id,
-                  selectedEmoji,
-                  title: label,
-                },
-              });
-            },
-          )
-          .catch((err) => {
-            console.log(err);
-          });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw Error(data.message);
+        }
+
+        habitDispatch({
+          type: "EDIT_HABIT",
+          payload: {
+            id,
+            selectedEmoji,
+            title: label,
+          },
+        });
+        //
       } else {
         //
         habitDispatch({
@@ -318,31 +315,28 @@ export const HabitProvider = ({ children }) => {
 
   //  Delete Habits
   const removeHabit = useCallback(
-    (id) => {
+    async (id) => {
       try {
         if (isLoggedIn) {
           //
-          authFetch({
+          const res = await authFetch({
             url: `user/habits/${id}`,
             method: "DELETE",
-          })
-            .then(async () =>
-              // response
-              {
-                // const data = await response.json();
-                // console.log(data);
+          });
 
-                habitDispatch({
-                  type: "DELETE_HABIT",
-                  payload: {
-                    id,
-                  },
-                });
-              },
-            )
-            .catch((err) => {
-              console.log(err);
-            });
+          const data = await res.json();
+
+          if (!res.ok) {
+            throw Error(data.message);
+          }
+
+          habitDispatch({
+            type: "DELETE_HABIT",
+            payload: {
+              id,
+            },
+          });
+          //
         } else {
           habitDispatch({
             type: "DELETE_HABIT",
@@ -360,31 +354,29 @@ export const HabitProvider = ({ children }) => {
 
   // Toggle Habits
   const toggleHabit = useCallback(
-    (id) => {
+    async (id) => {
       try {
         //
         if (isLoggedIn) {
-          authFetch({
+          //
+          const res = await authFetch({
             url: `user/habits/${id}/toggleStatus`,
             method: "PATCH",
-          })
-            .then(async () =>
-              // response
-              {
-                // const data = await response.json();
-                // console.log(data);
+          });
 
-                habitDispatch({
-                  type: "TOGGLE_HABIT",
-                  payload: {
-                    id,
-                  },
-                });
-              },
-            )
-            .catch((err) => {
-              console.log(err);
-            });
+          const data = await res.json();
+
+          if (!res.ok) {
+            throw Error(data.message);
+          }
+
+          habitDispatch({
+            type: "TOGGLE_HABIT",
+            payload: {
+              id,
+            },
+          });
+          //
         } else {
           habitDispatch({
             type: "TOGGLE_HABIT",
