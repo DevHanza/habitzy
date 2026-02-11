@@ -19,12 +19,12 @@ const dailyLogSchema = new Schema(
       },
     ],
 
-    allCompleted: {
-      type: Boolean,
-      default: false,
-    },
+    // allCompleted: {
+    //   type: Boolean,
+    //   default: false,
+    // },
   },
-  { timestamps: true } // auto-manages createdAt and updatedAt
+  { timestamps: true }, // auto-manages createdAt and updatedAt
 );
 
 // Ensure one log per user per date
