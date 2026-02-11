@@ -1,6 +1,7 @@
 import { useReducer, useEffect, useCallback } from "react";
 import { HabitContext } from "@/context/HabitContext";
 import { useAuth } from "@/hooks/useAuth";
+import { moveItemsInList } from "@/utils/moveItemsInList";
 
 const habitsList = [
   { _id: 1, icon: "📖", title: "Read a book", isCompleted: false },
@@ -167,6 +168,16 @@ function reducer(state, action) {
       return {
         ...state,
         habits: toggledHabits,
+      };
+    //
+    case "MOVE_HABITS":
+      return {
+        ...state,
+        habits: moveItemsInList(
+          state.habits,
+          action.payload.fromIndex,
+          action.payload.toIndex,
+        ),
       };
     //
     default:

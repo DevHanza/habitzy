@@ -15,21 +15,29 @@ import { moveItemsInList } from "@/utils/moveItemsInList";
 function HabitsBox() {
   const [isAddingHabits, setIsAddingHabits] = useState(false);
 
-  const { habits, isHabitLoading, setHabits, toggleHabit, removeHabit } =
+  const { habits, habitDispatch, isHabitLoading, toggleHabit, removeHabit } =
     useHabits();
 
   const hasHabits = habits.length > 0;
 
   // Pragmatic Drag & Drop Features
 
-  const moveItems = useCallback(
-    (fromIndex, toIndex) => {
-      setHabits((currentHabits) => {
-        return moveItemsInList(currentHabits, fromIndex, toIndex);
-      });
-    },
-    [setHabits],
-  );
+  const moveItems = useCallback((fromIndex, toIndex) => {
+    //
+
+    // console.log("fromIndex: ", fromIndex);
+    // console.log("toIndex: ", toIndex);
+
+    habitDispatch({
+      type: "MOVE_HABITS",
+      payload: {
+        fromIndex,
+        toIndex,
+      },
+    });
+
+    //
+  }, []);
 
   // Functions for adding habits
   function handleAddHabit() {
