@@ -43,7 +43,7 @@ function useFetchQuote() {
         setLoading(false);
         localStorage.setItem("quote", JSON.stringify(data));
         localStorage.setItem("quote_expiry", tommorrow.getTime());
-        console.log(quote);
+        // console.log(quote);
 
         //
       } catch (err) {
