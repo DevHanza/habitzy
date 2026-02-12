@@ -6,8 +6,8 @@ function HabitCardSkeleton() {
       borderRadius={6}
       px={3}
       py={4}
-      border={"0.5px solid"}
-      borderColor={"border"}
+      // border={"0.5px solid"}
+      // borderColor={"border"}
       bg={"bg.subtle"}
       width={"100%"}
       position={"relative"}
