@@ -185,7 +185,7 @@ function DesktopMenu({ isLoggedIn, user, isUserLoading }) {
         </Menu.Root>
       )}
 
-      {!isLoggedIn && (
+      {!isUserLoading && !isLoggedIn && (
         <Button as={Link} to={"/login"} size={"xs"} colorPalette={"teal"}>
           Sign in
         </Button>
@@ -247,7 +247,7 @@ function MobileMenu({ user, isLoggedIn, isUserLoading }) {
           </Menu.Root>
         )}
 
-        {!isLoggedIn && (
+        {!isUserLoading && !isLoggedIn && (
           <Button as={Link} to={"/login"} size={"xs"} colorPalette={"teal"}>
             Sign in
           </Button>
