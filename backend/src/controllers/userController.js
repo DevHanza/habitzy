@@ -380,3 +380,108 @@ export async function incrementStreak(req, res) {
     //
   }
 }
+
+export async function decrementStreak(req, res) {
+  try {
+    //
+    const userId = req.user.userId;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not found." });
+    }
+
+    const currentDate = normalizeDate();
+
+    // Check if streak is already incremented for the day
+
+    const user = await User.findById(userId).select("streak").lean();
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    const updatedAt = normalizeDate(user.streak.updatedAt);
+    const isStreakUpdated = updatedAt.getTime() === currentDate.getTime();
+
+    if (isStreakUpdated) {
+      return res
+        .status(409)
+        .send({ message: "Streak already updated for today." });
+    }
+
+    // #####
+    // #####
+
+    const habits = await Habit.find({ userId: userId })
+      .select("_id")
+      .sort({ createdAt: -1 })
+      .lean();
+
+    if (!habits) {
+      return res
+        .status(404)
+        .json({ message: "No habits found for this user." });
+    }
+
+    const dailyLog = await DailyLog.findOne({
+      userId,
+      date: currentDate,
+    }).lean();
+
+    if (!dailyLog) {
+      return res
+        .status(404)
+        .json({ message: "No daily log found for this user." });
+    }
+
+    // Compare habits lists
+
+    const userHabitsList = habits
+      .map((habit) => {
+        return habit._id;
+      })
+      .sort();
+
+    const dailyLogList = dailyLog.completedHabits.sort();
+
+    if (userHabitsList.length === dailyLogList.length) {
+      return res.status(409).json({
+        message: "Cannot reset the streak, while you have it.",
+      });
+    }
+
+    const isAllHabitsCompleted = userHabitsList.every((value, i) => {
+      return value.equals(dailyLogList[i]);
+    });
+
+    if (isAllHabitsCompleted) {
+      return res.status(409).json({
+        message: "Cannot reset the streak, while you have it.",
+      });
+    }
+
+    // Decrement the streak
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        "streak.currentStreak": 0,
+        "streak.updatedAt": currentDate,
+      },
+      { new: true }, // returns the updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(500).json({ message: "Failed to update the user." });
+    }
+
+    res.json({
+      streak: updatedUser.streak,
+    });
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}

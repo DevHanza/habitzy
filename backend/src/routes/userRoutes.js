@@ -6,6 +6,7 @@ import {
   getDailyLeaderboard,
   getDailyLeaderboardRank,
   incrementStreak,
+  decrementStreak,
 } from "../controllers/userController.js";
 import { authenticateAccessToken } from "../middleware/authenticateAccessToken.js";
 
@@ -26,5 +27,6 @@ router.get(
 );
 
 router.patch("/increment-streak", [authenticateAccessToken], incrementStreak);
+router.patch("/decrement-streak", [authenticateAccessToken], decrementStreak);
 
 export default router;
