@@ -43,6 +43,17 @@ function reducer(state, action) {
         },
       };
     //
+    case "CLEAR_STREAK":
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          streak: {
+            currentStreak: 0,
+          },
+        },
+      };
+    //
     case "CLEAR_USER":
       return initialState;
     //
