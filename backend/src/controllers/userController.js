@@ -385,22 +385,36 @@ export async function decrementStreak(req, res) {
   try {
     //
     const userId = req.user.userId;
-
     if (!userId) {
       return res.status(400).json({ message: "User not found." });
     }
 
     const currentDate = normalizeDate();
 
-    // Check if streak is already incremented for the day
-
     const user = await User.findById(userId).select("streak").lean();
-
     if (!user) {
       return res.status(404).json({ message: "User not found." });
     }
 
     const updatedAt = normalizeDate(user.streak.updatedAt);
+
+    // Check: Is streak expired?
+
+    const streakUpdatedDiff =
+      (currentDate.getTime() - updatedAt.getTime()) / 86400000;
+    const isStreakExpired = streakUpdatedDiff > 1;
+
+    console.log("streakUpdatedDiff: ", streakUpdatedDiff);
+    console.log("isStreakExpired: ", isStreakExpired);
+
+    if (!isStreakExpired) {
+      return res.status(409).json({
+        message: "Streak has not expired yet.",
+      });
+    }
+
+    // Check: Is streak already incremented for the day
+
     const isStreakUpdated = updatedAt.getTime() === currentDate.getTime();
 
     if (isStreakUpdated) {
@@ -409,8 +423,7 @@ export async function decrementStreak(req, res) {
         .send({ message: "Streak already updated for today." });
     }
 
-    // #####
-    // #####
+    // Query for habits & daily log
 
     const habits = await Habit.find({ userId: userId })
       .select("_id")
