@@ -4,14 +4,10 @@
 
 Habit Tracker with MERN Stack (React + Chakra UI)
 <br/><br/>
+![Habit Tracker Thumbnail](https://github.com/user-attachments/assets/db40a3d7-4558-441c-8892-d6f71ac5164a)
+
+## Stack
 ![Habit Tracker Stack](https://go-skill-icons.vercel.app/api/icons?i=react,nodejs,mongodb,express)
-
-# Stack
-
-- **M**ongoDB
-- **E**xpress.js
-- **R**eact
-- **N**ode.js
 
 Using:
 
@@ -39,7 +35,7 @@ Using:
 - [nodemailer](https://www.npmjs.com/package/nodemailer)
 - [nodemon](https://www.npmjs.com/package/nodemon)
 
-# Initial Planned Folder Structure
+## Initial Planned Folder Structure
 
 ```
 frontend/
@@ -96,7 +92,7 @@ backend/
 
 ```
 
-# Setup
+## Setup
 
 ### Configure .env file
 
