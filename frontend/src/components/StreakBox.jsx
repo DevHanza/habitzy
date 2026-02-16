@@ -68,6 +68,47 @@ function StreakBox() {
     }
   }, [allCompleted, habits.length]);
 
+  // Clear Streak
+
+  useEffect(() => {
+    if (isUserLoading) return;
+
+    async function clearStreak() {
+      try {
+        //
+        const res = await authFetch({
+          url: "user/clear-streak",
+          method: "PATCH",
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw Error(data.message);
+        }
+
+        userDispatch({
+          type: "CLEAR_STREAK",
+        });
+        //
+      } catch (err) {
+        toaster.create({
+          title: `${err.message}`,
+          type: "warning",
+          closable: true,
+        });
+        throw Error(err);
+      }
+    }
+
+    runOncePerDay("#clearStreak", () => {
+      //
+      clearStreak();
+      // console.log("Streak cleared!");
+      //
+    });
+  }, [isUserLoading]);
+
   return (
     <WidgetWrapper py={6}>
       <Stack>
