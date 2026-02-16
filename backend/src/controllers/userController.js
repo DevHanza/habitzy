@@ -381,7 +381,7 @@ export async function incrementStreak(req, res) {
   }
 }
 
-export async function decrementStreak(req, res) {
+export async function clearStreak(req, res) {
   try {
     //
     const userId = req.user.userId;
