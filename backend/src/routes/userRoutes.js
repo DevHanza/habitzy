@@ -25,6 +25,6 @@ router.get(
   getDailyLeaderboardRank,
 );
 
-router.post("/increment-streak", [authenticateAccessToken], incrementStreak);
+router.patch("/increment-streak", [authenticateAccessToken], incrementStreak);
 
 export default router;
