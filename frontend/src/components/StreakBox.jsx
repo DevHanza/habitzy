@@ -27,13 +27,15 @@ function StreakBox() {
     return habits.every((habit) => habit.isCompleted);
   }, [habits]);
 
+  // Increment Streak
+
   useEffect(() => {
     async function incrementStreak() {
       try {
         //
         const res = await authFetch({
           url: "user/increment-streak",
-          method: "POST",
+          method: "PATCH",
         });
 
         const data = await res.json();
