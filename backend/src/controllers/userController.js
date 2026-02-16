@@ -331,13 +331,13 @@ export async function incrementStreak(req, res) {
       return value.equals(dailyLogList[i]);
     });
 
-    // Increment the streak
-
     if (!isAllHabitsCompleted) {
       return res.status(409).json({
         message: "All habits must be completed.",
       });
     }
+
+    // Increment the streak
 
     const updatedUser = await User.findByIdAndUpdate(
       userId,
@@ -371,7 +371,7 @@ export async function incrementStreak(req, res) {
     }
 
     res.json({
-      streak: user.streak,
+      streak: updatedUser.streak,
     });
     //
   } catch (err) {
