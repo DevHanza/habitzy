@@ -404,9 +404,6 @@ export async function clearStreak(req, res) {
       (currentDate.getTime() - updatedAt.getTime()) / 86400000;
     const isStreakExpired = streakUpdatedDiff > 1;
 
-    console.log("streakUpdatedDiff: ", streakUpdatedDiff);
-    console.log("isStreakExpired: ", isStreakExpired);
-
     if (!isStreakExpired) {
       return res.status(409).json({
         message: "Streak has not expired yet.",
