@@ -7,14 +7,68 @@ Habit Tracker with MERN Stack (React + Chakra UI)
 
 ![Habit Tracker Thumbnail](https://github.com/user-attachments/assets/db40a3d7-4558-441c-8892-d6f71ac5164a)
 
+## How to run locally?
+### 🔻 Prerequisites
+-  [Node.js](https://nodejs.org/en/download) _(v18.x+ recommended)_
+-  [MongoDB](https://www.mongodb.com/try/download/community) _(v8.2.3+ recommended)_
+
+```bash
+# Clone the repository
+git clone https://github.com/DevHanza/Habit-Tracker-React.git
+
+# Go to the repository folder
+cd Habit-Tracker-React
+
+# Install dependencies
+(cd frontend && npm install) && (cd backend && npm install)
+```
+
+
+### 🔻 Setup Frontend
+#### Configure .env file
+Rename `.env.example` to `.env`, then fill in the required values.
+Most of the variables are self-explanatory and can be understood by reading the `.env` file. 
+
+#### Run
+```bash
+# Install frontend dependencies
+cd frontend
+npm install
+
+# Start the dev server
+npm run dev
+```
+_For production deployment instructions, please read [here](https://www.frontendundefined.com/posts/tutorials/vite-production-build/)._
+
+### 🔻 Setup Backend
+#### Configure .env file
+Rename `.env.example` to `.env`, then fill in the required values.
+
+Most of the variables are self-explanatory and can be understood by reading the `.env` file. 
+Below are instructions for obtaining only the values that may need additional setup.
+
+##### 🔹 MongoDB Connection String - `MONGO_URI`
+You can get this by setting up MongoDB locally or by creating a [Free MongoDB account](https://www.mongodb.com/cloud/atlas/register).
+For more information, read [here](https://www.mongodb.com/resources/products/fundamentals/mongodb-connection-string).
+
+##### 🔹 JWT Token Secrets - `ACCESS_TOKEN_SECRET`, `REFRESH_TOKEN_SECRET`
+You can use any value for these secrets. However, it is recommended to generate a strong and secure random value.
+
+You can generate one using Node.js with the following steps:
+```js
+// Run `node` in your terminal, then paste this:
+require("crypto").randomBytes(64).toString("hex");
+
+// Example output:
+// d6a587c0a0ae1558081d29f292a38e0404232d2c05a16379e3ca120ab50745f2907671f1f11fa84e2f030c35bb3b3d26aa2f43348d6e1c10ec8008f2ed64922f
+```
+##### 🔹 SMTP Credentials - `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_KEY`, `FROM_EMAIL`
+I used Brevo to configure SMTP. You can follow their documentation for setup [instructions](https://help.brevo.com/hc/en-us/articles/7959631848850-Create-and-manage-your-SMTP-keys).
+
 ## Stack
 ![Habit Tracker Stack](https://go-skill-icons.vercel.app/api/icons?i=react,nodejs,mongodb,express)
 
-Using:
-
-- React Context API
-
-### Frontend Libraries
+#### Frontend Libraries
 
 - [Chakra UI](https://chakra-ui.com/)
 - [React Router v7](https://reactrouter.com/)
@@ -24,7 +78,7 @@ Using:
 - [Lucide Icons](https://lucide.dev/guide/packages/lucide-react)
 - [lottie-react](https://www.npmjs.com/package/lottie-react)
 
-### Backend Libraries
+#### Backend Libraries
 
 - [Mongoose](https://mongoosejs.com/)
 - [cors](https://www.npmjs.com/package/cors)
@@ -35,76 +89,3 @@ Using:
 - [express-rate-limit](https://www.npmjs.com/package/express-rate-limit)
 - [nodemailer](https://www.npmjs.com/package/nodemailer)
 - [nodemon](https://www.npmjs.com/package/nodemon)
-
-## Initial Planned Folder Structure
-
-```
-frontend/
-│── public/                # Static assets (favicon, index.html, etc.)
-│── src/
-│   ├── assets/            # Images, icons, fonts if needed
-│   ├── components/        # Reusable UI components (buttons, inputs, navbars)
-│   │   ├── HabitCard.jsx
-│   │   ├── Layout.jsx
-│   │   └── ...
-│   ├── context/           # React Context providers
-│   │   ├── HabitContext.jsx
-│   │   └── AuthContext.jsx (if login is needed)
-│   ├── hooks/             # Custom hooks
-│   │   ├── useHabits.js
-│   │   └── useAuth.js
-│   ├── pages/             # Route-level components
-│   │   ├── Home.jsx
-│   │   ├── Dashboard.jsx
-│   │   ├── Login.jsx
-│   │   └── ...
-│   ├── services/          # API calls (fetch/axios)
-│   │   └── habitService.js
-│   ├── theme/             # Chakra UI theme overrides
-│   │   └── index.js
-│   ├── utils/             # Helper functions (date formatter, validators, etc.)
-│   │   └── dateUtils.js
-│   ├── App.jsx            # App root with Router + Providers
-│   ├── index.js           # Entry point (ReactDOM.render)
-│   └── routes.jsx         # Centralized React Router config
-│
-├── .env                   # API base URLs, secrets
-├── package.json
-└── README.md
-
-
-
-backend/
-│
-├── src/
-│   ├── config/          # App config (DB connection, env setup)
-│   │   └── db.js
-│   ├── models/          # Data access layer (talk to DB)
-│   │   └── habitModel.js
-│   ├── controllers/     # Business logic (uses models)
-│   │   └── habitController.js
-│   ├── routes/          # API routes (maps endpoints to controllers)
-│   │   └── habitRoutes.js
-│   ├── utils/           # Helper functions (optional)
-│   ├── index.js         # Express app setup (middleware, routes)
-│   └── server.js        # Starts server
-│
-└── package.json
-
-```
-
-## Setup
-
-### Configure .env file
-
-Rename `.env.example` to `.env` and start adding the info.
-
-###### JWT Token Secrets
-
-You can use whatever for these secrets I prefer use this code generate a much more secure token.
-
-```js
-// Type 'node' in the terminal and paste this code
-require("crypto").randomBytes(64).toString("hex");
-// Output: d6a587c0a0ae1558081d29f292a38e0404232d2c05a16379e3ca120ab50745f2907671f1f11fa84e2f030c35bb3b3d26aa2f43348d6e1c10ec8008f2ed64922f"
-```
