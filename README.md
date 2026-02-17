@@ -10,10 +10,14 @@ _An intuitive SaaS platform to help users build and maintain positive habits. Us
 
 <br/><br/>
 ## Features
-- Track Habits Easily – Add, edit, delete and mark as done daily habits.
-- Progress Visualization - View your habit streaks and completion history at a glance.
-- Modern Tech Stack – Built with [MERN Stack](https://www.mongodb.com/resources/languages/mern-stack).
-
+- **Manage Habits** – Add, edit, delete, and mark daily habits as done with a simple and intuitive workflow.
+- **Progress Visualization** – View your habit streaks, completion history, and overall progress at a glance.
+- **User-friendly Interface** – Instant updates, modern UI, single-page application (SPA) feel, and intuitive drag-and-drop functionality.
+- **Sync Across Devices** – Keep your progress consistent across multiple devices with secure cloud storage.
+- **Authentication** – Sign up, log in, and stay secure with JWT-based authentication and session management.
+- **Responsive Design** – Works seamlessly on desktop, tablet, and mobile devices.
+- **Customizable Settings** – Personalize your experience with app preferences, profile settings, and theme options.
+- **User Leaderboard** – Compete with others and track top streaks to foster a habit-building community.
 
 <br/><br/>
 ## How to run locally?
