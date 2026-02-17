@@ -1,5 +1,5 @@
 # Habit Tracker
-_A full-stack habit tracking app built with the MERN stack to Track, manage, and visualize your habits with an intuitive interface, secure authentication, and drag-and-drop functionality._
+_An intuitive SaaS platform to help users build and maintain positive habits. Users can sign up, track their daily routines, and monitor progress over time. This makes habit tracking seamless and visually engaging.._
 
 <br/>
 
@@ -8,6 +8,14 @@ _A full-stack habit tracking app built with the MERN stack to Track, manage, and
 
 ![Habit Tracker Thumbnail](https://github.com/user-attachments/assets/db40a3d7-4558-441c-8892-d6f71ac5164a)
 
+<br/><br/>
+## Features
+- Track Habits Easily – Add, edit, delete and mark as done daily habits.
+- Progress Visualization - View your habit streaks and completion history at a glance.
+- Modern Tech Stack – Built with [MERN Stack](https://www.mongodb.com/resources/languages/mern-stack).
+
+
+<br/><br/>
 ## How to run locally?
 ### 🔻 Prerequisites
 -  [Node.js](https://nodejs.org/en/download) _(v18.x+ recommended)_
@@ -66,6 +74,7 @@ require("crypto").randomBytes(64).toString("hex");
 ##### 🔹 SMTP Credentials - `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_KEY`, `FROM_EMAIL`
 I used Brevo to configure SMTP. You can follow their documentation for setup [instructions](https://help.brevo.com/hc/en-us/articles/7959631848850-Create-and-manage-your-SMTP-keys).
 
+<br/><br/>
 ## Stack
 ![Habit Tracker Stack](https://go-skill-icons.vercel.app/api/icons?i=react,nodejs,mongodb,express)
 
