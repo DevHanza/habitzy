@@ -1,6 +1,9 @@
 import { Habit } from "../models/habitModel.js";
 import { DailyLog } from "../models/dailyLogModel.js";
+import { User } from "../models/userModel.js";
+
 import normalizeDate from "../utils/normalizeDate.js";
+import moveListItems from "../utils/moveListItems.js";
 
 export async function getHabits(req, res) {
   try {
@@ -234,6 +237,75 @@ export async function toggleHabitStatus(req, res) {
       _id: habit._id,
       isCompleted: !isCompleted,
     });
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
+
+export async function reorderHabit(req, res) {
+  try {
+    //
+    const userId = req.user.userId;
+    const { habitId } = req.params;
+    const { toIndex } = req.body;
+
+    // Check if, all the fields are empty?
+
+    const allFieldsEmpty = !req.body || Object.keys(req.body).length === 0;
+    if (allFieldsEmpty) {
+      return res.status(400).json({ message: "No fields provided to update." });
+    }
+
+    if (toIndex === undefined) {
+      return res
+        .status(404)
+        .json({ message: "Required data is missing.", toIndex });
+    }
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not found." });
+    }
+
+    if (!habitId) {
+      return res.status(400).json({ message: "Habit ID is required." });
+    }
+
+    // Query for User
+
+    const user = await User.findById(userId).select("habitsOrder").lean();
+
+    if (!user) {
+      return res.status(404).json({ message: "The user does not exist." });
+    }
+
+    // Reorder the habit
+
+    const habitsOrder = user.habitsOrder;
+    const fromIndex = habitsOrder.indexOf(habitId);
+    const reorderedList = moveListItems(habitsOrder, fromIndex, toIndex);
+
+    if (habitsOrder.length < 1) {
+      return res.status(400).json({ message: "habitsOrder is empty." });
+    }
+
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: userId },
+      {
+        $set: {
+          habitsOrder: reorderedList,
+        },
+      },
+      { new: true, upsert: true },
+    );
+
+    res.send({
+      message: "Habit reordered.",
+      habits: updatedUser.habitsOrder,
+    });
+
     //
   } catch (err) {
     //

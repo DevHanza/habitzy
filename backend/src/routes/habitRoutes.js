@@ -6,6 +6,7 @@ import {
   updateHabit,
   deleteHabit,
   toggleHabitStatus,
+  reorderHabit,
   // getHabitByID,
 } from "../controllers/habitController.js";
 
@@ -16,6 +17,7 @@ router.get("/", getHabits);
 router.post("/", addHabit);
 router.patch("/:habitId", updateHabit);
 router.patch("/:habitId/toggleStatus", toggleHabitStatus);
+router.patch("/:habitId/orderHabit", reorderHabit);
 router.delete("/:habitId", deleteHabit);
 
 // router.get("/:habitId", getHabitByID);
