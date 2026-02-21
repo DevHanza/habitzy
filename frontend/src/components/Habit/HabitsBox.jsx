@@ -10,8 +10,6 @@ import HabitsBoxEmpty from "@/components/Habit/HabitsBoxEmpty";
 import { Plus } from "lucide-react";
 import { Button, Stack, VStack } from "@chakra-ui/react";
 
-import { moveItemsInList } from "@/utils/moveItemsInList";
-
 function HabitsBox() {
   const [isAddingHabits, setIsAddingHabits] = useState(false);
 
