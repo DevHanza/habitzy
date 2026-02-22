@@ -53,7 +53,30 @@ export async function getHabits(req, res) {
         isCompleted: completedHabitsSet.has(habit._id.toString()),
       };
     });
-    res.json(updatedHabits);
+
+    // Query the User
+
+    const user = await User.findOne({ _id: userId })
+      .select("habitsOrder")
+      .lean();
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Re-Order the habits
+
+    const habitsMap = new Map(); // Map for faster lookups
+    const habitsOrder = user.habitsOrder;
+
+    updatedHabits.forEach((habit) => {
+      const id = habit._id.toString();
+      habitsMap.set(id, habit);
+    });
+
+    const orderedHabits = habitsOrder.map((id) => habitsMap.get(id)); // Reorder according to habitsOrder
+
+    res.json(orderedHabits);
     //
   } catch (err) {
     // console.log(err);
