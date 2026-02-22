@@ -209,6 +209,17 @@ export async function deleteHabit(req, res) {
       return res.status(400).json({ message: "Habit ID is required." });
     }
 
+    // Remove the habit from habitOrder
+
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: userId },
+      { $pull: { habitsOrder: habitId } },
+    );
+
+    if (!updatedUser) {
+      return res.status(500).json({ message: "Unable to update user." });
+    }
+
     const deletedHabit = await Habit.findOneAndDelete({
       _id: habitId,
       userId: userId,
