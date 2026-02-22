@@ -86,7 +86,7 @@ export async function getHabits(req, res) {
 
 export async function addHabit(req, res) {
   try {
-    const userId = req.user.userId;
+    const { userId } = req.user;
     const { title, description, icon } = req.body;
 
     if (!userId) {
@@ -109,6 +109,21 @@ export async function addHabit(req, res) {
     };
 
     const newHabit = new Habit(habitData);
+
+    // Add habit to the habitsOrder in User
+
+    const updatedUser = await User.findOneAndUpdate(
+      {
+        _id: userId,
+      },
+      { $push: { habitsOrder: { $each: [newHabit._id], $position: 0 } } },
+      { new: true, runValidators: true },
+    );
+
+    if (!updatedUser) {
+      return res.status(500).json({ message: "Unable to update user." });
+    }
+
     await newHabit.save();
 
     res.status(201).json({
