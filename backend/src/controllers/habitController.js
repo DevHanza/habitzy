@@ -303,7 +303,7 @@ export async function reorderHabit(req, res) {
     //
     const userId = req.user.userId;
     const { habitId } = req.params;
-    const { toIndex } = req.body;
+    const toIndex = Number(req.body.toIndex);
 
     // Check if, all the fields are empty?
 
@@ -313,9 +313,7 @@ export async function reorderHabit(req, res) {
     }
 
     if (toIndex === undefined) {
-      return res
-        .status(404)
-        .json({ message: "Required data is missing.", toIndex });
+      return res.status(404).json({ message: "Required data is missing." });
     }
 
     if (!userId) {
@@ -354,9 +352,13 @@ export async function reorderHabit(req, res) {
       { new: true, upsert: true },
     );
 
+    if (!updatedUser) {
+      return res.status(500).json({ message: "Unable to update user." });
+    }
+
     res.send({
       message: "Habit reordered.",
-      habits: updatedUser.habitsOrder,
+      _id: habitId,
     });
 
     //
