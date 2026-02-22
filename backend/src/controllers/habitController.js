@@ -27,6 +27,8 @@ export async function getHabits(req, res) {
 
     const currentDate = normalizeDate();
 
+    // Query the DailyLog and, create if not exists
+
     // const dailyLog = await DailyLog.findOne({ userId, date: currentDate });
     const dailyLog = await DailyLog.findOneAndUpdate(
       { userId, date: currentDate },
@@ -39,6 +41,8 @@ export async function getHabits(req, res) {
         .status(404)
         .json({ message: "No daily log found for this user." });
     }
+
+    // Merge DailyLog + Habit data
 
     const completedHabitsSet =
       new Set(dailyLog?.completedHabits.map((id) => id.toString())) ?? [];
@@ -278,7 +282,7 @@ export async function reorderHabit(req, res) {
     const user = await User.findById(userId).select("habitsOrder").lean();
 
     if (!user) {
-      return res.status(404).json({ message: "The user does not exist." });
+      return res.status(404).json({ message: "User not found." });
     }
 
     // Reorder the habit
