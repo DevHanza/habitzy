@@ -229,6 +229,9 @@ export async function getDailyLeaderboardRank(req, res) {
           rank: 1,
         },
       },
+      {
+        $sort: { updatedAt: 1 },
+      },
     ]);
 
     if (!leaderboardRank) {
@@ -244,6 +247,11 @@ export async function getDailyLeaderboardRank(req, res) {
 
     if (rankPercentage === 101) {
       rankPercentage = 100;
+    }
+
+    // last person, set the percentage to 100%,
+    if (leaderboardRank[0].rank === leaderboardUsersCount - 1) {
+      // rankPercentage = 100;
     }
 
     res.json({
