@@ -204,7 +204,7 @@ export async function refreshToken(req, res) {
       .lean();
 
     if (!user) {
-      return res.status(401).json({ message: "User not found." });
+      return res.status(404).json({ message: "User not found." });
     }
 
     const storedToken = user.refreshTokens.find(
@@ -255,7 +255,7 @@ export async function logout(req, res) {
 
     const user = await User.findById(payload.userId);
     if (!user) {
-      return res.status(401).json({ message: "User not found." });
+      return res.status(404).json({ message: "User not found." });
     }
 
     user.refreshTokens = user.refreshTokens.filter(
@@ -315,7 +315,7 @@ export async function logoutAll(req, res) {
 
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(401).json({ message: "User not found." });
+      return res.status(404).json({ message: "User not found." });
     }
 
     user.refreshTokens = [];

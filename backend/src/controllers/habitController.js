@@ -1,6 +1,9 @@
 import { Habit } from "../models/habitModel.js";
 import { DailyLog } from "../models/dailyLogModel.js";
+import { User } from "../models/userModel.js";
+
 import normalizeDate from "../utils/normalizeDate.js";
+import moveListItems from "../utils/moveListItems.js";
 
 export async function getHabits(req, res) {
   try {
@@ -24,6 +27,8 @@ export async function getHabits(req, res) {
 
     const currentDate = normalizeDate();
 
+    // Query the DailyLog and, create if not exists
+
     // const dailyLog = await DailyLog.findOne({ userId, date: currentDate });
     const dailyLog = await DailyLog.findOneAndUpdate(
       { userId, date: currentDate },
@@ -37,6 +42,8 @@ export async function getHabits(req, res) {
         .json({ message: "No daily log found for this user." });
     }
 
+    // Merge DailyLog + Habit data
+
     const completedHabitsSet =
       new Set(dailyLog?.completedHabits.map((id) => id.toString())) ?? [];
 
@@ -46,7 +53,30 @@ export async function getHabits(req, res) {
         isCompleted: completedHabitsSet.has(habit._id.toString()),
       };
     });
-    res.json(updatedHabits);
+
+    // Query the User
+
+    const user = await User.findOne({ _id: userId })
+      .select("habitsOrder")
+      .lean();
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Re-Order the habits
+
+    const habitsMap = new Map(); // Map for faster lookups
+    const habitsOrder = user.habitsOrder;
+
+    updatedHabits.forEach((habit) => {
+      const id = habit._id.toString();
+      habitsMap.set(id, habit);
+    });
+
+    const orderedHabits = habitsOrder.map((id) => habitsMap.get(id)); // Reorder according to habitsOrder
+
+    res.json(orderedHabits);
     //
   } catch (err) {
     // console.log(err);
@@ -56,7 +86,7 @@ export async function getHabits(req, res) {
 
 export async function addHabit(req, res) {
   try {
-    const userId = req.user.userId;
+    const { userId } = req.user;
     const { title, description, icon } = req.body;
 
     if (!userId) {
@@ -79,6 +109,21 @@ export async function addHabit(req, res) {
     };
 
     const newHabit = new Habit(habitData);
+
+    // Add habit to the habitsOrder in User
+
+    const updatedUser = await User.findOneAndUpdate(
+      {
+        _id: userId,
+      },
+      { $push: { habitsOrder: { $each: [newHabit._id], $position: 0 } } },
+      { new: true, runValidators: true },
+    );
+
+    if (!updatedUser) {
+      return res.status(500).json({ message: "Unable to update user." });
+    }
+
     await newHabit.save();
 
     res.status(201).json({
@@ -164,6 +209,17 @@ export async function deleteHabit(req, res) {
       return res.status(400).json({ message: "Habit ID is required." });
     }
 
+    // Remove the habit from habitOrder
+
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: userId },
+      { $pull: { habitsOrder: habitId } },
+    );
+
+    if (!updatedUser) {
+      return res.status(500).json({ message: "Unable to update user." });
+    }
+
     const deletedHabit = await Habit.findOneAndDelete({
       _id: habitId,
       userId: userId,
@@ -234,6 +290,77 @@ export async function toggleHabitStatus(req, res) {
       _id: habit._id,
       isCompleted: !isCompleted,
     });
+    //
+  } catch (err) {
+    //
+    res.status(400).json({ message: err.message });
+    //
+  }
+}
+
+export async function reorderHabit(req, res) {
+  try {
+    //
+    const userId = req.user.userId;
+    const { habitId } = req.params;
+    const toIndex = Number(req.body.toIndex);
+
+    // Check if, all the fields are empty?
+
+    const allFieldsEmpty = !req.body || Object.keys(req.body).length === 0;
+    if (allFieldsEmpty) {
+      return res.status(400).json({ message: "No fields provided to update." });
+    }
+
+    if (toIndex === undefined) {
+      return res.status(404).json({ message: "Required data is missing." });
+    }
+
+    if (!userId) {
+      return res.status(400).json({ message: "User not found." });
+    }
+
+    if (!habitId) {
+      return res.status(400).json({ message: "Habit ID is required." });
+    }
+
+    // Query for User
+
+    const user = await User.findById(userId).select("habitsOrder").lean();
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Reorder the habit
+
+    const habitsOrder = user.habitsOrder;
+    const fromIndex = habitsOrder.indexOf(habitId);
+    const reorderedList = moveListItems(habitsOrder, fromIndex, toIndex);
+
+    if (habitsOrder.length < 1) {
+      return res.status(400).json({ message: "habitsOrder is empty." });
+    }
+
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: userId },
+      {
+        $set: {
+          habitsOrder: reorderedList,
+        },
+      },
+      { new: true, upsert: true },
+    );
+
+    if (!updatedUser) {
+      return res.status(500).json({ message: "Unable to update user." });
+    }
+
+    res.send({
+      message: "Habit reordered.",
+      _id: habitId,
+    });
+
     //
   } catch (err) {
     //

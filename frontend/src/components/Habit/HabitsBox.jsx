@@ -10,34 +10,13 @@ import HabitsBoxEmpty from "@/components/Habit/HabitsBoxEmpty";
 import { Plus } from "lucide-react";
 import { Button, Stack, VStack } from "@chakra-ui/react";
 
-import { moveItemsInList } from "@/utils/moveItemsInList";
-
 function HabitsBox() {
   const [isAddingHabits, setIsAddingHabits] = useState(false);
 
-  const { habits, habitDispatch, isHabitLoading, toggleHabit, removeHabit } =
+  const { habits, isHabitLoading, toggleHabit, removeHabit, reorderHabit } =
     useHabits();
 
   const hasHabits = habits.length > 0;
-
-  // Pragmatic Drag & Drop Features
-
-  const moveItems = useCallback((fromIndex, toIndex) => {
-    //
-
-    // console.log("fromIndex: ", fromIndex);
-    // console.log("toIndex: ", toIndex);
-
-    habitDispatch({
-      type: "MOVE_HABITS",
-      payload: {
-        fromIndex,
-        toIndex,
-      },
-    });
-
-    //
-  }, []);
 
   // Functions for adding habits
   function handleAddHabit() {
@@ -66,7 +45,7 @@ function HabitsBox() {
       toggleHabit={toggleHabit}
       isCompleted={habit.isCompleted}
       removeHabit={removeHabit}
-      moveItems={moveItems}
+      reorderHabit={reorderHabit}
     />
   ));
 

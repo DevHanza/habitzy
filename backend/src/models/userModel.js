@@ -56,6 +56,10 @@ const userSchema = new Schema(
         default: new Date(),
       },
     },
+    habitsOrder: {
+      type: [String],
+      default: [],
+    },
     refreshTokens: {
       type: [
         {

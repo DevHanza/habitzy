@@ -15,7 +15,7 @@ const HabitCard = memo(function HabitCard({
   icon = "✨",
   isCompleted = false,
   toggleHabit,
-  moveItems,
+  reorderHabit,
   removeHabit,
 }) {
   const ref = useRef();
@@ -61,14 +61,14 @@ const HabitCard = memo(function HabitCard({
         const fromIndex = source.data?.index;
         const toIndex = index;
         if (fromIndex != null && toIndex != null && fromIndex !== toIndex) {
-          moveItems(fromIndex, toIndex);
+          reorderHabit(source.data?.id, fromIndex, toIndex);
         }
       },
       canDrop() {
         return true;
       },
     });
-  }, [index, moveItems]);
+  }, [index, reorderHabit]);
 
   if (isEditing) {
     return (

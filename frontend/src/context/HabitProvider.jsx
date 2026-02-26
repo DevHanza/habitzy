@@ -2,6 +2,7 @@ import { useReducer, useEffect, useCallback } from "react";
 import { HabitContext } from "@/context/HabitContext";
 import { useAuth } from "@/hooks/useAuth";
 import { moveItemsInList } from "@/utils/moveItemsInList";
+import { toaster } from "@/components/ui/toaster";
 
 const habitsList = [
   { _id: 1, icon: "📖", title: "Read a book", isCompleted: false },
@@ -392,6 +393,70 @@ export const HabitProvider = ({ children }) => {
     [authFetch, isLoggedIn],
   );
 
+  // Reorder Habit: Drag & Drop
+  const reorderHabit = async (habitId, fromIndex, toIndex) => {
+    //
+
+    // console.log(habitId, fromIndex, toIndex);
+
+    try {
+      if (isLoggedIn) {
+        //
+        const res = await authFetch({
+          url: `user/habits/${habitId}/orderHabit`,
+          method: "PATCH",
+          body: {
+            toIndex,
+          },
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw Error(data.message);
+        }
+
+        habitDispatch({
+          type: "MOVE_HABITS",
+          payload: {
+            fromIndex,
+            toIndex,
+          },
+        });
+
+        console.log(JSON.stringify(data, null, 2));
+
+        toaster.create({
+          title: `${data.message}`,
+          type: "success",
+          closable: true,
+        });
+
+        //
+      } else {
+        //
+        habitDispatch({
+          type: "MOVE_HABITS",
+          payload: {
+            fromIndex,
+            toIndex,
+          },
+        });
+        //
+      }
+      //
+    } catch (err) {
+      toaster.create({
+        title: `${err.message}`,
+        type: "warning",
+        closable: true,
+      });
+      throw Error(err);
+    }
+
+    //
+  };
+
   return (
     <HabitContext.Provider
       value={{
@@ -402,6 +467,7 @@ export const HabitProvider = ({ children }) => {
         editHabit,
         removeHabit,
         toggleHabit,
+        reorderHabit,
       }}
     >
       {children}
