@@ -136,7 +136,7 @@ function StreakBox() {
 
         <Skeleton loading={isUserLoading}>
           <VStack gap={0}>
-            <Heading size={{ base: "lg", md: "xl" }}>
+            <Heading size={{ base: "lg", md: "xl" }} textAlign={"center"}>
               {hasStreak ? "Keep the streak alive!" : "Start a streak!"}
             </Heading>
             <Text color={"fg.muted"}>
