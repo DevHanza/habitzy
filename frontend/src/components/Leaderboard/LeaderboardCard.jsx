@@ -24,15 +24,29 @@ function LeaderboardCard({
           #{rank}
         </Text>
         {/* Rank */}
-        <HStack justifyContent={"space-between"} flex={3}>
+        <HStack justifyContent={"space-between"} width={"100%"} flex={1}>
           {/* User */}
-          <HStack gap={3}>
+          <HStack
+            gap={3}
+            whiteSpace={"nowrap"}
+            overflow={"hidden"}
+            minWidth={0}
+            // flex={1}
+          >
             <Avatar.Root colorPalette={pickPalette(name)}>
               <Avatar.Fallback name={name} />
               {/* <Avatar.Image src="https://bit.ly/sage-adebayo" /> */}
             </Avatar.Root>
-            <VStack gap={1} alignItems={"flex-start"}>
-              <Text fontSize={"md"} fontWeight={500} lineHeight={1}>
+            <VStack gap={1} alignItems={"flex-start"} minWidth={0} maxWidth={"fit-conten"}>
+              <Text
+                fontSize={"md"}
+                fontWeight={500}
+                lineHeight={1}
+                whiteSpace={"nowrap"}
+                overflow={"hidden"}
+                textOverflow={"ellipsis"}
+                width={"100%"}
+              >
                 {name}
               </Text>
               <Text
@@ -40,6 +54,9 @@ function LeaderboardCard({
                 fontWeight={300}
                 lineHeight={1}
                 color={"fg.muted"}
+                whiteSpace={"nowrap"}
+                overflow={"hidden"}
+                textOverflow={"ellipsis"}
               >
                 {username}
               </Text>
