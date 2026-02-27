@@ -1,39 +1,35 @@
 name: Deploy to GitHub Pages
+
 on:
   push:
     branches:
       - main
 
+permissions:
+  contents: write # Needed to push to gh-pages
+
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout the repo
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Set up Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "24" # or your preferred Node.js version
+          node-version: "24"
 
-      # 3. Install dependencies
       - name: Install dependencies
-        working-directory: frontend
         run: npm ci
 
-      # 4. Build React app
-      - name: Build React app
-        working-directory: frontend
+      - name: Build project
         run: npm run build
 
-      # 5. Deploy to gh-pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: frontend/build
+          publish_dir: ./dist
           publish_branch: gh-pages
-          keep_files: false
