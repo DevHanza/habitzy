@@ -1,38 +1,39 @@
 name: Deploy to GitHub Pages
-
 on:
   push:
     branches:
       - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Checkout the repo
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 2. Set up Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 24
-          cache: 'npm'
+          node-version: "24" # or your preferred Node.js version
 
-      - name: Navigate to frontend folder
-        working-directory: ./frontend
-        run: echo "In frontend folder"
-
+      # 3. Install dependencies
       - name: Install dependencies
-        working-directory: ./frontend
+        working-directory: frontend
         run: npm ci
 
+      # 4. Build React app
       - name: Build React app
-        working-directory: ./frontend
+        working-directory: frontend
         run: npm run build
 
+      # 5. Deploy to gh-pages
       - name: Deploy to GitHub Pages
-        working-directory: ./frontend
-        run: npx gh-pages -d build -b gh-pages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: frontend/build
+          publish_branch: gh-pages
+          keep_files: false
