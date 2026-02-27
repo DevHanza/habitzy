@@ -24,7 +24,7 @@ function LeaderboardCard({
           #{rank}
         </Text>
         {/* Rank */}
-        <HStack width={"100%"} flex={1} gap={4}>
+        <HStack width={"100%"} flex={1} gap={4} minWidth={0}>
           {/* User */}
           <HStack gap={3} overflow={"hidden"} minWidth={0} flex={1}>
             <Avatar.Root
@@ -39,7 +39,7 @@ function LeaderboardCard({
               alignItems={"flex-start"}
               minWidth={0}
               width={"100%"}
-              maxWidth={{ xlDown: "100px" }}
+              // maxWidth={{ xlDown: "100px" }}
             >
               <Text
                 fontSize={"md"}
