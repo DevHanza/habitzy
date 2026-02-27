@@ -155,11 +155,14 @@ export async function getDailyLeaderboard(req, res) {
   try {
     //
 
+    const TWO_DAYS_AGO = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
+
     const leaderboardUsers = await User.find({
       "streak.currentStreak": { $gt: 0 },
+      "streak.incrementedAt": { $gte: TWO_DAYS_AGO },
     })
       .sort({ "streak.currentStreak": -1 })
-      .select("name username streak.currentStreak")
+      .select("name username streak")
       .limit(20)
       .lean();
 
