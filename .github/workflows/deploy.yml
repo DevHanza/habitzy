@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy React App to GitHub Pages
 
 on:
   push:
@@ -9,7 +9,7 @@ permissions:
   contents: write # Needed to push to gh-pages
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,16 +21,19 @@ jobs:
         with:
           node-version: "24"
 
-      - name: Install dependencies
+      - name: Install frontend dependencies
         working-directory: frontend
         run: npm ci
 
-      - name: Build project
+      - name: Build frontend
+        working-directory: frontend
         run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: frontend/build
           publish_branch: gh-pages
+          keep_files: false
+          allow_empty_commit: true
