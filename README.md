@@ -110,6 +110,7 @@ I used Brevo to configure SMTP. You can follow their documentation for setup [in
 - [check-password-strength](https://github.com/deanilvincent/check-password-strength)
 - [Lucide Icons](https://lucide.dev/guide/packages/lucide-react)
 - [lottie-react](https://www.npmjs.com/package/lottie-react)
+- [gh-pages](https://www.npmjs.com/package/gh-pages)
 
 #### Backend Libraries
 
