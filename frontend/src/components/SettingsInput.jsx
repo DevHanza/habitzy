@@ -32,6 +32,11 @@ function SettingsInput({
       //
       e.preventDefault();
 
+      setError({
+        status: false,
+        message: "",
+      });
+
       const input = e.target.elements[name];
       const prevValue = prevValueRef.current;
       const newValue = input?.value;
