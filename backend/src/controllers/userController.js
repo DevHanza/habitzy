@@ -288,13 +288,13 @@ export async function incrementStreak(req, res) {
       return res.status(404).json({ message: "User not found." });
     }
 
-    const updatedAt = normalizeDate(user.streak.updatedAt);
-    const isStreakUpdated = updatedAt.getTime() === currentDate.getTime();
+    const incrementedAt = normalizeDate(user.streak.incrementedAt);
+    const isMoreThan24Hours = incrementedAt.getTime() === currentDate.getTime();
 
-    if (isStreakUpdated) {
-      return res
-        .status(409)
-        .send({ message: "Streak already updated for today." });
+    if (isMoreThan24Hours) {
+      return res.status(409).send({
+        message: "Streak already updated for today.",
+      });
     }
 
     const habits = await Habit.find({ userId: userId })
@@ -354,7 +354,7 @@ export async function incrementStreak(req, res) {
         {
           $set: {
             "streak.currentStreak": { $add: ["$streak.currentStreak", 1] },
-            "streak.updatedAt": currentDate,
+            "streak.incrementedAt": currentDate,
           },
         },
         //
@@ -404,28 +404,42 @@ export async function clearStreak(req, res) {
       return res.status(404).json({ message: "User not found." });
     }
 
-    const updatedAt = normalizeDate(user.streak.updatedAt);
+    const clearedAt = normalizeDate(user.streak.clearedAt);
+    const incrementedAt = normalizeDate(user.streak.incrementedAt);
+
+    // Check: Is streak already incremented for the day
+
+    const isStreakIncremented =
+      incrementedAt.getTime() === currentDate.getTime();
+
+    if (isStreakIncremented) {
+      return res
+        .status(409)
+        .send({ message: "Streak already incremented for today." });
+    }
+
+    // Check: Is streak already cleared for the day
+
+    const isStreakCleared = clearedAt.getTime() === currentDate.getTime();
+
+    if (isStreakCleared) {
+      return res
+        .status(409)
+        .send({ message: "Streak already cleared for today." });
+    }
 
     // Check: Is streak expired?
 
-    const streakUpdatedDiff =
-      (currentDate.getTime() - updatedAt.getTime()) / 86400000;
-    const isStreakExpired = streakUpdatedDiff > 1;
+    const DAY_IN_MS = 24 * 60 * 60 * 1000;
+
+    const streakIncrementedDiff =
+      (currentDate.getTime() - incrementedAt.getTime()) / DAY_IN_MS;
+    const isStreakExpired = streakIncrementedDiff > 1;
 
     if (!isStreakExpired) {
       return res.status(409).json({
         message: "Streak has not expired yet.",
       });
-    }
-
-    // Check: Is streak already incremented for the day
-
-    const isStreakUpdated = updatedAt.getTime() === currentDate.getTime();
-
-    if (isStreakUpdated) {
-      return res
-        .status(409)
-        .send({ message: "Streak already updated for today." });
     }
 
     // Query for habits & daily log
@@ -484,7 +498,7 @@ export async function clearStreak(req, res) {
       userId,
       {
         "streak.currentStreak": 0,
-        "streak.updatedAt": currentDate,
+        "streak.clearedAt": currentDate,
       },
       { new: true }, // returns the updated document
     );

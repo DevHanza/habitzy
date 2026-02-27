@@ -50,9 +50,14 @@ const userSchema = new Schema(
         min: [0, "Longest streak cannot be negative"],
         default: 0,
       },
-      updatedAt: {
+      incrementedAt: {
         type: Date,
-        required: [true, "Streak updatedAt streak is required"],
+        required: [true, "Last streak increment date is required."],
+        default: new Date(),
+      },
+      clearedAt: {
+        type: Date,
+        required: [true, "Last streak decrement date is required."],
         default: new Date(),
       },
     },
