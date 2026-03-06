@@ -38,7 +38,7 @@ function AddHabitBox({ setIsAddingHabits }) {
       width={"100%"}
       position={"relative"}
       borderWidth={2}
-      borderColor={"teal"}
+      borderColor={import.meta.env.VITE_APP_COLOR}
       // _hover={{
       //   borderColor: "teal.500",
       // }}
@@ -72,7 +72,7 @@ function AddHabitBox({ setIsAddingHabits }) {
           <IconButton
             type="submit"
             size="sm"
-            colorPalette={"teal"}
+            colorPalette={import.meta.env.VITE_APP_COLOR}
             aria-label="Add habit"
             // onClick={handleAddHabit}
           >
@@ -82,7 +82,7 @@ function AddHabitBox({ setIsAddingHabits }) {
           <IconButton
             size="sm"
             variant={"surface"}
-            colorPalette={"teal"}
+            colorPalette={import.meta.env.VITE_APP_COLOR}
             aria-label="Cancel Adding a habit"
             onClick={handleCancelAddHabit}
           >

@@ -112,7 +112,7 @@ function ResetPasswordInputs({ email, code }) {
                 onChange={(e) => setPassword(e.currentTarget.value)}
                 placeholder="Password"
                 variant="subtle"
-                colorPalette={"teal"}
+                colorPalette={import.meta.env.VITE_APP_COLOR}
                 type="password"
                 name="password"
                 minLength="5"
@@ -126,7 +126,7 @@ function ResetPasswordInputs({ email, code }) {
                 borderColor={"border.emphasized"}
                 placeholder="Confirm Password"
                 variant="subtle"
-                colorPalette={"teal"}
+                colorPalette={import.meta.env.VITE_APP_COLOR}
                 type="password"
                 name="confirmPassword"
                 minLength="5"
@@ -137,7 +137,11 @@ function ResetPasswordInputs({ email, code }) {
           </Field.Root>
         </Stack>
 
-        <Button type="submit" disabled={loading}>
+        <Button
+          type="submit"
+          disabled={loading}
+          colorPalette={import.meta.env.VITE_APP_COLOR}
+        >
           {loading ? (
             <>
               <Spinner size={"sm"} />

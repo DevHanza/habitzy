@@ -127,7 +127,7 @@ const HabitCard = memo(function HabitCard({
             />
             <Checkbox.Root
               variant={"solid"}
-              colorPalette={"teal"}
+              colorPalette={import.meta.env.VITE_APP_COLOR}
               checked={isCompleted}
               onCheckedChange={() => {
                 toggleHabit(id);

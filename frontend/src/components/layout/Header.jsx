@@ -150,7 +150,10 @@ function DesktopMenu({ isLoggedIn, user, isUserLoading }) {
         <Menu.Root positioning={{ placement: "bottom" }}>
           <Menu.Trigger rounded="full" focusRing="outside" cursor={"pointer"}>
             <SkeletonCircle loading={isUserLoading}>
-              <Avatar.Root size={"sm"} colorPalette={"teal"}>
+              <Avatar.Root
+                size={"sm"}
+                colorPalette={import.meta.env.VITE_APP_COLOR}
+              >
                 <Avatar.Fallback name={user?.name} />
               </Avatar.Root>
             </SkeletonCircle>
@@ -186,7 +189,12 @@ function DesktopMenu({ isLoggedIn, user, isUserLoading }) {
       )}
 
       {!isUserLoading && !isLoggedIn && (
-        <Button as={Link} to={"/login"} size={"xs"} colorPalette={"teal"}>
+        <Button
+          as={Link}
+          to={"/login"}
+          size={"xs"}
+          colorPalette={import.meta.env.VITE_APP_COLOR}
+        >
           Sign in
         </Button>
       )}
@@ -212,7 +220,10 @@ function MobileMenu({ user, isLoggedIn, isUserLoading }) {
           <Menu.Root positioning={{ placement: "bottom" }}>
             <Menu.Trigger rounded="full" focusRing="outside" cursor={"pointer"}>
               <SkeletonCircle loading={isUserLoading}>
-                <Avatar.Root size={"sm"} colorPalette={"teal"}>
+                <Avatar.Root
+                  size={"sm"}
+                  colorPalette={import.meta.env.VITE_APP_COLOR}
+                >
                   <Avatar.Fallback name={user?.name} />
                 </Avatar.Root>
               </SkeletonCircle>
@@ -248,7 +259,12 @@ function MobileMenu({ user, isLoggedIn, isUserLoading }) {
         )}
 
         {!isUserLoading && !isLoggedIn && (
-          <Button as={Link} to={"/login"} size={"xs"} colorPalette={"teal"}>
+          <Button
+            as={Link}
+            to={"/login"}
+            size={"xs"}
+            colorPalette={import.meta.env.VITE_APP_COLOR}
+          >
             Sign in
           </Button>
         )}

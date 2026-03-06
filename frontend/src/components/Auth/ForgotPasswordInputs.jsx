@@ -61,7 +61,7 @@ function ForgotPasswordInputs() {
               borderColor={"border.emphasized"}
               placeholder="Email Address"
               variant="subtle"
-              colorPalette={"teal"}
+              colorPalette={import.meta.env.VITE_APP_COLOR}
               minLength="5"
               type="email"
               name="email"
@@ -69,7 +69,11 @@ function ForgotPasswordInputs() {
           </Field.Root>
         </Stack>
 
-        <Button type="submit" disabled={isLoading}>
+        <Button
+          type="submit"
+          disabled={isLoading}
+          colorPalette={import.meta.env.VITE_APP_COLOR}
+        >
           {isLoading ? (
             <>
               <Spinner size={"sm"} />

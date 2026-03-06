@@ -75,7 +75,7 @@ function LoginInputs() {
               borderColor={"border.emphasized"}
               placeholder="Email Address"
               variant="subtle"
-              colorPalette={"teal"}
+              colorPalette={import.meta.env.VITE_APP_COLOR}
               autoComplete="true"
               disabled={loading}
               required
@@ -90,7 +90,7 @@ function LoginInputs() {
                 borderColor={"border.emphasized"}
                 placeholder="Password"
                 variant="subtle"
-                colorPalette={"teal"}
+                colorPalette={import.meta.env.VITE_APP_COLOR}
                 disabled={loading}
                 required
                 type="password"
@@ -102,11 +102,11 @@ function LoginInputs() {
           </Field.Root>
         </Stack>
 
-        {/* <Button type="submit" disabled={loading}>
-          Log In
-        </Button> */}
-
-        <Button type="submit" disabled={loading}>
+        <Button
+          type="submit"
+          disabled={loading}
+          colorPalette={import.meta.env.VITE_APP_COLOR}
+        >
           {loading ? (
             <>
               <Spinner size={"sm"} />
@@ -117,7 +117,7 @@ function LoginInputs() {
           )}
         </Button>
 
-        {/* <Checkbox.Root defaultChecked variant={"solid"} colorPalette={"teal"}>
+        {/* <Checkbox.Root defaultChecked variant={"solid"} colorPalette={import.meta.env.VITE_APP_COLOR}>
         <Checkbox.HiddenInput />
         <Checkbox.Control />
         <Checkbox.Label cursor={"pointer"}>Keep me signed in</Checkbox.Label>

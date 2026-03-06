@@ -82,7 +82,7 @@ function VerifyCodeInputs({ email }) {
             onChange={handleInputs}
             size={"xl"}
             width={"100%"}
-            colorPalette={"teal"}
+            colorPalette={import.meta.env.VITE_APP_COLOR}
             invalid={false}
             attached
             autoFocus
@@ -129,7 +129,11 @@ function VerifyCodeInputs({ email }) {
           </PinInput.Root>
         </Stack>
 
-        <Button type="submit" disabled={!isValidLength || loading}>
+        <Button
+          type="submit"
+          disabled={!isValidLength || loading}
+          colorPalette={import.meta.env.VITE_APP_COLOR}
+        >
           {loading ? (
             <>
               <Spinner size={"sm"} />

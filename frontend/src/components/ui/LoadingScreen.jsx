@@ -16,7 +16,7 @@ function LoadingScreen() {
       <Flex alignItems={"center"} justifyContent={"center"} height={"100%"}>
         <Spinner
           size={{ base: "md", md: "xl" }}
-          colorPalette={"teal"}
+          colorPalette={import.meta.env.VITE_APP_COLOR}
           alignContent={"center"}
           color="colorPalette.300"
         />

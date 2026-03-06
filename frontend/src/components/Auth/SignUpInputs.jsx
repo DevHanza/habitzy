@@ -112,7 +112,7 @@ function SignUpInputs() {
               borderColor={"border.emphasized"}
               placeholder="Name"
               variant="subtle"
-              colorPalette={"teal"}
+              colorPalette={import.meta.env.VITE_APP_COLOR}
               name="name"
               minLength="3"
               maxLength="150"
@@ -123,7 +123,7 @@ function SignUpInputs() {
               borderColor={"border.emphasized"}
               placeholder="Username"
               variant="subtle"
-              colorPalette={"teal"}
+              colorPalette={import.meta.env.VITE_APP_COLOR}
               name="username"
               minLength="5"
               maxLength="25"
@@ -137,7 +137,7 @@ function SignUpInputs() {
             borderColor={"border.emphasized"}
             placeholder="Email Address"
             variant="subtle"
-            colorPalette={"teal"}
+            colorPalette={import.meta.env.VITE_APP_COLOR}
             name="email"
             minLength="5"
             type="email"
@@ -151,7 +151,7 @@ function SignUpInputs() {
               onChange={(e) => setPassword(e.currentTarget.value)}
               placeholder="Password"
               variant="subtle"
-              colorPalette={"teal"}
+              colorPalette={import.meta.env.VITE_APP_COLOR}
               name="pass"
               type="password"
               minLength="5"
@@ -161,7 +161,12 @@ function SignUpInputs() {
           </Stack>
         </Field.Root>
 
-        <Button mt={2} type="submit" disabled={loading}>
+        <Button
+          mt={2}
+          type="submit"
+          disabled={loading}
+          colorPalette={import.meta.env.VITE_APP_COLOR}
+        >
           {loading ? (
             <>
               <Spinner size={"sm"} />

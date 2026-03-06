@@ -40,7 +40,7 @@ function WidgetWrapper({
               to={link}
               outlineColor={"transparent"}
               fontSize={"0.75rem"}
-              _hover={{ color: "teal.300" }}
+              _hover={{ color: import.meta.env.VITE_APP_COLOR }}
             >
               {linkText} <ArrowRight size={"1rem"} />
             </ChakraLink>
@@ -51,7 +51,7 @@ function WidgetWrapper({
             <Link>
               <Button
                 {...btnlinkprops}
-                colorPalette={"teal"}
+                colorPalette={import.meta.env.VITE_APP_COLOR}
                 size={{ base: "xs", md: "sm" }}
               >
                 {buttonIcon}

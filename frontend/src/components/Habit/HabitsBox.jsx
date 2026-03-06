@@ -93,7 +93,7 @@ function HabitsBox() {
         <VStack display={habits.length > 0 ? "flex" : "none"}>
           <Button
             variant="solid"
-            colorPalette={"teal"}
+            colorPalette={import.meta.env.VITE_APP_COLOR}
             width={"100%"}
             onClick={handleBottomAddHabit}
             disabled={isAddingHabits}

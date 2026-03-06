@@ -30,7 +30,7 @@ function ErrorPage() {
             Oops! We couldn’t find that page. You can go back to the homepage.
           </Text>
           <a href={"/"}>
-            <Button marginTop={5} colorPalette={"teal"}>
+            <Button marginTop={5} colorPalette={import.meta.env.VITE_APP_COLOR}>
               Go to Homepage
             </Button>
           </a>

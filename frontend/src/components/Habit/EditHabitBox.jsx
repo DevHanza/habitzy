@@ -36,7 +36,7 @@ function EditHabitBox({ setIsEditing, id, label, icon }) {
       width={"100%"}
       position={"relative"}
       borderWidth={2}
-      borderColor={"teal"}
+      borderColor={import.meta.env.VITE_APP_COLOR}
     >
       <form
         onSubmit={(e) => {
@@ -68,7 +68,7 @@ function EditHabitBox({ setIsEditing, id, label, icon }) {
           <IconButton
             type="submit"
             size="sm"
-            colorPalette={"teal"}
+            colorPalette={import.meta.env.VITE_APP_COLOR}
             aria-label="Add habit"
           >
             <Check />
@@ -77,7 +77,7 @@ function EditHabitBox({ setIsEditing, id, label, icon }) {
           <IconButton
             size="sm"
             variant={"surface"}
-            colorPalette={"teal"}
+            colorPalette={import.meta.env.VITE_APP_COLOR}
             aria-label="Cancel Adding a habit"
             onClick={handleCancel}
           >

@@ -61,7 +61,7 @@ function Account() {
               bottom={{ base: -8, md: -10 }}
               width={24}
               height={24}
-              colorPalette={"teal"}
+              colorPalette={import.meta.env.VITE_APP_COLOR}
             >
               <Avatar.Fallback name={user?.name} fontSize={28} />
             </Avatar.Root>

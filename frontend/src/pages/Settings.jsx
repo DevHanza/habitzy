@@ -70,7 +70,7 @@ function AccountSettings() {
       </Heading>
 
       <Stack gap={4}>
-        <Avatar.Root size={"2xl"} colorPalette={"teal"}>
+        <Avatar.Root size={"2xl"} colorPalette={import.meta.env.VITE_APP_COLOR}>
           <Avatar.Fallback name={user?.name} />
         </Avatar.Root>
 
@@ -102,7 +102,7 @@ function AccountSettings() {
           <Field.Label>Password</Field.Label>
           <Box display={"inline-flex"} gap={2}>
             <Link to={"/forgot-password"}>
-              <Button size={"sm"} colorPalette={"teal"}>
+              <Button size={"sm"} colorPalette={import.meta.env.VITE_APP_COLOR}>
                 Reset Password
               </Button>
             </Link>
@@ -125,7 +125,7 @@ function Preferences() {
       {/* Items */}
       <Stack gap={4} justifyContent={"space-between"}>
         <Switch.Root
-          colorPalette={"teal"}
+          colorPalette={import.meta.env.VITE_APP_COLOR}
           checked={colorMode === "dark" ? true : false}
         >
           <Switch.HiddenInput onClick={toggleColorMode} />
@@ -155,7 +155,7 @@ function Sessions() {
         <Button
           size={"sm"}
           width={"fit-content"}
-          colorPalette={"teal"}
+          colorPalette={import.meta.env.VITE_APP_COLOR}
           onClick={handleLogoutAll}
         >
           Log out everywhere
@@ -274,7 +274,7 @@ function UserEmailInput({ ...props }) {
         {...props}
         placeholder={"jhondoe@email.com"}
         disabled={true}
-        colorPalette={"teal"}
+        colorPalette={import.meta.env.VITE_APP_COLOR}
         size={"sm"}
         name={"email"}
         // borderColor={"border.emphasized"}

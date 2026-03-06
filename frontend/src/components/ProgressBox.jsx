@@ -43,7 +43,7 @@ function ProgressBox() {
         <Progress.Root
           value={habitProgress}
           defaultValue={0}
-          colorPalette={"teal"}
+          colorPalette={import.meta.env.VITE_APP_COLOR}
         >
           <HStack>
             <Progress.Track flex="1">

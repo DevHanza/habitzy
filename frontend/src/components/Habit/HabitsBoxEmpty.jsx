@@ -24,7 +24,7 @@ function HabitsBoxEmpty({ isAddingHabits, handleBottomAddHabit }) {
             size={"sm"}
             onClick={handleBottomAddHabit}
             disabled={isAddingHabits}
-            colorPalette={"teal"}
+            colorPalette={import.meta.env.VITE_APP_COLOR}
           >
             Create a Habit
           </Button>
