@@ -10,6 +10,8 @@ import {
   Skeleton,
 } from "@chakra-ui/react";
 import { toaster } from "@/components/ui/toaster";
+import NumberFlow from "@number-flow/react";
+
 import useHabits from "@/hooks/useHabits";
 import { useUser } from "@/hooks/useUser";
 
@@ -121,7 +123,16 @@ function StreakBox() {
               lineHeight={1}
               letterSpacing={1}
             >
-              {user?.streak?.currentStreak}
+              {/* {user?.streak?.currentStreak} */}
+
+              <NumberFlow
+                value={user?.streak?.currentStreak ?? 0}
+                style={{
+                  lineHeight: 1,
+                  "--number-flow-mask-height": 0,
+                  "--number-flow-mask-width": "auto",
+                }}
+              />
             </Heading>
             <Image
               src={
