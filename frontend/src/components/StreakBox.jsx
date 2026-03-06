@@ -129,7 +129,8 @@ function StreakBox() {
                 value={user?.streak?.currentStreak ?? 0}
                 style={{
                   lineHeight: 1,
-                  "--number-flow-mask-height": 0,
+                  overflow: "hidden",
+                  "--number-flow-mask-height": "fit-content",
                   "--number-flow-mask-width": "auto",
                 }}
               />
