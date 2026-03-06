@@ -123,3 +123,7 @@ I used Brevo to configure SMTP. You can follow their documentation for setup [in
 - [express-rate-limit](https://www.npmjs.com/package/express-rate-limit)
 - [nodemailer](https://www.npmjs.com/package/nodemailer)
 - [nodemon](https://www.npmjs.com/package/nodemon)
+
+<hr/>
+
+Hosted for free on **[Cloudflare Pages.](https://pages.cloudflare.com/) ⚡**
