@@ -1,4 +1,4 @@
-# Habit Tracker
+# habitzy
 
 _An intuitive SaaS platform to help users build and maintain positive habits. Users can sign up, track their daily routines, and monitor progress over time. This makes habit tracking seamless and visually engaging.._
 
@@ -8,7 +8,7 @@ _An intuitive SaaS platform to help users build and maintain positive habits. Us
 ![GitHub Release](https://img.shields.io/github/v/release/DevHanza/habitzy)
 [![wakatime](https://wakatime.com/badge/user/cf3817f9-1dca-4dc8-876a-c4ae6f6942cc/project/7d1a3222-8c10-4ee7-b5c3-56cb82fb1679.svg)](https://wakatime.com/badge/user/cf3817f9-1dca-4dc8-876a-c4ae6f6942cc/project/7d1a3222-8c10-4ee7-b5c3-56cb82fb1679)
 
-![Habit Tracker Thumbnail](https://github.com/user-attachments/assets/db40a3d7-4558-441c-8892-d6f71ac5164a)
+![habitzy Thumbnail](https://github.com/user-attachments/assets/db40a3d7-4558-441c-8892-d6f71ac5164a)
 
 <br/><br/>
 
@@ -25,9 +25,15 @@ _An intuitive SaaS platform to help users build and maintain positive habits. Us
 
 <br/><br/>
 
-## How to run locally?
+## How to run?
 
-### 🔻 Prerequisites
+### Docker
+
+_Coming Soon!_
+
+### Manual Setup
+
+#### 🔻 Prerequisites
 
 - [Node.js](https://nodejs.org/en/download) _(v18.x+ recommended)_
 - [MongoDB](https://www.mongodb.com/try/download/community) _(v8.2.3+ recommended)_
@@ -43,14 +49,14 @@ cd habitzy
 (cd frontend && npm install) && (cd backend && npm install)
 ```
 
-### 🔻 Setup Frontend
+#### 🔻 Setup Frontend
 
-#### Configure .env file
+##### Configure .env file
 
 Rename `.env.example` to `.env`, then fill in the required values.
 Most of the variables are self-explanatory and can be understood by reading the `.env` file.
 
-#### Run
+##### Run
 
 ```bash
 # Install frontend dependencies
@@ -63,21 +69,21 @@ npm run dev
 
 _For production deployment instructions, please read [here](https://www.frontendundefined.com/posts/tutorials/vite-production-build/)._
 
-### 🔻 Setup Backend
+#### 🔻 Setup Backend
 
-#### Configure .env file
+##### Configure .env file
 
 Rename `.env.example` to `.env`, then fill in the required values.
 
 Most of the variables are self-explanatory and can be understood by reading the `.env` file.
 Below are instructions for obtaining only the values that may need additional setup.
 
-##### 🔹 MongoDB Connection String - `MONGO_URI`
+###### 🔹 MongoDB Connection String - `MONGO_URI`
 
 You can get this by setting up MongoDB locally or by creating a [Free MongoDB account](https://www.mongodb.com/cloud/atlas/register).
 For more information, read [here](https://www.mongodb.com/resources/products/fundamentals/mongodb-connection-string).
 
-##### 🔹 JWT Token Secrets - `ACCESS_TOKEN_SECRET`, `REFRESH_TOKEN_SECRET`
+###### 🔹 JWT Token Secrets - `ACCESS_TOKEN_SECRET`, `REFRESH_TOKEN_SECRET`
 
 You can use any value for these secrets. However, it is recommended to generate a strong and secure random value.
 
@@ -91,17 +97,17 @@ require("crypto").randomBytes(64).toString("hex");
 // d6a587c0a0ae1558081d29f292a38e0404232d2c05a16379e3ca120ab50745f2907671f1f11fa84e2f030c35bb3b3d26aa2f43348d6e1c10ec8008f2ed64922f
 ```
 
-##### 🔹 SMTP Credentials - `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_KEY`, `FROM_EMAIL`
+###### 🔹 SMTP Credentials - `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_KEY`, `FROM_EMAIL`
 
 I used Brevo to configure SMTP. You can follow their documentation for setup [instructions](https://help.brevo.com/hc/en-us/articles/7959631848850-Create-and-manage-your-SMTP-keys).
 
-<br/><br/>
+<br/>
 
-## Stack
+### Stack
 
-![Habit Tracker Stack](https://go-skill-icons.vercel.app/api/icons?i=react,nodejs,mongodb,express)
+![habitzy Stack](https://go-skill-icons.vercel.app/api/icons?i=react,nodejs,mongodb,express)
 
-#### Frontend Libraries
+##### Frontend Libraries
 
 - [Chakra UI](https://chakra-ui.com/)
 - [React Router v7](https://reactrouter.com/)
@@ -112,7 +118,7 @@ I used Brevo to configure SMTP. You can follow their documentation for setup [in
 - [lottie-react](https://www.npmjs.com/package/lottie-react)
 - [@number-flow/react](https://www.npmjs.com/package/@number-flow/react)
 
-#### Backend Libraries
+##### Backend Libraries
 
 - [Mongoose](https://mongoosejs.com/)
 - [cors](https://www.npmjs.com/package/cors)
