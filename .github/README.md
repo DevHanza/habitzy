@@ -1,6 +1,6 @@
 # habitzy
 
-_An intuitive SaaS platform to help users build and maintain positive habits. Users can sign up, track their daily routines, and monitor progress over time. This makes habit tracking seamless and visually engaging.._
+_A platform to help users build and maintain positive habits. Users can sign up, track their daily routines, and monitor progress over time. This makes habit tracking seamless and visually engaging.._
 
 <br/>
 
