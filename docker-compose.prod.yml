@@ -1,0 +1,35 @@
+services:
+  # ---- FRONTEND ----
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: prod
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  # ---- BACKEND ----
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: prod
+    environment:
+      ENVIRONMENT: prod
+      MONGO_URL: mongodb://mongo:27017/
+    depends_on:
+      - mongo
+    expose:
+      - "5000"
+
+  # ---- DATABASE ----
+  mongo:
+    image: mongo:7
+    restart: always
+    volumes:
+      - mongo_prod_data:/data/db
+
+volumes:
+  mongo_prod_data:

@@ -1,0 +1,45 @@
+services:
+  # ---- FRONTEND ----
+  frontend-dev:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: dev
+    ports:
+      - "5173:5173"
+      # PC : Docker
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      ENVIRONMENT: dev
+    depends_on:
+      - backend-dev
+
+  # ---- BACKEND ----
+  backend-dev:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: dev
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      ENVIRONMENT: dev
+      MONGO_URI: mongodb://mongo:27017/
+    depends_on:
+      - mongo-dev
+
+  # ---- DATABASE ----
+  mongo-dev:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:

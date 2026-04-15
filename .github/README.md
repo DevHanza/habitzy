@@ -29,7 +29,15 @@ _An intuitive SaaS platform to help users build and maintain positive habits. Us
 
 ### Docker
 
-_Coming Soon!_
+#### Development
+```bash
+docker compose -f docker-compose.dev.yml up --build
+```
+
+#### Production
+```bash
+docker compose -f docker-compose.prod.yml up --build -d
+```
 
 ### Manual Setup
 
