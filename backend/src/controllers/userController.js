@@ -181,92 +181,63 @@ export async function getDailyLeaderboard(req, res) {
   }
 }
 
+// STREAK
+
 export async function getDailyLeaderboardRank(req, res) {
   try {
-    //
-
-    const userId = req.user.userId;
+    const userId = req.user?.userId;
     if (!userId) {
       return res.status(400).json({ message: "User not found." });
     }
 
-    const user = await User.findOne({ _id: userId }).lean();
+    const user = await User.findById(userId)
+      .select("streak.currentStreak")
+      .lean();
+
     if (!user) {
       return res
         .status(404)
         .json({ message: "We couldn't find your account." });
     }
 
-    const leaderboardUsersCount = await User.countDocuments({
+    const userStreak = user?.streak?.currentStreak || 0;
+
+    const total = await User.countDocuments({
       "streak.currentStreak": { $gt: 0 },
-    }).lean();
-
-    if (!leaderboardUsersCount) {
-      return res
-        .status(404)
-        .json({ message: "We couldn't find your leaderboard data." });
-    }
-
-    const leaderboardRank = await User.aggregate([
-      {
-        $setWindowFields: {
-          sortBy: { "streak.currentStreak": -1 },
-          output: {
-            rank: { $rank: {} },
-          },
-        },
-      },
-      {
-        $match: {
-          _id: new Types.ObjectId(`${userId}`),
-        },
-      },
-      // only keep relavant fields
-      {
-        $project: {
-          _id: 0,
-          rank: 1,
-        },
-      },
-      {
-        $sort: { updatedAt: 1 },
-      },
-    ]);
-
-    if (!leaderboardRank) {
-      return res
-        .status(404)
-        .json({ message: "We couldn't find your leaderboard data." });
-    }
-
-    const rank = leaderboardRank[0].rank;
-    let rankPercentage = Math.floor(
-      1 + ((rank - 1) / (leaderboardUsersCount - 1)) * 100,
-    );
-
-    if (rankPercentage === 101) {
-      rankPercentage = 100;
-    }
-
-    // last person, set the percentage to 100%,
-    if (leaderboardRank[0].rank === leaderboardUsersCount - 1) {
-      // rankPercentage = 100;
-    }
-
-    res.json({
-      rank,
-      total: leaderboardUsersCount,
-      percentage: rankPercentage,
     });
-    //
+
+    if (total === 0 || userStreak === 0) {
+      return res.json({
+        rank: null,
+        total,
+        percentage: 0,
+      });
+    }
+
+    // Count users with strictly higher streak
+    const higherCount = await User.countDocuments({
+      "streak.currentStreak": { $gt: userStreak },
+    });
+
+    const rank = higherCount + 1;
+
+    const percentage =
+      total === 1
+        ? 100
+        : Math.min(100, Math.floor(1 + ((rank - 1) / (total - 1)) * 100));
+
+    return res.json({
+      rank,
+      total,
+      percentage,
+    });
   } catch (err) {
-    //
-    res.status(400).json({ message: err.message });
-    //
+    return res.status(500).json({
+      message: err.message || "Something went wrong.",
+    });
   }
 }
 
-// STREAK
 export async function incrementStreak(req, res) {
   try {
     //

@@ -150,7 +150,7 @@ function Leaderboard() {
           <Container maxW={"xl"}>
             <UserLeaderboardCard
               isLoading={leaderboard.isLoadingRank}
-              rank={leaderboard.rank?.percentage + "%"}
+              rank={leaderboard?.rank?.percentage}
               streak={user?.streak?.currentStreak}
               // name={user?.name}
             />

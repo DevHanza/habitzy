@@ -34,7 +34,7 @@ function UserLeaderboardCard({
               TOP
             </Text>
             <Text fontWeight={600} color={"fg.emphasized"} lineHeight={1}>
-              {isLoading ? "0" : rank}
+              {isLoading ? "0" : rank + "%"}
             </Text>
           </Stack>
         </Skeleton>
