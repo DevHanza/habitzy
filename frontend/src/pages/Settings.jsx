@@ -83,6 +83,14 @@ function AccountSettings() {
           validator={validateName}
         />
         <SettingsInput
+          label="Description"
+          placeholder="eg: I love going to the gym!"
+          defaultValue={user?.description}
+          name="description"
+          // updateUser={updateUser}
+          // validator={validateName}
+        />
+        <SettingsInput
           label="Username"
           placeholder="eg: @yourname (Without '@')"
           defaultValue={user?.username}
