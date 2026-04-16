@@ -29,7 +29,7 @@ services:
       - /app/node_modules
     environment:
       ENVIRONMENT: dev
-      MONGO_URI: mongodb://mongo:27017/
+      MONGO_URI: mongodb://mongo-dev:27017/
     depends_on:
       - mongo-dev
 
