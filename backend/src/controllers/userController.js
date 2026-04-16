@@ -20,7 +20,7 @@ export async function getUser(req, res) {
     }
 
     const user = await User.findById(userId)
-      .select("name email username streak")
+      .select("name email username description streak")
       .lean();
 
     if (!user) {
@@ -32,6 +32,7 @@ export async function getUser(req, res) {
         name: user.name,
         email: user.email,
         username: user.username,
+        description: user.description,
         streak: user.streak,
       },
     });
@@ -58,8 +59,8 @@ export async function updateUser(req, res) {
       return res.status(400).json({ message: "User not found." });
     }
 
-    const { name, username } = req.body;
-    const newUserData = { name, username };
+    const { name, username, description } = req.body;
+    const newUserData = { name, username, description };
 
     const updatedUser = await User.findOneAndUpdate(
       { _id: userId },
