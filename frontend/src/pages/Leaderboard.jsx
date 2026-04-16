@@ -20,9 +20,6 @@ function Leaderboard() {
   const { isLoggedIn, authFetch, isAuthLoading } = useAuth();
   const { user } = useUser();
 
-  // leaderboard
-  // setLeaderboard
-
   const [leaderboard, setLeaderboard] = useState({
     users: [],
     rank: null,

@@ -186,15 +186,11 @@ export async function getDailyLeaderboardRank(req, res) {
     //
 
     const userId = req.user.userId;
-
     if (!userId) {
       return res.status(400).json({ message: "User not found." });
     }
 
-    //  --------------------------------------
-    //
     const user = await User.findOne({ _id: userId }).lean();
-
     if (!user) {
       return res
         .status(404)
