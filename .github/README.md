@@ -78,6 +78,58 @@
 
 ---
 
+## 📁 Project Structure
+
+```
+  habitzy/
+  ├── backend/
+  │   ├── Dockerfile
+  │   ├── package.json
+  │   ├── package-lock.json
+  │   └── src/
+  │       ├── index.js              # App entry point
+  │       ├── server.js             # Server bootstrap
+  │       ├── config/
+  │       │   └── db.js             # MongoDB connection setup
+  │       ├── controllers/          # Business logic layer
+  │       ├── middleware/           # Request middlewares
+  │       ├── models/               # MongoDB schemas
+  │       ├── routes/               # API routes
+  │       └── utils/                # Helper functions
+  │
+  ├── frontend/
+  │   ├── Dockerfile
+  │   ├── index.html
+  │   ├── vite.config.js
+  │   ├── nginx.conf
+  │   ├── package.json
+  │   ├── package-lock.json
+  │   ├── eslint.config.js
+  │   ├── jsconfig.json
+  │   ├── public/                   # Static assets
+  │   ├── dist/                     # Production build output
+  │   └── src/
+  │       ├── main.jsx              # React entry point
+  │       ├── App.jsx               # Root component
+  │       ├── routes.jsx            # App routing
+  │       ├── index.css
+  │       ├── api/                 # API layer
+  │       ├── assets/              # Images, animations, lottie files
+  │       ├── components/          # Reusable UI components
+  │       ├── context/             # Global state management
+  │       ├── hooks/               # Custom React hooks
+  │       ├── pages/               # App pages/routes
+  │       ├── services/            # Service layer (if used)
+  │       ├── theme/               # UI theme configuration
+  │       └── utils/               # Helper utilities
+  │
+  ├── docker-compose.dev.yml
+  ├── docker-compose.prod.yml
+  └── LICENSE
+```
+
+---
+
 ## 🏭 Architecture Overview
 
 ```text
