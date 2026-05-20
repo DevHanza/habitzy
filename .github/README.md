@@ -28,8 +28,6 @@
 
 **Habitzy** is a habit tracking platform designed to help users build consistency through gamification.
 
----
-
 ## 🎯 Features
 
 - Create, track, edit, and delete habits
@@ -39,7 +37,56 @@
 - Manage profiles and customizable settings
 - Dockerized deployment
 
----
+## 🔃 Quick Start
+
+### Option A: Docker (Recommended)
+
+```bash
+# Development
+docker compose -f docker-compose.dev.yml up --build
+
+# Production
+docker compose -f docker-compose.prod.yml up --build -d
+```
+
+### Option B: Manual Deployment
+
+1. Install [Node.js](https://nodejs.org/en/download) _(v18.x+)_ and [MongoDB](https://www.mongodb.com/try/download/community) _(v8.2.3+)_.
+2. Execute:
+
+```bash
+# Clone the repository
+git clone https://github.com/DevHanza/habitzy.git
+
+# Go to the repository folder
+cd habitzy
+
+# Install dependencies
+(cd frontend && npm install) && (cd backend && npm install)
+```
+
+3. Set up environment variables by copying `.example.env` and renaming it to `.env` in both the `./frontend` and `./backend` folders
+
+4. Start the application.
+
+```bash
+# Start the Frontend
+cd ./frontend;
+npm run dev;
+
+# Start the Backend
+cd ./backend;
+npm run dev;
+
+# For Production, refer to: https://www.frontendundefined.com/posts/tutorials/vite-production-build/
+```
+
+#### Useful links:
+
+- MongoDB Atlas: https://www.mongodb.com/cloud/atlas/register
+- MongoDB connection string guide: https://www.mongodb.com/resources/products/fundamentals/mongodb-connection-string
+- Brevo SMTP setup guide:
+  https://help.brevo.com/hc/en-us/articles/7959631848850-Create-and-manage-your-SMTP-keys
 
 ## 💻 Tech Stack
 
@@ -76,7 +123,85 @@
 - GitHub Actions
 - Nginx
 
----
+## 🏭 Architecture Overview
+
+```text
+Frontend (React)
+      │
+      ▼
+API Calls (HTTP/REST)
+      │
+ ┌────┴────┐
+ ▼         ▼
+Express + Node.js Backend
+      │
+      ▼
+MongoDB Database
+```
+
+## 🚀 Optimizations
+
+- Improved performance using `React.memo`, `useMemo`, and `useCallback` for memoization.
+- Indexed MongoDB queries to speed up data retrieval.
+- Used React Context for simpler and lighter state management.
+
+## 💪 Challenges Faced
+
+<details>
+  <summary>Preventing unnecessary re-renders of all habit cards when updating a single card.</summary>
+
+```
+✅ Solved using `React.memo` and memoized callbacks.
+```
+
+</details>
+
+<details>
+  <summary>Keeping drag-and-drop habit ordering synchronized between frontend state and backend.</summary>
+  
+  ```
+  ✅ Solved with shared ordering utilities and optimistic state updates.
+  ```
+</details>
+
+<details>
+  <summary>Ending user streaks automatically without depending on external schedulars or systems.</summary>
+  
+  ```
+  ✅ Solved with date comparison logic + storing dailylogs of users in DB.
+  ```
+</details>
+
+<details>
+  <summary>Sharing authentication state across multiple React contexts without circular re-render bugs.</summary>
+  
+  ```
+  ✅ Solved by separating context responsibilities and memoizing provider values.
+  ```
+</details>
+
+<details>
+  <summary>Creating a Docker setup that works for both development and production environments.</summary>
+  
+  ```
+  ✅ Solved using separate Docker Compose configurations.
+  ```
+</details>
+
+## 📝 Lessons Learned
+
+Building Habitzy helped me strengthen my understanding of:
+
+- Managing authentication and backend communication using React Context.
+- Practical use of React memoization techniques for performance optimization.
+- JWT-based authentication and authorization workflows.
+- Database indexing for improving query performance.
+- Docker for both development and production deployment.
+
+## ⚡ Planned Improvements
+
+- [ ] Add optimistic UI updates
+<!-- - [ ] Introduce unit testing for frontend/backend. -->
 
 ## 📁 Project Structure
 
@@ -130,109 +255,6 @@
 
 ---
 
-## 🏭 Architecture Overview
-
-```text
-Frontend (React)
-      │
-      ▼
-API Calls (HTTP/REST)
-      │
- ┌────┴────┐
- ▼         ▼
-Express + Node.js Backend
-      │
-      ▼
-MongoDB Database
-```
-
----
-
-## 🔃 Quick Start
-
-### Option A: Docker (Recommended)
-
-```bash
-# Development
-docker compose -f docker-compose.dev.yml up --build
-
-# Production
-docker compose -f docker-compose.prod.yml up --build -d
-```
-
-### Option B: Manual Deployment
-
-1. Install [Node.js](https://nodejs.org/en/download) _(v18.x+)_ and [MongoDB](https://www.mongodb.com/try/download/community) _(v8.2.3+)_.
-2. Execute:
-
-```bash
-# Clone the repository
-git clone https://github.com/DevHanza/habitzy.git
-
-# Go to the repository folder
-cd habitzy
-
-# Install dependencies
-(cd frontend && npm install) && (cd backend && npm install)
-```
-
-3. Set up environment variables by copying `.example.env` and renaming it to `.env` in both the `./frontend` and `./backend` folders
-
-4. Start the application.
-
-```bash
-# Start the Frontend
-cd ./frontend;
-npm run dev;
-
-# Start the Backend
-cd ./backend;
-npm run dev;
-
-# For Production, refer to: https://www.frontendundefined.com/posts/tutorials/vite-production-build/
-```
-
-#### Useful links:
-
-- MongoDB Atlas: https://www.mongodb.com/cloud/atlas/register
-- MongoDB connection string guide: https://www.mongodb.com/resources/products/fundamentals/mongodb-connection-string
-- Brevo SMTP setup guide:
-  https://help.brevo.com/hc/en-us/articles/7959631848850-Create-and-manage-your-SMTP-keys
-
----
-
-## 🚀 Optimizations
-
-- Improved performance using `React.memo`, `useMemo`, and `useCallback` for memoization.
-- Indexed MongoDB queries to speed up data retrieval.
-- Used React Context for simpler and lighter state management.
-
----
-
-## 💪 Challenges Faced
-
-- Preventing unnecessary re-renders of habit cards on the dashboard when updating a single card. (resolved using `React.memo`)
-- Keeping drag-and-drop habit ordering in sync between UI state and backend data.
-
----
-
-## 📝 Lessons Learned
-
-Building Habitzy helped me strengthen my understanding of:
-
-- Managing authentication and backend communication using React Context.
-- Practical use of React memoization techniques for performance optimization.
-- JWT-based authentication and authorization workflows.
-- Database indexing for improving query performance.
-- Docker for both development and production deployment.
-
----
-
-## ⚡ Planned Improvements
-
-- [ ] Add optimistic UI updates
-- [ ] Introduce unit testing for frontend/backend.
-
 ## 📍 Contributing
 
 Pull requests are welcome.
@@ -249,4 +271,4 @@ See [LICENSE](./LICENSE) for details.
 
 ---
 
-Hosted for free on **[Cloudflare Pages.](https://pages.cloudflare.com/)**
+_Hosted for free on [Cloudflare Pages.](https://pages.cloudflare.com/)_
