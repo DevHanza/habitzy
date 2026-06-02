@@ -253,22 +253,16 @@ Building Habitzy helped me strengthen my understanding of:
   └── LICENSE
 ```
 
----
-
 ## 📍 Contributing
 
 Pull requests are welcome.
 
 For major changes, please open an issue first to discuss proposed improvements.
 
----
-
 ## 📄 License
 
 This project is licensed under the **MIT License** – free for personal and commercial use.
 
 See [LICENSE](./LICENSE) for details.
-
----
 
 _Hosted for free on [Cloudflare Pages.](https://pages.cloudflare.com/)_
