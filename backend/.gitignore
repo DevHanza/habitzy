@@ -167,3 +167,4 @@ vite.config.ts.timestamp-*
 
 .env
 node_modules/
+.vercel
