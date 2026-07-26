@@ -102,6 +102,10 @@ npm run dev;
 - [lottie-react](https://www.npmjs.com/package/lottie-react)
 - [@number-flow/react](https://www.npmjs.com/package/@number-flow/react)
 
+###### Dev Depedencies
+
+- [rollup-plugin-visualizer](https://www.npmjs.com/package/rollup-plugin-visualizer)
+
 ### Backend
 
 - Node.js
