@@ -1,3 +1,4 @@
+import { lazy } from "react";
 import { useLocation, useNavigate } from "react-router";
 import {
   Container,
@@ -7,7 +8,7 @@ import {
   useBreakpointValue,
   Button,
 } from "@chakra-ui/react";
-import Lottie from "lottie-react";
+const Lottie = lazy(() => import("lottie-react"));
 import WidgetWrapper from "@/components/ui/WidgetWrapper";
 import checkCircleAnimation from "@/assets/lottie/circle_check.json";
 import crossCircleAnimation from "@/assets/lottie/circle_cross.json";

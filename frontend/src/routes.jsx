@@ -1,19 +1,20 @@
 import { lazy } from "react";
 import { createBrowserRouter, Navigate } from "react-router";
 import Layout from "@/components/layout/Layout";
-import Account from "@/pages/Account";
-import Leaderboard from "@/pages/Leaderboard";
-import Settings from "@/pages/Settings";
+
+const Account = lazy(async () => import("@/pages/Account"));
+const Leaderboard = lazy(async () => import("@/pages/Leaderboard"));
+const Settings = lazy(async () => import("@/pages/Settings"));
 
 // Auth Pages
-import SignUp from "@/pages/Auth/SignUp";
-import Login from "@/pages/Auth/Login";
-import Logout from "@/pages/Auth/Logout";
-import ForgotPassword from "@/pages/Auth/ForgotPassword";
-import VerifyCode from "@/pages/Auth/VerifyCode";
-import ResetPassword from "@/pages/Auth/ResetPassword";
-import ErrorPage from "@/pages/ErrorPage";
-import StatusPage from "@/pages/StatusPage";
+const SignUp = lazy(async () => import("@/pages/Auth/SignUp"));
+const Login = lazy(async () => import("@/pages/Auth/Login"));
+const Logout = lazy(async () => import("@/pages/Auth/Logout"));
+const ForgotPassword = lazy(async () => import("@/pages/Auth/ForgotPassword"));
+const VerifyCode = lazy(async () => import("@/pages/Auth/VerifyCode"));
+const ResetPassword = lazy(async () => import("@/pages/Auth/ResetPassword"));
+const ErrorPage = lazy(async () => import("@/pages/ErrorPage"));
+const StatusPage = lazy(async () => import("@/pages/StatusPage"));
 
 const Home = lazy(async () => {
   // await new Promise((r) => setTimeout(r, 1500)); // Simulated 1.5s delay
