@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 
 import WidgetsWrapper from "@/components/ui/WidgetWrapper";
 import HabitCard from "@/components/Habit/HabitCard";
@@ -90,7 +90,7 @@ function HabitsBox() {
             //
           }
         </VStack>
-        <VStack display={habits.length > 0 ? "flex" : "none"}>
+        <VStack display={hasHabits ? "flex" : "none"}>
           <Button
             variant="solid"
             colorPalette={import.meta.env.VITE_APP_COLOR}
