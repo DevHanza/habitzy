@@ -7,11 +7,11 @@ import {
   Flex,
   Stack,
 } from "@chakra-ui/react";
-import { useRouteError } from "react-router";
+// import { useRouteError } from "react-router";
 
 function ErrorPage() {
-  const error = useRouteError();
-  console.log(error);
+  // const error = useRouteError();
+  // console.log(error);
 
   return (
     <Container maxW={"xl"}>
