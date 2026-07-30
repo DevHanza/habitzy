@@ -8,9 +8,9 @@ export default defineConfig({
   base: "/",
   plugins: [
     react({
-      // babel: {
-      //   plugins: ["babel-plugin-react-compiler"],
-      // },
+      babel: {
+        plugins: ["babel-plugin-react-compiler"],
+      },
     }),
     tsconfigPaths(),
     visualizer({
