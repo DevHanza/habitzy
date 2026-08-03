@@ -196,7 +196,6 @@ function optimisticReducer(currentHabits, action) {
   switch (action.type) {
     case "TOGGLE_HABIT":
       const { id } = action.payload;
-      console.log(id);
 
       return currentHabits.map((h) =>
         h._id === id ? { ...h, isCompleted: !h.isCompleted } : h,
@@ -405,8 +404,6 @@ export const HabitProvider = ({ children }) => {
               throw Error(data.message);
             }
 
-            console.log(data);
-
             startTransition(() => {
               habitDispatch({
                 type: "TOGGLE_HABIT",
@@ -463,7 +460,7 @@ export const HabitProvider = ({ children }) => {
           },
         });
 
-        console.log(JSON.stringify(data, null, 2));
+        // console.log(JSON.stringify(data, null, 2));
 
         toaster.create({
           title: `${data.message}`,
