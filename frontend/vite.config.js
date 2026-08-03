@@ -23,7 +23,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           react: ["react", "react-dom"],
-          lottie: ["lottie-react"],
           lucide: ["lucide-react"],
         },
       },

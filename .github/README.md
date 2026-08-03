@@ -99,7 +99,6 @@ npm run dev;
 - [Frimousse](https://github.com/liveblocks/frimousse)
 - [check-password-strength](https://github.com/deanilvincent/check-password-strength)
 - [Lucide Icons](https://lucide.dev/guide/packages/lucide-react)
-- [lottie-react](https://www.npmjs.com/package/lottie-react)
 - [@number-flow/react](https://www.npmjs.com/package/@number-flow/react)
 
 ###### Dev Depedencies
