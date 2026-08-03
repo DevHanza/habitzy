@@ -1,4 +1,10 @@
-import { useReducer, useEffect, useCallback } from "react";
+import {
+  useReducer,
+  useEffect,
+  useCallback,
+  useOptimistic,
+  startTransition,
+} from "react";
 import { HabitContext } from "@/context/HabitContext";
 import { useAuth } from "@/hooks/useAuth";
 import { moveItemsInList } from "@/utils/moveItemsInList";
@@ -186,8 +192,28 @@ function reducer(state, action) {
   }
 }
 
+function optimisticReducer(currentHabits, action) {
+  switch (action.type) {
+    case "TOGGLE_HABIT":
+      const { id } = action.payload;
+      console.log(id);
+
+      return currentHabits.map((h) =>
+        h._id === id ? { ...h, isCompleted: !h.isCompleted } : h,
+      );
+
+    default:
+      return currentHabits;
+  }
+}
+
 export const HabitProvider = ({ children }) => {
   const [habitState, habitDispatch] = useReducer(reducer, initialState);
+
+  const [optimistcHabits, setOptimisticHabits] = useOptimistic(
+    habitState.habits,
+    optimisticReducer,
+  );
 
   const { isLoggedIn, isAuthLoading, authFetch } = useAuth();
 
@@ -356,41 +382,54 @@ export const HabitProvider = ({ children }) => {
   // Toggle Habits
   const toggleHabit = useCallback(
     async (id) => {
-      try {
-        //
-        if (isLoggedIn) {
+      startTransition(async () => {
+        try {
           //
-          const res = await authFetch({
-            url: `user/habits/${id}/toggleStatus`,
-            method: "PATCH",
-          });
+          if (isLoggedIn) {
+            //
+            setOptimisticHabits({
+              type: "TOGGLE_HABIT",
+              payload: {
+                id,
+              },
+            });
 
-          const data = await res.json();
+            const res = await authFetch({
+              url: `user/habits/${id}/toggleStatus`,
+              method: "PATCH",
+            });
 
-          if (!res.ok) {
-            throw Error(data.message);
+            const data = await res.json();
+
+            if (!res.ok) {
+              throw Error(data.message);
+            }
+
+            console.log(data);
+
+            startTransition(() => {
+              habitDispatch({
+                type: "TOGGLE_HABIT",
+                payload: {
+                  id,
+                },
+              });
+            });
+            //
+          } else {
+            habitDispatch({
+              type: "TOGGLE_HABIT",
+              payload: {
+                id,
+              },
+            });
           }
-
-          habitDispatch({
-            type: "TOGGLE_HABIT",
-            payload: {
-              id,
-            },
-          });
-          //
-        } else {
-          habitDispatch({
-            type: "TOGGLE_HABIT",
-            payload: {
-              id,
-            },
-          });
+        } catch (err) {
+          throw Error(err);
         }
-      } catch (err) {
-        throw Error(err);
-      }
+      });
     },
-    [authFetch, isLoggedIn],
+    [authFetch, isLoggedIn, setOptimisticHabits],
   );
 
   // Reorder Habit: Drag & Drop
@@ -460,7 +499,7 @@ export const HabitProvider = ({ children }) => {
   return (
     <HabitContext.Provider
       value={{
-        habits: habitState.habits,
+        habits: optimistcHabits,
         habitDispatch,
         isHabitLoading: habitState.isHabitLoading,
         addHabit,
