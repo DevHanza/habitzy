@@ -1,4 +1,3 @@
-import { lazy } from "react";
 import { useLocation, useNavigate } from "react-router";
 import {
   Container,
@@ -8,10 +7,9 @@ import {
   useBreakpointValue,
   Button,
 } from "@chakra-ui/react";
-const Lottie = lazy(() => import("lottie-react"));
 import WidgetWrapper from "@/components/ui/WidgetWrapper";
-import checkCircleAnimation from "@/assets/lottie/circle_check.json";
-import crossCircleAnimation from "@/assets/lottie/circle_cross.json";
+import checkCircleAnimation from "@/assets/anim/circle_check.webm";
+import crossCircleAnimation from "@/assets/anim/circle_cross.webm";
 
 function StatusPage() {
   const location = useLocation();
@@ -50,17 +48,23 @@ function StatusPage() {
           justifyContent={{ mdDown: "space-between" }}
         >
           <Stack gap={{ base: 8, md: 2 }}>
-            <Lottie
-              animationData={
-                status.success ? checkCircleAnimation : crossCircleAnimation
-              }
-              loop={false}
-              style={{
-                height: isDesktop ? "150px" : "130px",
-                padding: "0",
-                margin: 0,
-              }}
-            />
+            <video
+              autoPlay
+              muted
+              preload="auto"
+              width={isDesktop ? "150" : "130"}
+              style={{ alignSelf: "center" }}
+            >
+              <source
+                src={
+                  status.success ? checkCircleAnimation : crossCircleAnimation
+                }
+                type="video/webm"
+              />
+              Your browser does not support the video tag.
+            </video>
+
+            {/*  */}
             <Stack
               textAlign={"center"}
               alignItems={"center"}
