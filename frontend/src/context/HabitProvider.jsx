@@ -433,8 +433,6 @@ export const HabitProvider = ({ children }) => {
   const reorderHabit = async (habitId, fromIndex, toIndex) => {
     //
 
-    // console.log(habitId, fromIndex, toIndex);
-
     try {
       if (isLoggedIn) {
         //
@@ -459,8 +457,6 @@ export const HabitProvider = ({ children }) => {
             toIndex,
           },
         });
-
-        // console.log(JSON.stringify(data, null, 2));
 
         toaster.create({
           title: `${data.message}`,
