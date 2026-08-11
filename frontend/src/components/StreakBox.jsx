@@ -19,18 +19,17 @@ import runOncePerDay from "@/utils/runOncePerDay";
 import { useAuth } from "@/hooks/useAuth";
 
 function StreakBox() {
-  const { authFetch } = useAuth();
+  const { authFetch, isLoggedIn } = useAuth();
   const { user, isUserLoading, userDispatch } = useUser();
   const { habits } = useHabits();
 
   const hasStreak = user?.streak?.currentStreak > 0;
 
   const allCompleted = useMemo(() => {
-    return habits.every((habit) => habit.isCompleted);
+    return habits.length > 0 && habits.every((habit) => habit.isCompleted);
   }, [habits]);
 
   // Increment Streak
-
   useEffect(() => {
     async function incrementStreak() {
       try {
@@ -60,18 +59,15 @@ function StreakBox() {
       }
     }
 
-    if (allCompleted && habits.length > 0) {
-      runOncePerDay("#incrementStreak", () => {
-        //
-        incrementStreak();
-        // console.log("Streak incremented!");
-        //
-      });
+    if (isLoggedIn && allCompleted) {
+      // runOncePerDay("#incrementStreak", () => {
+      incrementStreak();
+      // });
+    } else {
     }
   }, [allCompleted, habits.length]);
 
   // Clear Streak
-
   useEffect(() => {
     if (isUserLoading) return;
 
@@ -105,9 +101,10 @@ function StreakBox() {
 
     runOncePerDay("#clearStreak", () => {
       //
-      clearStreak();
-      // console.log("Streak cleared!");
-      //
+      if (isLoggedIn && !allCompleted) {
+        clearStreak();
+      } else {
+      }
     });
   }, [isUserLoading]);
 
