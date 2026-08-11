@@ -16,6 +16,8 @@ import { useUser } from "@/hooks/useUser";
 import LeaderboardCardSkeleton from "@/components/Leaderboard/LeaderboardCardSkeleton";
 import LeaderboardBoxEmpty from "@/components/Leaderboard/LeaderboardBoxEmpty";
 
+import demoLeadUsers from "../../data/demoLeadUsers";
+
 function Leaderboard() {
   const { isLoggedIn, authFetch, isAuthLoading } = useAuth();
   const { user } = useUser();
@@ -38,10 +40,17 @@ function Leaderboard() {
     })
       .then(async (response) => {
         const data = await response.json();
-        //
+
+        // Add demo data to the leaderboard if there are less users.
+        const demoUsers = data.length < 10 ? demoLeadUsers : [];
+
+        const users = [...data, ...demoUsers].sort(
+          (a, b) => b.streak.currentStreak - a.streak.currentStreak,
+        );
+
         setLeaderboard((prev) => ({
           ...prev,
-          users: data,
+          users: users,
           isLoadingUsers: false,
         }));
         //

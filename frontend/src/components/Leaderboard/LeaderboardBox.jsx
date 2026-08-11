@@ -7,6 +7,8 @@ import LeaderboardBoxEmpty from "@/components/Leaderboard/LeaderboardBoxEmpty";
 import { useAuth } from "@/hooks/useAuth";
 import LeaderboardCardSkeleton from "@/components/Leaderboard/LeaderboardCardSkeleton";
 
+import demoLeadUsers from "../../../data/demoLeadUsers";
+
 function LeaderboardBox() {
   const { authFetch } = useAuth();
   const [leadUsers, setLeadUsers] = useState([]);
@@ -20,7 +22,19 @@ function LeaderboardBox() {
     })
       .then(async (response) => {
         const data = await response.json();
-        setLeadUsers(data.slice(0, 20));
+
+        // Add demo data to the leaderboard if there are less users.
+
+        const demoUsers = data.length < 10 ? demoLeadUsers : [];
+
+        setLeadUsers(() =>
+          [...data, ...demoUsers]
+            .slice(0, 20)
+            .sort((a, b) => b.streak.currentStreak - a.streak.currentStreak),
+        );
+
+        // setLeadUsers(data.slice(0, 20));
+        //
         setIsLoading(false);
       })
       .catch((err) => {
