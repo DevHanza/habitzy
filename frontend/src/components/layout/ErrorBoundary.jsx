@@ -1,5 +1,5 @@
-import ErrorPage from "@/pages/ErrorPage";
-import React, { Component } from "react";
+import React, { Component, lazy } from "react";
+const ErrorPage = lazy(async () => import("@/pages/ErrorPage"));
 
 export default class ErrorBoundary extends Component {
   state = { hasError: false };
