@@ -1,8 +1,4 @@
 import { useContext } from "react";
-import { HabitContext } from "@/context/HabitContext.js";
+import { HabitContext } from "@/context/HabitContext";
 
-function useHabits() {
-  return useContext(HabitContext);
-}
-
-export default useHabits;
+export const useHabits = () => useContext(HabitContext);

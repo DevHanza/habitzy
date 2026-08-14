@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { Box, Input, Stack, IconButton } from "@chakra-ui/react";
 import { Check, X } from "lucide-react";
 import EmojiPickerButton from "@/components/EmojiPickerButton/EmojiPickerButton";
-import useHabits from "@/hooks/useHabits";
+import { useHabits } from "@/hooks/useHabits";
 
 function EditHabitBox({ setIsEditing, id, label, icon }) {
   const inputRef = useRef();

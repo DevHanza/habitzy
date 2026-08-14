@@ -3,7 +3,7 @@ import { useState } from "react";
 import WidgetsWrapper from "@/components/ui/WidgetWrapper";
 import HabitCard from "@/components/Habit/HabitCard";
 import AddHabitBox from "@/components/Habit/AddHabitBox";
-import useHabits from "@/hooks/useHabits";
+import { useHabits } from "@/hooks/useHabits";
 import HabitCardSkeleton from "@/components/Habit/HabitCardSkeleton";
 import HabitsBoxEmpty from "@/components/Habit/HabitsBoxEmpty";
 

@@ -12,7 +12,7 @@ import {
 import { toaster } from "@/components/ui/toaster";
 import NumberFlow from "@number-flow/react";
 
-import useHabits from "@/hooks/useHabits";
+import { useHabits } from "@/hooks/useHabits";
 import { useUser } from "@/hooks/useUser";
 
 import runOncePerDay from "@/utils/runOncePerDay";

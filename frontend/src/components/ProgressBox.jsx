@@ -1,4 +1,4 @@
-import useHabits from "@/hooks/useHabits";
+import { useHabits } from "@/hooks/useHabits";
 import WidgetsWrapper from "./ui/WidgetWrapper";
 import { Stack, HStack, Progress, Heading, Text } from "@chakra-ui/react";
 

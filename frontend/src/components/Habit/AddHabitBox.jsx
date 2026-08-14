@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { Box, Input, Stack, IconButton } from "@chakra-ui/react";
 import { Check, X } from "lucide-react";
-import useHabits from "@/hooks/useHabits";
+import { useHabits } from "@/hooks/useHabits";
 import EmojiPickerButton from "@/components/EmojiPickerButton/EmojiPickerButton";
 
 function AddHabitBox({ setIsAddingHabits }) {
