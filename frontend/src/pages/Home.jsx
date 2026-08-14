@@ -14,27 +14,23 @@ function Home() {
   return (
     <Container>
       <Flex gap={4} direction={{ base: "column", md: "row" }}>
-        {isDesktop ? (
+        {isDesktop && (
           <Stack flex={1} display={{ base: "none", lg: "flex" }} minW={0}>
             <QuoteBox />
             {/* <GreetingBox /> */}
             <ProgressBox />
           </Stack>
-        ) : (
-          ""
         )}
 
         <Stack flex={2} minW={0}>
           <HabitsBox />
         </Stack>
 
-        {isDesktop ? (
+        {isDesktop && (
           <Stack flex={1} display={{ base: "none", lg: "flex" }} minW={0}>
             <StreakBox />
             <LeaderboardBox />
           </Stack>
-        ) : (
-          ""
         )}
       </Flex>
     </Container>
