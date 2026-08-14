@@ -3,7 +3,6 @@ import { RouterProvider } from "react-router";
 
 import { AuthProvider } from "@/context/AuthProvider";
 import { UserProvider } from "@/context/UserProvider";
-import { HabitProvider } from "@/context/HabitProvider";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import ErrorBoundary from "@/components/layout/ErrorBoundary";
 
@@ -15,9 +14,7 @@ function App() {
       <Suspense fallback={<LoadingScreen />}>
         <AuthProvider>
           <UserProvider>
-            <HabitProvider>
-              <RouterProvider router={router} />
-            </HabitProvider>
+            <RouterProvider router={router} />
           </UserProvider>
         </AuthProvider>
       </Suspense>
