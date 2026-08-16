@@ -25,6 +25,20 @@ function Home() {
           )}
 
           <Stack flex={2} minW={0}>
+            {!isDesktop && (
+              <>
+                {/* <QuoteBox /> */}
+                <Stack direction={"row"} display={"flex"}>
+                  <Stack flex={1}>
+                    <StreakBox />
+                  </Stack>
+                  <Stack flex={1}>
+                    <ProgressBox />
+                  </Stack>
+                </Stack>
+              </>
+            )}
+
             <HabitsBox />
           </Stack>
 
