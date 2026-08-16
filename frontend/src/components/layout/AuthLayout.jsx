@@ -57,13 +57,15 @@ function AuthPage({
               <Stack width={"100%"}>
                 <Stack gap={8}>
                   <Stack gap={1} alignItems={{ base: "center", lg: "start" }}>
-                    <Image
-                      src="/habits-2.svg"
-                      boxSize="3rem"
-                      textAlign={"center"}
-                      mb={4}
-                      display={{ base: "block", lg: "none" }}
-                    />
+                    <Link to={"/"}>
+                      <Image
+                        src="/habits-2.svg"
+                        boxSize="3rem"
+                        textAlign={"center"}
+                        mb={4}
+                        display={{ base: "block", lg: "none" }}
+                      />
+                    </Link>
                     <Heading
                       size={{ base: "2xl", lg: "4xl" }}
                       textAlign={{ base: "center", lg: "left" }}
