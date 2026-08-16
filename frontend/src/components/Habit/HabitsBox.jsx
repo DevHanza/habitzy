@@ -1,14 +1,13 @@
 import { useState } from "react";
+import { Button, Stack, VStack } from "@chakra-ui/react";
+import { Plus } from "lucide-react";
 
+import { useHabits } from "@/hooks/useHabits";
 import WidgetsWrapper from "@/components/ui/WidgetWrapper";
 import HabitCard from "@/components/Habit/HabitCard";
 import AddHabitBox from "@/components/Habit/AddHabitBox";
-import { useHabits } from "@/hooks/useHabits";
 import HabitCardSkeleton from "@/components/Habit/HabitCardSkeleton";
 import HabitsBoxEmpty from "@/components/Habit/HabitsBoxEmpty";
-
-import { Plus } from "lucide-react";
-import { Button, Stack, VStack } from "@chakra-ui/react";
 
 function HabitsBox() {
   const [isAddingHabits, setIsAddingHabits] = useState(false);
@@ -84,11 +83,7 @@ function HabitsBox() {
             <AddHabitBox setIsAddingHabits={setIsAddingHabits} />
           )}
 
-          {
-            //
-            renderHabits()
-            //
-          }
+          {renderHabits()}
         </VStack>
         <VStack display={hasHabits ? "flex" : "none"}>
           <Button
