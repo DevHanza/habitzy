@@ -76,6 +76,7 @@ function HabitsBox() {
       title={"Habits"}
       buttonText={"Add Habit"}
       buttonIcon={<Plus />}
+      px={{ base: "0.75rem", md: "1rem" }}
     >
       <Stack gap={6}>
         <VStack gap={2}>
