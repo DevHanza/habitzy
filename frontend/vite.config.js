@@ -24,6 +24,8 @@ export default defineConfig({
         manualChunks: {
           react: ["react", "react-dom"],
           lucide: ["lucide-react"],
+          chakraui: ["@chakra-ui/react"],
+          emotion: ["@emotion/react"],
         },
       },
     },
