@@ -50,6 +50,7 @@ function ProgressBox() {
           value={habitProgress}
           defaultValue={0}
           colorPalette={import.meta.env.VITE_APP_COLOR}
+          variant={"subtle"}
         >
           <HStack>
             <Progress.Track flex="1">
