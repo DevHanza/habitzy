@@ -36,7 +36,7 @@ import { useUser } from "@/hooks/useUser";
 const desktopMenuItems = [
   {
     label: "Home",
-    link: "/=",
+    link: "/",
     icon: <House />,
   },
   {
@@ -54,7 +54,7 @@ const desktopMenuItems = [
 const bottomNavItems = [
   {
     label: "Home",
-    link: "/=",
+    link: "/",
     icon: <House />,
   },
   {
