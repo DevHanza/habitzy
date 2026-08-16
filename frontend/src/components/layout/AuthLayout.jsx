@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import {
   Flex,
   Box,
@@ -7,7 +8,7 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-import { Link } from "react-router";
+import NavigateControls from "@/components/layout/NavigateControls";
 
 function AuthPage({
   children,
@@ -39,7 +40,9 @@ function AuthPage({
             flex={1}
             bg={"bg.emphasized"}
             display={{ base: "none", lg: "flex" }}
+            position={"relative"}
           >
+            <NavigateControls top={"1rem"} left={"1rem"} />
             <Image
               src="/login-screen-1.jpg"
               height={"100%"}
