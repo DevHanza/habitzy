@@ -68,6 +68,7 @@ function HabitsBox() {
       btnlinkprops={{
         onClick: handleAddHabit,
         disabled: isAddingHabits,
+        variant: "ghost",
       }}
       // bg={"none"}
       // bg={"bg.subtle"}
