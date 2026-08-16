@@ -14,26 +14,31 @@ function ProgressBox() {
   }
 
   return (
-    <WidgetsWrapper>
+    <WidgetsWrapper
+      p={{ base: "0.75rem", md: "1rem" }}
+      w={"100%"}
+      h={{ mdDown: "100%" }}
+    >
       <Stack>
         <Stack
-          mb={"1rem"}
-          direction={"row"}
-          alignItems={"end"}
-          gap={0}
+          mb={{ base: "0.5rem", md: "1rem" }}
+          direction={{ base: "column", md: "row" }}
+          alignItems={{ base: "start", md: "end" }}
+          gap={{ base: 0.5, md: 0 }}
           flexWrap={"wrap"}
         >
           <Heading
             display={"inline-block"}
-            size={{ base: "2xl", md: "4xl" }}
+            size={{ base: "3xl", md: "4xl" }}
             fontWeight={700}
+            lineHeight={{ mdDown: 1 }}
           >
             {habitProgress}%&nbsp;
           </Heading>
           <Heading
             color={"fg.muted"}
             display={"inline-block"}
-            size={{ base: "md", md: "lg" }}
+            size={{ base: "sm", md: "lg" }}
             fontWeight={500}
           >
             out of 100%.
@@ -41,6 +46,7 @@ function ProgressBox() {
         </Stack>
 
         <Progress.Root
+          size={{ base: "xs", md: "md" }}
           value={habitProgress}
           defaultValue={0}
           colorPalette={import.meta.env.VITE_APP_COLOR}
@@ -51,7 +57,11 @@ function ProgressBox() {
             </Progress.Track>
           </HStack>
         </Progress.Root>
-        <Text marginTop={".5em"} color={"fg.muted"}>
+        <Text
+          marginTop={".5em"}
+          color={"fg.muted"}
+          display={{ base: "none", md: "block" }}
+        >
           Complete your daily goals to win both of your day and streak.
         </Text>
       </Stack>
