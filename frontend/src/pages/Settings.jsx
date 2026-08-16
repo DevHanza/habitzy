@@ -87,7 +87,7 @@ function AccountSettings() {
           placeholder="eg: I love going to the gym!"
           defaultValue={user?.description}
           name="description"
-          // updateUser={updateUser}
+          updateUser={updateUser}
           // validator={validateName}
         />
         <SettingsInput
