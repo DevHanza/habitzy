@@ -3,7 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router";
 import { useBreakpointValue } from "@chakra-ui/react";
 
-function NavigateControls({}) {
+function NavigateControls({ ...props }) {
   const isDesktop = useBreakpointValue({ base: false, md: true });
   const navigate = useNavigate();
 
@@ -17,6 +17,7 @@ function NavigateControls({}) {
       variant={"surface"}
       position={"absolute"}
       onClick={() => navigate(-1)}
+      {...props}
     >
       <ArrowLeft />
     </IconButton>
