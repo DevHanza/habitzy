@@ -8,6 +8,10 @@ import {
   Heading,
   Text,
   Skeleton,
+  Button,
+  CloseButton,
+  Dialog,
+  Portal,
 } from "@chakra-ui/react";
 import NumberFlow from "@number-flow/react";
 
@@ -24,6 +28,8 @@ function StreakBox() {
   const { authFetch, isLoggedIn } = useAuth();
   const { user, isUserLoading, userDispatch } = useUser();
   const { habits } = useHabits();
+
+  const [isModelOpen, setIsModelOpen] = useState(null);
 
   const hasStreak = user?.streak?.currentStreak > 0;
 
@@ -65,7 +71,8 @@ function StreakBox() {
       // runOncePerDay("#incrementStreak", () => {
       incrementStreak();
       // });
-    } else {
+    } else if (!isLoggedIn && allCompleted) {
+      setIsModelOpen(true);
     }
   }, [allCompleted, habits.length]);
 
@@ -103,9 +110,10 @@ function StreakBox() {
 
     runOncePerDay("#clearStreak", () => {
       //
-      if (isLoggedIn && !allCompleted) {
+      if (!isLoggedIn && !allCompleted) {
+        return;
+      } else if (isLoggedIn && !allCompleted) {
         clearStreak();
-      } else {
       }
     });
   }, [isUserLoading]);
@@ -170,8 +178,71 @@ function StreakBox() {
           </VStack>
         </Skeleton>
       </Stack>
+
+      <StreakModel open={isModelOpen} setOpen={setIsModelOpen} />
     </WidgetWrapper>
   );
 }
 
 export default memo(StreakBox);
+
+function StreakModel({ open, setOpen }) {
+  const navigate = useNavigate();
+
+  return (
+    <Dialog.Root
+      size={"sm"}
+      placement={"center"}
+      lazyMount
+      open={open}
+      onOpenChange={(e) => setOpen(e.open)}
+    >
+      <Portal>
+        <Dialog.Backdrop />
+        <Dialog.Positioner px={4}>
+          <Dialog.Content>
+            <Dialog.Body p={{ base: 4, md: 6 }}>
+              <Stack alignItems={"center"} pt={{ base: 8, md: 11 }} gap={0}>
+                <Image
+                  src="https://emojicdn.elk.sh/🔥?style=facebook"
+                  height={20}
+                  width={20}
+                  mb={{ base: 6, md: 8 }}
+                ></Image>
+
+                <Stack alignItems={"center"}>
+                  <Heading size={{ base: "2xl", md: "3xl" }}>
+                    Streak unlocked!
+                  </Heading>
+                  <Text
+                    fontSize={"md"}
+                    lineHeight={1.5}
+                    textAlign={"center"}
+                    color={"gray.400"}
+                  >
+                    Create an account to start a streak <br />
+                    and keep your momentum going.
+                  </Text>
+                </Stack>
+                <Button
+                  mt={{ base: 8, md: 12 }}
+                  colorPalette={import.meta.env.VITE_APP_COLOR}
+                  width={"full"}
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                >
+                  Save it!
+                </Button>
+              </Stack>
+            </Dialog.Body>
+
+            <Dialog.CloseTrigger asChild>
+              <CloseButton size="sm" />
+            </Dialog.CloseTrigger>
+          </Dialog.Content>
+        </Dialog.Positioner>
+      </Portal>
+    </Dialog.Root>
+  );
+}
