@@ -161,7 +161,7 @@ function Leaderboard() {
               isLoading={leaderboard.isLoadingRank}
               rank={leaderboard?.rank?.percentage}
               streak={user?.streak?.currentStreak}
-              // name={user?.name}
+              name={user?.name}
             />
           </Container>
         </HStack>
