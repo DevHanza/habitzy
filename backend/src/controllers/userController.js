@@ -201,37 +201,46 @@ export async function getDailyLeaderboardRank(req, res) {
         .json({ message: "We couldn't find your account." });
     }
 
-    const userStreak = user?.streak?.currentStreak || 0;
+    const userStreak = user.streak.currentStreak;
 
-    const total = await User.countDocuments({
-      "streak.currentStreak": { $gt: 0 },
-    });
-
-    if (total === 0 || userStreak === 0) {
-      return res.json({
-        rank: null,
-        total,
+    if (!userStreak) {
+      return res.status(200).json({
+        message: "You don't have an active streak.",
+        rank: 0,
         percentage: 0,
       });
     }
 
-    // Count users with strictly higher streak
-    const higherCount = await User.countDocuments({
+    const TWO_DAYS_AGO = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
+
+    // Count users with higher streak
+    let rank = 0;
+    const topUsersCount = await User.countDocuments({
       "streak.currentStreak": { $gt: userStreak },
+      "streak.incrementedAt": { $gte: TWO_DAYS_AGO },
     });
 
-    const rank = higherCount + 1;
+    // Leaderboard rank edge cases
 
-    const percentage =
-      total === 1
-        ? 100
-        : Math.min(100, Math.floor(1 + ((rank - 1) / (total - 1)) * 100));
+    if (topUsersCount == 0) {
+      rank = 1;
+    } else if (topUsersCount >= 1) {
+      rank = topUsersCount + 1;
+    }
+
+    // Calculate Rank Percentage
+
+    let percentage = 0;
+    percentage = Math.min(
+      100,
+      Math.floor(1 + ((rank - 1) / (topUsersCount - 1)) * 100),
+    );
 
     return res.json({
       rank,
-      total,
       percentage,
     });
+    //
   } catch (err) {
     return res.status(500).json({
       message: err.message || "Something went wrong.",
