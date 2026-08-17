@@ -3,7 +3,7 @@ import { Heading } from "@chakra-ui/react/heading";
 import { Stack } from "@chakra-ui/react/stack";
 import { Link } from "react-router";
 
-function HabitsTrackerLogo() {
+function Logo() {
   return (
     <Link to="/">
       <Stack direction={"horizontal"} alignItems={"center"} gap={"0.5rem"}>
@@ -14,4 +14,4 @@ function HabitsTrackerLogo() {
   );
 }
 
-export default HabitsTrackerLogo;
+export default Logo;

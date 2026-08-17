@@ -1,4 +1,4 @@
-import HabitsTrackerLogo from "@/components/layout/Logo";
+import Logo from "@/components/layout/Logo";
 import HoverWrapper from "@/components/ui/HoverWrapper";
 
 import {
@@ -93,7 +93,7 @@ function Header() {
             minHeight={"4rem"}
             alignItems={"center"}
           >
-            <HabitsTrackerLogo />
+            <Logo />
             {isDesktop ? (
               <DesktopMenu
                 user={user}
