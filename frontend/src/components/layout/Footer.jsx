@@ -7,7 +7,7 @@ function Footer() {
         <Container>
           <Stack>
             <Text textAlign={"center"} fontSize={"0.75rem"} color={"fg.muted"}>
-              Thanks for using Habit Tracker. ©{" "}
+              Thanks for using {import.meta.env.VITE_APP_NAME}. ©{" "}
               <a href="https://devhanza.is-a.dev">DevHanza</a>
             </Text>
           </Stack>
