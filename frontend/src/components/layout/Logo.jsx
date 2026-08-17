@@ -8,7 +8,9 @@ function Logo() {
     <Link to="/">
       <Stack direction={"horizontal"} alignItems={"center"} gap={"0.5rem"}>
         <Image src="/habits-2.svg" boxSize="2rem" />
-        <Heading size={{ base: "lg", md: "xl" }}>Habit Tracker</Heading>
+        <Heading size={{ base: "lg", md: "xl" }}>
+          {import.meta.env.VITE_APP_NAME}
+        </Heading>
       </Stack>
     </Link>
   );
