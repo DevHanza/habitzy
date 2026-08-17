@@ -10,7 +10,7 @@ import {
 
 function UserLeaderboardCard({
   isLoading,
-  rank = "0%",
+  rank = 0,
   streak = 0,
   name = "You",
 }) {
@@ -34,7 +34,7 @@ function UserLeaderboardCard({
               TOP
             </Text>
             <Text fontWeight={600} color={"fg.emphasized"} lineHeight={1}>
-              {isLoading ? "0" : rank + "%"}
+              {rank + "%"}
             </Text>
           </Stack>
         </Skeleton>
@@ -45,7 +45,7 @@ function UserLeaderboardCard({
             <VStack gap={1} alignItems={"flex-start"}>
               <Skeleton loading={isLoading}>
                 <Text fontSize={"md"} fontWeight={500} lineHeight={1}>
-                  {name}
+                  {name + " (You)"}
                 </Text>
               </Skeleton>
             </VStack>
