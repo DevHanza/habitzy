@@ -42,7 +42,7 @@ function AuthPage({
             display={{ base: "none", lg: "flex" }}
             position={"relative"}
           >
-            <NavigateControls top={"1rem"} left={"1rem"} />
+            <NavigateControls path={"/"} top={"1rem"} left={"1rem"} />
             <Image
               src="/login-screen-1.jpg"
               height={"100%"}
