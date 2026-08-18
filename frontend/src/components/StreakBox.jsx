@@ -39,6 +39,8 @@ function StreakBox() {
 
   // Increment Streak
   useEffect(() => {
+    if (!allCompleted) return;
+
     async function incrementStreak() {
       try {
         //
@@ -56,22 +58,18 @@ function StreakBox() {
         userDispatch({
           type: "INCREMENT_STREAK",
         });
-        //
       } catch (err) {
         toaster.create({
           title: `${err.message}`,
           type: "warning",
           closable: true,
         });
-        throw Error(err);
       }
     }
 
-    if (isLoggedIn && allCompleted) {
-      // runOncePerDay("#incrementStreak", () => {
+    if (isLoggedIn) {
       incrementStreak();
-      // });
-    } else if (!isLoggedIn && allCompleted) {
+    } else {
       setIsModelOpen(true);
     }
   }, [allCompleted, habits.length]);
