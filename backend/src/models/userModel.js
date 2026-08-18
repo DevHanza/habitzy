@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
+const YESTERDAY = new Date(new Date().setHours(0, 0, 0, 0) - 86400000);
+
 const userSchema = new Schema(
   {
     name: {
@@ -58,12 +60,12 @@ const userSchema = new Schema(
       incrementedAt: {
         type: Date,
         required: [true, "Last streak increment date is required."],
-        default: new Date(),
+        default: YESTERDAY,
       },
       clearedAt: {
         type: Date,
         required: [true, "Last streak decrement date is required."],
-        default: new Date(),
+        default: YESTERDAY,
       },
     },
     habitsOrder: {
