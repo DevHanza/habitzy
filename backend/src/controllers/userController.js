@@ -277,7 +277,7 @@ export async function incrementStreak(req, res) {
       });
     }
 
-    const habits = await Habit.find({ userId: userId })
+    const habits = await Habit.find({ userId })
       .select("_id")
       .sort({ createdAt: -1 })
       .lean();
