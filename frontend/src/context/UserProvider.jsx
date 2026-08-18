@@ -38,7 +38,9 @@ function reducer(state, action) {
         user: {
           ...state.user,
           streak: {
-            currentStreak: state.user.streak.currentStreak + 1,
+            currentStreak:
+              action.payload?.currentStreak ??
+              state.user.streak.currentStreak + 1,
           },
         },
       };

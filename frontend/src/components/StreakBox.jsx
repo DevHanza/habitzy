@@ -68,9 +68,19 @@ function StreakBox() {
     }
 
     if (isLoggedIn) {
+      //
       incrementStreak();
+      //
     } else {
+      //
+      userDispatch({
+        type: "INCREMENT_STREAK",
+        payload: {
+          currentStreak: 1,
+        },
+      });
       setIsModelOpen(true);
+      //
     }
   }, [allCompleted, habits.length]);
 
@@ -191,6 +201,7 @@ function StreakBox() {
 export default memo(StreakBox);
 
 function StreakModel({ open, setOpen }) {
+  const { userDispatch } = useUser();
   const navigate = useNavigate();
 
   return (
@@ -199,7 +210,17 @@ function StreakModel({ open, setOpen }) {
       placement={"center"}
       lazyMount
       open={open}
-      onOpenChange={(e) => setOpen(e.open)}
+      onOpenChange={(e) => {
+        //
+        setOpen(e.open);
+        userDispatch({
+          type: "INCREMENT_STREAK",
+          payload: {
+            currentStreak: 0,
+          },
+        });
+        //
+      }}
     >
       <Portal>
         <Dialog.Backdrop />
