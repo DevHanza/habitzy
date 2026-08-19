@@ -13,7 +13,7 @@ function runOncePerDay(storageKey, callback) {
     localStorage.setItem(storageKey, today);
     return true;
   }
-  console.log("You've already ran this function for today.");
+  console.log(`You've already ran ${storageKey} for today.`);
   return false;
 }
 
