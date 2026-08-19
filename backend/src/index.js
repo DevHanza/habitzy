@@ -8,7 +8,6 @@ dotenv.config();
 import userRoutes from "./routes/userRoutes.js";
 import habitRoutes from "./routes/habitRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
-import dailyLogRoutes from "./routes/dailyLogRoutes.js";
 
 import { globalLimiter } from "./middleware/rate-limiter.js";
 import { authenticateAccessToken } from "./middleware/authenticateAccessToken.js";
