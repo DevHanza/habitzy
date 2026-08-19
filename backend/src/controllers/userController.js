@@ -377,8 +377,6 @@ export async function clearStreak(req, res) {
       return res.status(400).json({ message: "User not found." });
     }
 
-    const currentDate = normalizeDate();
-
     const user = await User.findById(userId).select("streak").lean();
     if (!user) {
       return res.status(404).json({ message: "User not found." });
@@ -386,6 +384,8 @@ export async function clearStreak(req, res) {
 
     const clearedAt = normalizeDate(user.streak.clearedAt);
     const incrementedAt = normalizeDate(user.streak.incrementedAt);
+
+    const currentDate = normalizeDate();
 
     // Check: Is streak already incremented for the day
 
