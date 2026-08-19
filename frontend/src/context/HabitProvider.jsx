@@ -179,6 +179,11 @@ export const HabitProvider = ({ children }) => {
       }
       //
     } catch (err) {
+      toaster.create({
+        title: "Failed to add habit",
+        type: "error",
+        closable: true,
+      });
       throw Error(err);
     }
   };
