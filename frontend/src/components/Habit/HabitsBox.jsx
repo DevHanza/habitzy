@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Button, Stack, VStack, Box } from "@chakra-ui/react";
+import { Button, Stack, VStack } from "@chakra-ui/react";
 import { Plus } from "lucide-react";
 
 import { useHabits } from "@/hooks/useHabits";
@@ -9,9 +8,7 @@ import AddHabitBox from "@/components/Habit/AddHabitBox";
 import HabitCardSkeleton from "@/components/Habit/HabitCardSkeleton";
 import HabitsBoxEmpty from "@/components/Habit/HabitsBoxEmpty";
 
-function HabitsBox() {
-  const [isAddingHabits, setIsAddingHabits] = useState(false);
-
+function HabitsBox({ isAddingHabits, setIsAddingHabits }) {
   const { habits, isHabitLoading, toggleHabit, removeHabit, reorderHabit } =
     useHabits();
 

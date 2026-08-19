@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useBreakpointValue, Container, Flex, Stack } from "@chakra-ui/react";
 
 import { HabitProvider } from "@/context/HabitProvider";
@@ -10,6 +11,7 @@ import StreakBox from "@/components/StreakBox";
 // import GreetingBox from "@/components/GreetingBox";
 
 function Home() {
+  const [isAddingHabits, setIsAddingHabits] = useState(false);
   const isDesktop = useBreakpointValue({ base: false, lg: true });
 
   return (
@@ -39,7 +41,10 @@ function Home() {
               </>
             )}
 
-            <HabitsBox />
+            <HabitsBox
+              isAddingHabits={isAddingHabits}
+              setIsAddingHabits={setIsAddingHabits}
+            />
           </Stack>
 
           {isDesktop && (
