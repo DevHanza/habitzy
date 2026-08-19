@@ -10,11 +10,11 @@ function LeaderboardCard({
   return (
     <Box
       borderRadius={6}
-      px={3}
+      px={1}
       py={2}
-      _hover={{
-        bg: "bg.emphasized",
-      }}
+      // _hover={{
+      //   bg: "bg.emphasized",
+      // }}
       borderColor={"fg.subtle"}
       width={"100%"}
     >
