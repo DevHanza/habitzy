@@ -456,17 +456,28 @@ export async function clearStreak(req, res) {
 
     const dailyLogList = dailyLog.completedHabits.sort();
 
-    if (userHabitsList.length === dailyLogList.length) {
+    if (
+      userHabitsList.length > 0 &&
+      dailyLogList.length > 0 &&
+      userHabitsList.length === dailyLogList.length
+    ) {
       return res.status(409).json({
         message: "Cannot reset the streak, while you have it.",
       });
     }
 
+    //
+
     const isAllHabitsCompleted = userHabitsList.every((value, i) => {
       return value.equals(dailyLogList[i]);
     });
 
-    if (isAllHabitsCompleted) {
+    if (
+      userHabitsList.length > 0 &&
+      dailyLogList.length > 0 &&
+      isAllHabitsCompleted
+    ) {
+      
       return res.status(409).json({
         message: "Cannot reset the streak, while you have it.",
       });
