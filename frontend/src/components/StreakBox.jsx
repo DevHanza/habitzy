@@ -67,21 +67,21 @@ function StreakBox() {
       }
     }
 
-    runOncePerDay("#incrementStreak", () => {
-      //
-      if (isLoggedIn) {
+    //
+    if (isLoggedIn) {
+      runOncePerDay("#incrementStreak", () => {
         incrementStreak();
-      } else {
-        userDispatch({
-          type: "INCREMENT_STREAK",
-          payload: {
-            currentStreak: 1,
-          },
-        });
-        setIsModelOpen(true);
-      }
-      //
-    });
+      });
+    } else {
+      userDispatch({
+        type: "INCREMENT_STREAK",
+        payload: {
+          currentStreak: 1,
+        },
+      });
+      setIsModelOpen(true);
+    }
+    //
   }, [allCompleted, habits.length]);
 
   // Clear Streak
@@ -116,15 +116,15 @@ function StreakBox() {
       }
     }
 
-    runOncePerDay("#clearStreak", () => {
-      //
-      if (!isLoggedIn && !allCompleted) {
-        return;
-      } else if (isLoggedIn && !allCompleted) {
+    //
+    if (!isLoggedIn && !allCompleted) {
+      return;
+    } else if (isLoggedIn && !allCompleted) {
+      runOncePerDay("#clearStreak", () => {
         clearStreak();
-      }
-      //
-    });
+      });
+    }
+    //
   }, [isUserLoading]);
 
   return (
