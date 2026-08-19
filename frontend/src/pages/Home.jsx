@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { useBreakpointValue, Container, Flex, Stack } from "@chakra-ui/react";
+import {
+  useBreakpointValue,
+  Container,
+  Flex,
+  Stack,
+  Button,
+} from "@chakra-ui/react";
 
 import { HabitProvider } from "@/context/HabitProvider";
 
@@ -8,6 +14,7 @@ import QuoteBox from "@/components/QuoteBox";
 import HabitsBox from "@/components/Habit/HabitsBox";
 import LeaderboardBox from "@/components/Leaderboard/LeaderboardBox";
 import StreakBox from "@/components/StreakBox";
+import { Plus } from "lucide-react";
 // import GreetingBox from "@/components/GreetingBox";
 
 function Home() {
@@ -20,6 +27,20 @@ function Home() {
         <Flex gap={4} direction={{ base: "column", md: "row" }}>
           {isDesktop && (
             <Stack flex={1} hideBelow={"lg"} minW={0}>
+              {/*  */}
+              <Button
+                mb={4}
+                variant="solid"
+                colorPalette={import.meta.env.VITE_APP_COLOR}
+                width={"100%"}
+                disabled={isAddingHabits}
+                onClick={() => {
+                  setIsAddingHabits((prev) => !prev);
+                }}
+              >
+                Add Habit <Plus />
+              </Button>
+              {/*  */}
               <QuoteBox />
               {/* <GreetingBox /> */}
               <ProgressBox />
