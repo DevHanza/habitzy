@@ -279,11 +279,11 @@ export const HabitProvider = ({ children }) => {
   // Toggle Habits
   const toggleHabit = useCallback(
     async (id) => {
-      startTransition(async () => {
-        try {
+      try {
+        //
+        if (isLoggedIn) {
           //
-          if (isLoggedIn) {
-            //
+          startTransition(async () => {
             setOptimisticHabits({
               type: "TOGGLE_HABIT",
               payload: {
@@ -310,19 +310,19 @@ export const HabitProvider = ({ children }) => {
                 },
               });
             });
-            //
-          } else {
-            habitDispatch({
-              type: "TOGGLE_HABIT",
-              payload: {
-                id,
-              },
-            });
-          }
-        } catch (err) {
-          throw Error(err);
+          });
+          //
+        } else {
+          habitDispatch({
+            type: "TOGGLE_HABIT",
+            payload: {
+              id,
+            },
+          });
         }
-      });
+      } catch (err) {
+        throw Error(err);
+      }
     },
     [authFetch, isLoggedIn, setOptimisticHabits],
   );
