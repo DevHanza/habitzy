@@ -67,7 +67,7 @@ function StreakBox() {
       }
     }
 
-    runOncePerDay("#clearStreak", () => {
+    runOncePerDay("#incrementStreak", () => {
       //
       if (isLoggedIn) {
         incrementStreak();
