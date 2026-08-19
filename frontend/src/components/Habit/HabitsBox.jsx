@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Stack, VStack } from "@chakra-ui/react";
+import { Button, Stack, VStack, Box } from "@chakra-ui/react";
 import { Plus } from "lucide-react";
 
 import { useHabits } from "@/hooks/useHabits";
@@ -79,7 +79,7 @@ function HabitsBox() {
       buttonIcon={<Plus />}
       px={{ base: "0.75rem", md: "1rem" }}
     >
-      <Stack gap={6}>
+      <Stack gap={6} position={"relative"}>
         <VStack gap={2}>
           {isAddingHabits && (
             <AddHabitBox setIsAddingHabits={setIsAddingHabits} />
@@ -87,7 +87,17 @@ function HabitsBox() {
 
           {renderHabits()}
         </VStack>
-        <VStack display={hasHabits ? "flex" : "none"}>
+        <VStack
+          display={hasHabits ? "flex" : "none"}
+          position={"sticky"}
+          bottom={{ base: 24, md: 4 }}
+          zIndex={99}
+          shadow="
+            0px -20px 20px var(--shadow-color), 
+            0px 20px 20px var(--shadow-color)
+          "
+          shadowColor={"gray.contrast"}
+        >
           <Button
             variant="solid"
             colorPalette={import.meta.env.VITE_APP_COLOR}
