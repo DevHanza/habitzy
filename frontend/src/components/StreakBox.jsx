@@ -131,7 +131,8 @@ function StreakBox() {
       p={{ base: "0.75rem" }}
       py={{ md: 6 }}
       w={"100%"}
-      h={{ mdDown: "100%" }}
+      h={{ lgDown: "100%" }}
+      
       // h={"100%"}
     >
       <Stack h={"100%"} justifyContent={"space-between"}>
