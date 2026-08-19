@@ -67,21 +67,21 @@ function StreakBox() {
       }
     }
 
-    if (isLoggedIn) {
+    runOncePerDay("#clearStreak", () => {
       //
-      incrementStreak();
+      if (isLoggedIn) {
+        incrementStreak();
+      } else {
+        userDispatch({
+          type: "INCREMENT_STREAK",
+          payload: {
+            currentStreak: 1,
+          },
+        });
+        setIsModelOpen(true);
+      }
       //
-    } else {
-      //
-      userDispatch({
-        type: "INCREMENT_STREAK",
-        payload: {
-          currentStreak: 1,
-        },
-      });
-      setIsModelOpen(true);
-      //
-    }
+    });
   }, [allCompleted, habits.length]);
 
   // Clear Streak
@@ -123,6 +123,7 @@ function StreakBox() {
       } else if (isLoggedIn && !allCompleted) {
         clearStreak();
       }
+      //
     });
   }, [isUserLoading]);
 
@@ -132,7 +133,7 @@ function StreakBox() {
       py={{ md: 6 }}
       w={"100%"}
       h={{ lgDown: "100%" }}
-      
+
       // h={"100%"}
     >
       <Stack h={"100%"} justifyContent={"space-between"}>
