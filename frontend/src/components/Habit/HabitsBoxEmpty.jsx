@@ -26,7 +26,7 @@ function HabitsBoxEmpty({ isAddingHabits, handleBottomAddHabit }) {
             disabled={isAddingHabits}
             colorPalette={import.meta.env.VITE_APP_COLOR}
           >
-            Create a Habit
+            Add a Habit
           </Button>
         </ButtonGroup>
       </EmptyState.Content>
