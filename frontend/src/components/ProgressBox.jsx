@@ -7,12 +7,8 @@ function ProgressBox() {
 
   const totalHabits = habits.length;
   const completedHabits = habits.filter((habit) => habit.isCompleted).length;
-  const habitProgress = Math.floor((completedHabits / totalHabits) * 100);
-
-  if (isNaN(habitProgress)) {
-    return "";
-  }
-
+  const habitProgress =
+    totalHabits === 0 ? 0 : Math.floor((completedHabits / totalHabits) * 100);
   return (
     <WidgetsWrapper
       p={{ base: "0.75rem", md: "1rem" }}
