@@ -13,7 +13,7 @@ function ProgressBox() {
     <WidgetsWrapper
       p={{ base: "0.75rem", md: "1rem" }}
       w={"100%"}
-      h={{ mdDown: "100%" }}
+      h={{ lgDown: "100%" }}
     >
       <Stack>
         <Stack
