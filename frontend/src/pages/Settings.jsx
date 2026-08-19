@@ -36,7 +36,7 @@ function Settings() {
     return <LoadingScreen />;
   }
 
-  if (!isUserLoading && !isLoggedIn) {
+  if (!isUserLoading && !isLoggedIn && location.pathname !== "/status") {
     return <Navigate to={"/login"} />;
   }
 
@@ -175,7 +175,7 @@ function Sessions() {
 
 function DeleteAccountSettings() {
   const navigate = useNavigate();
-  const { authFetch } = useAuth();
+  const { authFetch, authDispatch } = useAuth();
 
   async function handleDeleteAccount() {
     try {
@@ -195,10 +195,13 @@ function DeleteAccountSettings() {
         });
         throw Error(data.message);
       }
+
+      authDispatch({ type: "LOGOUT" });
       deleteCookie("IsLoggedIn");
-      deleteCookie("quote");
+      localStorage.clear();
 
       navigate("/status", {
+        replace: true,
         state: {
           status: {
             success: true,

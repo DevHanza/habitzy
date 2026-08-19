@@ -237,7 +237,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         // authState,
         // accessToken: authState.accessToken,
-        // authDispatch,
+        authDispatch,
         isLoggedIn,
         isAuthLoading: authState.isAuthLoading,
         authFetch,
